@@ -28,24 +28,5 @@ namespace someboeoeks.Mappers
             };
         }
 
-        public static Review ToReviewFromUpdateDto(this UpdateReviewDto updateDto)
-        {
-            return new Review
-            {
-                Title = updateDto.Title,
-                Text = updateDto.Text,
-                Score = updateDto.Score
-            };
-        }
-
-        public static UpdateReviewDto ToUpdateFromReviewDto(this Review reviewModel)
-        {
-            return new UpdateReviewDto
-            {
-                Title = reviewModel.Title,
-                Text = reviewModel.Text,
-                Score = reviewModel.Score,
-            };
-        }
     }
 }

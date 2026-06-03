@@ -99,43 +99,7 @@ namespace someboeoeks.Controllers
 
         }
 
-        // [HttpPatch("{reviewId}")]
-        // public async Task<ActionResult> PartialUpdateReview(int bookId, int reviewId, JsonPatchDocument<UpdateReviewDto> reviewPatch)
-        // {
-        //     //TODO: Move to repo? Delete?
-        //     if (!await _bookRepo.BookExistsAsync(bookId))
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var reviewFromDb = await _reviewRepo.GetReviewForBookAsync(bookId, reviewId);
-
-        //     if (reviewFromDb == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var reviewToPatch = reviewFromDb.ToUpdateFromReviewDto();            
-
-        //     reviewPatch.ApplyTo(reviewToPatch, ModelState);
-
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
-
-        //     if (!TryValidateModel(reviewPatch))
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
-
-        //     reviewFromDb.Title = reviewToPatch.Title;
-        //     reviewFromDb.Text = reviewToPatch.Text;
-        //     reviewFromDb.Score = reviewToPatch.Score;
-        //     reviewFromDb.Reviewer = reviewToPatch.Reviewer;
-
-        //     return NoContent();
-        // }
+        //TODO: possibly a patch endpoint
 
         [HttpDelete("{reviewId}")]
         public async Task<ActionResult> DeleteReview(int bookId, int reviewId)

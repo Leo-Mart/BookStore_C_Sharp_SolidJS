@@ -3,3 +3,4 @@ obj/
 logs/
 appsettings.json
 appsettings.Development.json
+.vscode/

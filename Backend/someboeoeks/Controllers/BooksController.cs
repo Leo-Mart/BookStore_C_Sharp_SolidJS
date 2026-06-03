@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using someboeoeks.Interfaces;
 using someboeoeks.Mappers;
@@ -8,7 +7,6 @@ using someboeoeks.Models.Books;
 namespace someboeoeks.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/books")]
     public class BooksController : ControllerBase 
     {

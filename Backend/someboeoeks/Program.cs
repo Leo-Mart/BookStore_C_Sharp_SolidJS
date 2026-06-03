@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Scalar.AspNetCore;
 using Serilog;
-using someboeoeks;
 using someboeoeks.DbContexts;
 using someboeoeks.Interfaces;
 using someboeoeks.Repository;
@@ -56,7 +55,6 @@ builder.Services.AddAuthentication("Bearer")
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using someboeoeks.DbContexts;
 
@@ -11,9 +12,11 @@ using someboeoeks.DbContexts;
 namespace someboeoeks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260604183428_Inital")]
+    partial class Inital
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,28 +220,28 @@ namespace someboeoeks.Migrations
                         {
                             Id = 1,
                             Bio = "Canadian?",
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(5639),
                             FirstName = "Steven",
                             LastName = "Eriksson",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(5638)
                         },
                         new
                         {
                             Id = 2,
                             Bio = "English?",
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(5644),
                             FirstName = "Jane",
                             LastName = "Austen",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(5644)
                         },
                         new
                         {
                             Id = 3,
                             Bio = "no clue where this dude is from, could google it, but...",
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(5646),
                             FirstName = "Mark",
                             LastName = "Z. Danielewski",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(5646)
                         });
                 });
 
@@ -290,146 +293,146 @@ namespace someboeoeks.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(2693),
                             Description = "Bled dry by interminable warfare, infighting and bloody confrontations with Lord Anomander Rake and his Tiste Andii, the vast, sprawling Malazan empire simmers with discontent. Even its imperial legions yearn for some respite. For Sergeant Whiskeyjack and his Bridgeburners, and for Tattersail - sole surviving sorceress of the Second Legion - the aftermath of the siege of Pale should have been a time to mourn the dead. But Darujhistan, the last of the Free Cities of Genabackis, still holds out against the empire - and Empress Lasseen's ambition knows no bounds. However, it seems the empire is not alone in this great game. Sinister forces gather as the gods themselves prepare to play their hand . . . Conceived and written on an epic scale, Gardens of the Moon is a breathtaking achievement - a novel in which grand design, a dark and complex mythology, wild and wayward magic and a host of enduring characters combine with thrilling, powerful storytelling to resounding effect",
                             Isbn = "9713196ajdhadhjakhd",
                             Price = 150m,
-                            PublishedDate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(1999),
                             Publisher = "Tor Books",
                             Title = "Gardens of the Moon",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(2343)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3061),
                             Description = "MR DARCY!",
                             Isbn = "9713196ajdhadhjakhd",
                             Price = 1337m,
-                            PublishedDate = new DateTime(1813, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(1813),
                             Publisher = "T. Egerton, Whitehall",
                             Title = "Pride and Prejudice",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3041)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3079),
                             Description = "a house of leaves",
                             Isbn = "9713196ajdhadhjakhd",
                             Price = 150m,
                             PublishedDate = new DateTime(2020, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "A publisher",
                             Title = "House of Leaves",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3078)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3081),
                             Description = "In the Holy Desert Raraku, the seer Sha'ik and her followers prepare for the long-prophesied uprising named the Whirlwind. Enslaved in the Otataral mines, Felisin - youngest scion of the disgraced House of Paran - dreams of freedom and vows revenge. The outlawed Bridgeburners Fiddler and Kalam conspire to rid the world of the Empress Laseen - although it seems the gods would, as always, have it otherwise. And as two ancient warriors - bearers of a devastating secret - enter this blighted land, so an untried commander of the Malaz 7th Army leads his war-weary troops in a last, valiant running battle to save the lives of thirty thousand refugees.",
                             Isbn = "9780765348791",
                             Price = 200m,
-                            PublishedDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2000),
                             Publisher = "Tor Books",
                             Title = "Deadhouse Gates",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3080)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3083),
                             Description = "The ravaged continent of Genabackis has given birth to a terrifying new empire: the Pannion Domin. Like a fanatical tide of corrupted blood, it seethes across the land, devouring all who fail to heed the Word of its elusive prophet, the Pannion Seer. In its path stands an uneasy alliance: Dujek Onearm's Host and the Bridgeburners - each now outlawed by the Empress ­- alongside some enemies of old that include the grim forces of Warlord Caladan Brood, Anomander Rake, Son of Darkness, and his Tiste Andii, and the Rhivi people of the Plains. But more ancient clans are also gathering. As if in answer to some primal summons, the massed ranks of the undead T'lan Imass have risen. It would seem that something altogether darker and more malign threatens the very substance of this world. The Warrens are poisoned, and rumours abound that the Crippled God is now unchained and intent on a terrible revenge . . .",
                             Isbn = "9780765348807",
                             Price = 239m,
-                            PublishedDate = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2001),
                             Publisher = "Tor Books",
                             Title = "Memories of Ice",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3082)
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3085),
                             Description = "Years after a tribal attack on the southern flatlands, Tavore, an Adjunct to the Empress, struggles to train a band of some twelve thousand inexperienced recruits to meet an attack by the forces of her sister, Sha'ik",
                             Isbn = "9780765348814",
                             Price = 239m,
-                            PublishedDate = new DateTime(2002, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2002),
                             Publisher = "Tor Books",
                             Title = "House of Chains",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3084)
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3087),
                             Description = "After decades of warfare, the five tribes of the Tiste Edur have finally been united under the implacable rule of the Warlock King of Hiroth, but their peace has been exacted at the cost of a pact made with a hidden power, and ancient forces are awakening that could unleash a vengeful bloodbath on all concerned",
                             Isbn = "9780765348821",
                             Price = 239m,
-                            PublishedDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2004),
                             Publisher = "Tor Books",
                             Title = "Midnight Tides",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3086)
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3089),
                             Description = "The Seven Cities Rebellion has been crushed. Sha'ik is dead. One last rebel force remains, holed up in the city of Y'Ghatan and under the fanatical command of Leoman of the Flails. The prospect of laying siege to this ancient fortress makes the battle-weary Malaz 14th Army uneasy. For it was here that the Empire's greatest champion Dassem Ultor was slain and a tide of Malazan blood spilled. A place of foreboding, its smell is of death. But elsewhere, agents of a far greater conflict have made their opening moves. The Crippled God has been granted a place in the pantheon, a schism threatens and sides must be chosen. Whatever each god decides, the ground-rules have changed, irrevocably, terrifyingly and the first blood spilled will be in the mortal world. A world in which a host of characters, familiar and new, including Heboric Ghost Hands, the possessed Apsalar, Cutter, once a thief now a killer, the warrior Karsa Orlong and the two ancient wanderers Icarium and Mappo--each searching for such a fate as they might fashion with their own hands, guided by their own will. If only the gods would leave them alone. But now that knives have been unsheathed, the gods are disinclined to be kind. There shall be war, war in the heavens. And, the prize? Nothing less than existence itself... Here is the stunning new chapter in Steven Erikson magnificent Malazan Book of the Fallen--hailed as an epic of the imagination and acknowledged as a fantasy classic in the making.",
                             Isbn = "9780765348838",
                             Price = 219m,
-                            PublishedDate = new DateTime(2006, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006),
                             Publisher = "Tor Books",
                             Title = "The Bonehunters",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3089)
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3091),
                             Description = "All is not well in the Letherii Empire. Rhulad Sengar, the Emperor of a Thousand Deaths, spirals into madness, surrounded by sycophants and agents of his Machiavellian chancellor. Meanwhile, the Letherii secret police conduct a campaign of terror against their own people. The Errant, once a farseeing god, is suddenly blind to the future. Conspiracies seethe throughout the palace, as the empire - driven by the corrupt and self-interested - edges ever-closer to all-out war with the neighboring kingdoms. The great Edur fleet--its warriors selected from countless numbers of people--draws closer. Amongst the warriors are Karsa Orlong and Icarium Lifestealer--each destined to cross blades with the emperor himself. That yet more blood is to be spilled is inevitable... Against this backdrop, a band of fugitives seek a way out of the empire, but one of them, Fear Sengar, must find the soul of Scabandari Bloodeye. It is his hope that the soul might help halt the Tiste Edur, and so save his brother, the emperor. Yet, traveling with them is Scabandari's most ancient foe: Silchas Ruin, brother of Anomander Rake. And his motives are anything but certain - for the wounds he carries on his back, made by the blades of Scabandari, are still fresh. Fate decrees that there is to be a reckoning, for such bloodshed cannot go unanswered--and it will be a reckoning on an unimaginable scale. This is a brutal, harrowing novel of war, intrigue and dark, uncontrollable magic; this is epic fantasy at its most imaginative, storytelling at its most thrilling.",
                             Isbn = "9780765348845",
                             Price = 239m,
-                            PublishedDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2007),
                             Publisher = "Tor Books",
                             Title = "Reaper's Gale",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3090)
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3093),
                             Description = "It is said that Hood waits at the end of every plot, every scheme, each grandiose ambition. But this time it is different: this time the Lord of Death is there at the beginning... Darujhistan swelters in the summer heat and seethes with portents, rumours and whispers. Strangers have arrived, a murderer is abroad, past-tyrannies are stirring and assassins seem to be targeting the owners of K'rul's Bar. For the rotund, waistcoat-clad man knows such events will be dwarfed by what is about to happen: for in the distance can be heard the baying of hounds. Far away, in Black Coral, the ruling Tiste Andii appear oblivious to the threat posed by the fast-growing cult of the Redeemer - an honourable, one-mortal man who seems powerless against the twisted vision of his followers. So Hood waits at the beginning of a conspiracy that will shake the cosmos, but at its end there is another: Anomander Rake, Son of Darkness, has come to right an ancient and terrible wrong...",
                             Isbn = "9780765348852",
                             Price = 239m,
-                            PublishedDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2008),
                             Publisher = "Tor Books",
                             Title = "Toll the Hounds",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3092)
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3095),
                             Description = "The penultimate book in the acclaimed Malazan Book of the Fallen fantasy seriesOn the Letherii continent the exiled Malazan army commanded by Adjunct Tavore begins its march into the eastern Wastelands, to fight for an unknown cause against an enemy it has never seen.",
                             Isbn = "9780765348869",
                             Price = 239m,
-                            PublishedDate = new DateTime(2009, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2009),
                             Publisher = "Tor Books",
                             Title = "Dust of Dreams",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3094)
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3097),
                             Description = "The final, apocalyptic chapter in one of the most original, exciting and acclaimed fantasy series of our time . Their desire is to cleanse the world - to eradicate every civilization, to annihilate every human - in order to begin anew. And outside the abandoned city of Kharkanas, thousands have gathered upon the First Shore.",
                             Isbn = "9780765348876",
                             Price = 239m,
-                            PublishedDate = new DateTime(2011, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublishedDate = new DateTime(1, 1, 1, 0, 0, 0, 2, DateTimeKind.Unspecified).AddTicks(11),
                             Publisher = "Tor Books",
                             Title = "The Crippled God",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 691, DateTimeKind.Utc).AddTicks(3096)
                         });
                 });
 
@@ -463,34 +466,34 @@ namespace someboeoeks.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7027),
                             Description = "Here be dragons",
                             Name = "Fantasy",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7026)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7032),
                             Description = "Smooches",
                             Name = "Romance",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7032)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7033),
                             Description = "Spooky-scary skeletons",
                             Name = "Horror",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7033)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7035),
                             Description = "Fools are my theme, let satire be my song.",
                             Name = "Satire",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(7034)
                         });
                 });
 
@@ -539,77 +542,77 @@ namespace someboeoeks.Migrations
                         {
                             Id = 1,
                             BookId = 1,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1263),
                             Score = 5,
                             Text = "Wow. So good.",
                             Title = "Such a good series",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1263),
                             UserId = 2
                         },
                         new
                         {
                             Id = 2,
                             BookId = 1,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1267),
                             Score = 1,
                             Text = "Wow. So bad.",
                             Title = "Such a bad series",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1267),
                             UserId = 1
                         },
                         new
                         {
                             Id = 3,
                             BookId = 2,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1269),
                             Score = 5,
                             Text = "Wow. So dreamy.",
                             Title = "He is so dreamy",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1268),
                             UserId = 2
                         },
                         new
                         {
                             Id = 4,
                             BookId = 2,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1270),
                             Score = 5,
                             Text = "Wow. So dreamy.",
                             Title = "She is so dreamy",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1270),
                             UserId = 1
                         },
                         new
                         {
                             Id = 5,
                             BookId = 3,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1272),
                             Score = 5,
                             Text = "Wow, so dark.",
                             Title = "It's bigger on the inside!",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1271),
                             UserId = 2
                         },
                         new
                         {
                             Id = 6,
                             BookId = 3,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1273),
                             Score = 1,
                             Text = "So spooky and weird",
                             Title = "3Spooky5Me",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1273),
                             UserId = 2
                         },
                         new
                         {
                             Id = 7,
                             BookId = 3,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1275),
                             Score = 1,
                             Text = "So spooky and weird",
                             Title = "Test review",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(1274),
                             UserId = 1
                         });
                 });
@@ -659,24 +662,24 @@ namespace someboeoeks.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(3769),
                             Email = "mrtest@test.com",
                             FirstName = "Mr.",
                             LastName = "Test",
                             Password = "uhohplaintext",
                             Phone = "0123456789",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(3768)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(3773),
                             Email = "mrstest@test.com",
                             FirstName = "Mrs.",
                             LastName = "Test",
                             Password = "encryptmeplease",
                             Phone = "987654321",
-                            UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 6, 4, 18, 34, 26, 692, DateTimeKind.Utc).AddTicks(3773)
                         });
                 });
 

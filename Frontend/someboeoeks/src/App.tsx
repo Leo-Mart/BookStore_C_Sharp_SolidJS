@@ -1,12 +1,17 @@
 import type { Component } from 'solid-js';
-import Header from './Components/Header';
+import { Router, Route } from '@solidjs/router';
+import Home from './Pages/Home';
+import BookList from './Pages/BookList';
+import Layout from './Layouts/Layout';
+import BookDetail from './Pages/BookDetail';
 
 const App: Component = () => {
   return (
-    <>
-      <Header />
-      <p class="text-4xl text-green-700 text-center py-20">Hello tailwind!</p>
-    </>
+    <Router root={Layout}>
+      <Route path="/" component={Home} />
+      <Route path="/books" component={BookList} />
+      <Route path="/books/:bookId" component={BookDetail} />
+    </Router>
   );
 };
 

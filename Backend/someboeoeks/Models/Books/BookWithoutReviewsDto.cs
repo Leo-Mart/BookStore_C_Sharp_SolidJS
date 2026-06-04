@@ -1,3 +1,5 @@
+using someboeoeks.Models.Authors;
+
 namespace someboeoeks.Models.Books
 {
     public class BookWithoutReviewsDto
@@ -10,5 +12,6 @@ namespace someboeoeks.Models.Books
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public string? CoverImageUrl { get; set; }
+        public ICollection<AuthorDto> Authors {get; set;} = new List<AuthorDto>();
     }
 }

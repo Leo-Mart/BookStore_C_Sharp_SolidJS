@@ -67,6 +67,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+    //.WithOrigins(https://urltodeplyedsite:4141) this is for deploying
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

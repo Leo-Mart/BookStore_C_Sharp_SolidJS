@@ -7,8 +7,15 @@ export default defineConfig({
   plugins: [devtools(), solidPlugin(), tailwindcss()],
   server: {
     port: 3000,
+    proxy: {
+      "/api": {
+        target: "http://localhost:5243/api",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      }
+    }
   },
   build: {
     target: 'esnext',
-  },
+  },  
 });

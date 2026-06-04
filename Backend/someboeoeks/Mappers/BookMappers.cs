@@ -16,6 +16,7 @@ namespace someboeoeks.Mappers
                 Description = bookModel.Description,
                 Price = bookModel.Price,
                 CoverImageUrl = bookModel.CoverImageUrl,
+                Authors = bookModel.Authors.Select(a => a.ToAuthorDto()).ToList()
             };
         }
 

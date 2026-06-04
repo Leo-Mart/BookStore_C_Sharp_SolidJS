@@ -32,7 +32,7 @@ namespace someboeoeks.Repository
     public async Task<(IEnumerable<Book>, PaginationMetaData)> GetBooksAsync(string? title, string? searchQuery, int pageNumber, int pageSize)
     {
 
-      var collection = _context.Books as IQueryable<Book>;
+      var collection = _context.Books.Include(a => a.Authors) as IQueryable<Book>;
 
       if (!string.IsNullOrWhiteSpace(title))
       {

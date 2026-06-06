@@ -4,6 +4,7 @@ import Home from './Pages/Home';
 import BookList from './Pages/BookList';
 import Layout from './Layouts/Layout';
 import BookDetail from './Pages/BookDetail';
+import NotFound from './Pages/NotFound';
 
 const App: Component = () => {
   return (
@@ -11,6 +12,7 @@ const App: Component = () => {
       <Route path="/" component={Home} />
       <Route path="/books" component={BookList} />
       <Route path="/books/:bookId" component={BookDetail} />
+      <Route path="*" component={NotFound} />
     </Router>
   );
 };

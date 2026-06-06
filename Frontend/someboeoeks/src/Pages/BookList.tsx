@@ -1,4 +1,4 @@
-import { Component, createResource, createSignal, For } from 'solid-js';
+import { Component, createResource, createSignal, For, Show } from 'solid-js';
 import BookCard from '../Components/BookCard';
 
 const fetchBooks = async () => {
@@ -12,9 +12,11 @@ const BookList: Component = () => {
 
   return (
     <div class="grid grid-cols-12">
-      <div class="col-span-3 bg-green-700">
-        FILTERS
-      </div>
+      <div class="col-span-3 bg-green-700">SIDEBAR</div>
+      <Show
+        when={!books.loading}
+        fallback={<p class="text-white col-span-6">Loading books...</p>}
+      >
         <ul class="col-span-6">
           <For each={books()}>
             {(item, index) => (
@@ -24,9 +26,9 @@ const BookList: Component = () => {
             )}
           </For>
         </ul>
-        <div class="col-span-3 bg-red-700">
-          ANOTHER SIDEBAR?
-        </div>
+      </Show>
+
+      <div class="col-span-3 bg-red-700">ANOTHER SIDEBAR?</div>
     </div>
   );
 };

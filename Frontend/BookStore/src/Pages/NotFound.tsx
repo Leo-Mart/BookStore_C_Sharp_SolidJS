@@ -4,11 +4,11 @@ import { Component } from "solid-js";
 const NotFound: Component = () => {
   
   return (
-    <main class="fixed flex bg-gray-900 h-full w-full items-center justify-center">
+    <main class="fixed flex bg-everforest-bg-dim h-full w-full items-center justify-center">
       <article>
         <A
           href="/"
-          class="text-7xl text-white underline"
+          class="text-7xl text-everforest-fg"
         >
           Page not found - 404
         </A>

@@ -1,5 +1,6 @@
 import { Component, createResource, createSignal, For, Show } from 'solid-js';
 import BookCard from '../Components/BookCard';
+import { useLocation, useSearchParams } from '@solidjs/router';
 
 const fetchBooks = async () => {
   const response = await fetch('/api/books');
@@ -12,12 +13,12 @@ const BookList: Component = () => {
 
   return (
     <div class="grid grid-cols-12">
-      <div class="col-span-3 bg-green-700">SIDEBAR</div>
+      <div class="col-span-2 dark:bg-everforest-bg-dim dark:text-everforest-fg">SIDEBAR</div>
       <Show
         when={!books.loading}
-        fallback={<p class="text-white col-span-6">Loading books...</p>}
+        fallback={<p class="dark:text-everforest-fg col-span-6">Loading books...</p>}
       >
-        <ul class="col-span-6">
+        <ul class="col-span-8 grid grid-cols-6 gap-2">
           <For each={books()}>
             {(item, index) => (
               <li>
@@ -28,7 +29,7 @@ const BookList: Component = () => {
         </ul>
       </Show>
 
-      <div class="col-span-3 bg-red-700">ANOTHER SIDEBAR?</div>
+      <div class="col-span-2 dark:bg-everforest-bg-dim dark:text-everforest-fg">ANOTHER SIDEBAR?</div>
     </div>
   );
 };

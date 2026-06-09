@@ -4,7 +4,7 @@ import { createSignal } from 'solid-js';
 import House from 'lucide-solid/icons/house';
 import User from 'lucide-solid/icons/user'
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
-// seems like Lucide-icons imports all ~1700 icons if I use the import { House } from 'lucide-solid' syntax. Check https://github.com/lucide-icons/lucide/issues/1944#issuecomment-3704423258 maybe use https://github.com/WarningImHack3r/vite-plugin-lucide-preprocess
+// seems like Lucide-icons imports all ~1700 icons if I use the import { House } from 'lucide-solid' syntax. Check https://github.com/lucide-icons/lucide/issues/1944#issuecomment-3704423258 maybe use https://github.com/WarningImHack3r/vite-plugin-lucide-preprocess or try the other Icon package
 
 
 
@@ -18,11 +18,11 @@ function Header() {
 }
   
   return (
-    <header class="bg-white dark:bg-gray-900 shadow">
+    <header class="bg-white dark:bg-everforest-bg-dim shadow">
       <div class="p-2 flex justify-around">
         <A href='/' class="flex-none flex flex-col items-center">
-          <House size={24} color="#fff" />
-          <p class='text-white'>THE LOGO</p>
+          <House size={24} color="#D3C6AA" />
+          <p class='dark:text-everforest-fg'>THE LOGO</p>
         </A>
         <form class="grow px-3" onSubmit={handleSubmit}>
           <label for="search" class="block mb-2.5 text-sm font-medium sr-only">
@@ -31,7 +31,7 @@ function Header() {
           <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
-                class="w-4 h-4 text-white"
+                class="w-4 h-4 dark:text-everforest-fg"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -50,7 +50,7 @@ function Header() {
             <input
               type="search"
               id="search"
-              class="block w-full p-3 ps-9 bg-gray-500 border text-sm shadow-xs"
+              class="block w-full p-3 ps-9 bg-everforest-bg-visual border text-sm shadow-xs"
               placeholder="Search"
               value={searchTerm()}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -58,7 +58,7 @@ function Header() {
             />
             <button
               type="submit"
-              class="absolute end-1.5 bottom-1.5 text-white bg-amber-500 hover:bg-amber-950 box-border border border-transparent focus:ring-4 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
+              class="absolute end-1.5 bottom-1.5 text-everforest-bg-dim bg-everforest-green hover:bg-everforest-aqua box-border border border-transparent focus:ring-4 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
             >
               Search
             </button>
@@ -66,13 +66,13 @@ function Header() {
         </form>
         <div class="flex-none flex gap-7 px-2">
           <A href='/login' class='flex flex-col items-center'>
-            <User color="#fff" />
-            <span class="text-white">Log in</span>
+            <User color="#D3C6AA" />
+            <span class="dark:text-everforest-fg">Log in</span>
           </A>
 
           <div class='flex flex-col items-center'>
-            <ShoppingBasket color="#fff" />
-            <span class="text-white">Basket</span>
+            <ShoppingBasket color="#D3C6AA" />
+            <span class="dark:text-everforest-fg">Basket</span>
           </div>
         </div>
       </div>
@@ -81,15 +81,15 @@ function Header() {
           <ul class="flex items-center gap-6 text-sm">
             <li>
               <A
-                class="block rounded-md px-5 py-2.5 text-sm font-medium text-emerald-600 transition"
-                href="/"
+                class="block rounded-md px-5 py-2.5 text-sm font-medium text-everforest-fg transition hover:bg-everforest-aqua"
+                href="/category"
               >
                 Categories
               </A>
             </li>
             <li>
               <A
-                class="block rounded-md px-5 py-2.5 text-sm font-medium text-emerald-600 transition hover:bg-amber-600"
+                class="block rounded-md px-5 py-2.5 text-sm font-medium text-everforest-fg transition hover:bg-everforest-aqua"
                 href="/books"
               >
                 Books

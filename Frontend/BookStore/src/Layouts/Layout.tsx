@@ -7,7 +7,7 @@ const Layout: ParentComponent = (props) => {
   return (
     <>
       <Header />
-      <main class="min-h-screen bg-gray-900">
+      <main class="min-h-screen bg-everforest-bg-dim">
 
         {props.children}
 

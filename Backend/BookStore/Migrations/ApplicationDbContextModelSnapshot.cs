@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace someboeoeks.Migrations
+namespace BookStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -181,7 +181,7 @@ namespace someboeoeks.Migrations
                         });
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Authors.Author", b =>
+            modelBuilder.Entity("BookStore.Models.Authors.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace someboeoeks.Migrations
                         });
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Books.Book", b =>
+            modelBuilder.Entity("BookStore.Models.Books.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -433,7 +433,7 @@ namespace someboeoeks.Migrations
                         });
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Genres.Genre", b =>
+            modelBuilder.Entity("BookStore.Models.Genres.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -494,7 +494,7 @@ namespace someboeoeks.Migrations
                         });
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Reviews.Review", b =>
+            modelBuilder.Entity("BookStore.Models.Reviews.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -614,7 +614,7 @@ namespace someboeoeks.Migrations
                         });
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Users.User", b =>
+            modelBuilder.Entity("BookStore.Models.Users.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -682,13 +682,13 @@ namespace someboeoeks.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("someboeoeks.Models.Authors.Author", null)
+                    b.HasOne("BookStore.Models.Authors.Author", null)
                         .WithMany()
                         .HasForeignKey("AuthorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("someboeoeks.Models.Books.Book", null)
+                    b.HasOne("BookStore.Models.Books.Book", null)
                         .WithMany()
                         .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -697,40 +697,40 @@ namespace someboeoeks.Migrations
 
             modelBuilder.Entity("BookGenre", b =>
                 {
-                    b.HasOne("someboeoeks.Models.Books.Book", null)
+                    b.HasOne("BookStore.Models.Books.Book", null)
                         .WithMany()
                         .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("someboeoeks.Models.Genres.Genre", null)
+                    b.HasOne("BookStore.Models.Genres.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Reviews.Review", b =>
+            modelBuilder.Entity("BookStore.Models.Reviews.Review", b =>
                 {
-                    b.HasOne("someboeoeks.Models.Books.Book", null)
+                    b.HasOne("BookStore.Models.Books.Book", null)
                         .WithMany("Reviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("someboeoeks.Models.Users.User", null)
+                    b.HasOne("BookStore.Models.Users.User", null)
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Books.Book", b =>
+            modelBuilder.Entity("BookStore.Models.Books.Book", b =>
                 {
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("someboeoeks.Models.Users.User", b =>
+            modelBuilder.Entity("BookStore.Models.Users.User", b =>
                 {
                     b.Navigation("Reviews");
                 });

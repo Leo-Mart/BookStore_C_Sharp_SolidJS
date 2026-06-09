@@ -1,4 +1,4 @@
-import { useParams } from '@solidjs/router';
+import { A, useParams } from '@solidjs/router';
 import {
   Component,
   createResource,
@@ -9,6 +9,7 @@ import {
   Switch,
 } from 'solid-js';
 import Heart from 'lucide-solid/icons/heart';
+import HeartPlus from 'lucide-solid/icons/heart-plus';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
 
 const fetchBook = async (bookId: string) => {
@@ -20,13 +21,16 @@ const BookDetail: Component = () => {
   const params = useParams();
   const [book] = createResource(() => params.bookId, fetchBook);
 
+  const [wishlisted, setWishlisted] = createSignal(false);
+
   const [amount, setAmount] = createSignal(1);
   const [descOpen, setDescOpen] = createSignal(false);
   const [prodInfoOpen, setProdInfoOpen] = createSignal(false);
-  const [paymenAndDeliveryOpen, setPaymentAndDeliveryOpen] = createSignal(false);
+  const [paymenAndDeliveryOpen, setPaymentAndDeliveryOpen] =
+    createSignal(false);
   const [discoverOpen, setDiscoverOpen] = createSignal(false);
   const [reviewsOpen, setReviewsOpen] = createSignal(false);
-  
+
   const increaseAmount = () => {
     setAmount((prev) => prev + 1);
   };
@@ -42,8 +46,8 @@ const BookDetail: Component = () => {
 
   return (
     <div class="grid grid-cols-12 gap-4 pt-3">
-      <div class="col-span-1 bg-green-700"></div>
-      <div class="col-span-10 grid grid-cols-1 lg:grid-cols-6 text-white gap-2">
+      <div class="col-span-1"></div>
+      <div class="col-span-10 grid grid-cols-1 lg:grid-cols-6 text-everforest-fg gap-2">
         <aside class="self-start flex flex-col gap-20">
           <div class="pointer-events-none py-16">
             <div class="mx-auto flex">
@@ -70,7 +74,7 @@ const BookDetail: Component = () => {
                 <span>{new Date(book().publishedDate).getFullYear()}</span>
               </div>
               <div class="text-xl font-bold leading-none">
-                <span>{book().price} monies</span>
+                <span>{book().price} kr</span>
               </div>
 
               <div class="flex max-w-3/4 justify-between gap-2 border p-2 mt-2">
@@ -106,12 +110,22 @@ const BookDetail: Component = () => {
                   </span>
                 </div>
 
-                <button class="flex gap-1 grow justify-center bg-emerald-700 px-5 py-2.5 text-sm font-medium text-black transition hover:bg-amber-600 hover:cursor-pointer">
+                <button class="flex gap-1 grow justify-center bg-everforest-aqua px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer">
                   Add to cart
                   <ShoppingBasket />
                 </button>
-                <button class="flex gap-0.5 py-2.5 text-sm font-medium text-black hover:cursor-pointer">
-                  <Heart /> Add to Wishlist
+                <button
+                  class="flex gap-0.5 py-2.5 text-sm font-medium text-everforest-fg hover:cursor-pointer"
+                  onclick={() => setWishlisted(!wishlisted())}
+                >
+                  <Switch>
+                    <Match when={wishlisted()}>
+                      <HeartPlus /> Wishlisted!
+                    </Match>
+                    <Match when={!wishlisted()}>
+                      <Heart /> Add to Wishlist
+                    </Match>
+                  </Switch>
                 </button>
               </div>
 
@@ -125,11 +139,11 @@ const BookDetail: Component = () => {
                   onClick={() => setDescOpen(!descOpen())}
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
-                  <span>Description</span>
+                  <span class="text-2xl font-bold">Description</span>
                   {descOpen() ? <span>-</span> : <span>+</span>}
                 </button>
                 <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
+                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     descOpen()
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
@@ -142,11 +156,11 @@ const BookDetail: Component = () => {
                   onClick={() => setProdInfoOpen(!prodInfoOpen())}
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
-                  <span>Product Info</span>
+                  <span class="text-2xl font-bold">Product Info</span>
                   {prodInfoOpen() ? <span>-</span> : <span>+</span>}
                 </button>
                 <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
+                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg0 text-md ${
                     prodInfoOpen()
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
@@ -188,14 +202,16 @@ const BookDetail: Component = () => {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setPaymentAndDeliveryOpen(!paymenAndDeliveryOpen())}
+                  onClick={() =>
+                    setPaymentAndDeliveryOpen(!paymenAndDeliveryOpen())
+                  }
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
-                  <span>Payment and Delivery</span>
+                  <span class="text-2xl font-bold">Payment and Delivery</span>
                   {paymenAndDeliveryOpen() ? <span>-</span> : <span>+</span>}
                 </button>
                 <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
+                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     paymenAndDeliveryOpen()
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
@@ -222,11 +238,11 @@ const BookDetail: Component = () => {
                   onClick={() => setDiscoverOpen(!discoverOpen())}
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
-                  <span>Discover More</span>
+                  <span class="text-2xl font-bold">Discover More</span>
                   {discoverOpen() ? <span>-</span> : <span>+</span>}
                 </button>
                 <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
+                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     discoverOpen()
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
@@ -235,7 +251,14 @@ const BookDetail: Component = () => {
                   <div class="overflow-hidden">
                     <ul>
                       <For each={book().genres}>
-                        {(item, index) => <li>{item.name}</li>}
+                        {(item, index) => (
+                          <A
+                            class="inline-flex gap-2 items-center w-auto text-body border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
+                            href={`/category/${item.name}`}
+                          >
+                            {item.name}
+                          </A>
+                        )}
                       </For>
                     </ul>
                   </div>
@@ -247,11 +270,11 @@ const BookDetail: Component = () => {
                       onClick={() => setReviewsOpen(!reviewsOpen())}
                       class="flex justify-between w-full hover:cursor-pointer"
                     >
-                      <span>Reviews</span>
+                      <span class="text-2xl font-bold">Reviews</span>
                       {reviewsOpen() ? <span>-</span> : <span>+</span>}
                     </button>
                     <div
-                      class={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
+                      class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                         reviewsOpen()
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
@@ -286,7 +309,7 @@ const BookDetail: Component = () => {
           </Show>
         </div>
       </div>
-      <div class="col-span-1 bg-green-700"></div>
+      <div class="col-span-1"></div>
     </div>
   );
 };

@@ -29,7 +29,7 @@ function Header() {
             Search
           </label>
           <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
               <svg
                 class="w-4 h-4 dark:text-everforest-fg"
                 aria-hidden="true"
@@ -50,7 +50,7 @@ function Header() {
             <input
               type="search"
               id="search"
-              class="block w-full p-3 ps-9 bg-everforest-bg-visual border text-sm shadow-xs"
+              class="block w-full p-3 ps-9 bg-everforest-bg-3 border text-sm shadow-xs"
               placeholder="Search"
               value={searchTerm()}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -58,7 +58,7 @@ function Header() {
             />
             <button
               type="submit"
-              class="absolute end-1.5 bottom-1.5 text-everforest-bg-dim bg-everforest-green hover:bg-everforest-aqua box-border border border-transparent focus:ring-4 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
+              class="absolute inset-e-1.5 bottom-1.5 text-everforest-bg-dim bg-everforest-aqua hover:bg-everforest-fg box-border border border-transparent focus:ring-4 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
             >
               Search
             </button>

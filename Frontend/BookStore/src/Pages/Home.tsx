@@ -4,7 +4,7 @@ const Home: Component = () => {
   
   return (
     <div>
-      <h1>This is the home page!</h1>
+      <h1 class="text-center text-everforest-fg">This is the home page!</h1>
     </div>
   )
 };

@@ -13,7 +13,8 @@ namespace BookStore.Repository
     public async Task<Book?> GetBookByIdAsync(int bookId)
     {
       return await _context.Books
-        .Include(b => b.Reviews)
+        .Include(r => r.Reviews)
+          .ThenInclude(r => r.Reviewer)
         .Include(g => g.Genres)
         .Include(a => a.Authors)
         .Where(c => c.Id == bookId)

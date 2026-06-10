@@ -34,10 +34,12 @@ namespace BookStore.Controllers
             var securityKey = new SymmetricSecurityKey(Convert.FromBase64String(_config["Authentication:SecretForKey"]));
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claimsForToken = new List<Claim>();
-            claimsForToken.Add(new Claim("sub", user.Id.ToString()));
-            claimsForToken.Add(new Claim("given_name", user.FirstName));
-            claimsForToken.Add(new Claim("family_name", user.LastName));
+            var claimsForToken = new List<Claim>
+            {
+              new("sub", user.Id.ToString()),
+              new("given_name", user.FirstName),
+              new("family_name", user.LastName)
+            };
 
             var jwtSecurityToken = new JwtSecurityToken(
                 _config["Authentication:Issuer"],
@@ -53,7 +55,7 @@ namespace BookStore.Controllers
             return Ok(tokenToReturn);
         }
 
-        private async Task<ResponseUserDto> ValideUserCredentials(string? email, string? password)
+        private async Task<ResponseUserDto?> ValideUserCredentials(string? email, string? password)
         {
             var foundUser = await _userRepoo.GetUserByEmailAsync(email);
 

@@ -13,5 +13,6 @@ namespace BookStore.Models.Reviews
         public int Score { get; set; }
         public int BookId { get; set; }
         public int UserId { get; set; }
+        public User Reviewer {get; set;} = null!;
     }
 }

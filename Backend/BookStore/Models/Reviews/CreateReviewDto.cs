@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using BookStore.Models.Users;
 
 namespace BookStore.Models.Reviews
 {
@@ -12,6 +13,7 @@ namespace BookStore.Models.Reviews
         public int Score { get; set; }
         public int BookId { get; set; }
         public int UserId {get; set;}
+        public ReviewUserInfoDto Reviewer {get;set;} = null!;
 
     }
 }

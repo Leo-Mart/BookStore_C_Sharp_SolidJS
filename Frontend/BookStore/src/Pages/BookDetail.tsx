@@ -285,7 +285,7 @@ const BookDetail: Component = () => {
                           {(item, index) => (
                             <div>
                               <div>
-                                <div>Reviewer</div>
+                                <div>{item.reviewer.firstName} {item.reviewer.lastName}</div>
                                 <div>{item.score}</div>
                               </div>
                               <div>

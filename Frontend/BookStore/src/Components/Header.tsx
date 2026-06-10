@@ -4,12 +4,21 @@ import { createSignal } from 'solid-js';
 import House from 'lucide-solid/icons/house';
 import User from 'lucide-solid/icons/user'
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
+import CartDrawer, { CartItem } from './CartDrawer';
 // seems like Lucide-icons imports all ~1700 icons if I use the import { House } from 'lucide-solid' syntax. Check https://github.com/lucide-icons/lucide/issues/1944#issuecomment-3704423258 maybe use https://github.com/WarningImHack3r/vite-plugin-lucide-preprocess or try the other Icon package
 
 
 
 function Header() {
   const [searchTerm, setSearchTerm] = createSignal("")
+  const [cartOpen, setCartOpen] = createSignal(false)
+  const [items, setItems] = createSignal<CartItem[]>([
+    {id: "1", name: "Book1", price: 149, quantity: 1},
+    {id: "2", name: "another book", price: 59, quantity: 2},
+  ])
+
+  const removeItem = (id: string) => setItems(items().filter((i) => i.id !== id))
+  const updateQty = (id:string, qty:number) => setItems(items().map((i) => (i.id === id ? {...i, quantity: qty} : i)))
   const navigate = useNavigate()
 
   const handleSubmit = (event: Event) => {
@@ -70,10 +79,10 @@ function Header() {
             <span class="dark:text-everforest-fg">Log in</span>
           </A>
 
-          <div class='flex flex-col items-center'>
+          <button onClick={() => setCartOpen(true)} class='flex flex-col items-center hover:cursor-pointer'>
             <ShoppingBasket color="#D3C6AA" />
             <span class="dark:text-everforest-fg">Basket</span>
-          </div>
+          </button>
         </div>
       </div>
       <div class="flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -98,6 +107,7 @@ function Header() {
           </ul>
         </nav>
       </div>
+      <CartDrawer open={cartOpen()} onClose={() => setCartOpen(false)}  items={items()} onRemove={removeItem} onUpdateQuantity={updateQty} />
     </header>
   );
 }

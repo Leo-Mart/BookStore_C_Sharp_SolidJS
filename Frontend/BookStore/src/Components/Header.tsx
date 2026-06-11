@@ -56,7 +56,7 @@ function Header() {
             <input
               type="search"
               id="search"
-              class="block w-full p-3 ps-9 bg-everforest-bg-3 border text-sm shadow-xs"
+              class="block w-full p-3 ps-9 bg-everforest-bg-3 text-everforest-fg text-sm shadow-xs"
               placeholder="Search"
               value={searchTerm()}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -64,7 +64,7 @@ function Header() {
             />
             <button
               type="submit"
-              class="absolute inset-e-1.5 bottom-1.5 text-everforest-bg-dim bg-everforest-aqua hover:bg-everforest-fg box-border border border-transparent focus:ring-4 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
+              class="absolute inset-e-1.5 bottom-1.5 text-everforest-bg-dim dark:bg-everforest-aqua dark:hover:bg-everforest-fg box-border border border-transparent focus:ring-4 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
             >
               Search
             </button>

@@ -6,6 +6,7 @@ import Layout from './Layouts/Layout';
 import BookDetail from './Pages/BookDetail';
 import NotFound from './Pages/NotFound';
 import { CartProvider } from './Context/CartContext';
+import Login from './Pages/Login';
 
 const App: Component = () => {
   return (
@@ -14,6 +15,7 @@ const App: Component = () => {
         <Route path="/" component={Home} />
         <Route path="/books" component={BookList} />
         <Route path="/books/:bookId" component={BookDetail} />
+        <Route path="/login" component={Login} />
         <Route path="*" component={NotFound} />
       </Router>
     </CartProvider>

@@ -1,6 +1,7 @@
 import { A } from '@solidjs/router';
 import { Component } from 'solid-js';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
+import { useCart } from '../Context/CartContext';
 
 interface bookProps {
   book: {
@@ -21,7 +22,17 @@ interface bookProps {
   };
 }
 
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl?: string;
+}
+
 const BookCard: Component<bookProps> = (bookProps) => {
+  const cart = useCart()
+
   return (
     <div class="bg-everforest-bg-0 block p-6 text-everforest-fg min-w-full md:max-w-xl shadow-xs">
       <A href={`/books/${bookProps.book.id}`}>
@@ -47,6 +58,7 @@ const BookCard: Component<bookProps> = (bookProps) => {
 
         <div>
           <button
+            onClick={() => cart.addItem({id: bookProps.book.id, name: bookProps.book.title, price: bookProps.book.price, quantity: 1, imageUrl: bookProps.book.coverImageUrl})}
             type="button"
             class="inline-flex gap-2 items-center w-auto text-body border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
           >

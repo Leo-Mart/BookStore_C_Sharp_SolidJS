@@ -5,15 +5,18 @@ import BookList from './Pages/BookList';
 import Layout from './Layouts/Layout';
 import BookDetail from './Pages/BookDetail';
 import NotFound from './Pages/NotFound';
+import { CartProvider } from './Context/CartContext';
 
 const App: Component = () => {
   return (
-    <Router root={Layout}>
-      <Route path="/" component={Home} />
-      <Route path="/books" component={BookList} />
-      <Route path="/books/:bookId" component={BookDetail} />
-      <Route path="*" component={NotFound} />
-    </Router>
+    <CartProvider>
+      <Router root={Layout}>
+        <Route path="/" component={Home} />
+        <Route path="/books" component={BookList} />
+        <Route path="/books/:bookId" component={BookDetail} />
+        <Route path="*" component={NotFound} />
+      </Router>
+    </CartProvider>
   );
 };
 

@@ -16,7 +16,7 @@ const BookList: Component = () => {
       <div class="col-span-2 dark:bg-everforest-bg-dim dark:text-everforest-fg">SIDEBAR</div>
       <Show
         when={!books.loading}
-        fallback={<p class="dark:text-everforest-fg col-span-6">Loading books...</p>}
+        fallback={<p class="dark:text-everforest-fg col-span-8">Loading books...</p>}
       >
         <ul class="col-span-8 grid grid-cols-6 gap-2">
           <For each={books()}>

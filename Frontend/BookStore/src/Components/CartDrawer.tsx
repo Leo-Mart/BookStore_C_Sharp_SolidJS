@@ -3,7 +3,7 @@ import Drawer from "./Drawer";
 import { Component } from "solid-js";
 
 export interface CartItem {
-  id: string
+  id: number
   name: string
   price: number
   quantity: number
@@ -14,20 +14,20 @@ interface CartDrawerProps {
   open: boolean
   onClose: () => void
   items: CartItem[]
-  onRemove: (id: string) => void
-  onUpdateQuantity: (id: string, qty: number) => void
+  total: number
+  count: number
+  onRemove: (id: number) => void
+  onUpdateQuantity: (id: number, qty: number) => void
 }
 
 
 
 const CartDrawer: Component<CartDrawerProps> = (props: CartDrawerProps) => {
-  const total = () => props.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-
 const footer = (
     <div class="space-y-3">
       <div class="flex justify-between text-sm font-medium text-everforest-fg">
         <span>Subtotal</span>
-        <span class="text-everforest-fg">${total().toFixed(2)}</span>
+        <span class="text-everforest-fg">{props.total} kr</span>
       </div>
       <button class="w-full rounded-lg bg-everforest-aqua py-3 text-sm font-semibold text-everforest-bg-dim transition hover:bg-everforest-fg focus:outline-none focus:ring-2 focus:ring-everforest-aqua focus:ring-offset-2">
         Checkout
@@ -39,7 +39,7 @@ const footer = (
      <Drawer
       open={props.open}
       onClose={props.onClose}
-      title={`Cart (${props.items.length})`}
+      title={`Cart (${props.count})`}
       footer={footer}
     >
       <Show
@@ -67,9 +67,9 @@ const footer = (
                 <div class="flex flex-1 flex-col gap-1">
                   <div class="flex justify-between">
                     <span class="text-sm font-medium text-everforest-aqua">{item.name}</span>
-                    <span class="text-sm text-everforest-fg">${(item.price * item.quantity).toFixed(2)}</span>
+                    <span class="text-sm text-everforest-fg">{(item.price * item.quantity).toFixed(2)} kr</span>
                   </div>
-                  <span class="text-xs text-everforest-fg">${item.price.toFixed(2)} each</span>
+                  <span class="text-xs text-everforest-fg">{item.price.toFixed(2)} kr each</span>
                   <div class="mt-1 flex items-center gap-2">
                     <div class="flex items-center rounded-md border border-everforest-fg">
                       <button

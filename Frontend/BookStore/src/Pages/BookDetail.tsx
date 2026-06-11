@@ -11,6 +11,7 @@ import {
 import HeartMinus from 'lucide-solid/icons/heart-minus';
 import HeartPlus from 'lucide-solid/icons/heart-plus';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
+import { useCart } from '../Context/CartContext';
 
 const fetchBook = async (bookId: string) => {
   const response = await fetch(`/api/books/${bookId}`);
@@ -20,6 +21,7 @@ const fetchBook = async (bookId: string) => {
 const BookDetail: Component = () => {
   const params = useParams();
   const [book] = createResource(() => params.bookId, fetchBook);
+  const cart = useCart();
 
   const [wishlisted, setWishlisted] = createSignal(false);
 
@@ -110,7 +112,18 @@ const BookDetail: Component = () => {
                   </span>
                 </div>
 
-                <button class="flex gap-1 grow justify-center bg-everforest-aqua px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer">
+                <button
+                  onClick={() =>
+                    cart.addItem({
+                      id: book().id,
+                      name: book().title,
+                      price: book().price,
+                      quantity: amount(),
+                      imageUrl: book().coverImageUrl,
+                    })
+                  }
+                  class="flex gap-1 grow justify-center bg-everforest-aqua px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer"
+                >
                   Add to cart
                   <ShoppingBasket />
                 </button>
@@ -140,7 +153,31 @@ const BookDetail: Component = () => {
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
                   <span class="text-2xl font-bold">Description</span>
-                  {descOpen() ? <span>-</span> : <span>+</span>}
+                  <svg
+                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
+                    width="8"
+                    height="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center transition duration-200 ease-out ${
+                        descOpen() && 'rotate-180!'
+                      }`}
+                    />
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
+                        descOpen() && 'rotate-180!'
+                      }`}
+                    />
+                  </svg>
                 </button>
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
@@ -157,7 +194,31 @@ const BookDetail: Component = () => {
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
                   <span class="text-2xl font-bold">Product Info</span>
-                  {prodInfoOpen() ? <span>-</span> : <span>+</span>}
+                  <svg
+                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
+                    width="8"
+                    height="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center transition duration-200 ease-out ${
+                        prodInfoOpen() && 'rotate-180!'
+                      }`}
+                    />
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
+                        prodInfoOpen() && 'rotate-180!'
+                      }`}
+                    />
+                  </svg>
                 </button>
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg0 text-md ${
@@ -208,7 +269,31 @@ const BookDetail: Component = () => {
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
                   <span class="text-2xl font-bold">Payment and Delivery</span>
-                  {paymenAndDeliveryOpen() ? <span>-</span> : <span>+</span>}
+                  <svg
+                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
+                    width="8"
+                    height="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center transition duration-200 ease-out ${
+                        paymenAndDeliveryOpen() && 'rotate-180!'
+                      }`}
+                    />
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
+                        paymenAndDeliveryOpen() && 'rotate-180!'
+                      }`}
+                    />
+                  </svg>
                 </button>
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
@@ -239,7 +324,31 @@ const BookDetail: Component = () => {
                   class="flex justify-between w-full hover:cursor-pointer"
                 >
                   <span class="text-2xl font-bold">Discover More</span>
-                  {discoverOpen() ? <span>-</span> : <span>+</span>}
+                  <svg
+                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
+                    width="8"
+                    height="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center transition duration-200 ease-out ${
+                        discoverOpen() && 'rotate-180!'
+                      }`}
+                    />
+                    <rect
+                      y="7"
+                      width="8"
+                      height="2"
+                      rx="1"
+                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
+                        discoverOpen() && 'rotate-180!'
+                      }`}
+                    />
+                  </svg>
                 </button>
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
@@ -249,11 +358,11 @@ const BookDetail: Component = () => {
                   }`}
                 >
                   <div class="overflow-hidden">
-                    <ul>
+                    <ul class='flex gap-2'>
                       <For each={book().genres}>
                         {(item, index) => (
                           <A
-                            class="inline-flex gap-2 items-center w-auto text-body border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
+                            class="w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
                             href={`/category/${item.name}`}
                           >
                             {item.name}
@@ -271,7 +380,31 @@ const BookDetail: Component = () => {
                       class="flex justify-between w-full hover:cursor-pointer"
                     >
                       <span class="text-2xl font-bold">Reviews</span>
-                      {reviewsOpen() ? <span>-</span> : <span>+</span>}
+                      <svg
+                        class="fill-everforest-fg shrink-0 ml-8 my-auto"
+                        width="8"
+                        height="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          y="7"
+                          width="8"
+                          height="2"
+                          rx="1"
+                          class={`transform origin-center transition duration-200 ease-out ${
+                            reviewsOpen() && 'rotate-180!'
+                          }`}
+                        />
+                        <rect
+                          y="7"
+                          width="8"
+                          height="2"
+                          rx="1"
+                          class={`transform origin-center rotate-90 transition duration-200 ease-out ${
+                            reviewsOpen() && 'rotate-180!'
+                          }`}
+                        />
+                      </svg>
                     </button>
                     <div
                       class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
@@ -292,7 +425,7 @@ const BookDetail: Component = () => {
 
                                 <div class="flex items-center space-x-1">
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 1 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
+                                    class={`w-3 h-3 ${item.score >= 1 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -303,7 +436,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 2 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
+                                    class={`w-3 h-3 ${item.score >= 2 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -314,7 +447,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 3 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
+                                    class={`w-3 h-3 ${item.score >= 3 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -325,7 +458,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 4 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
+                                    class={`w-3 h-3 ${item.score >= 4 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -336,7 +469,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 5 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
+                                    class={`w-3 h-3 ${item.score >= 5 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"

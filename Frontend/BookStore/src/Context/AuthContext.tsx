@@ -3,19 +3,36 @@ import {
   useContext,
   ParentComponent,
   createSignal,
+  Accessor,
+  createEffect,
 } from 'solid-js';
 
 interface AuthContextValue {
-  token: string;
-  login: (email: string, password: string) => void;
+  token: Accessor<string | null>;
+  isAuthenticated: () => boolean
+  login: (email: string, password: string) => Promise<LoginResponse>;
+  logout: () => void
+}
+
+interface LoginResponse {
+  token: string
 }
 
 const AuthContext = createContext<AuthContextValue>();
 
 export const AuthProvider: ParentComponent = (props) => {
-  const [token, setToken] = createSignal<string>('');
+  const [token, setToken] = createSignal<string | null>('');
 
-  const login = async (email: string, password: string) => {
+  createEffect(() => {
+    const t = token()
+    if (t) {
+      localStorage.setItem("jwt", t) //TODO: probably some other choice for persistence here, but this suffices for now.
+    } else {
+      localStorage.removeItem("jwt")
+    }
+  })
+
+  const login = async (email: string, password: string): Promise<LoginResponse> => {
     const response = await fetch('/api/authentication/authenticate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,13 +42,20 @@ export const AuthProvider: ParentComponent = (props) => {
       }),
     });
 
-    const result = await response.json();
+    const result: LoginResponse = await response.json();
     setToken(result.token);
+    return result
   };
 
+  const logout = () => {
+    setToken(null)
+  }
+
   const auth: AuthContextValue = {
-    token: token(),
+    token,
     login,
+    logout,
+    isAuthenticated: () => !!token() //TODO: only checks that there actually is a token, so might need a deeper check here
   };
 
   return (

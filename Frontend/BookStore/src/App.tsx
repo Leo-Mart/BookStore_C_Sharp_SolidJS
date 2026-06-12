@@ -8,6 +8,8 @@ import NotFound from './Pages/NotFound';
 import { CartProvider } from './Context/CartContext';
 import Login from './Pages/Login';
 import { AuthProvider } from './Context/AuthContext';
+import UserPage from './Pages/UserPage';
+import VerifyAuth from './Auth/VerifyAuth';
 
 const App: Component = () => {
   return (
@@ -18,6 +20,7 @@ const App: Component = () => {
           <Route path="/books" component={BookList} />
           <Route path="/books/:bookId" component={BookDetail} />
           <Route path="/login" component={Login} />
+          <Route path="/user-profile" component={VerifyAuth(UserPage)} />
           <Route path="*" component={NotFound} />
         </Router>
       </CartProvider>

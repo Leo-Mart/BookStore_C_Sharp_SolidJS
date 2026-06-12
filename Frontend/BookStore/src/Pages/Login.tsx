@@ -9,11 +9,9 @@ const Login: Component<{}> = (props) => {
   const nav = useNavigate()
   const auth = useAuth()
 
-
-
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    auth.login(email(), password())
+    await auth.login(email(), password())
     nav("/", {replace: true})   // TODO: redirect back to the page the user was at
   };
 

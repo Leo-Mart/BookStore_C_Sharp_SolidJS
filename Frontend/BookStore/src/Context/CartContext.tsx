@@ -24,15 +24,10 @@ interface CartContextValue {
   count: () => number;
 }
 
-const defaultState: CartItem[] = [
-  { id: 1, name: 'Book1', price: 149, quantity: 1 },
-  { id: 2, name: 'another book', price: 59, quantity: 2 },
-];
-
 const CartContext = createContext<CartContextValue>();
 
 export const CartProvider: ParentComponent = (props) => {
-  const [cartItems, setCartItems] = createStore<CartItem[]>(defaultState);
+  const [cartItems, setCartItems] = createStore<CartItem[]>([]);
 
   const addItem = (product: CartItem) => {
     const existing = cartItems.find((i) => i.id === product.id);

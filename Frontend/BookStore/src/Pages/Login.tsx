@@ -1,15 +1,20 @@
 import { Component, createSignal } from 'solid-js';
+import { useAuth } from '../Context/AuthContext';
+import { useNavigate } from '@solidjs/router';
 
 const Login: Component<{}> = (props) => {
   const [email, setEmail] = createSignal('');
   const [password, setPassword] = createSignal('');
 
-  // TODO: add an authContext to store the returned JWT token after successfull login.
-  // TODO: redirect back to the page the user was at? useNavigate perhaps?
+  const nav = useNavigate()
+  const auth = useAuth()
 
-  const handleSubmit = (e: Event) => {
+
+
+  const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    console.log("login submitted! yay!")
+    auth.login(email(), password())
+    nav("/", {replace: true})   // TODO: redirect back to the page the user was at
   };
 
   return (

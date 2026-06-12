@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text.Json;
 using BookStore.Interfaces;
 using BookStore.Mappers;
 using BookStore.Models.Users;
@@ -52,7 +53,7 @@ namespace BookStore.Controllers
 
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
-            return Ok(tokenToReturn);
+            return Ok(new { token = tokenToReturn});
         }
 
         private async Task<ResponseUserDto?> ValideUserCredentials(string? email, string? password)

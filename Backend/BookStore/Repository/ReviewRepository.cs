@@ -33,12 +33,12 @@ namespace BookStore.Repository
 
         public async Task<Review?> GetReviewForBookAsync(int bookId, int reviewId)
         {
-            return await _context.Reviews.Where(r => r.BookId == bookId && r.Id == reviewId).FirstOrDefaultAsync();
+            return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.BookId == bookId && r.Id == reviewId).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Review>> GetReviewsForBookAsync(int bookId)
         {
-            return await _context.Reviews.Where(r => r.BookId == bookId).ToListAsync();
+            return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.BookId == bookId).ToListAsync();
         }
 
         public async Task<Review?> UpdateReviewAsync(int reviewId, UpdateReviewDto updateDto)

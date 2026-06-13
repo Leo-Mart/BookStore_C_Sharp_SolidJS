@@ -6,17 +6,25 @@ import Layout from './Layouts/Layout';
 import BookDetail from './Pages/BookDetail';
 import NotFound from './Pages/NotFound';
 import { CartProvider } from './Context/CartContext';
+import Login from './Pages/Login';
+import { AuthProvider } from './Context/AuthContext';
+import UserPage from './Pages/UserPage';
+import VerifyAuth from './Auth/VerifyAuth';
 
 const App: Component = () => {
   return (
-    <CartProvider>
-      <Router root={Layout}>
-        <Route path="/" component={Home} />
-        <Route path="/books" component={BookList} />
-        <Route path="/books/:bookId" component={BookDetail} />
-        <Route path="*" component={NotFound} />
-      </Router>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Router root={Layout}>
+          <Route path="/" component={Home} />
+          <Route path="/books" component={BookList} />
+          <Route path="/books/:bookId" component={BookDetail} />
+          <Route path="/login" component={Login} />
+          <Route path="/user-profile" component={VerifyAuth(UserPage)} />
+          <Route path="*" component={NotFound} />
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 };
 

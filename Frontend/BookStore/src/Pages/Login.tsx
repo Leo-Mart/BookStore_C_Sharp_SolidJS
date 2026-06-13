@@ -1,8 +1,8 @@
 import { Component, createSignal } from 'solid-js';
 import { useAuth } from '../Context/AuthContext';
-import { useNavigate } from '@solidjs/router';
+import { A, useNavigate } from '@solidjs/router';
 
-const Login: Component<{}> = (props) => {
+const Login: Component = () => {
   const [email, setEmail] = createSignal('');
   const [password, setPassword] = createSignal('');
 
@@ -62,6 +62,17 @@ const Login: Component<{}> = (props) => {
           Login
         </button>
       </form>
+      <div class='col-start-2 mt-8'>
+        <h4 class='px-3 py-2 text-xl text-center font-medium text-everforest-bg-dim dark:text-everforest-fg'>No Account yet?</h4>
+        <p class='text-center text-sm font-medium text-everforest-bg-dim dark:text-everforest-fg'>Register an account for faster checkout, order-tracking, and more!</p>
+        <A
+          href='/register'
+          type="submit"
+          class="mx-auto text-center bg-white mt-2 block w-1/2 rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
+        >
+          Register
+        </A>
+      </div>
     </div>
   );
 };

@@ -15,6 +15,7 @@ interface AuthContextValue {
 }
 
 interface LoginResponse {
+  email: string
   token: string
 }
 
@@ -33,7 +34,7 @@ export const AuthProvider: ParentComponent = (props) => {
   })
 
   const login = async (email: string, password: string): Promise<LoginResponse> => {
-    const response = await fetch('/api/authentication/authenticate', {
+    const response = await fetch('/api/account/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

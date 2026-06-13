@@ -1,6 +1,10 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
+using BookStore.Models.Users;
 using BookStore.Repository;
+using BookStore.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -33,25 +37,41 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddProblemDetails();
 
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+   options.Password.RequireDigit = true;
+   options.Password.RequireLowercase = true;
+   options.Password.RequireUppercase = true;
+   options.Password.RequireNonAlphanumeric = true;
+   options.Password.RequiredLength = 12;
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new()
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = 
+    options.DefaultChallengeScheme = 
+    options.DefaultForbidScheme = 
+    options.DefaultScheme = 
+    options.DefaultSignInScheme = 
+    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new()
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Authentication:Issuer"],
-            ValidAudience = builder.Configuration["Authentication:Audience"],
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ValidAudience = builder.Configuration["JWT:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-             Convert.FromBase64String(builder.Configuration["Authentication:SecretForKey"])
+             Convert.FromBase64String(builder.Configuration["JWT:SigningKey"])
             )
         };
-    });
+});
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 

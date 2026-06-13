@@ -3,15 +3,16 @@ using BookStore.Models.Books;
 using BookStore.Models.Genres;
 using BookStore.Models.Reviews;
 using BookStore.Models.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DbContexts
 {
-    public class ApplicationDbContext(DbContextOptions dbContextOptions) : DbContext(dbContextOptions)
+    public class ApplicationDbContext(DbContextOptions dbContextOptions) : IdentityDbContext<AppUser>(dbContextOptions)
     {
     public DbSet<Book> Books { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
@@ -164,12 +165,51 @@ namespace BookStore.DbContexts
                 }
             );
 
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser
+                {
+                    Id = "26a17d98-2564-4a5c-a21d-8b806ca91db9",
+                    UserName = "Mrs.Test",
+                    FirstName = "Mrs.",
+                    LastName = "Test",
+                    NormalizedUserName = "MRS.TEST",
+                    Email = "mrstest@test.com",
+                    NormalizedEmail = "MRSTEST@TEST.COM",
+                    EmailConfirmed = false,
+                    SecurityStamp = "A_SECURITY_STAMP",
+                    ConcurrencyStamp = "1",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    PasswordHash = "AQAAAAIAAYagAAAAEDo5bk0UyyMvrhmqvw+gCLnDkvWWjE2xbXj6qX93YoEOYLR9pY5LGwBNm0qDScF23g=="
+                },
+                new AppUser
+                {
+                    Id = "ab2c49be-9e83-41af-82b5-9165ddeb125f",
+                    FirstName = "Mr.",
+                    LastName = "Test",
+                    UserName = "Mr.Test",
+                    NormalizedUserName = "MR.TEST",
+                    Email = "mrtest@test.com",
+                    NormalizedEmail = "MRTEST@TEST.COM",
+                    EmailConfirmed = false,
+                    SecurityStamp = "A_SECURITY_STAMP",
+                    ConcurrencyStamp = "1",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    PasswordHash = "AQAAAAIAAYagAAAAEDo5bk0UyyMvrhmqvw+gCLnDkvWWjE2xbXj6qX93YoEOYLR9pY5LGwBNm0qDScF23g=="
+                }
+            );
+
             modelBuilder.Entity<Review>().HasData(
-                new Review()
+                    new Review()
                 {
                     Id = 1,
                     BookId = 1,
-                    UserId = 2,
+                    AppUserId = "26a17d98-2564-4a5c-a21d-8b806ca91db9",
                     Title = "Such a good series",
                     Text = "Wow. So good.",
                     Score = 5,
@@ -180,7 +220,7 @@ namespace BookStore.DbContexts
                 {
                     Id = 2,
                     BookId = 1,
-                    UserId = 1,
+                    AppUserId = "ab2c49be-9e83-41af-82b5-9165ddeb125f",
                     Title = "Such a bad series",
                     Text = "Wow. So bad.",
                     Score = 1,
@@ -191,7 +231,7 @@ namespace BookStore.DbContexts
                 {
                     Id = 3,
                     BookId = 2,
-                    UserId = 2,
+                    AppUserId = "26a17d98-2564-4a5c-a21d-8b806ca91db9",
                     Title = "He is so dreamy",
                     Text = "Wow. So dreamy.",
                     Score = 5,
@@ -202,73 +242,15 @@ namespace BookStore.DbContexts
                 {
                     Id = 4,
                     BookId = 2,
-                    UserId = 1,
+                    AppUserId = "ab2c49be-9e83-41af-82b5-9165ddeb125f",
                     Title = "She is so dreamy",
                     Text = "Wow. So dreamy.",
                     Score = 5,
                     UpdatedAt = new DateTime(2026, 6, 5),
                     CreatedAt = new DateTime(2026, 6, 5)
-                },
-                new Review()
-                {
-                    Id = 5,
-                    BookId = 3,
-                    UserId = 2,
-                    Title = "It's bigger on the inside!",
-                    Text = "Wow, so dark.",
-                    Score = 5,
-                    UpdatedAt = new DateTime(2026, 6, 5),
-                    CreatedAt = new DateTime(2026, 6, 5)
-                },
-                new Review()
-                {
-                    Id = 6,
-                    BookId = 3,
-                    UserId = 2,
-                    Title = "3Spooky5Me",
-                    Text = "So spooky and weird",
-                    Score = 1,
-                    UpdatedAt = new DateTime(2026, 6, 5),
-                    CreatedAt = new DateTime(2026, 6, 5)
-                },
-                new Review()
-                {
-                    Id = 7,
-                    BookId = 3,
-                    UserId = 1,
-                    Title = "Test review",
-                    Text = "So spooky and weird",
-                    Score = 1,
-                    UpdatedAt = new DateTime(2026, 6, 5),
-                    CreatedAt = new DateTime(2026, 6, 5)
-                }
-
-            );
-            modelBuilder.Entity<User>().HasData(
-                new User()
-                {
-                    Id = 1,
-                    FirstName = "Mr.",
-                    LastName = "Test",
-                    Email = "mrtest@test.com",
-                    Phone = "0123456789",
-                    Password = "uhohplaintext",
-                    UpdatedAt = new DateTime(2026, 6, 5),
-                    CreatedAt = new DateTime(2026, 6, 5)
-                },
-                new User()
-                {
-                    Id = 2,
-                    FirstName = "Mrs.",
-                    LastName = "Test",
-                    Email = "mrstest@test.com",
-                    Phone = "987654321",
-                    Password = "encryptmeplease",
-                    UpdatedAt = new DateTime(2026, 6, 5),
-                    CreatedAt = new DateTime(2026, 6, 5)
                 }
             );
-
+          
             modelBuilder.Entity<Author>().HasData(
                 new Author()
                 {
@@ -370,6 +352,26 @@ namespace BookStore.DbContexts
                     new {BooksId = 11, GenresId = 1},
                     new {BooksId = 12, GenresId = 1}
                 ));
+
+            List<IdentityRole> roles = new List<IdentityRole>
+            {
+                new IdentityRole
+                {
+                    Id = "Admin",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                    ConcurrencyStamp = "1"
+                    
+                },
+                new IdentityRole
+                {
+                    Id = "User",
+                    Name = "User",
+                    NormalizedName = "USER",
+                    ConcurrencyStamp = "1"
+                }
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
             base.OnModelCreating(modelBuilder);
         }
     }

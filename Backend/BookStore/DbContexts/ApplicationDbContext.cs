@@ -1,6 +1,10 @@
+using System.Security.Cryptography;
 using BookStore.Models.Authors;
 using BookStore.Models.Books;
 using BookStore.Models.Genres;
+using BookStore.Models.Inventories;
+using BookStore.Models.OrderItems;
+using BookStore.Models.Orders;
 using BookStore.Models.Reviews;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
@@ -11,10 +15,15 @@ namespace BookStore.DbContexts
 {
     public class ApplicationDbContext(DbContextOptions dbContextOptions) : IdentityDbContext<AppUser>(dbContextOptions)
     {
-    public DbSet<Book> Books { get; set; }
+        public DbSet<Book> Books { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
+
+        public DbSet<Inventory> Inventories {get;set;}
+        public DbSet<Order> Orders {get;set;}
+        public DbSet<OrderItem> OrderItems {get;set;}
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -205,7 +214,7 @@ namespace BookStore.DbContexts
             );
 
             modelBuilder.Entity<Review>().HasData(
-                    new Review()
+                new Review()
                 {
                     Id = 1,
                     BookId = 1,
@@ -250,7 +259,7 @@ namespace BookStore.DbContexts
                     CreatedAt = new DateTime(2026, 6, 5)
                 }
             );
-          
+
             modelBuilder.Entity<Author>().HasData(
                 new Author()
                 {
@@ -320,37 +329,37 @@ namespace BookStore.DbContexts
                 .HasMany(a => a.Authors)
                 .WithMany(b => b.Books)
                 .UsingEntity(j => j.HasData(
-                    new { BooksId = 1, AuthorsId = 1},
-                    new { BooksId = 2, AuthorsId = 2},
-                    new { BooksId = 3, AuthorsId = 3},
-                    new { BooksId = 4, AuthorsId = 1},
-                    new { BooksId = 5, AuthorsId = 1},
-                    new { BooksId = 6, AuthorsId = 1},
-                    new { BooksId = 7, AuthorsId = 1},
-                    new { BooksId = 8, AuthorsId = 1},
-                    new { BooksId = 9, AuthorsId = 1},
-                    new { BooksId = 10, AuthorsId = 1},
-                    new { BooksId = 11, AuthorsId = 1},
-                    new { BooksId = 12, AuthorsId = 1}
+                    new { BooksId = 1, AuthorsId = 1 },
+                    new { BooksId = 2, AuthorsId = 2 },
+                    new { BooksId = 3, AuthorsId = 3 },
+                    new { BooksId = 4, AuthorsId = 1 },
+                    new { BooksId = 5, AuthorsId = 1 },
+                    new { BooksId = 6, AuthorsId = 1 },
+                    new { BooksId = 7, AuthorsId = 1 },
+                    new { BooksId = 8, AuthorsId = 1 },
+                    new { BooksId = 9, AuthorsId = 1 },
+                    new { BooksId = 10, AuthorsId = 1 },
+                    new { BooksId = 11, AuthorsId = 1 },
+                    new { BooksId = 12, AuthorsId = 1 }
                 ));
 
             modelBuilder.Entity<Book>()
                 .HasMany(g => g.Genres)
                 .WithMany(b => b.Books)
                 .UsingEntity(j => j.HasData(
-                    new {BooksId = 1, GenresId = 1},
-                    new {BooksId = 2, GenresId = 4},
-                    new {BooksId = 2, GenresId = 2},
-                    new {BooksId = 3, GenresId = 3},
-                    new {BooksId = 4, GenresId = 1},
-                    new {BooksId = 5, GenresId = 1},
-                    new {BooksId = 6, GenresId = 1},
-                    new {BooksId = 7, GenresId = 1},
-                    new {BooksId = 8, GenresId = 1},
-                    new {BooksId = 9, GenresId = 1},
-                    new {BooksId = 10, GenresId = 1},
-                    new {BooksId = 11, GenresId = 1},
-                    new {BooksId = 12, GenresId = 1}
+                    new { BooksId = 1, GenresId = 1 },
+                    new { BooksId = 2, GenresId = 4 },
+                    new { BooksId = 2, GenresId = 2 },
+                    new { BooksId = 3, GenresId = 3 },
+                    new { BooksId = 4, GenresId = 1 },
+                    new { BooksId = 5, GenresId = 1 },
+                    new { BooksId = 6, GenresId = 1 },
+                    new { BooksId = 7, GenresId = 1 },
+                    new { BooksId = 8, GenresId = 1 },
+                    new { BooksId = 9, GenresId = 1 },
+                    new { BooksId = 10, GenresId = 1 },
+                    new { BooksId = 11, GenresId = 1 },
+                    new { BooksId = 12, GenresId = 1 }
                 ));
 
             List<IdentityRole> roles = new List<IdentityRole>
@@ -361,7 +370,7 @@ namespace BookStore.DbContexts
                     Name = "Admin",
                     NormalizedName = "ADMIN",
                     ConcurrencyStamp = "1"
-                    
+
                 },
                 new IdentityRole
                 {
@@ -372,6 +381,43 @@ namespace BookStore.DbContexts
                 }
             };
             modelBuilder.Entity<IdentityRole>().HasData(roles);
+
+            modelBuilder.Entity<Inventory>()
+                .HasOne(i => i.Book)
+                .WithOne(b => b.Inventory)
+                .HasForeignKey<Inventory>(i => i.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Inventory>().HasData(
+                new Inventory()
+                {
+                    Id = 1,
+                    BookId = 1,
+                    AmountInStock = 20,
+                    ReorderThreshold = 5,  
+                    UpdatedAt = new DateTime(2026, 6, 12),
+                    CreatedAt = new DateTime(2026, 6, 12)                
+                }
+            );
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Customer)
+                .WithMany(c => c.Orders)
+                .HasForeignKey(o => o.AppUserId);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.Items)
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Book)
+                .WithMany(b => b.OrderItems)
+                .HasForeignKey(oi => oi.BookId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using BookStore.Models.Authors;
 using BookStore.Models.Genres;
 using BookStore.Models.Inventories;
+using BookStore.Models.OrderItems;
 using BookStore.Models.Reviews;
 
 namespace BookStore.Models.Books
@@ -25,6 +26,7 @@ namespace BookStore.Models.Books
         public ICollection<Author> Authors { get; set; } = new List<Author>();
         public ICollection<Genre> Genres { get; set; } = new List<Genre>();
         public Inventory Inventory { get; set; } = null!;
+        public ICollection<OrderItem> OrderItems {get;set;} = new List<OrderItem>();
 
     }
 }

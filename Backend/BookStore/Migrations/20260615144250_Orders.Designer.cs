@@ -4,6 +4,7 @@ using BookStore.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260615144250_Orders")]
+    partial class Orders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -494,37 +497,6 @@ namespace BookStore.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BookStore.Models.Inventories.Inventory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AmountInStock")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ReorderThreshold")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
-                    b.ToTable("Inventory");
-                });
-
             modelBuilder.Entity("BookStore.Models.OrderItems.OrderItem", b =>
                 {
                     b.Property<int>("Id")
@@ -971,17 +943,6 @@ namespace BookStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookStore.Models.Inventories.Inventory", b =>
-                {
-                    b.HasOne("BookStore.Models.Books.Book", "Book")
-                        .WithOne("Inventory")
-                        .HasForeignKey("BookStore.Models.Inventories.Inventory", "BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
             modelBuilder.Entity("BookStore.Models.OrderItems.OrderItem", b =>
                 {
                     b.HasOne("BookStore.Models.Books.Book", "Book")
@@ -1082,9 +1043,6 @@ namespace BookStore.Migrations
 
             modelBuilder.Entity("BookStore.Models.Books.Book", b =>
                 {
-                    b.Navigation("Inventory")
-                        .IsRequired();
-
                     b.Navigation("Reviews");
                 });
 

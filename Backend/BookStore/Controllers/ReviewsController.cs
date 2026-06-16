@@ -17,7 +17,7 @@ namespace BookStore.Controllers
 
         private readonly IBookRepository _bookRepo = bookRepository;
 
-    [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews(int bookId)
         {
             if (!await _bookRepo.BookExistsAsync(bookId))
@@ -52,7 +52,7 @@ namespace BookStore.Controllers
 
             if (reviewForBook == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             return Ok(reviewForBook.ToReviewDto());

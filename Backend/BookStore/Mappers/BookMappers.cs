@@ -37,5 +37,14 @@ namespace BookStore.Mappers
                 Genres = bookModel.Genres.Select(r => r.ToGenreDto()).ToList()                
             };
         }
+
+        public static BookOrderItemInfoDto ToBookOrderItemInfoDtoFromBook(this Book book)
+        {
+            return new BookOrderItemInfoDto
+            {
+                Id = book.Id,
+                Price = book.Price
+            };
+        }
     }
 }

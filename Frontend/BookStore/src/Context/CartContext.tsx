@@ -8,7 +8,8 @@ import { createStore } from 'solid-js/store';
 
 interface CartItem {
   id: number;
-  name: string;
+  title: string;
+  author: string;
   price: number;
   quantity: number;
   imageUrl?: string;

@@ -2,6 +2,7 @@ import { A } from '@solidjs/router';
 import { Component } from 'solid-js';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
 import { useCart } from '../Context/CartContext';
+import { useToast } from '../Context/ToastContext';
 
 interface bookProps {
   book: {
@@ -22,8 +23,23 @@ interface bookProps {
   };
 }
 
+
+
 const BookCard: Component<bookProps> = (bookProps) => {
-  const cart = useCart()
+  const cart = useCart();
+  const toast = useToast();
+
+  const handleClick = () => {
+  cart.addItem({
+    id: bookProps.book.id,
+    title: bookProps.book.title,
+    author: `${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`,
+    price: bookProps.book.price,
+    quantity: 1,
+    imageUrl: bookProps.book.coverImageUrl,
+  });
+  toast.add('Added to cart!');
+};
 
   return (
     <div class="bg-everforest-bg-0 block p-6 text-everforest-fg min-w-full md:max-w-xl shadow-xs">
@@ -50,12 +66,12 @@ const BookCard: Component<bookProps> = (bookProps) => {
 
         <div>
           <button
-            onClick={() => cart.addItem({id: bookProps.book.id, title: bookProps.book.title, author: `${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`, price: bookProps.book.price, quantity: 1, imageUrl: bookProps.book.coverImageUrl})}
+            onClick={handleClick}
             type="button"
             class="inline-flex gap-2 items-center w-auto text-body border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
           >
             {bookProps.book.price} kr
-            <ShoppingBasket color='#D3C6AA' />
+            <ShoppingBasket color="#D3C6AA" />
           </button>
         </div>
       </div>

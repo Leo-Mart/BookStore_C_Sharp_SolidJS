@@ -17,29 +17,27 @@ type ShippingMethod =
 type PaymentMethod = 'card' | 'invoice' | 'swish';
 
 type OrderInformation = {
-  orderInfo: {
-    email: string;
-    phone: string;
+  email: string;
+  phone: string;
+  socialSecurityNumber?: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  postalCode: number;
+  city: string;
+  shippingMethod: {
+    type: string;
+    price: number;
+  };
+  paymentInfo: {
+    type: string;
+    cardInfo?: {
+      number: number;
+      expiry: string;
+      cvv: number;
+    };
+    phoneNumber?: string;
     socialSecurityNumber?: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    postalCode: number;
-    city: string;
-    shippingMethod: {
-      type: string;
-      price: number;
-    };
-    paymentInfo: {
-      type: string;
-      cardInfo?: {
-        number: number;
-        expiry: string;
-        cvv: number;
-      };
-      phoneNumber?: string;
-      socialSecurityNumber?: string;
-    };
   };
 };
 
@@ -47,7 +45,30 @@ const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
 
-  const [formData, setFormData] = createSignal<OrderInformation>();
+  const [formData, setFormData] = createSignal<OrderInformation>({
+    email: '',
+    phone: '',
+    socialSecurityNumber: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    postalCode: 0,
+    city: '',
+    shippingMethod: {
+      type: '',
+      price: 0,
+    },
+    paymentInfo: {
+      type: '',
+      cardInfo: {
+        number: 0,
+        expiry: '',
+        cvv: 123,
+      },
+      phoneNumber: '',
+      socialSecurityNumber: '',
+    },
+  });
 
   const [cardNo, setCardNo] = createSignal<string>('');
   const [validCard, setValidCard] = createSignal<boolean>(false);
@@ -75,10 +96,15 @@ const Checkout: Component = () => {
     // return (nSum % 10 == 0)
   };
 
-  // const handleInputChange = (e: Event) => {
-  //   const value = e.target!.value
-  //   setFormData(() => {...formData(), [name]: value})
-  // }
+  const handleInputChange = (
+    e: Event & {
+      currentTarget: HTMLInputElement;
+    },
+  ) => {
+    const { name, value } = e.currentTarget;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    
+  };
 
   const handleFetchAdress = () => {
     console.log('Fetch the address based on social security number');
@@ -87,6 +113,7 @@ const Checkout: Component = () => {
   const handleOrderSubmit = (e: Event) => {
     e.preventDefault();
     console.log('handle the order submisson');
+    console.log(formData())
   };
 
   const cart = useCart();
@@ -192,6 +219,8 @@ const Checkout: Component = () => {
                         name="email"
                         placeholder="johndoe@youremail.com"
                         id="email"
+                        value={formData().email}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -199,7 +228,7 @@ const Checkout: Component = () => {
                   </div>
                   <div class="md:col-span-2">
                     <label
-                      for="phone_number"
+                      for="phone"
                       class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-0"
                     >
                       <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
@@ -207,9 +236,11 @@ const Checkout: Component = () => {
                       </span>
                       <input
                         type="text"
-                        name="phone_number"
+                        name="phone"
                         placeholder="0123-456789"
                         id="phone_number"
+                        value={formData().phone}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -218,7 +249,7 @@ const Checkout: Component = () => {
                   <div class="flex gap-2 md:col-span-2">
                     <div class="grow">
                       <label
-                        for="socialsecurity_number"
+                        for="socialSecurityNumber"
                         class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-0"
                       >
                         <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
@@ -226,9 +257,11 @@ const Checkout: Component = () => {
                         </span>
                         <input
                           type="text"
-                          name="socialsecurity_number"
+                          name="socialSecurityNumber"
                           placeholder="100101-1111"
                           id="socialsecurity_number"
+                          value={formData().socialSecurityNumber}
+                          onInput={handleInputChange}
                           class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         />
                       </label>
@@ -257,9 +290,11 @@ const Checkout: Component = () => {
                       </span>
                       <input
                         type="text"
-                        name="first_name"
+                        name="firstName"
                         placeholder="John"
                         id="first_name"
+                        value={formData().firstName}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -267,7 +302,7 @@ const Checkout: Component = () => {
                   </div>
                   <div>
                     <label
-                      for="first_name"
+                      for="lastName"
                       class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-0"
                     >
                       <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
@@ -275,9 +310,11 @@ const Checkout: Component = () => {
                       </span>
                       <input
                         type="text"
-                        name="last_name"
+                        name="lastName"
                         placeholder="Doe"
                         id="last_name"
+                        value={formData().lastName}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -296,6 +333,8 @@ const Checkout: Component = () => {
                         name="address"
                         placeholder="The Street 123 A"
                         id="address"
+                        value={formData().address}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -303,7 +342,7 @@ const Checkout: Component = () => {
                   </div>
                   <div class="md:col-span-2 flex gap-2">
                     <label
-                      for="postal_code"
+                      for="postalCode"
                       class="w-1/2 block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-0"
                     >
                       <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
@@ -311,9 +350,11 @@ const Checkout: Component = () => {
                       </span>
                       <input
                         type="text"
-                        name="postal_code"
+                        name="postalCode"
                         placeholder="123 45"
                         id="postal_code"
+                        value={formData().postalCode}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -330,6 +371,8 @@ const Checkout: Component = () => {
                         name="city"
                         placeholder="The City"
                         id="city"
+                        value={formData().city}
+                        onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
                       />
@@ -573,8 +616,7 @@ const Checkout: Component = () => {
                             value={cardNo()}
                             onChange={(e) =>
                               validateCard(setCardNo(e.target.value))
-                            }
-                            required
+                            }                          
                           />
                           <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                             <svg
@@ -588,11 +630,6 @@ const Checkout: Component = () => {
                               />
                             </svg>
                           </div>
-                          {!validCard() && (
-                            <div class="text-everforest-red pb-1">
-                              Invalid card, check thy numbers
-                            </div>
-                          )}
                         </div>
                         <div class="grid grid-cols-3 gap-4 my-4">
                           <div class="relative max-w-sm col-span-2">
@@ -622,8 +659,7 @@ const Checkout: Component = () => {
                               id="card-expiration-input"
                               type="text"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
-                              placeholder="12/23"
-                              required
+                              placeholder="12/23"                              
                             />
                           </div>
                           <div class="col-span-1">
@@ -636,7 +672,6 @@ const Checkout: Component = () => {
                               aria-describedby="helper-text-explanation"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::webkit-inner-spin-button]:appearance-none"
                               placeholder="CVV"
-                              required
                             />
                           </div>
                         </div>
@@ -704,7 +739,7 @@ const Checkout: Component = () => {
             </div>
             <button
               type="submit"
-              class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+              class="flex items-center justify-center bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
             >
               Place Order
             </button>

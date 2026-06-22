@@ -6,9 +6,88 @@ import CheckoutItem from '../Components/CheckoutItem';
 import ModalDiscountCode from '../Components/ModalDiscountCode';
 import ModalGiftCard from '../Components/ModalGiftCard';
 
+type ShippingMethod =
+  | 'postnord'
+  | 'instabox'
+  | 'budbee'
+  | 'dhl'
+  | 'pigeon'
+  | 'paper-plane';
+
+type PaymentMethod = 'card' | 'invoice' | 'swish';
+
+type OrderInformation = {
+  orderInfo: {
+    email: string;
+    phone: string;
+    socialSecurityNumber?: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    postalCode: number;
+    city: string;
+    shippingMethod: {
+      type: string;
+      price: number;
+    };
+    paymentInfo: {
+      type: string;
+      cardInfo?: {
+        number: number;
+        expiry: string;
+        cvv: number;
+      };
+      phoneNumber?: string;
+      socialSecurityNumber?: string;
+    };
+  };
+};
+
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
+
+  const [formData, setFormData] = createSignal<OrderInformation>();
+
+  const [cardNo, setCardNo] = createSignal<string>('');
+  const [validCard, setValidCard] = createSignal<boolean>(false);
+
+  const [shippingChoice, setShippingCoice] =
+    createSignal<ShippingMethod>('postnord');
+  const [paymentChoice, setPaymentChoice] = createSignal<PaymentMethod>('card');
+
+  const validateCard = (cardNo: string) => {
+    let nDigits = cardNo.length;
+
+    let nSum = 0;
+    let isSecond = false;
+    for (let i = nDigits - 1; i >= 0; i--) {
+      let d = cardNo.charCodeAt(i) - '0'.charCodeAt(i);
+
+      if (isSecond === true) d = d * 2;
+
+      nSum += d / 10;
+      nSum += d % 10;
+
+      isSecond = !isSecond;
+    }
+    setValidCard(nSum % 10 == 0);
+    // return (nSum % 10 == 0)
+  };
+
+  // const handleInputChange = (e: Event) => {
+  //   const value = e.target!.value
+  //   setFormData(() => {...formData(), [name]: value})
+  // }
+
+  const handleFetchAdress = () => {
+    console.log('Fetch the address based on social security number');
+  };
+
+  const handleOrderSubmit = (e: Event) => {
+    e.preventDefault();
+    console.log('handle the order submisson');
+  };
 
   const cart = useCart();
 
@@ -89,7 +168,10 @@ const Checkout: Component = () => {
           </div>
         </div>
         <div class="lg:w-1/2">
-          <form class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5">
+          <form
+            onSubmit={handleOrderSubmit}
+            class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5"
+          >
             {/* Adress, paymentinfo and shipping selection */}
             <div class="flex flex-col gap-2 text-everforest-fg">
               <h3 class="text-xl m-0">Your information</h3>
@@ -148,7 +230,6 @@ const Checkout: Component = () => {
                           placeholder="100101-1111"
                           id="socialsecurity_number"
                           class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
-                          required
                         />
                       </label>
                       <span class="text-xs text-everforest-fg">
@@ -157,7 +238,11 @@ const Checkout: Component = () => {
                       </span>
                     </div>
 
-                    <button class="bg-everforest-aqua px-1 h-1/2 text-sm font-semibold text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-everforest-aqua focus:ring-offset-2">
+                    <button
+                      type="button"
+                      onClick={handleFetchAdress}
+                      class="bg-everforest-aqua px-1 h-1/2 text-sm font-semibold text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-everforest-aqua focus:ring-offset-2"
+                    >
                       Fetch Address
                     </button>
                   </div>
@@ -255,174 +340,374 @@ const Checkout: Component = () => {
             </div>
             <div class="border-b border-everforest-fg">
               <div class="flex flex-col gap-2 text-everforest-fg">
-                <h3 class="text-xl m-0">Shipping Method</h3>
+                <h3 class="text-xl m-0 pb-2">Shipping Method</h3>
               </div>
               <div>
                 <fieldset>
                   <legend class="sr-only">Shipping Methods</legend>
 
-                  <div class="flex items-center mb-4">
+                  <div class="flex flex-col items-center mb-4">
                     <input
-                      id="shipping-option-1"
+                      id="instabox"
                       type="radio"
                       name="shipping-methods"
                       value="instabox"
-                      class="w-4 h-4 rounded-full checked:border-everforest-fg focus:ring-2 focus:outline-none border appearance-none"
-                      checked
+                      class="peer hidden"
+                      checked={shippingChoice() === 'instabox'}
+                      onChange={() => setShippingCoice('instabox')}
                     />
                     <label
-                      for="country-option-1"
-                      class="select-none ms-2 text-sm font-medium"
+                      for="instabox"
+                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
                     >
                       Instabox
                     </label>
+                    <div
+                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                        shippingChoice() === 'instabox'
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div class="overflow-hidden w-full flex justify-between">
+                        <p>Ship to a Instabox self-help thingy.</p>
+                        <span>39 kr</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="flex items-center mb-4">
+                  <div class="flex flex-col items-center mb-4">
                     <input
-                      id="shipping-option-2"
+                      id="budbee"
                       type="radio"
                       name="shipping-methods"
                       value="budbee"
-                      class="w-4 h-4 rounded-full focus:ring-2 focus:outline-none border appearance-none"
+                      class="peer hidden"
+                      checked={shippingChoice() === 'budbee'}
+                      onChange={() => setShippingCoice('budbee')}
                     />
                     <label
-                      for="country-option-2"
-                      class="select-none ms-2 text-sm font-medium"
+                      for="budbee"
+                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
                     >
                       Budbee
                     </label>
+                    <div
+                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                        shippingChoice() === 'budbee'
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div class="overflow-hidden w-full flex justify-between">
+                        <p>Ship to a budbee self-help thingy.</p>
+                        <span>39 kr</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="flex items-center mb-4">
+                  <div class="flex flex-col items-center mb-4">
                     <input
-                      id="shipping-option-3"
+                      id="postnord"
                       type="radio"
                       name="shipping-methods"
                       value="postnord"
-                      class="w-4 h-4 rounded-full focus:ring-2 focus:outline-none border appearance-none"
+                      class="peer hidden"
+                      checked={shippingChoice() === 'postnord'}
+                      onChange={() => setShippingCoice('postnord')}
                     />
                     <label
-                      for="country-option-3"
-                      class="select-none ms-2 text-sm font-medium"
+                      for="postnord"
+                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
                     >
                       Postnord
                     </label>
+                    <div
+                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                        shippingChoice() === 'postnord'
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div class="overflow-hidden w-full flex justify-between">
+                        <p>Ship to a Postnord pick-up-point.</p>
+                        <span>49 kr</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="flex items-center mb-4">
+                  <div class="flex flex-col items-center mb-4">
                     <input
-                      id="shipping-option-4"
+                      id="dhl"
                       type="radio"
                       name="shipping-methods"
                       value="dhl"
-                      class="w-4 h-4 rounded-full focus:ring-2 focus:outline-none border appearance-none"
+                      class="peer hidden"
+                      checked={shippingChoice() === 'dhl'}
+                      onChange={() => setShippingCoice('dhl')}
                     />
                     <label
-                      for="country-option-4"
-                      class="select-none ms-2 text-sm font-medium"
+                      for="dhl"
+                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
                     >
                       DHL
                     </label>
+                    <div
+                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                        shippingChoice() === 'dhl'
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div class="overflow-hidden w-full flex justify-between">
+                        <p>Ship to a DHL pick-up-point.</p>
+                        <span>45 kr</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="flex items-center mb-4">
+                  <div class="flex flex-col items-center mb-4">
                     <input
-                      id="shipping-option-4"
+                      id="pigeon"
                       type="radio"
                       name="shipping-methods"
                       value="pigeon"
-                      class="w-4 h-4 rounded-full focus:ring-2 focus:outline-none border appearance-none"
+                      class="peer hidden"
+                      checked={shippingChoice() === 'pigeon'}
+                      onChange={() => setShippingCoice('pigeon')}
                     />
                     <label
-                      for="country-option-4"
-                      class="select-none ms-2 text-sm font-medium"
+                      for="pigeon"
+                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
                     >
                       Pigeon
                     </label>
+                    <div
+                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                        shippingChoice() === 'pigeon'
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div class="overflow-hidden w-full flex justify-between">
+                        <p>Poor bird.</p>
+                        <span>39 kr</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-center mb-4">
+                    <input
+                      id="paper-plane"
+                      type="radio"
+                      name="shipping-methods"
+                      checked={shippingChoice() === 'paper-plane'}
+                      value="paper-plane"
+                      class="peer hidden"
+                      onChange={() => setShippingCoice('paper-plane')}
+                    />
+                    <label
+                      for="paper-plane"
+                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+                    >
+                      Paper airplane
+                    </label>
+                    <div
+                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                        shippingChoice() === 'paper-plane'
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div class="overflow-hidden w-full flex justify-between">
+                        <p>Poor plane.</p>
+                        <span>39 kr</span>
+                      </div>
+                    </div>
                   </div>
                 </fieldset>
               </div>
             </div>
-            <div>
+            <div class="border-b border-everforest-fg">
               <div class="flex flex-col gap-2 text-everforest-fg">
                 <h3 class="text-xl m-0">Payment Method</h3>
               </div>
 
-              <div class="max-w-sm mx-auto mt-4">
-                <label for="card-number-input" class="sr-only">
-                  Card number:
-                </label>
-                <div class="relative">
+              <fieldset>
+                <legend class="sr-only">Payment methods</legend>
+
+                <div class="flex flex-col items-center mb-4">
                   <input
-                    type="text"
-                    id="card-number-input"
-                    class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg pe-9"
-                    placeholder="4242 4242 4242 4242"
-                    pattern="^4[0-9]{12}(?:[0-9]{3})?$"
-                    required
+                    id="card"
+                    type="radio"
+                    name="payment-methods"
+                    value="card"
+                    class="peer hidden"
+                    checked={paymentChoice() === 'card'}
+                    onChange={() => setPaymentChoice('card')}
                   />
-                  <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-                    <svg
-                      fill="none"
-                      class="h-6 dark:text-everforest-fg"
-                      viewBox="0 0 36 21"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M23.315 4.773c-2.542 0-4.813 1.3-4.813 3.705 0 2.756 4.028 2.947 4.028 4.332 0 .583-.676 1.105-1.832 1.105-1.64 0-2.866-.73-2.866-.73l-.524 2.426s1.412.616 3.286.616c2.78 0 4.966-1.365 4.966-3.81 0-2.913-4.045-3.097-4.045-4.383 0-.457.555-.957 1.708-.957 1.3 0 2.36.53 2.36.53l.514-2.343s-1.154-.491-2.782-.491zM.062 4.95L0 5.303s1.07.193 2.032.579c1.24.442 1.329.7 1.537 1.499l2.276 8.664h3.05l4.7-11.095h-3.043l-3.02 7.543L6.3 6.1c-.113-.732-.686-1.15-1.386-1.15H.062zm14.757 0l-2.387 11.095h2.902l2.38-11.096h-2.895zm16.187 0c-.7 0-1.07.37-1.342 1.016L25.41 16.045h3.044l.589-1.68h3.708l.358 1.68h2.685L33.453 4.95h-2.447zm.396 2.997l.902 4.164h-2.417l1.515-4.164z"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div class="grid grid-cols-3 gap-4 my-4">
-                  <div class="relative max-w-sm col-span-2">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                      <svg
-                        class="w-4 h-4 dark:text-everforest-fg"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"
-                        />
-                      </svg>
+                  <label
+                    for="card"
+                    class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+                  >
+                    Card
+                  </label>
+                  <div
+                    class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                      paymentChoice() === 'card'
+                        ? 'grid-rows-[1fr] opacity-100'
+                        : 'grid-rows-[0fr] opacity-0'
+                    }`}
+                  >
+                    <div class="overflow-hidden w-full flex justify-between">
+                      <div class="max-w-sm mx-auto mt-4">
+                        <label for="card-number-input" class="sr-only">
+                          Card number:
+                        </label>
+                        <div class="relative">
+                          <input
+                            type="text"
+                            id="card-number-input"
+                            class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg pe-9"
+                            placeholder="4242 4242 4242 4242"
+                            pattern="^4[0-9]{12}(?:[0-9]{3})?$"
+                            value={cardNo()}
+                            onChange={(e) =>
+                              validateCard(setCardNo(e.target.value))
+                            }
+                            required
+                          />
+                          <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                            <svg
+                              fill="none"
+                              class="h-6 dark:text-everforest-fg"
+                              viewBox="0 0 36 21"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="M23.315 4.773c-2.542 0-4.813 1.3-4.813 3.705 0 2.756 4.028 2.947 4.028 4.332 0 .583-.676 1.105-1.832 1.105-1.64 0-2.866-.73-2.866-.73l-.524 2.426s1.412.616 3.286.616c2.78 0 4.966-1.365 4.966-3.81 0-2.913-4.045-3.097-4.045-4.383 0-.457.555-.957 1.708-.957 1.3 0 2.36.53 2.36.53l.514-2.343s-1.154-.491-2.782-.491zM.062 4.95L0 5.303s1.07.193 2.032.579c1.24.442 1.329.7 1.537 1.499l2.276 8.664h3.05l4.7-11.095h-3.043l-3.02 7.543L6.3 6.1c-.113-.732-.686-1.15-1.386-1.15H.062zm14.757 0l-2.387 11.095h2.902l2.38-11.096h-2.895zm16.187 0c-.7 0-1.07.37-1.342 1.016L25.41 16.045h3.044l.589-1.68h3.708l.358 1.68h2.685L33.453 4.95h-2.447zm.396 2.997l.902 4.164h-2.417l1.515-4.164z"
+                              />
+                            </svg>
+                          </div>
+                          {!validCard() && (
+                            <div class="text-everforest-red pb-1">
+                              Invalid card, check thy numbers
+                            </div>
+                          )}
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 my-4">
+                          <div class="relative max-w-sm col-span-2">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                              <svg
+                                class="w-4 h-4 dark:text-everforest-fg"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"
+                                />
+                              </svg>
+                            </div>
+                            <label for="card-expiration-input" class="sr-only">
+                              Card expiration date:
+                            </label>
+                            <input
+                              id="card-expiration-input"
+                              type="text"
+                              class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
+                              placeholder="12/23"
+                              required
+                            />
+                          </div>
+                          <div class="col-span-1">
+                            <label for="cvv-input" class="sr-only">
+                              Card CVV code:
+                            </label>
+                            <input
+                              type="number"
+                              id="cvv-input"
+                              aria-describedby="helper-text-explanation"
+                              class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::webkit-inner-spin-button]:appearance-none"
+                              placeholder="CVV"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <label for="card-expiration-input" class="sr-only">
-                      Card expiration date:
-                    </label>
-                    <input
-                      id="card-expiration-input"
-                      type="text"
-                      class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
-                      placeholder="12/23"
-                      required
-                    />
-                  </div>
-                  <div class="col-span-1">
-                    <label for="cvv-input" class="sr-only">
-                      Card CVV code:
-                    </label>
-                    <input
-                      type="number"
-                      id="cvv-input"
-                      aria-describedby="helper-text-explanation"
-                      class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::webkit-inner-spin-button]:appearance-none"
-                      placeholder="CVV"
-                      required
-                    />
                   </div>
                 </div>
-              </div>
+                <div class="flex flex-col items-center mb-4">
+                  <input
+                    id="invoice"
+                    type="radio"
+                    name="payment-methods"
+                    value="invoice"
+                    class="peer hidden"
+                    checked={paymentChoice() === 'invoice'}
+                    onChange={() => setPaymentChoice('invoice')}
+                  />
+                  <label
+                    for="invoice"
+                    class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+                  >
+                    Invoice
+                  </label>
+                </div>
+                <div
+                  class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                    paymentChoice() === 'invoice'
+                      ? 'grid-rows-[1fr] opacity-100'
+                      : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div class="overflow-hidden w-full flex justify-between">
+                    Pay by invoice
+                  </div>
+                </div>
+                <div class="flex flex-col items-center mb-4">
+                  <input
+                    id="swish"
+                    type="radio"
+                    name="payment-methods"
+                    value="invoice"
+                    class="peer hidden"
+                    checked={paymentChoice() === 'swish'}
+                    onChange={() => setPaymentChoice('swish')}
+                  />
+                  <label
+                    for="swish"
+                    class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+                  >
+                    Swish
+                  </label>
+                </div>
+                <div
+                  class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                    paymentChoice() === 'swish'
+                      ? 'grid-rows-[1fr] opacity-100'
+                      : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div class="overflow-hidden w-full flex justify-between">
+                    Pay by swish
+                  </div>
+                </div>
+              </fieldset>
             </div>
+            <button
+              type="submit"
+              class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+            >
+              Place Order
+            </button>
           </form>
         </div>
       </div>

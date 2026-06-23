@@ -23,7 +23,7 @@ type OrderInformation = {
   firstName: string;
   lastName: string;
   address: string;
-  postalCode: number;
+  postalCode: string;
   city: string;
   shippingMethod: {
     type: string;
@@ -46,14 +46,14 @@ const Checkout: Component = () => {
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
 
   const [formData, setFormData] = createSignal<OrderInformation>({
-    email: '',
-    phone: '',
-    socialSecurityNumber: '',
-    firstName: '',
-    lastName: '',
-    address: '',
-    postalCode: 0,
-    city: '',
+    email: 'test@test.com',
+    phone: '0123456789',
+    socialSecurityNumber: '101001-0101',
+    firstName: 'Herr',
+    lastName: 'Test',
+    address: 'Vägen 123 A',
+    postalCode: '12345',
+    city: 'Staden',
     shippingMethod: {
       type: '',
       price: 0,
@@ -68,6 +68,29 @@ const Checkout: Component = () => {
       phoneNumber: '',
       socialSecurityNumber: '',
     },
+    // {
+    // email: '',
+    // phone: '',
+    // socialSecurityNumber: '',
+    // firstName: '',
+    // lastName: '',
+    // address: '',
+    // postalCode: '',
+    // city: '',
+    // shippingMethod: {
+    //   type: '',
+    //   price: 0,
+    // },
+    // paymentInfo: {
+    //   type: '',
+    //   cardInfo: {
+    //     number: 0,
+    //     expiry: '',
+    //     cvv: 123,
+    //   },
+    //   phoneNumber: '',
+    //   socialSecurityNumber: '',
+    // },
   });
 
   const [cardNo, setCardNo] = createSignal<string>('');
@@ -101,9 +124,14 @@ const Checkout: Component = () => {
       currentTarget: HTMLInputElement;
     },
   ) => {
-    const { name, value } = e.currentTarget;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    
+    const { name, value, type } = e.currentTarget;
+    setFormData((prev) => ({
+      ...prev,
+      // shippingMethod: { type: shippingChoice(), price: 39 },
+      // paymentInfo: { type: paymentChoice() },
+      [name]: value,
+    }));
+    console.log(formData())
   };
 
   const handleFetchAdress = () => {
@@ -113,7 +141,7 @@ const Checkout: Component = () => {
   const handleOrderSubmit = (e: Event) => {
     e.preventDefault();
     console.log('handle the order submisson');
-    console.log(formData())
+    console.log(formData());
   };
 
   const cart = useCart();
@@ -616,7 +644,7 @@ const Checkout: Component = () => {
                             value={cardNo()}
                             onChange={(e) =>
                               validateCard(setCardNo(e.target.value))
-                            }                          
+                            }
                           />
                           <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                             <svg
@@ -659,7 +687,7 @@ const Checkout: Component = () => {
                               id="card-expiration-input"
                               type="text"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
-                              placeholder="12/23"                              
+                              placeholder="12/23"
                             />
                           </div>
                           <div class="col-span-1">

@@ -1,4 +1,5 @@
 import { Component, createSignal, For } from 'solid-js';
+import { createStore, produce } from 'solid-js/store';
 import Percent from 'lucide-solid/icons/percent';
 import Gift from 'lucide-solid/icons/gift';
 import { useCart } from '../Context/CartContext';
@@ -26,18 +27,16 @@ type OrderInformation = {
   postalCode: string;
   city: string;
   shippingMethod: {
-    type: string;
+    type: ShippingMethod;
     price: number;
   };
   paymentInfo: {
-    type: string;
+    type: PaymentMethod;
     cardInfo?: {
       number: number;
       expiry: string;
       cvv: number;
     };
-    phoneNumber?: string;
-    socialSecurityNumber?: string;
   };
 };
 
@@ -45,60 +44,29 @@ const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
 
-  const [formData, setFormData] = createSignal<OrderInformation>({
-    email: 'test@test.com',
-    phone: '0123456789',
-    socialSecurityNumber: '101001-0101',
-    firstName: 'Herr',
-    lastName: 'Test',
-    address: 'Vägen 123 A',
-    postalCode: '12345',
-    city: 'Staden',
+   const [formData, setFormData] = createStore<OrderInformation>({
+    email: '',
+    phone: '',
+    socialSecurityNumber: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    postalCode: '',
+    city: '',
     shippingMethod: {
-      type: '',
+      type: 'postnord',
       price: 0,
     },
     paymentInfo: {
-      type: '',
+      type: 'card',
       cardInfo: {
-        number: 0,
+        number: 4242424242424242,
         expiry: '',
         cvv: 123,
       },
-      phoneNumber: '',
-      socialSecurityNumber: '',
     },
-    // {
-    // email: '',
-    // phone: '',
-    // socialSecurityNumber: '',
-    // firstName: '',
-    // lastName: '',
-    // address: '',
-    // postalCode: '',
-    // city: '',
-    // shippingMethod: {
-    //   type: '',
-    //   price: 0,
-    // },
-    // paymentInfo: {
-    //   type: '',
-    //   cardInfo: {
-    //     number: 0,
-    //     expiry: '',
-    //     cvv: 123,
-    //   },
-    //   phoneNumber: '',
-    //   socialSecurityNumber: '',
-    // },
   });
-
-  const [cardNo, setCardNo] = createSignal<string>('');
   const [validCard, setValidCard] = createSignal<boolean>(false);
-
-  const [shippingChoice, setShippingCoice] =
-    createSignal<ShippingMethod>('postnord');
-  const [paymentChoice, setPaymentChoice] = createSignal<PaymentMethod>('card');
 
   const validateCard = (cardNo: string) => {
     let nDigits = cardNo.length;
@@ -125,13 +93,22 @@ const Checkout: Component = () => {
     },
   ) => {
     const { name, value, type } = e.currentTarget;
-    setFormData((prev) => ({
-      ...prev,
-      // shippingMethod: { type: shippingChoice(), price: 39 },
-      // paymentInfo: { type: paymentChoice() },
-      [name]: value,
-    }));
-    console.log(formData())
+    const coercedValue = type === 'number' ? Number(value) : value;
+    const path = name.split('.') as any;
+
+    setFormData(
+      produce((task) => {
+        let node: any = task;
+        for (let i = 0; i < path.length - 1; i++) {
+          node = node[path[i]];
+        }
+        node[path[path.length - 1]] = coercedValue;
+
+        if (name === "paymentInfo.type" && coercedValue !== "card") {
+          task.paymentInfo.cardInfo = {number: 4242424242424242, expiry: '', cvv: 123}
+        }
+      }),
+    );
   };
 
   const handleFetchAdress = () => {
@@ -141,7 +118,7 @@ const Checkout: Component = () => {
   const handleOrderSubmit = (e: Event) => {
     e.preventDefault();
     console.log('handle the order submisson');
-    console.log(formData());
+    console.log(formData);
   };
 
   const cart = useCart();
@@ -247,7 +224,7 @@ const Checkout: Component = () => {
                         name="email"
                         placeholder="johndoe@youremail.com"
                         id="email"
-                        value={formData().email}
+                        value={formData.email}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -267,7 +244,7 @@ const Checkout: Component = () => {
                         name="phone"
                         placeholder="0123-456789"
                         id="phone_number"
-                        value={formData().phone}
+                        value={formData.phone}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -288,7 +265,7 @@ const Checkout: Component = () => {
                           name="socialSecurityNumber"
                           placeholder="100101-1111"
                           id="socialsecurity_number"
-                          value={formData().socialSecurityNumber}
+                          value={formData.socialSecurityNumber}
                           onInput={handleInputChange}
                           class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         />
@@ -321,7 +298,7 @@ const Checkout: Component = () => {
                         name="firstName"
                         placeholder="John"
                         id="first_name"
-                        value={formData().firstName}
+                        value={formData.firstName}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -341,7 +318,7 @@ const Checkout: Component = () => {
                         name="lastName"
                         placeholder="Doe"
                         id="last_name"
-                        value={formData().lastName}
+                        value={formData.lastName}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -361,7 +338,7 @@ const Checkout: Component = () => {
                         name="address"
                         placeholder="The Street 123 A"
                         id="address"
-                        value={formData().address}
+                        value={formData.address}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -381,7 +358,7 @@ const Checkout: Component = () => {
                         name="postalCode"
                         placeholder="123 45"
                         id="postal_code"
-                        value={formData().postalCode}
+                        value={formData.postalCode}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -399,7 +376,7 @@ const Checkout: Component = () => {
                         name="city"
                         placeholder="The City"
                         id="city"
-                        value={formData().city}
+                        value={formData.city}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -421,11 +398,11 @@ const Checkout: Component = () => {
                     <input
                       id="instabox"
                       type="radio"
-                      name="shipping-methods"
+                      name="shippingMethod.type"
                       value="instabox"
                       class="peer hidden"
-                      checked={shippingChoice() === 'instabox'}
-                      onChange={() => setShippingCoice('instabox')}
+                      checked={formData.shippingMethod.type === 'instabox'}
+                      onChange={handleInputChange}
                     />
                     <label
                       for="instabox"
@@ -435,7 +412,7 @@ const Checkout: Component = () => {
                     </label>
                     <div
                       class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        shippingChoice() === 'instabox'
+                        formData.shippingMethod.type === 'instabox'
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
                       }`}
@@ -451,11 +428,11 @@ const Checkout: Component = () => {
                     <input
                       id="budbee"
                       type="radio"
-                      name="shipping-methods"
+                      name="shippingMethod.type"
                       value="budbee"
                       class="peer hidden"
-                      checked={shippingChoice() === 'budbee'}
-                      onChange={() => setShippingCoice('budbee')}
+                      checked={formData.shippingMethod.type === 'budbee'}
+                      onChange={handleInputChange}
                     />
                     <label
                       for="budbee"
@@ -465,7 +442,7 @@ const Checkout: Component = () => {
                     </label>
                     <div
                       class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        shippingChoice() === 'budbee'
+                        formData.shippingMethod.type === 'budbee'
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
                       }`}
@@ -481,11 +458,11 @@ const Checkout: Component = () => {
                     <input
                       id="postnord"
                       type="radio"
-                      name="shipping-methods"
+                      name="shippingMethod.type"
                       value="postnord"
                       class="peer hidden"
-                      checked={shippingChoice() === 'postnord'}
-                      onChange={() => setShippingCoice('postnord')}
+                      checked={formData.shippingMethod.type === 'postnord'}
+                      onChange={handleInputChange}
                     />
                     <label
                       for="postnord"
@@ -495,7 +472,7 @@ const Checkout: Component = () => {
                     </label>
                     <div
                       class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        shippingChoice() === 'postnord'
+                        formData.shippingMethod.type === 'postnord'
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
                       }`}
@@ -511,11 +488,11 @@ const Checkout: Component = () => {
                     <input
                       id="dhl"
                       type="radio"
-                      name="shipping-methods"
+                      name="shippingMethod.type"
                       value="dhl"
                       class="peer hidden"
-                      checked={shippingChoice() === 'dhl'}
-                      onChange={() => setShippingCoice('dhl')}
+                      checked={formData.shippingMethod.type === 'dhl'}
+                      onChange={handleInputChange}
                     />
                     <label
                       for="dhl"
@@ -525,7 +502,7 @@ const Checkout: Component = () => {
                     </label>
                     <div
                       class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        shippingChoice() === 'dhl'
+                        formData.shippingMethod.type === 'dhl'
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
                       }`}
@@ -541,11 +518,11 @@ const Checkout: Component = () => {
                     <input
                       id="pigeon"
                       type="radio"
-                      name="shipping-methods"
+                      name="shippingMethod.type"
                       value="pigeon"
                       class="peer hidden"
-                      checked={shippingChoice() === 'pigeon'}
-                      onChange={() => setShippingCoice('pigeon')}
+                      checked={formData.shippingMethod.type === 'pigeon'}
+                      onChange={handleInputChange}
                     />
                     <label
                       for="pigeon"
@@ -555,7 +532,7 @@ const Checkout: Component = () => {
                     </label>
                     <div
                       class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        shippingChoice() === 'pigeon'
+                        formData.shippingMethod.type === 'pigeon'
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
                       }`}
@@ -570,11 +547,11 @@ const Checkout: Component = () => {
                     <input
                       id="paper-plane"
                       type="radio"
-                      name="shipping-methods"
-                      checked={shippingChoice() === 'paper-plane'}
+                      name="shippingMethod.type"
+                      checked={formData.shippingMethod.type === 'paper-plane'}
                       value="paper-plane"
                       class="peer hidden"
-                      onChange={() => setShippingCoice('paper-plane')}
+                      onChange={handleInputChange}
                     />
                     <label
                       for="paper-plane"
@@ -584,7 +561,7 @@ const Checkout: Component = () => {
                     </label>
                     <div
                       class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        shippingChoice() === 'paper-plane'
+                        formData.shippingMethod.type === 'paper-plane'
                           ? 'grid-rows-[1fr] opacity-100'
                           : 'grid-rows-[0fr] opacity-0'
                       }`}
@@ -610,11 +587,11 @@ const Checkout: Component = () => {
                   <input
                     id="card"
                     type="radio"
-                    name="payment-methods"
+                    name="paymentInfo.type"
                     value="card"
                     class="peer hidden"
-                    checked={paymentChoice() === 'card'}
-                    onChange={() => setPaymentChoice('card')}
+                    checked={formData.paymentInfo.type === 'card'}
+                    onChange={handleInputChange}
                   />
                   <label
                     for="card"
@@ -624,7 +601,7 @@ const Checkout: Component = () => {
                   </label>
                   <div
                     class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                      paymentChoice() === 'card'
+                      formData.paymentInfo.type === 'card'
                         ? 'grid-rows-[1fr] opacity-100'
                         : 'grid-rows-[0fr] opacity-0'
                     }`}
@@ -638,13 +615,12 @@ const Checkout: Component = () => {
                           <input
                             type="text"
                             id="card-number-input"
+                            name="paymentInfo.cardInfo.number"
                             class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg pe-9"
                             placeholder="4242 4242 4242 4242"
                             pattern="^4[0-9]{12}(?:[0-9]{3})?$"
-                            value={cardNo()}
-                            onChange={(e) =>
-                              validateCard(setCardNo(e.target.value))
-                            }
+                            value={formData.paymentInfo.cardInfo?.number}
+                            onChange={handleInputChange}
                           />
                           <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                             <svg
@@ -685,9 +661,12 @@ const Checkout: Component = () => {
                             </label>
                             <input
                               id="card-expiration-input"
+                              name="paymentInfo.cardInfo.expiry"
                               type="text"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
                               placeholder="12/23"
+                              value={formData.paymentInfo.cardInfo?.expiry}
+                              onChange={handleInputChange}
                             />
                           </div>
                           <div class="col-span-1">
@@ -697,9 +676,12 @@ const Checkout: Component = () => {
                             <input
                               type="number"
                               id="cvv-input"
+                              name="paymentInfo.cardInfo.cvv"
                               aria-describedby="helper-text-explanation"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::webkit-inner-spin-button]:appearance-none"
                               placeholder="CVV"
+                              value={formData.paymentInfo.cardInfo?.cvv}
+                              onChange={handleInputChange}
                             />
                           </div>
                         </div>
@@ -711,11 +693,11 @@ const Checkout: Component = () => {
                   <input
                     id="invoice"
                     type="radio"
-                    name="payment-methods"
+                    name="paymentInfo.type"
                     value="invoice"
                     class="peer hidden"
-                    checked={paymentChoice() === 'invoice'}
-                    onChange={() => setPaymentChoice('invoice')}
+                    checked={formData.paymentInfo.type === 'invoice'}
+                    onChange={handleInputChange}
                   />
                   <label
                     for="invoice"
@@ -726,7 +708,7 @@ const Checkout: Component = () => {
                 </div>
                 <div
                   class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    paymentChoice() === 'invoice'
+                    formData.paymentInfo.type === 'invoice'
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
                   }`}
@@ -739,11 +721,11 @@ const Checkout: Component = () => {
                   <input
                     id="swish"
                     type="radio"
-                    name="payment-methods"
-                    value="invoice"
+                    name="paymentInfo.type"
+                    value="swish"
                     class="peer hidden"
-                    checked={paymentChoice() === 'swish'}
-                    onChange={() => setPaymentChoice('swish')}
+                    checked={formData.paymentInfo.type === 'swish'}
+                    onChange={handleInputChange}
                   />
                   <label
                     for="swish"
@@ -754,7 +736,7 @@ const Checkout: Component = () => {
                 </div>
                 <div
                   class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    paymentChoice() === 'swish'
+                    formData.paymentInfo.type === 'swish'
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
                   }`}

@@ -1,0 +1,402 @@
+[
+  {
+    "booksId": 13,
+    "genresId": 1
+  },
+  {
+    "booksId": 14,
+    "genresId": 1
+  },
+  {
+    "booksId": 15,
+    "genresId": 1
+  },
+  {
+    "booksId": 16,
+    "genresId": 1
+  },
+  {
+    "booksId": 17,
+    "genresId": 1
+  },
+  {
+    "booksId": 18,
+    "genresId": 1
+  },
+  {
+    "booksId": 19,
+    "genresId": 1
+  },
+  {
+    "booksId": 20,
+    "genresId": 1
+  },
+  {
+    "booksId": 21,
+    "genresId": 1
+  },
+  {
+    "booksId": 22,
+    "genresId": 1
+  },
+  {
+    "booksId": 23,
+    "genresId": 1
+  },
+  {
+    "booksId": 24,
+    "genresId": 1
+  },
+  {
+    "booksId": 25,
+    "genresId": 1
+  },
+  {
+    "booksId": 26,
+    "genresId": 1
+  },
+  {
+    "booksId": 27,
+    "genresId": 1
+  },
+  {
+    "booksId": 28,
+    "genresId": 1
+  },
+  {
+    "booksId": 29,
+    "genresId": 1
+  },
+  {
+    "booksId": 30,
+    "genresId": 1
+  },
+  {
+    "booksId": 31,
+    "genresId": 1
+  },
+  {
+    "booksId": 32,
+    "genresId": 1
+  },
+  {
+    "booksId": 33,
+    "genresId": 1
+  },
+  {
+    "booksId": 34,
+    "genresId": 1
+  },
+  {
+    "booksId": 35,
+    "genresId": 1
+  },
+  {
+    "booksId": 36,
+    "genresId": 1
+  },
+  {
+    "booksId": 37,
+    "genresId": 1
+  },
+  {
+    "booksId": 38,
+    "genresId": 5
+  },
+  {
+    "booksId": 39,
+    "genresId": 5
+  },
+  {
+    "booksId": 40,
+    "genresId": 5
+  },
+  {
+    "booksId": 41,
+    "genresId": 5
+  },
+  {
+    "booksId": 42,
+    "genresId": 5
+  },
+  {
+    "booksId": 43,
+    "genresId": 5
+  },
+  {
+    "booksId": 44,
+    "genresId": 5
+  },
+  {
+    "booksId": 45,
+    "genresId": 5
+  },
+  {
+    "booksId": 46,
+    "genresId": 5
+  },
+  {
+    "booksId": 47,
+    "genresId": 5
+  },
+  {
+    "booksId": 48,
+    "genresId": 5
+  },
+  {
+    "booksId": 49,
+    "genresId": 5
+  },
+  {
+    "booksId": 50,
+    "genresId": 5
+  },
+  {
+    "booksId": 51,
+    "genresId": 5
+  },
+  {
+    "booksId": 52,
+    "genresId": 5
+  },
+  {
+    "booksId": 53,
+    "genresId": 5
+  },
+  {
+    "booksId": 54,
+    "genresId": 5
+  },
+  {
+    "booksId": 55,
+    "genresId": 5
+  },
+  {
+    "booksId": 56,
+    "genresId": 5
+  },
+  {
+    "booksId": 57,
+    "genresId": 5
+  },
+  {
+    "booksId": 58,
+    "genresId": 5
+  },
+  {
+    "booksId": 59,
+    "genresId": 5
+  },
+  {
+    "booksId": 60,
+    "genresId": 5
+  },
+  {
+    "booksId": 61,
+    "genresId": 5
+  },
+  {
+    "booksId": 62,
+    "genresId": 5
+  },
+  {
+    "booksId": 63,
+    "genresId": 6
+  },
+  {
+    "booksId": 64,
+    "genresId": 6
+  },
+  {
+    "booksId": 65,
+    "genresId": 6
+  },
+  {
+    "booksId": 66,
+    "genresId": 6
+  },
+  {
+    "booksId": 67,
+    "genresId": 6
+  },
+  {
+    "booksId": 68,
+    "genresId": 6
+  },
+  {
+    "booksId": 69,
+    "genresId": 6
+  },
+  {
+    "booksId": 70,
+    "genresId": 6
+  },
+  {
+    "booksId": 71,
+    "genresId": 6
+  },
+  {
+    "booksId": 72,
+    "genresId": 6
+  },
+  {
+    "booksId": 73,
+    "genresId": 6
+  },
+  {
+    "booksId": 74,
+    "genresId": 6
+  },
+  {
+    "booksId": 75,
+    "genresId": 6
+  },
+  {
+    "booksId": 76,
+    "genresId": 6
+  },
+  {
+    "booksId": 77,
+    "genresId": 6
+  },
+  {
+    "booksId": 78,
+    "genresId": 6
+  },
+  {
+    "booksId": 79,
+    "genresId": 6
+  },
+  {
+    "booksId": 80,
+    "genresId": 6
+  },
+  {
+    "booksId": 81,
+    "genresId": 6
+  },
+  {
+    "booksId": 82,
+    "genresId": 6
+  },
+  {
+    "booksId": 83,
+    "genresId": 6
+  },
+  {
+    "booksId": 84,
+    "genresId": 6
+  },
+  {
+    "booksId": 85,
+    "genresId": 6
+  },
+  {
+    "booksId": 86,
+    "genresId": 6
+  },
+  {
+    "booksId": 87,
+    "genresId": 6
+  },
+  {
+    "booksId": 88,
+    "genresId": 6
+  },
+  {
+    "booksId": 89,
+    "genresId": 6
+  },
+  {
+    "booksId": 90,
+    "genresId": 6
+  },
+  {
+    "booksId": 91,
+    "genresId": 6
+  },
+  {
+    "booksId": 92,
+    "genresId": 6
+  },
+  {
+    "booksId": 93,
+    "genresId": 1
+  },
+  {
+    "booksId": 94,
+    "genresId": 1
+  },
+  {
+    "booksId": 95,
+    "genresId": 1
+  },
+  {
+    "booksId": 96,
+    "genresId": 1
+  },
+  {
+    "booksId": 97,
+    "genresId": 1
+  },
+  {
+    "booksId": 98,
+    "genresId": 1
+  },
+  {
+    "booksId": 99,
+    "genresId": 1
+  },
+  {
+    "booksId": 100,
+    "genresId": 1
+  },
+  {
+    "booksId": 101,
+    "genresId": 1
+  },
+  {
+    "booksId": 102,
+    "genresId": 1
+  },
+  {
+    "booksId": 103,
+    "genresId": 5
+  },
+  {
+    "booksId": 104,
+    "genresId": 5
+  },
+  {
+    "booksId": 105,
+    "genresId": 5
+  },
+  {
+    "booksId": 106,
+    "genresId": 5
+  },
+  {
+    "booksId": 107,
+    "genresId": 5
+  },
+  {
+    "booksId": 108,
+    "genresId": 5
+  },
+  {
+    "booksId": 109,
+    "genresId": 6
+  },
+  {
+    "booksId": 110,
+    "genresId": 6
+  },
+  {
+    "booksId": 111,
+    "genresId": 6
+  },
+  {
+    "booksId": 112,
+    "genresId": 6
+  }
+]

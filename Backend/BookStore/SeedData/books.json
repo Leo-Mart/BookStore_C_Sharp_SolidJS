@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 13,
+    "isbn": "978-0-261-10221-7",
+    "title": "The Fellowship of the Ring",
+    "publisher": "Allen & Unwin",
+    "publishedDate": "1954-07-29",
+    "description": "The first part of Tolkien's epic fantasy trilogy, following hobbit Frodo Baggins as he sets out on a quest to destroy the One Ring.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 14,
+    "isbn": "978-0-261-10236-1",
+    "title": "The Two Towers",
+    "publisher": "Allen & Unwin",
+    "publishedDate": "1954-11-11",
+    "description": "The second volume of The Lord of the Rings, continuing the War of the Ring as the Fellowship is broken.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 15,
+    "isbn": "978-0-261-10237-8",
+    "title": "The Return of the King",
+    "publisher": "Allen & Unwin",
+    "publishedDate": "1955-10-20",
+    "description": "The final volume of The Lord of the Rings, culminating in the destruction of the One Ring and the defeat of Sauron.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 16,
+    "isbn": "978-0-7432-7356-5",
+    "title": "The Name of the Wind",
+    "publisher": "DAW Books",
+    "publishedDate": "2007-03-27",
+    "description": "The tale of Kvothe, a legendary wizard and musician, told in his own words as he recounts his extraordinary life.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 17,
+    "isbn": "978-0-7564-0407-6",
+    "title": "The Way of Kings",
+    "publisher": "Tor Books",
+    "publishedDate": "2010-08-31",
+    "description": "Epic fantasy set in the world of Roshar, where a war is fought on the Shattered Plains and ancient powers begin to return.",
+    "price": 19.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 18,
+    "isbn": "978-0-7564-0473-1",
+    "title": "Words of Radiance",
+    "publisher": "Tor Books",
+    "publishedDate": "2014-03-04",
+    "description": "The second book in The Stormlight Archive, continuing the story of the Knights Radiant and the Desolation threatening Roshar.",
+    "price": 19.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 19,
+    "isbn": "978-0-7653-2637-9",
+    "title": "The Final Empire",
+    "publisher": "Tor Books",
+    "publishedDate": "2006-07-17",
+    "description": "In a world where ash falls from the sky and mists dominate the night, a group of rebels plans to overthrow a seemingly immortal ruler.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 20,
+    "isbn": "978-0-380-97593-3",
+    "title": "A Game of Thrones",
+    "publisher": "Bantam Books",
+    "publishedDate": "1996-08-01",
+    "description": "The first novel in the A Song of Ice and Fire series, set in the Seven Kingdoms of Westeros where noble houses vie for the Iron Throne.",
+    "price": 17.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 21,
+    "isbn": "978-0-553-10354-0",
+    "title": "A Clash of Kings",
+    "publisher": "Bantam Books",
+    "publishedDate": "1998-11-16",
+    "description": "The second book in A Song of Ice and Fire, in which five kings claim the Iron Throne as the War of the Five Kings begins.",
+    "price": 17.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 22,
+    "isbn": "978-0-00-711835-0",
+    "title": "The Blade Itself",
+    "publisher": "Gollancz",
+    "publishedDate": "2006-05-04",
+    "description": "The first book of The First Law trilogy, a gritty fantasy following a barbarian, a torturer, and a crippled war hero.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 23,
+    "isbn": "978-0-06-112009-3",
+    "title": "The Lies of Locke Lamora",
+    "publisher": "Bantam Spectra",
+    "publishedDate": "2006-06-27",
+    "description": "A master thief and his gang of con artists pull off an elaborate heist in a city built on the ruins of an alien civilization.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 24,
+    "isbn": "978-0-345-45430-5",
+    "title": "The Eye of the World",
+    "publisher": "Tor Books",
+    "publishedDate": "1990-01-15",
+    "description": "The first book in The Wheel of Time series, following a young farmhand who discovers he may be the Dragon Reborn.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 25,
+    "isbn": "978-0-441-00897-8",
+    "title": "American Gods",
+    "publisher": "William Morrow",
+    "publishedDate": "2001-06-19",
+    "description": "A recently released ex-convict is drawn into a conflict between old gods brought to America by immigrants and new gods of technology and media.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 26,
+    "isbn": "978-0-06-093546-9",
+    "title": "Neverwhere",
+    "publisher": "Avon Books",
+    "publishedDate": "1996-09-16",
+    "description": "After helping a mysterious injured girl, a London businessman finds himself in London Below, a magical underworld beneath the city streets.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 27,
+    "isbn": "978-0-575-07979-0",
+    "title": "The Colour of Magic",
+    "publisher": "Colin Smythe",
+    "publishedDate": "1983-11-24",
+    "description": "The first Discworld novel, following the hapless wizard Rincewind and the world's first tourist across a flat world balanced on four elephants.",
+    "price": 12.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 28,
+    "isbn": "978-0-06-073218-2",
+    "title": "The Name of the Wind",
+    "publisher": "Ace Books",
+    "publishedDate": "1968-07-01",
+    "description": "A young girl and her cat travel through a mystical land in search of her missing uncle, guided by fantastic beings.",
+    "price": 11.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 29,
+    "isbn": "978-0-7432-7356-5",
+    "title": "A Wizard of Earthsea",
+    "publisher": "Parnassus Press",
+    "publishedDate": "1968-11-01",
+    "description": "A young boy with unusual magical ability is sent to a school for wizards on an island, where he unleashes a terrible shadow.",
+    "price": 11.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 30,
+    "isbn": "978-0-06-447187-3",
+    "title": "The Lion, The Witch and the Wardrobe",
+    "publisher": "Geoffrey Bles",
+    "publishedDate": "1950-10-16",
+    "description": "Four children step through a wardrobe into the magical land of Narnia, where they must help the great lion Aslan defeat the White Witch.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 31,
+    "isbn": "978-0-7432-7357-2",
+    "title": "Assassin's Apprentice",
+    "publisher": "Bantam Books",
+    "publishedDate": "1995-03-01",
+    "description": "The illegitimate son of a prince is trained as a royal assassin while uncovering dangerous secrets about the kingdom.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 32,
+    "isbn": "978-0-316-76948-0",
+    "title": "The Night Circus",
+    "publisher": "Doubleday",
+    "publishedDate": "2011-09-13",
+    "description": "A mysterious black-and-white circus appears without warning and two young magicians compete within it, unaware of the stakes of their contest.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 33,
+    "isbn": "978-0-06-112008-6",
+    "title": "Jonathan Strange & Mr Norrell",
+    "publisher": "Bloomsbury",
+    "publishedDate": "2004-09-08",
+    "description": "Two very different magicians attempt to restore magic to England during the Napoleonic Wars, with unpredictable consequences.",
+    "price": 17.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 34,
+    "isbn": "978-0-380-78868-0",
+    "title": "Tigana",
+    "publisher": "Penguin Books",
+    "publishedDate": "1990-05-01",
+    "description": "In a conquered land whose very name has been magically erased, a band of rebels struggles to reclaim their history and freedom.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 35,
+    "isbn": "978-0-06-055397-7",
+    "title": "The Priory of the Orange Tree",
+    "publisher": "Bloomsbury Publishing",
+    "publishedDate": "2019-02-26",
+    "description": "A sweeping standalone fantasy of dragons, queens, and ancient prophecy, set in a richly imagined world on the brink of cataclysm.",
+    "price": 18.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 36,
+    "isbn": "978-0-385-33348-1",
+    "title": "Good Omens",
+    "publisher": "Gollancz",
+    "publishedDate": "1990-05-10",
+    "description": "An angel and a demon who have grown fond of Earth team up to avert the coming Apocalypse, complicated by a missing Antichrist.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 37,
+    "isbn": "978-0-7564-1571-3",
+    "title": "The Fifth Season",
+    "publisher": "Orbit Books",
+    "publishedDate": "2015-08-04",
+    "description": "In a world that experiences catastrophic climate events, a woman searches for her daughter amid the end of civilization.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 38,
+    "isbn": "978-0-441-78935-8",
+    "title": "Dune",
+    "publisher": "Chilton Books",
+    "publishedDate": "1965-08-01",
+    "description": "A young nobleman takes control of the desert planet Arrakis, the only source of the universe's most valuable substance, melange.",
+    "price": 17.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 39,
+    "isbn": "978-0-441-17271-9",
+    "title": "Dune Messiah",
+    "publisher": "Putnam",
+    "publishedDate": "1969-10-01",
+    "description": "The sequel to Dune, following Paul Atreides twelve years after his rise to power as religious and political forces conspire against him.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 40,
+    "isbn": "978-0-451-52493-5",
+    "title": "1984",
+    "publisher": "Secker & Warburg",
+    "publishedDate": "1949-06-08",
+    "description": "In a totalitarian future society, Winston Smith works for the government rewriting historical records and begins a doomed resistance.",
+    "price": 12.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 41,
+    "isbn": "978-0-06-085052-4",
+    "title": "Brave New World",
+    "publisher": "Chatto & Windus",
+    "publishedDate": "1932-01-01",
+    "description": "A dystopian vision of a future where humans are genetically engineered and conditioned to be happy consumers in a rigid caste system.",
+    "price": 12.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 42,
+    "isbn": "978-0-7432-7358-9",
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "publisher": "Pan Books",
+    "publishedDate": "1979-10-12",
+    "description": "An ordinary man is swept into an absurd adventure across the universe after Earth is demolished to make way for a hyperspace bypass.",
+    "price": 12.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 43,
+    "isbn": "978-0-553-29335-3",
+    "title": "Foundation",
+    "publisher": "Gnome Press",
+    "publishedDate": "1951-05-01",
+    "description": "A mathematician foresees the fall of a galactic empire and establishes a foundation to preserve knowledge and shorten the coming dark age.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 44,
+    "isbn": "978-0-553-29337-7",
+    "title": "Foundation and Empire",
+    "publisher": "Gnome Press",
+    "publishedDate": "1952-01-01",
+    "description": "The Foundation faces a dual threat: the remnants of the old Galactic Empire and a mysterious mutant known as the Mule.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 45,
+    "isbn": "978-0-553-29338-4",
+    "title": "I, Robot",
+    "publisher": "Gnome Press",
+    "publishedDate": "1950-12-02",
+    "description": "A collection of interconnected stories exploring the relationship between humans and robots governed by the Three Laws of Robotics.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 46,
+    "isbn": "978-0-7432-7359-6",
+    "title": "Neuromancer",
+    "publisher": "Ace Books",
+    "publishedDate": "1984-07-01",
+    "description": "A washed-up hacker is hired by a mysterious employer for one last job: hacking the most powerful artificial intelligence in the world.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 47,
+    "isbn": "978-0-316-76948-1",
+    "title": "The Left Hand of Darkness",
+    "publisher": "Ace Books",
+    "publishedDate": "1969-03-01",
+    "description": "A human emissary travels to a planet where the inhabitants have no fixed gender, challenging his own assumptions about identity and society.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 48,
+    "isbn": "978-0-553-38016-3",
+    "title": "Ender's Game",
+    "publisher": "Tor Books",
+    "publishedDate": "1985-01-15",
+    "description": "A gifted child is trained at a military school in space to become the commander of Earth's forces against an alien species.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 49,
+    "isbn": "978-1-59606-399-7",
+    "title": "Old Man's War",
+    "publisher": "Tor Books",
+    "publishedDate": "2005-01-01",
+    "description": "A 75-year-old man joins the army to fight humanity's interstellar wars, given a young enhanced body in exchange for military service.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 50,
+    "isbn": "978-0-7653-7230-0",
+    "title": "The Martian",
+    "publisher": "Crown Publishing",
+    "publishedDate": "2011-09-27",
+    "description": "An astronaut is accidentally left behind on Mars and must use his ingenuity to survive and signal his crew to return.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 51,
+    "isbn": "978-0-7653-7654-4",
+    "title": "Project Hail Mary",
+    "publisher": "Ballantine Books",
+    "publishedDate": "2021-05-04",
+    "description": "A lone astronaut wakes with no memory in a spacecraft far from Earth and must piece together his mission to save humanity.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 52,
+    "isbn": "978-0-8041-7734-8",
+    "title": "The Three-Body Problem",
+    "publisher": "Tor Books",
+    "publishedDate": "2008-01-01",
+    "description": "During China's Cultural Revolution, a secret military project sends signals into space, leading to first contact with a civilization facing cosmic doom.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 53,
+    "isbn": "978-0-8041-7735-5",
+    "title": "The Dark Forest",
+    "publisher": "Tor Books",
+    "publishedDate": "2008-05-23",
+    "description": "As alien invasion looms, one man is given the mission to devise a secret strategy to save Earth using only his own mind.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 54,
+    "isbn": "978-0-316-38957-1",
+    "title": "Klara and the Sun",
+    "publisher": "Faber & Faber",
+    "publishedDate": "2021-03-02",
+    "description": "An Artificial Friend observes the human world from a shop window, waiting to be chosen, and contemplating what it truly means to love.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 55,
+    "isbn": "978-0-385-49081-6",
+    "title": "Never Let Me Go",
+    "publisher": "Faber & Faber",
+    "publishedDate": "2005-03-03",
+    "description": "A haunting tale of three friends who grew up together at a seemingly idyllic English boarding school and discover their terrifying purpose.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 56,
+    "isbn": "978-0-7432-7360-2",
+    "title": "Snow Crash",
+    "publisher": "Bantam Books",
+    "publishedDate": "1992-06-01",
+    "description": "In a near-future America, a hacker and pizza deliveryman investigates a new drug that is crashing the Metaverse and its users' minds.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 57,
+    "isbn": "978-0-525-55360-5",
+    "title": "Children of Time",
+    "publisher": "Tor Books",
+    "publishedDate": "2015-06-04",
+    "description": "Uplifted spiders evolve civilization on a terraformed planet while the last remnants of humanity desperately search for a new home.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 58,
+    "isbn": "978-0-7653-2635-5",
+    "title": "Blindsight",
+    "publisher": "Tor Books",
+    "publishedDate": "2006-10-03",
+    "description": "First contact with an alien species forces humanity to question the nature of consciousness and what it means to be sentient.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 59,
+    "isbn": "978-0-385-54734-9",
+    "title": "All Systems Red",
+    "publisher": "Tor.com",
+    "publishedDate": "2017-05-02",
+    "description": "A self-described 'murderbot' with hacked governor protocols just wants to watch TV serials while reluctantly protecting its human clients.",
+    "price": 11.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 60,
+    "isbn": "978-0-316-23877-5",
+    "title": "Recursion",
+    "publisher": "Crown Publishing",
+    "publishedDate": "2019-06-11",
+    "description": "A scientist's memory technology is weaponized to rewrite reality, forcing a detective and the inventor herself to fight through altered timelines.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 61,
+    "isbn": "978-0-7653-9358-0",
+    "title": "A Memory Called Empire",
+    "publisher": "Tor Books",
+    "publishedDate": "2019-03-26",
+    "description": "An ambassador from a small space station arrives in the capital of a vast interstellar empire and discovers a plot threatening all humanity.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 62,
+    "isbn": "978-1-250-31357-3",
+    "title": "The Long Way to a Small, Angry Planet",
+    "publisher": "Hodder & Stoughton",
+    "publishedDate": "2014-07-30",
+    "description": "A crew of misfits aboard a tunneling ship takes on a job that sends them on a long journey to the galactic core.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 63,
+    "isbn": "978-0-14-043723-0",
+    "title": "Pride and Prejudice",
+    "publisher": "T. Egerton",
+    "publishedDate": "1813-01-28",
+    "description": "The story of Elizabeth Bennet and her complex relationship with the proud and wealthy Mr. Darcy, set in rural England.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 64,
+    "isbn": "978-0-14-143951-8",
+    "title": "Sense and Sensibility",
+    "publisher": "Thomas Egerton",
+    "publishedDate": "1811-10-30",
+    "description": "Two sisters navigate the pitfalls of love and society in 19th century England, contrasting rational judgment with romantic feeling.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 65,
+    "isbn": "978-0-14-143952-5",
+    "title": "Jane Eyre",
+    "publisher": "Smith, Elder & Co.",
+    "publishedDate": "1847-10-16",
+    "description": "An orphaned girl grows up to become a governess and falls in love with her brooding employer, concealing a terrible secret.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 66,
+    "isbn": "978-0-14-143955-6",
+    "title": "Wuthering Heights",
+    "publisher": "Thomas Newby",
+    "publishedDate": "1847-12-01",
+    "description": "The brooding Heathcliff and his passionate love for Catherine Earnshaw unfold across two generations of turbulent Yorkshire families.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 67,
+    "isbn": "978-0-14-143954-9",
+    "title": "Great Expectations",
+    "publisher": "Chapman & Hall",
+    "publishedDate": "1861-01-01",
+    "description": "A young orphan boy named Pip aspires to become a gentleman after a mysterious benefactor provides him with unexpected wealth.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 68,
+    "isbn": "978-0-14-143960-0",
+    "title": "A Tale of Two Cities",
+    "publisher": "Chapman & Hall",
+    "publishedDate": "1859-04-30",
+    "description": "Set during the French Revolution, a story of love, sacrifice, and redemption connecting London and Paris.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 69,
+    "isbn": "978-0-14-143957-0",
+    "title": "Anna Karenina",
+    "publisher": "The Russian Messenger",
+    "publishedDate": "1878-01-01",
+    "description": "A married aristocrat risks everything for love, while a landowner seeks meaning in a changing Russian society.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 70,
+    "isbn": "978-0-14-030474-4",
+    "title": "War and Peace",
+    "publisher": "The Russian Messenger",
+    "publishedDate": "1869-01-01",
+    "description": "A sweeping epic of Russian society during the Napoleonic Wars, following five intertwined aristocratic families.",
+    "price": 19.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 71,
+    "isbn": "978-0-14-044913-4",
+    "title": "Crime and Punishment",
+    "publisher": "The Russian Messenger",
+    "publishedDate": "1866-01-01",
+    "description": "A destitute student murders a pawnbroker and then grapples with the psychological consequences of his act in St. Petersburg.",
+    "price": 11.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 72,
+    "isbn": "978-0-14-044919-6",
+    "title": "The Brothers Karamazov",
+    "publisher": "The Russian Messenger",
+    "publishedDate": "1880-01-01",
+    "description": "Three brothers, representing different facets of humanity, are bound together by the murder of their despicable father.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 73,
+    "isbn": "978-0-14-028329-7",
+    "title": "Don Quixote",
+    "publisher": "Francisco de Robles",
+    "publishedDate": "1605-01-16",
+    "description": "An aging nobleman so obsessed with chivalric tales that he sets out as a knight-errant, accompanied by his practical squire Sancho Panza.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 74,
+    "isbn": "978-0-14-028381-5",
+    "title": "Hamlet",
+    "publisher": "Nicholas Ling",
+    "publishedDate": "1603-01-01",
+    "description": "Prince Hamlet seeks revenge for his father's murder by his uncle, who has seized the throne of Denmark and married Hamlet's mother.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 75,
+    "isbn": "978-0-14-071455-7",
+    "title": "Moby-Dick",
+    "publisher": "Harper & Brothers",
+    "publishedDate": "1851-10-18",
+    "description": "Captain Ahab's obsessive quest to hunt the great white whale that took his leg leads his crew to disaster.",
+    "price": 12.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 76,
+    "isbn": "978-0-7432-7361-9",
+    "title": "The Scarlet Letter",
+    "publisher": "Ticknor, Reed and Fields",
+    "publishedDate": "1850-03-16",
+    "description": "A woman in Puritan New England is forced to wear a scarlet A as punishment for adultery, exploring themes of sin and guilt.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 77,
+    "isbn": "978-0-14-028381-6",
+    "title": "The Adventures of Huckleberry Finn",
+    "publisher": "Chatto & Windus",
+    "publishedDate": "1884-12-10",
+    "description": "A young boy and an escaped slave travel down the Mississippi River on a raft, confronting the hypocrisy of society.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 78,
+    "isbn": "978-0-14-317752-0",
+    "title": "The Picture of Dorian Gray",
+    "publisher": "Ward, Lock and Company",
+    "publishedDate": "1890-06-20",
+    "description": "A young man's portrait ages and becomes corrupt in his place while he himself remains young and beautiful, living a life of moral decay.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 79,
+    "isbn": "978-0-14-028381-7",
+    "title": "Frankenstein",
+    "publisher": "Lackington, Hughes, Harding, Mavor & Jones",
+    "publishedDate": "1818-01-01",
+    "description": "A scientist creates a living being from dead matter, only to be horrified by his creation and abandon it to a tragic existence.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 80,
+    "isbn": "978-0-14-028381-8",
+    "title": "Dracula",
+    "publisher": "Archibald Constable and Company",
+    "publishedDate": "1897-05-26",
+    "description": "Solicitor Jonathan Harker visits a Transylvanian castle, and a vampiric Count follows him to England to prey on the living.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 81,
+    "isbn": "978-0-14-028381-9",
+    "title": "The Count of Monte Cristo",
+    "publisher": "Pétion",
+    "publishedDate": "1844-01-01",
+    "description": "A man wrongly imprisoned escapes after years of captivity and returns as the mysterious Count of Monte Cristo to exact his revenge.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 82,
+    "isbn": "978-0-14-028382-0",
+    "title": "Les Misérables",
+    "publisher": "A. Lacroix, Verboeckhoven & Cie",
+    "publishedDate": "1862-04-03",
+    "description": "An ex-convict pursued by a relentless policeman strives to become an honest man in post-Revolutionary France.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 83,
+    "isbn": "978-0-14-028382-1",
+    "title": "Madame Bovary",
+    "publisher": "Michel Lévy Frères",
+    "publishedDate": "1857-04-12",
+    "description": "A doctor's wife, dissatisfied with rural provincial life, pursues romantic affairs and material pleasures with ruinous consequences.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 84,
+    "isbn": "978-0-14-028382-2",
+    "title": "Middlemarch",
+    "publisher": "William Blackwood and Sons",
+    "publishedDate": "1871-12-01",
+    "description": "The interlocking stories of residents of a fictional English Midlands town in the period of 1829-32, exploring idealism and marriage.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 85,
+    "isbn": "978-0-14-028382-3",
+    "title": "Ulysses",
+    "publisher": "Sylvia Beach",
+    "publishedDate": "1922-02-02",
+    "description": "Detailing one day in the life of Leopold Bloom in Dublin, this modernist novel mirrors the structure of Homer's Odyssey.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 86,
+    "isbn": "978-0-14-028382-4",
+    "title": "To the Lighthouse",
+    "publisher": "Hogarth Press",
+    "publishedDate": "1927-05-05",
+    "description": "A family's visit to a Scottish island over two days separated by ten years explores memory, loss, and the nature of time.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 87,
+    "isbn": "978-0-14-028382-5",
+    "title": "The Great Gatsby",
+    "publisher": "Charles Scribner's Sons",
+    "publishedDate": "1925-04-10",
+    "description": "A mysterious millionaire's obsession with a lost love plays out against the backdrop of the decadent Jazz Age in 1920s America.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 88,
+    "isbn": "978-0-14-028382-6",
+    "title": "Of Mice and Men",
+    "publisher": "Covici Friede",
+    "publishedDate": "1937-01-06",
+    "description": "Two displaced ranch workers dream of owning their own farm during the Great Depression, but their dream is tragically fragile.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 89,
+    "isbn": "978-0-14-028382-7",
+    "title": "The Old Man and the Sea",
+    "publisher": "Charles Scribner's Sons",
+    "publishedDate": "1952-09-01",
+    "description": "An aging Cuban fisherman struggles to land a giant marlin far out in the Gulf Stream, a battle of will and endurance.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 90,
+    "isbn": "978-0-06-112008-7",
+    "title": "To Kill a Mockingbird",
+    "publisher": "J. B. Lippincott & Co.",
+    "publishedDate": "1960-07-11",
+    "description": "Lawyer Atticus Finch defends a Black man falsely accused of rape in the Deep South, seen through the eyes of his young daughter Scout.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 91,
+    "isbn": "978-0-316-76948-2",
+    "title": "The Catcher in the Rye",
+    "publisher": "Little, Brown and Company",
+    "publishedDate": "1951-07-16",
+    "description": "A disenchanted teenager narrates his aimless days in New York City after being expelled from prep school, exploring alienation and identity.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 92,
+    "isbn": "978-0-14-028382-9",
+    "title": "Lord of the Flies",
+    "publisher": "Faber and Faber",
+    "publishedDate": "1954-09-17",
+    "description": "British boys stranded on a deserted island descend into savagery as they try to govern themselves without adult supervision.",
+    "price": 10.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 93,
+    "isbn": "978-0-7432-7362-6",
+    "title": "Mistborn: The Well of Ascension",
+    "publisher": "Tor Books",
+    "publishedDate": "2007-08-21",
+    "description": "Following the defeat of the Lord Ruler, Vin and her companions struggle to maintain order as new threats and ancient prophecies emerge.",
+    "price": 17.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 94,
+    "isbn": "978-0-7432-7363-3",
+    "title": "The Hero of Ages",
+    "publisher": "Tor Books",
+    "publishedDate": "2008-10-14",
+    "description": "The conclusion of the Mistborn trilogy, in which Vin and Elend battle against the ancient force of Ruin threatening all life.",
+    "price": 17.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 95,
+    "isbn": "978-0-575-09390-1",
+    "title": "Before They Are Hanged",
+    "publisher": "Gollancz",
+    "publishedDate": "2007-03-01",
+    "description": "The second book of The First Law trilogy, in which three storylines converge: a doomed expedition, a city under siege, and a torturer on trial.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 96,
+    "isbn": "978-0-575-07979-1",
+    "title": "Last Argument of Kings",
+    "publisher": "Gollancz",
+    "publishedDate": "2008-03-20",
+    "description": "The First Law trilogy concludes as war comes to the Union, political machinations reach their peak, and dark truths are finally revealed.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 97,
+    "isbn": "978-0-06-112009-4",
+    "title": "Red Sister",
+    "publisher": "Ace Books",
+    "publishedDate": "2017-04-04",
+    "description": "A young girl with a gift for violence is recruited to a convent of killers on a dying world illuminated by a narrowing band of sunlight.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 98,
+    "isbn": "978-0-06-112009-5",
+    "title": "Prince of Thorns",
+    "publisher": "HarperVoyager",
+    "publishedDate": "2011-08-02",
+    "description": "A young prince leads a band of brothers through a dark medieval world, seeking revenge for his mother's murder.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 99,
+    "isbn": "978-1-59020-842-2",
+    "title": "The Black Prism",
+    "publisher": "Orbit Books",
+    "publishedDate": "2010-08-25",
+    "description": "The world's most powerful man discovers he has a son and must face the consequences of a secret kept for sixteen years.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 100,
+    "isbn": "978-0-316-38957-2",
+    "title": "Piranesi",
+    "publisher": "Bloomsbury Publishing",
+    "publishedDate": "2020-09-15",
+    "description": "A man lives alone in a labyrinthine house with infinite halls filled with statues and tides, slowly uncovering his forgotten past.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 101,
+    "isbn": "978-0-316-38957-3",
+    "title": "The Starless Sea",
+    "publisher": "Doubleday",
+    "publishedDate": "2019-11-05",
+    "description": "A graduate student discovers a mysterious book that leads him to an underground world devoted to storytelling and books.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 102,
+    "isbn": "978-0-316-38957-4",
+    "title": "Sabriel",
+    "publisher": "HarperCollins",
+    "publishedDate": "1995-10-01",
+    "description": "A young woman crosses the Wall into the Old Kingdom to rescue her necromancer father, wielding bells to bind the dead.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 103,
+    "isbn": "978-0-525-55360-6",
+    "title": "Children of Ruin",
+    "publisher": "Tor Books",
+    "publishedDate": "2019-05-14",
+    "description": "The sequel to Children of Time, in which human and spider-kind encounter a new alien intelligence across a distant solar system.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 104,
+    "isbn": "978-1-250-31357-4",
+    "title": "A Closed and Common Orbit",
+    "publisher": "Hodder & Stoughton",
+    "publishedDate": "2016-10-20",
+    "description": "An AI inhabiting a body for the first time must learn to navigate human society alongside a young woman escaping her own past.",
+    "price": 14.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 105,
+    "isbn": "978-0-385-54734-0",
+    "title": "Rogue Protocol",
+    "publisher": "Tor.com",
+    "publishedDate": "2018-08-07",
+    "description": "Murderbot continues its investigations while pretending to be a bot, teaming up with another rogue AI along the way.",
+    "price": 11.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 106,
+    "isbn": "978-0-7653-9358-1",
+    "title": "A Desolation Called Peace",
+    "publisher": "Tor Books",
+    "publishedDate": "2021-03-02",
+    "description": "The sequel to A Memory Called Empire, in which a fleet commander investigates a mysterious alien entity beyond the empire's borders.",
+    "price": 16.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 107,
+    "isbn": "978-0-7653-2637-0",
+    "title": "Speaker for the Dead",
+    "publisher": "Tor Books",
+    "publishedDate": "1986-03-15",
+    "description": "Three thousand years after the Xenocide, Ender Wiggin travels to a distant world to speak for the dead and encounters a new alien species.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 108,
+    "isbn": "978-0-316-76948-3",
+    "title": "Dark Matter",
+    "publisher": "Crown Publishing",
+    "publishedDate": "2016-07-26",
+    "description": "A physicist is abducted and wakes up in an alternate version of his life, desperate to find his way back to his family.",
+    "price": 15.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 109,
+    "isbn": "978-0-14-028383-0",
+    "title": "Invisible Man",
+    "publisher": "Random House",
+    "publishedDate": "1952-04-14",
+    "description": "An unnamed Black man narrates his life from childhood in the South to adulthood in New York, exploring racial injustice and identity.",
+    "price": 11.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 110,
+    "isbn": "978-0-14-028383-1",
+    "title": "Beloved",
+    "publisher": "Alfred A. Knopf",
+    "publishedDate": "1987-09-16",
+    "description": "A formerly enslaved woman is haunted by the ghost of her dead daughter in post-Civil War Ohio, confronting the trauma of slavery.",
+    "price": 12.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 111,
+    "isbn": "978-0-14-028383-2",
+    "title": "One Hundred Years of Solitude",
+    "publisher": "Editorial Sudamericana",
+    "publishedDate": "1967-05-30",
+    "description": "The Buendía family's multi-generational saga in the fictional town of Macondo, blending reality and magic in a chronicle of love and solitude.",
+    "price": 13.99,
+    "coverImageUrl": ""
+  },
+  {
+    "id": 112,
+    "isbn": "978-0-14-028383-3",
+    "title": "The Stranger",
+    "publisher": "Gallimard",
+    "publishedDate": "1942-06-01",
+    "description": "A detached Algerian man commits a murder and faces trial, exploring themes of absurdism, indifference, and the meaning of existence.",
+    "price": 9.99,
+    "coverImageUrl": ""
+  }
+]

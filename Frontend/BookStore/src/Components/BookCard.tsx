@@ -23,10 +23,10 @@ interface bookProps {
 }
 
 const BookCard: Component<bookProps> = (bookProps) => {
-  const cart = useCart()
+  const cart = useCart();
 
   return (
-    <div class="bg-everforest-bg-0 block p-6 text-everforest-fg min-w-full md:max-w-xl shadow-xs">
+    <div class="flex flex-col bg-everforest-bg-0 block p-6 text-everforest-fg min-h-full min-w-full md:max-w-xl shadow-xs">
       <A href={`/books/${bookProps.book.id}`}>
         <img
           class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"
@@ -34,28 +34,38 @@ const BookCard: Component<bookProps> = (bookProps) => {
         />
       </A>
 
-      <div class="flex flex-col justify-between md:p-4 leading-normal">
-        <A href={`/books/${bookProps.book.id}`}>
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-heading">
-            {bookProps.book.title}
-          </h5>
-        </A>
+      <div class="flex flex-col grow md:p-4 leading-normal">
+        <div class="grow">
+          <A href={`/books/${bookProps.book.id}`}>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-heading">
+              {bookProps.book.title}
+            </h5>
+          </A>
 
-        <A href={`/books/${bookProps.book.id}`}>
-          <p class="mb-6 text-sm">
-            {bookProps.book.authors[0].firstName}
-            {bookProps.book.authors[0].lastName}
-          </p>
-        </A>
+          <A href={`/books/${bookProps.book.id}`}>
+            <p class="mb-6 text-sm">
+              {`${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`}
+            </p>
+          </A>
+        </div>
 
-        <div>
+        <div class="justify-end">
           <button
-            onClick={() => cart.addItem({id: bookProps.book.id, title: bookProps.book.title, author: `${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`, price: bookProps.book.price, quantity: 1, imageUrl: bookProps.book.coverImageUrl})}
+            onClick={() =>
+              cart.addItem({
+                id: bookProps.book.id,
+                title: bookProps.book.title,
+                author: `${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`,
+                price: bookProps.book.price,
+                quantity: 1,
+                imageUrl: bookProps.book.coverImageUrl,
+              })
+            }
             type="button"
             class="inline-flex gap-2 items-center w-auto text-body border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
           >
             {bookProps.book.price} kr
-            <ShoppingBasket color='#D3C6AA' />
+            <ShoppingBasket color="#D3C6AA" />
           </button>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { useCart } from '../Context/CartContext';
 import CheckoutItem from '../Components/CheckoutItem';
 import ModalDiscountCode from '../Components/ModalDiscountCode';
 import ModalGiftCard from '../Components/ModalGiftCard';
+import { useAuth } from '../Context/AuthContext';
 
 type ShippingMethod =
   | 'postnord'
@@ -40,19 +41,31 @@ type OrderInformation = {
   };
 };
 
+type NewOrderPayload = {
+  orderStatus: number;
+  orderTotalCost: number;
+  items: OrderItemPayload[];
+};
+
+type OrderItemPayload = {
+  bookId: number;
+  unitPrice: number;
+  quantity: number;
+};
+
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
 
-   const [formData, setFormData] = createStore<OrderInformation>({
-    email: '',
-    phone: '',
-    socialSecurityNumber: '',
-    firstName: '',
-    lastName: '',
-    address: '',
-    postalCode: '',
-    city: '',
+  const [formData, setFormData] = createStore<OrderInformation>({
+    email: 'test@test.com',
+    phone: '0123456789',
+    socialSecurityNumber: '101001-0101',
+    firstName: 'herr',
+    lastName: 'test',
+    address: 'the street 123',
+    postalCode: '12345',
+    city: 'the city',
     shippingMethod: {
       type: 'postnord',
       price: 0,
@@ -66,26 +79,26 @@ const Checkout: Component = () => {
       },
     },
   });
-  const [validCard, setValidCard] = createSignal<boolean>(false);
+  // const [validCard, setValidCard] = createSignal<boolean>(false);
 
-  const validateCard = (cardNo: string) => {
-    let nDigits = cardNo.length;
+  // const validateCard = (cardNo: string) => {
+  //   let nDigits = cardNo.length;
 
-    let nSum = 0;
-    let isSecond = false;
-    for (let i = nDigits - 1; i >= 0; i--) {
-      let d = cardNo.charCodeAt(i) - '0'.charCodeAt(i);
+  //   let nSum = 0;
+  //   let isSecond = false;
+  //   for (let i = nDigits - 1; i >= 0; i--) {
+  //     let d = cardNo.charCodeAt(i) - '0'.charCodeAt(i);
 
-      if (isSecond === true) d = d * 2;
+  //     if (isSecond === true) d = d * 2;
 
-      nSum += d / 10;
-      nSum += d % 10;
+  //     nSum += d / 10;
+  //     nSum += d % 10;
 
-      isSecond = !isSecond;
-    }
-    setValidCard(nSum % 10 == 0);
-    // return (nSum % 10 == 0)
-  };
+  //     isSecond = !isSecond;
+  //   }
+  //   setValidCard(nSum % 10 == 0);
+  //   // return (nSum % 10 == 0)
+  // };
 
   const handleInputChange = (
     e: Event & {
@@ -104,8 +117,12 @@ const Checkout: Component = () => {
         }
         node[path[path.length - 1]] = coercedValue;
 
-        if (name === "paymentInfo.type" && coercedValue !== "card") {
-          task.paymentInfo.cardInfo = {number: 4242424242424242, expiry: '', cvv: 123}
+        if (name === 'paymentInfo.type' && coercedValue !== 'card') {
+          task.paymentInfo.cardInfo = {
+            number: 4242424242424242,
+            expiry: '',
+            cvv: 123,
+          };
         }
       }),
     );
@@ -115,13 +132,40 @@ const Checkout: Component = () => {
     console.log('Fetch the address based on social security number');
   };
 
-  const handleOrderSubmit = (e: Event) => {
+  const handleOrderSubmit = async (e: Event) => {
     e.preventDefault();
-    console.log('handle the order submisson');
-    console.log(formData);
+
+    const payload: NewOrderPayload = {
+      orderStatus: 1,
+      orderTotalCost: cart.total(),
+      items: cart.items.map((item) => {
+        var items: OrderItemPayload = {
+          bookId: item.id,
+          unitPrice: item.price,
+          quantity: item.quantity,
+        };
+        return items;
+      }),
+    };
+
+    const resp = await fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token()}`,
+      },
+      body: JSON.stringify({
+        items: payload.items,
+        orderStatus: payload.orderStatus,
+        orderTotalCost: payload.orderTotalCost,
+      }),
+    });
+    const result = await resp.json();
+    console.log(result);
   };
 
   const cart = useCart();
+  const auth = useAuth();
 
   return (
     <div class="max-w-7xl lg:max-w-7xl mx-auto">

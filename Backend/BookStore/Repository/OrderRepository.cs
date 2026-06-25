@@ -14,6 +14,7 @@ namespace BookStore.Repository
       await _context.Orders.AddAsync(order);
       foreach (var orderItem in order.Items)
       {
+        orderItem.OrderId = order.Id;
         await _context.OrderItems.AddAsync(orderItem);
       }
       await _context.SaveChangesAsync();

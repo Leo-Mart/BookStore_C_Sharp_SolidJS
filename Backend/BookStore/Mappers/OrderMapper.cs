@@ -8,8 +8,6 @@ namespace BookStore.Mappers
         {
             return new Order
             {
-                AppUserId = orderDto.AppUserId,
-                // Customer = orderDto.Customer,
                 OrderStatus = orderDto.OrderStatus,
                 OrderTotalCost = orderDto.OrderTotalCost,
                 Items = orderDto.Items.Select(oi => oi.ToOrderItemFromOrderItemDto()).ToList()

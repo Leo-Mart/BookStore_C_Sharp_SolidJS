@@ -7,7 +7,6 @@ import {
   email,
   minLength,
   SubmitHandler,
-  value,
   getValue,
 } from '@modular-forms/solid';
 
@@ -18,10 +17,6 @@ type RegisterForm = {
 };
 
 const RegisterPage: Component = () => {
-  // const [email, setEmail] = createSignal('');
-  // const [password, setPassword] = createSignal('');
-  // const [confirmPassword, setConfirmPassword] = createSignal('');
-
   const [registerForm, { Form, Field }] = createForm<RegisterForm>();
 
   const nav = useNavigate();

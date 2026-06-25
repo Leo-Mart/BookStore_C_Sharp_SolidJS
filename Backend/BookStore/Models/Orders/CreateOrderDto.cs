@@ -6,13 +6,10 @@ namespace BookStore.Models.Orders
     public class CreateOrderDto
     {
         [Required]
-        public string AppUserId {get;set;}
-
+        public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
         [Required]
-        public OrderStatus OrderStatus {get;set;} = OrderStatus.Pending;
+        public decimal OrderTotalCost { get; set; }
         [Required]
-        public decimal OrderTotalCost {get;set;}
-        [Required]
-        public ICollection<OrderItemDto> Items {get;set;} = new List<OrderItemDto>();
+        public ICollection<OrderItemDto> Items { get; set; } = new List<OrderItemDto>();
     }
 }

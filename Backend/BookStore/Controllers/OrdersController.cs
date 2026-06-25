@@ -41,10 +41,10 @@ namespace BookStore.Controllers
         [Authorize]
         public async Task<ActionResult<OrderDto>> CreateNewOrder(CreateOrderDto order)
         {  
-            // if (order.Items.Count == 0)
-            // {
-            //     return BadRequest("No Items in cart");
-            // }
+            if (order.Items.Count == 0)
+            {
+                return BadRequest("No Items in cart");
+            }
             var userId = User.GetUserId();
             if (userId == null)
             {

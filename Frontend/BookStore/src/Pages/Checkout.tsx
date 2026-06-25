@@ -20,22 +20,22 @@ type PaymentMethod = 'card' | 'invoice' | 'swish';
 
 type OrderInformation = {
   email: string;
-  phone: string;
+  phoneNumber: string;
   socialSecurityNumber?: string;
   firstName: string;
   lastName: string;
-  address: string;
+  street: string;
   postalCode: string;
   city: string;
   shippingMethod: {
     type: ShippingMethod;
     price: number;
   };
-  paymentInfo: {
+  paymentMethod: {
     type: PaymentMethod;
     cardInfo?: {
-      number: number;
-      expiry: string;
+      cardNumber: number;
+      expiryDate: string;
       cvv: number;
     };
   };
@@ -59,22 +59,22 @@ const Checkout: Component = () => {
 
   const [formData, setFormData] = createStore<OrderInformation>({
     email: 'test@test.com',
-    phone: '0123456789',
+    phoneNumber: '0123456789',
     socialSecurityNumber: '101001-0101',
     firstName: 'herr',
     lastName: 'test',
-    address: 'the street 123',
+    street: 'the street 123',
     postalCode: '12345',
     city: 'the city',
     shippingMethod: {
       type: 'postnord',
       price: 0,
     },
-    paymentInfo: {
+    paymentMethod: {
       type: 'card',
       cardInfo: {
-        number: 4242424242424242,
-        expiry: '',
+        cardNumber: 4242424242424242,
+        expiryDate: '',
         cvv: 123,
       },
     },
@@ -118,9 +118,9 @@ const Checkout: Component = () => {
         node[path[path.length - 1]] = coercedValue;
 
         if (name === 'paymentInfo.type' && coercedValue !== 'card') {
-          task.paymentInfo.cardInfo = {
-            number: 4242424242424242,
-            expiry: '',
+          task.paymentMethod.cardInfo = {
+            cardNumber: 4242424242424242,
+            expiryDate: '',
             cvv: 123,
           };
         }
@@ -288,7 +288,7 @@ const Checkout: Component = () => {
                         name="phone"
                         placeholder="0123-456789"
                         id="phone_number"
-                        value={formData.phone}
+                        value={formData.phoneNumber}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -382,7 +382,7 @@ const Checkout: Component = () => {
                         name="address"
                         placeholder="The Street 123 A"
                         id="address"
-                        value={formData.address}
+                        value={formData.street}
                         onInput={handleInputChange}
                         class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
                         required
@@ -634,7 +634,7 @@ const Checkout: Component = () => {
                     name="paymentInfo.type"
                     value="card"
                     class="peer hidden"
-                    checked={formData.paymentInfo.type === 'card'}
+                    checked={formData.paymentMethod.type === 'card'}
                     onChange={handleInputChange}
                   />
                   <label
@@ -645,7 +645,7 @@ const Checkout: Component = () => {
                   </label>
                   <div
                     class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                      formData.paymentInfo.type === 'card'
+                      formData.paymentMethod.type === 'card'
                         ? 'grid-rows-[1fr] opacity-100'
                         : 'grid-rows-[0fr] opacity-0'
                     }`}
@@ -663,10 +663,10 @@ const Checkout: Component = () => {
                             class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg pe-9"
                             placeholder="4242 4242 4242 4242"
                             pattern="^4[0-9]{12}(?:[0-9]{3})?$"
-                            value={formData.paymentInfo.cardInfo?.number}
+                            value={formData.paymentMethod.cardInfo?.cardNumber}
                             onChange={handleInputChange}
                           />
-                          <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                          <div class="absolute inset-y-0 inset-e-0 top-0 flex items-center pe-3.5 pointer-events-none">
                             <svg
                               fill="none"
                               class="h-6 dark:text-everforest-fg"
@@ -681,7 +681,7 @@ const Checkout: Component = () => {
                         </div>
                         <div class="grid grid-cols-3 gap-4 my-4">
                           <div class="relative max-w-sm col-span-2">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3.5 pointer-events-none">
                               <svg
                                 class="w-4 h-4 dark:text-everforest-fg"
                                 aria-hidden="true"
@@ -709,7 +709,7 @@ const Checkout: Component = () => {
                               type="text"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
                               placeholder="12/23"
-                              value={formData.paymentInfo.cardInfo?.expiry}
+                              value={formData.paymentMethod.cardInfo?.expiryDate}
                               onChange={handleInputChange}
                             />
                           </div>
@@ -724,7 +724,7 @@ const Checkout: Component = () => {
                               aria-describedby="helper-text-explanation"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::webkit-inner-spin-button]:appearance-none"
                               placeholder="CVV"
-                              value={formData.paymentInfo.cardInfo?.cvv}
+                              value={formData.paymentMethod.cardInfo?.cvv}
                               onChange={handleInputChange}
                             />
                           </div>
@@ -740,7 +740,7 @@ const Checkout: Component = () => {
                     name="paymentInfo.type"
                     value="invoice"
                     class="peer hidden"
-                    checked={formData.paymentInfo.type === 'invoice'}
+                    checked={formData.paymentMethod.type === 'invoice'}
                     onChange={handleInputChange}
                   />
                   <label
@@ -752,7 +752,7 @@ const Checkout: Component = () => {
                 </div>
                 <div
                   class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    formData.paymentInfo.type === 'invoice'
+                    formData.paymentMethod.type === 'invoice'
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
                   }`}
@@ -768,7 +768,7 @@ const Checkout: Component = () => {
                     name="paymentInfo.type"
                     value="swish"
                     class="peer hidden"
-                    checked={formData.paymentInfo.type === 'swish'}
+                    checked={formData.paymentMethod.type === 'swish'}
                     onChange={handleInputChange}
                   />
                   <label
@@ -780,7 +780,7 @@ const Checkout: Component = () => {
                 </div>
                 <div
                   class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    formData.paymentInfo.type === 'swish'
+                    formData.paymentMethod.type === 'swish'
                       ? 'grid-rows-[1fr] opacity-100'
                       : 'grid-rows-[0fr] opacity-0'
                   }`}

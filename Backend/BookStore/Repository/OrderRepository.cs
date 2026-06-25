@@ -11,6 +11,7 @@ namespace BookStore.Repository
     public async Task<Order> CreateOrderAsync(Order order)
     {
       order.CreatedAt = DateTime.UtcNow;
+      order.UpdatedAt = DateTime.UtcNow;
       await _context.Orders.AddAsync(order);
       foreach (var orderItem in order.Items)
       {

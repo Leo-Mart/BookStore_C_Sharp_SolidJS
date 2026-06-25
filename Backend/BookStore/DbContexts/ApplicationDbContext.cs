@@ -1,10 +1,13 @@
 using System.Text.Json;
+using BookStore.Models.Addresses;
 using BookStore.Models.Authors;
 using BookStore.Models.Books;
 using BookStore.Models.Genres;
 using BookStore.Models.Inventories;
 using BookStore.Models.OrderItems;
 using BookStore.Models.Orders;
+using BookStore.Models.PaymentMethods;
+using BookStore.Models.Payments;
 using BookStore.Models.Reviews;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
@@ -21,9 +24,12 @@ namespace BookStore.DbContexts
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
-        public DbSet<Inventory> Inventories {get;set;}
-        public DbSet<Order> Orders {get;set;}
-        public DbSet<OrderItem> OrderItems {get;set;}
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -329,16 +335,16 @@ namespace BookStore.DbContexts
                     Id = 5,
                     Name = "Science Fiction",
                     Description = "Speculative fiction exploring futuristic science, technology, space exploration, and their impact on society.",
-                    CreatedAt = new (2026, 1, 1),
-                    UpdatedAt = new (2026, 1, 1)
+                    CreatedAt = new(2026, 1, 1),
+                    UpdatedAt = new(2026, 1, 1)
                 },
                 new Genre()
                 {
                     Id = 6,
                     Name = "Classic",
                     Description = "Foundational works of literary fiction widely considered to be of superior quality and enduring significance.",
-                    CreatedAt = new (2026, 1, 1),
-                    UpdatedAt = new (2026, 1, 1)
+                    CreatedAt = new(2026, 1, 1),
+                    UpdatedAt = new(2026, 1, 1)
                 }
             );
 
@@ -411,16 +417,47 @@ namespace BookStore.DbContexts
                     Id = 1,
                     BookId = 1,
                     AmountInStock = 20,
-                    ReorderThreshold = 5,  
+                    ReorderThreshold = 5,
                     UpdatedAt = new DateTime(2026, 6, 12),
-                    CreatedAt = new DateTime(2026, 6, 12)                
+                    CreatedAt = new DateTime(2026, 6, 12)
                 }
             );
 
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Customer)
                 .WithMany(c => c.Orders)
-                .HasForeignKey(o => o.AppUserId);
+                .HasForeignKey(o => o.AppUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Address)
+                .WithMany(a => a.Orders)
+                .HasForeignKey(o => o.AddressId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.PaymentMethod)
+                .WithMany(p => p.Orders)
+                .HasForeignKey(o => o.PaymentMethodId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PaymentMethod>()
+                .HasOne(pm => pm.AppUser)
+                .WithMany(u => u.PaymentMethods)
+                .HasForeignKey(pm => pm.AppUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Order)
+                .WithMany()
+                .HasForeignKey(p => p.OrderId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.PaymentMethod)
+                .WithMany(pm => pm.Payments)
+                .HasForeignKey(p => p.PaymentMethodId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Order)
@@ -460,7 +497,7 @@ namespace BookStore.DbContexts
                 .HasMany(g => g.Genres)
                 .WithMany(b => b.Books)
                 .UsingEntity(j => j.HasData(bookGenresSeedData));
-           
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -470,7 +507,7 @@ namespace BookStore.DbContexts
             using (StreamReader r = new StreamReader(path))
             {
                 string json = r.ReadToEnd();
-                
+
                 data = JsonConvert.DeserializeObject<List<Book>>(json);
             }
             return data;
@@ -482,7 +519,7 @@ namespace BookStore.DbContexts
             using (StreamReader r = new StreamReader(path))
             {
                 string json = r.ReadToEnd();
-                
+
                 data = JsonConvert.DeserializeObject<List<Author>>(json);
             }
             return data;

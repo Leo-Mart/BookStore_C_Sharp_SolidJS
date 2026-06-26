@@ -6,7 +6,7 @@ namespace BookStore.Models.PaymentMethods
 {
     public class PaymentMethod : BaseEntity
     {
-        public string AppUserId { get; set; }
+        public string? AppUserId { get; set; }
         public string Type { get; set; } = string.Empty;
         public string CardLastFour { get; set; } = string.Empty;
         // public string Brand { get; set; } = string.Empty;
@@ -16,7 +16,7 @@ namespace BookStore.Models.PaymentMethods
         public string ExpiryDate { get; set; } = string.Empty;
         public bool IsDefault { get; set; }
 
-        public AppUser AppUser { get; set; } = null!;
+        public AppUser? AppUser { get; set; } = null;
         public ICollection<Order> Orders { get; set; } = new List<Order>();
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 

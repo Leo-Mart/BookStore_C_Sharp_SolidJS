@@ -38,7 +38,6 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<OrderDto>> CreateNewOrder(CreateOrderDto order)
         {
             if (order.Items.Count == 0)
@@ -48,26 +47,32 @@ namespace BookStore.Controllers
             var userId = User.GetUserId();
             if (userId == null)
             {
-                return NotFound();
+                var savedOrder = await _orderService.CreateNewOrderForGuest(order);
+                
+                return CreatedAtAction("GetOrder",
+                new
+                {
+                    orderId = savedOrder.Id
+                }, savedOrder.ToDtoFromOrder());
+            }
+            else
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var savedOrder = await _orderService.CreateNewOrderForUser(order, user.Id); 
+
+                return CreatedAtAction("GetOrder",
+                new
+                {
+                    orderId = savedOrder.Id
+                }, savedOrder.ToDtoFromOrder());
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return NotFound();
-            }
 
-            var savedOrder = await _orderService.CreateNewOrder(order, user.Id);
-            if(savedOrder == null)
-            {
-                return BadRequest();
-            }
-
-            return CreatedAtAction("GetOrder",
-            new
-            {
-                orderId = savedOrder.Id
-            }, savedOrder.ToDtoFromOrder());
         }
     }
 }

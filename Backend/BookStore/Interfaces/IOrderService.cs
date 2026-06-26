@@ -4,6 +4,7 @@ namespace BookStore.Interfaces
 {
     public interface IOrderService
     {
-        Task<Order?> CreateNewOrder(CreateOrderDto newOrder, string userId);
+        Task<Order?> CreateNewOrderForUser(CreateOrderDto order, string userId);
+        Task<Order?> CreateNewOrderForGuest(CreateOrderDto order);
     }
 }

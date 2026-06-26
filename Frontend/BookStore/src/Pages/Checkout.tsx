@@ -7,6 +7,7 @@ import CheckoutItem from '../Components/CheckoutItem';
 import ModalDiscountCode from '../Components/ModalDiscountCode';
 import ModalGiftCard from '../Components/ModalGiftCard';
 import { useAuth } from '../Context/AuthContext';
+import { useNavigate } from '@solidjs/router';
 
 type ShippingMethod =
   | 'postnord'
@@ -34,9 +35,9 @@ type OrderInformation = {
   paymentMethod: {
     type: PaymentMethod;
     cardInfo?: {
-      cardNumber: number;
-      expiryDate: string;
-      cvv: number;
+      cardNumber?: number;
+      expiryDate?: string;
+      cvv?: number;
     };
   };
 };
@@ -44,6 +45,9 @@ type OrderInformation = {
 type NewOrderPayload = {
   orderStatus: number;
   orderTotalCost: number;
+  guestEmail: string;
+  address: OrderAddressPayload;
+  paymentMethod: OrderPaymentMethodPayload;
   items: OrderItemPayload[];
 };
 
@@ -53,9 +57,27 @@ type OrderItemPayload = {
   quantity: number;
 };
 
+type OrderAddressPayload = {
+  street: string
+  city: string
+  postalCode: string
+}
+
+type OrderPaymentMethodPayload = {
+  type: string
+  cardLastFour?: string
+  cardNumber?: string
+  cvv?: string
+  expiryDate?: Date
+}
+
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
+
+  const cart = useCart();
+  const auth = useAuth();
+  const nav = useNavigate();
 
   const [formData, setFormData] = createStore<OrderInformation>({
     email: 'test@test.com',
@@ -117,7 +139,7 @@ const Checkout: Component = () => {
         }
         node[path[path.length - 1]] = coercedValue;
 
-        if (name === 'paymentInfo.type' && coercedValue !== 'card') {
+        if (name === 'paymentMethod.type' && coercedValue !== 'card') {
           task.paymentMethod.cardInfo = {
             cardNumber: 4242424242424242,
             expiryDate: '',
@@ -135,9 +157,28 @@ const Checkout: Component = () => {
   const handleOrderSubmit = async (e: Event) => {
     e.preventDefault();
 
+    let date = new Date()
+    if(formData.paymentMethod.cardInfo?.expiryDate){
+      let time: number = Date.parse(formData.paymentMethod.cardInfo?.expiryDate)
+      date = new Date(time)
+    }
+
     const payload: NewOrderPayload = {
       orderStatus: 1,
       orderTotalCost: cart.total(),
+      address: {
+        street: formData.street,
+        city: formData.city,
+        postalCode: formData.postalCode
+      },
+      guestEmail: auth.isAuthenticated() ? "" : formData.email,
+      paymentMethod: {
+        type: formData.paymentMethod.type,
+        cardLastFour: formData.paymentMethod.cardInfo?.cardNumber?.toString().slice(-4),
+        cardNumber: formData.paymentMethod.cardInfo?.cardNumber?.toString(),
+        cvv: formData.paymentMethod.cardInfo?.cvv?.toString(),
+        expiryDate: date        
+      },
       items: cart.items.map((item) => {
         var items: OrderItemPayload = {
           bookId: item.id,
@@ -154,18 +195,19 @@ const Checkout: Component = () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${auth.token()}`,
       },
-      body: JSON.stringify({
+      body: JSON.stringify({ 
         items: payload.items,
-        orderStatus: payload.orderStatus,
+        address: payload.address,
+        guestEmail: payload.guestEmail,
+        paymentMethod: payload.paymentMethod,
         orderTotalCost: payload.orderTotalCost,
-      }),
+        orderStatus: payload.orderStatus
+       }),
     });
     const result = await resp.json();
-    console.log(result);
-  };
 
-  const cart = useCart();
-  const auth = useAuth();
+    nav("/order/confirmation", {state: result.items})
+  };  
 
   return (
     <div class="max-w-7xl lg:max-w-7xl mx-auto">
@@ -631,7 +673,7 @@ const Checkout: Component = () => {
                   <input
                     id="card"
                     type="radio"
-                    name="paymentInfo.type"
+                    name="paymentMethod.type"
                     value="card"
                     class="peer hidden"
                     checked={formData.paymentMethod.type === 'card'}
@@ -659,7 +701,7 @@ const Checkout: Component = () => {
                           <input
                             type="text"
                             id="card-number-input"
-                            name="paymentInfo.cardInfo.number"
+                            name="paymentMethod.cardInfo.number"
                             class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg pe-9"
                             placeholder="4242 4242 4242 4242"
                             pattern="^4[0-9]{12}(?:[0-9]{3})?$"
@@ -705,7 +747,7 @@ const Checkout: Component = () => {
                             </label>
                             <input
                               id="card-expiration-input"
-                              name="paymentInfo.cardInfo.expiry"
+                              name="paymentMethod.cardInfo.expiry"
                               type="text"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
                               placeholder="12/23"
@@ -720,7 +762,7 @@ const Checkout: Component = () => {
                             <input
                               type="number"
                               id="cvv-input"
-                              name="paymentInfo.cardInfo.cvv"
+                              name="paymentMethod.cardInfo.cvv"
                               aria-describedby="helper-text-explanation"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full px-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::webkit-inner-spin-button]:appearance-none"
                               placeholder="CVV"
@@ -737,7 +779,7 @@ const Checkout: Component = () => {
                   <input
                     id="invoice"
                     type="radio"
-                    name="paymentInfo.type"
+                    name="paymentMethod.type"
                     value="invoice"
                     class="peer hidden"
                     checked={formData.paymentMethod.type === 'invoice'}
@@ -765,7 +807,7 @@ const Checkout: Component = () => {
                   <input
                     id="swish"
                     type="radio"
-                    name="paymentInfo.type"
+                    name="paymentMethod.type"
                     value="swish"
                     class="peer hidden"
                     checked={formData.paymentMethod.type === 'swish'}

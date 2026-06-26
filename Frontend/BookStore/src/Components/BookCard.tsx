@@ -18,7 +18,7 @@ const BookCard: Component<BookProps> = (bookProps) => {
     quantity: 1,
     imageUrl: bookProps.book.coverImageUrl,
   });
-  toast.add('Added to cart!');
+  toast.add('Added to cart!', {type: "success"});
 };
 
   return (

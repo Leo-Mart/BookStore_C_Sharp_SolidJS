@@ -1,4 +1,4 @@
-import { Component, createSignal } from 'solid-js';
+import { Component } from 'solid-js';
 import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from '@solidjs/router';
 import {
@@ -9,12 +9,7 @@ import {
   SubmitHandler,
   getValue,
 } from '@modular-forms/solid';
-
-type RegisterForm = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { type RegisterForm } from '../Types/auth';
 
 const RegisterPage: Component = () => {
   const [registerForm, { Form, Field }] = createForm<RegisterForm>();

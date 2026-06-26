@@ -5,25 +5,7 @@ import {
   createMemo,
 } from 'solid-js';
 import { createStore } from 'solid-js/store';
-
-interface CartItem {
-  id: number;
-  title: string;
-  author: string;
-  price: number;
-  quantity: number;
-  imageUrl?: string;
-}
-
-interface CartContextValue {
-  items: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (id: number) => void;
-  updateQty: (id: number, qty: number) => void;
-  clearCart: () => void;
-  total: () => number;
-  count: () => number;
-}
+import { type CartItem, CartContextValue } from '../Types/cart';
 
 const CartContext = createContext<CartContextValue>();
 

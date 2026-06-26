@@ -2,27 +2,11 @@ import { A } from '@solidjs/router';
 import { Component } from 'solid-js';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
 import { useCart } from '../Context/CartContext';
+import { type BookProps } from '../Types/book';
 
-interface bookProps {
-  book: {
-    id: number;
-    isbn: string;
-    title: string;
-    publisher: string;
-    publishedDate: Date;
-    description?: string;
-    price: number;
-    coverImageUrl?: string;
-    authors: [
-      {
-        firstName: string;
-        lastName: string;
-      },
-    ];
-  };
-}
 
-const BookCard: Component<bookProps> = (bookProps) => {
+
+const BookCard: Component<BookProps> = (bookProps) => {
   const cart = useCart();
 
   return (

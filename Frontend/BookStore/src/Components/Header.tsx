@@ -1,5 +1,5 @@
 import { A, useNavigate } from '@solidjs/router';
-import { createSignal, Match, Show, Switch } from 'solid-js';
+import { createSignal, Match, Switch } from 'solid-js';
 
 import House from 'lucide-solid/icons/house';
 import User from 'lucide-solid/icons/user';

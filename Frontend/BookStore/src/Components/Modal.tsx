@@ -1,14 +1,7 @@
-import { JSX, Show, onCleanup, createEffect } from "solid-js";
+import { Show, onCleanup, createEffect } from "solid-js";
 import { Component } from "solid-js";
 import { Portal } from "solid-js/web";
-
-interface ModalProps {
-  open: boolean
-  onClose: () => void
-  title?: string
-  children: JSX.Element
-  footer?: JSX.Element
-}
+import { type ModalProps } from "../Types/modal";
 
 const Modal: Component<ModalProps> = (props: ModalProps) => {
   createEffect(() => {

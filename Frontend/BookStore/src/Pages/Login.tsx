@@ -2,11 +2,7 @@ import { Component } from 'solid-js';
 import { useAuth } from '../Context/AuthContext';
 import { A, useNavigate } from '@solidjs/router';
 import { createForm, required, email, minLength, SubmitHandler } from '@modular-forms/solid';
-
-type LoginForm = {
-  email: string;
-  password: string;
-};
+import { type LoginForm } from '../Types/auth';
 
 const Login: Component = () => {
   const [loginForm, { Form, Field }] = createForm<LoginForm>();

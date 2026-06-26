@@ -8,68 +8,8 @@ import ModalDiscountCode from '../Components/ModalDiscountCode';
 import ModalGiftCard from '../Components/ModalGiftCard';
 import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from '@solidjs/router';
+import { type OrderInformation, NewOrderPayload, OrderItemPayload } from '../Types/checkout';
 
-type ShippingMethod =
-  | 'postnord'
-  | 'instabox'
-  | 'budbee'
-  | 'dhl'
-  | 'pigeon'
-  | 'paper-plane';
-
-type PaymentMethod = 'card' | 'invoice' | 'swish';
-
-type OrderInformation = {
-  email: string;
-  phoneNumber: string;
-  socialSecurityNumber?: string;
-  firstName: string;
-  lastName: string;
-  street: string;
-  postalCode: string;
-  city: string;
-  shippingMethod: {
-    type: ShippingMethod;
-    price: number;
-  };
-  paymentMethod: {
-    type: PaymentMethod;
-    cardInfo?: {
-      cardNumber?: number;
-      expiryDate?: string;
-      cvv?: number;
-    };
-  };
-};
-
-type NewOrderPayload = {
-  orderStatus: number;
-  orderTotalCost: number;
-  guestEmail: string;
-  address: OrderAddressPayload;
-  paymentMethod: OrderPaymentMethodPayload;
-  items: OrderItemPayload[];
-};
-
-type OrderItemPayload = {
-  bookId: number;
-  unitPrice: number;
-  quantity: number;
-};
-
-type OrderAddressPayload = {
-  street: string
-  city: string
-  postalCode: string
-}
-
-type OrderPaymentMethodPayload = {
-  type: string
-  cardLastFour?: string
-  cardNumber?: string
-  cvv?: string
-  expiryDate?: Date
-}
 
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
@@ -80,14 +20,14 @@ const Checkout: Component = () => {
   const nav = useNavigate();
 
   const [formData, setFormData] = createStore<OrderInformation>({
-    email: 'test@test.com',
-    phoneNumber: '0123456789',
-    socialSecurityNumber: '101001-0101',
-    firstName: 'herr',
-    lastName: 'test',
-    street: 'the street 123',
-    postalCode: '12345',
-    city: 'the city',
+    email: '',
+    phoneNumber: '',
+    socialSecurityNumber: '',
+    firstName: '',
+    lastName: '',
+    street: '',
+    postalCode: '',
+    city: '',
     shippingMethod: {
       type: 'postnord',
       price: 0,
@@ -101,26 +41,6 @@ const Checkout: Component = () => {
       },
     },
   });
-  // const [validCard, setValidCard] = createSignal<boolean>(false);
-
-  // const validateCard = (cardNo: string) => {
-  //   let nDigits = cardNo.length;
-
-  //   let nSum = 0;
-  //   let isSecond = false;
-  //   for (let i = nDigits - 1; i >= 0; i--) {
-  //     let d = cardNo.charCodeAt(i) - '0'.charCodeAt(i);
-
-  //     if (isSecond === true) d = d * 2;
-
-  //     nSum += d / 10;
-  //     nSum += d % 10;
-
-  //     isSecond = !isSecond;
-  //   }
-  //   setValidCard(nSum % 10 == 0);
-  //   // return (nSum % 10 == 0)
-  // };
 
   const handleInputChange = (
     e: Event & {
@@ -205,7 +125,7 @@ const Checkout: Component = () => {
        }),
     });
     const result = await resp.json();
-
+    cart.clearCart()
     nav("/order/confirmation", {state: result.items})
   };  
 
@@ -213,13 +133,11 @@ const Checkout: Component = () => {
     <div class="max-w-7xl lg:max-w-7xl mx-auto">
       <div class="flex w-full flex-col gap-20 pb-48 lg:flex-row-reverse">
         <div class="lg:w-1/2">
-          {/* Product info */}
           <div class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5">
             {/* header */}
             <div class="flex flex-col gap-2 text-everforest-fg">
               <h3 class="text-xl m-0">Your Order ({cart.count()})</h3>
             </div>
-            {/* buy more for free shipping */}
             <div class="flex flex-col gap-2">
               <div class="border px-12 py-8 text-xs text-everforest-fg">
                 <p>You have xxx kr remaining for shipping!</p>
@@ -241,10 +159,9 @@ const Checkout: Component = () => {
                 </div>
               </div>
             </div>
-            {/* the actual items */}
             <ul class="flex flex-col gap-2 divide">
               <For each={cart.items}>
-                {(item, index) => (
+                {(item, _) => (
                   <li>
                     <CheckoutItem cartItem={item} />
                   </li>
@@ -290,7 +207,6 @@ const Checkout: Component = () => {
             onSubmit={handleOrderSubmit}
             class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5"
           >
-            {/* Adress, paymentinfo and shipping selection */}
             <div class="flex flex-col gap-2 text-everforest-fg">
               <h3 class="text-xl m-0">Your information</h3>
             </div>
@@ -421,7 +337,7 @@ const Checkout: Component = () => {
                       </span>
                       <input
                         type="text"
-                        name="address"
+                        name="street"
                         placeholder="The Street 123 A"
                         id="address"
                         value={formData.street}

@@ -3,21 +3,9 @@ import {
   useContext,
   ParentComponent,
   createSignal,
-  Accessor,
   createEffect,
 } from 'solid-js';
-
-interface AuthContextValue {
-  token: Accessor<string | null>;
-  isAuthenticated: () => boolean
-  login: (email: string, password: string) => Promise<LoginResponse>;
-  logout: () => void
-}
-
-interface LoginResponse {
-  email: string
-  token: string
-}
+import { type AuthContextValue, LoginResponse } from '../Types/auth';
 
 const AuthContext = createContext<AuthContextValue>();
 

@@ -1,15 +1,7 @@
-import { JSX, Show, onCleanup, createEffect } from 'solid-js';
+import { Show, onCleanup, createEffect } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { Component } from 'solid-js';
-
-interface DrawerProps {
-  open: boolean;
-  onClose: () => void;
-  title?: string;
-  children: JSX.Element;
-  footer?: JSX.Element;
-}
-
+import { type DrawerProps } from '../Types/drawer';
 
 const Drawer: Component<DrawerProps> = (props: DrawerProps) => {
   createEffect(() => {

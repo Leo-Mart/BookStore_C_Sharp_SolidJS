@@ -116,7 +116,8 @@ const BookDetail: Component = () => {
                   onClick={() =>
                     cart.addItem({
                       id: book().id,
-                      name: book().title,
+                      title: book().title,
+                      author: book().author,
                       price: book().price,
                       quantity: amount(),
                       imageUrl: book().coverImageUrl,

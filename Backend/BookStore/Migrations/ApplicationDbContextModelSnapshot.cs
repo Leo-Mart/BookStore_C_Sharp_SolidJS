@@ -96,6 +96,511 @@ namespace BookStore.Migrations
                         {
                             AuthorsId = 1,
                             BooksId = 12
+                        },
+                        new
+                        {
+                            AuthorsId = 4,
+                            BooksId = 13
+                        },
+                        new
+                        {
+                            AuthorsId = 4,
+                            BooksId = 14
+                        },
+                        new
+                        {
+                            AuthorsId = 4,
+                            BooksId = 15
+                        },
+                        new
+                        {
+                            AuthorsId = 5,
+                            BooksId = 16
+                        },
+                        new
+                        {
+                            AuthorsId = 6,
+                            BooksId = 17
+                        },
+                        new
+                        {
+                            AuthorsId = 6,
+                            BooksId = 18
+                        },
+                        new
+                        {
+                            AuthorsId = 6,
+                            BooksId = 19
+                        },
+                        new
+                        {
+                            AuthorsId = 7,
+                            BooksId = 20
+                        },
+                        new
+                        {
+                            AuthorsId = 7,
+                            BooksId = 21
+                        },
+                        new
+                        {
+                            AuthorsId = 8,
+                            BooksId = 22
+                        },
+                        new
+                        {
+                            AuthorsId = 9,
+                            BooksId = 23
+                        },
+                        new
+                        {
+                            AuthorsId = 10,
+                            BooksId = 24
+                        },
+                        new
+                        {
+                            AuthorsId = 11,
+                            BooksId = 25
+                        },
+                        new
+                        {
+                            AuthorsId = 11,
+                            BooksId = 26
+                        },
+                        new
+                        {
+                            AuthorsId = 12,
+                            BooksId = 27
+                        },
+                        new
+                        {
+                            AuthorsId = 13,
+                            BooksId = 28
+                        },
+                        new
+                        {
+                            AuthorsId = 13,
+                            BooksId = 29
+                        },
+                        new
+                        {
+                            AuthorsId = 14,
+                            BooksId = 30
+                        },
+                        new
+                        {
+                            AuthorsId = 15,
+                            BooksId = 31
+                        },
+                        new
+                        {
+                            AuthorsId = 16,
+                            BooksId = 32
+                        },
+                        new
+                        {
+                            AuthorsId = 17,
+                            BooksId = 33
+                        },
+                        new
+                        {
+                            AuthorsId = 18,
+                            BooksId = 34
+                        },
+                        new
+                        {
+                            AuthorsId = 19,
+                            BooksId = 35
+                        },
+                        new
+                        {
+                            AuthorsId = 12,
+                            BooksId = 36
+                        },
+                        new
+                        {
+                            AuthorsId = 11,
+                            BooksId = 36
+                        },
+                        new
+                        {
+                            AuthorsId = 20,
+                            BooksId = 37
+                        },
+                        new
+                        {
+                            AuthorsId = 21,
+                            BooksId = 38
+                        },
+                        new
+                        {
+                            AuthorsId = 21,
+                            BooksId = 39
+                        },
+                        new
+                        {
+                            AuthorsId = 22,
+                            BooksId = 40
+                        },
+                        new
+                        {
+                            AuthorsId = 23,
+                            BooksId = 41
+                        },
+                        new
+                        {
+                            AuthorsId = 24,
+                            BooksId = 42
+                        },
+                        new
+                        {
+                            AuthorsId = 25,
+                            BooksId = 43
+                        },
+                        new
+                        {
+                            AuthorsId = 25,
+                            BooksId = 44
+                        },
+                        new
+                        {
+                            AuthorsId = 25,
+                            BooksId = 45
+                        },
+                        new
+                        {
+                            AuthorsId = 26,
+                            BooksId = 46
+                        },
+                        new
+                        {
+                            AuthorsId = 13,
+                            BooksId = 47
+                        },
+                        new
+                        {
+                            AuthorsId = 27,
+                            BooksId = 48
+                        },
+                        new
+                        {
+                            AuthorsId = 28,
+                            BooksId = 49
+                        },
+                        new
+                        {
+                            AuthorsId = 29,
+                            BooksId = 50
+                        },
+                        new
+                        {
+                            AuthorsId = 29,
+                            BooksId = 51
+                        },
+                        new
+                        {
+                            AuthorsId = 30,
+                            BooksId = 52
+                        },
+                        new
+                        {
+                            AuthorsId = 30,
+                            BooksId = 53
+                        },
+                        new
+                        {
+                            AuthorsId = 31,
+                            BooksId = 54
+                        },
+                        new
+                        {
+                            AuthorsId = 31,
+                            BooksId = 55
+                        },
+                        new
+                        {
+                            AuthorsId = 32,
+                            BooksId = 56
+                        },
+                        new
+                        {
+                            AuthorsId = 33,
+                            BooksId = 57
+                        },
+                        new
+                        {
+                            AuthorsId = 34,
+                            BooksId = 58
+                        },
+                        new
+                        {
+                            AuthorsId = 35,
+                            BooksId = 59
+                        },
+                        new
+                        {
+                            AuthorsId = 36,
+                            BooksId = 60
+                        },
+                        new
+                        {
+                            AuthorsId = 37,
+                            BooksId = 61
+                        },
+                        new
+                        {
+                            AuthorsId = 38,
+                            BooksId = 62
+                        },
+                        new
+                        {
+                            AuthorsId = 39,
+                            BooksId = 63
+                        },
+                        new
+                        {
+                            AuthorsId = 39,
+                            BooksId = 64
+                        },
+                        new
+                        {
+                            AuthorsId = 40,
+                            BooksId = 65
+                        },
+                        new
+                        {
+                            AuthorsId = 41,
+                            BooksId = 66
+                        },
+                        new
+                        {
+                            AuthorsId = 42,
+                            BooksId = 67
+                        },
+                        new
+                        {
+                            AuthorsId = 42,
+                            BooksId = 68
+                        },
+                        new
+                        {
+                            AuthorsId = 43,
+                            BooksId = 69
+                        },
+                        new
+                        {
+                            AuthorsId = 43,
+                            BooksId = 70
+                        },
+                        new
+                        {
+                            AuthorsId = 44,
+                            BooksId = 71
+                        },
+                        new
+                        {
+                            AuthorsId = 44,
+                            BooksId = 72
+                        },
+                        new
+                        {
+                            AuthorsId = 45,
+                            BooksId = 73
+                        },
+                        new
+                        {
+                            AuthorsId = 46,
+                            BooksId = 74
+                        },
+                        new
+                        {
+                            AuthorsId = 47,
+                            BooksId = 75
+                        },
+                        new
+                        {
+                            AuthorsId = 48,
+                            BooksId = 76
+                        },
+                        new
+                        {
+                            AuthorsId = 49,
+                            BooksId = 77
+                        },
+                        new
+                        {
+                            AuthorsId = 50,
+                            BooksId = 78
+                        },
+                        new
+                        {
+                            AuthorsId = 51,
+                            BooksId = 79
+                        },
+                        new
+                        {
+                            AuthorsId = 52,
+                            BooksId = 80
+                        },
+                        new
+                        {
+                            AuthorsId = 53,
+                            BooksId = 81
+                        },
+                        new
+                        {
+                            AuthorsId = 54,
+                            BooksId = 82
+                        },
+                        new
+                        {
+                            AuthorsId = 55,
+                            BooksId = 83
+                        },
+                        new
+                        {
+                            AuthorsId = 56,
+                            BooksId = 84
+                        },
+                        new
+                        {
+                            AuthorsId = 57,
+                            BooksId = 85
+                        },
+                        new
+                        {
+                            AuthorsId = 58,
+                            BooksId = 86
+                        },
+                        new
+                        {
+                            AuthorsId = 59,
+                            BooksId = 87
+                        },
+                        new
+                        {
+                            AuthorsId = 60,
+                            BooksId = 88
+                        },
+                        new
+                        {
+                            AuthorsId = 61,
+                            BooksId = 89
+                        },
+                        new
+                        {
+                            AuthorsId = 62,
+                            BooksId = 90
+                        },
+                        new
+                        {
+                            AuthorsId = 63,
+                            BooksId = 91
+                        },
+                        new
+                        {
+                            AuthorsId = 64,
+                            BooksId = 92
+                        },
+                        new
+                        {
+                            AuthorsId = 6,
+                            BooksId = 93
+                        },
+                        new
+                        {
+                            AuthorsId = 6,
+                            BooksId = 94
+                        },
+                        new
+                        {
+                            AuthorsId = 8,
+                            BooksId = 95
+                        },
+                        new
+                        {
+                            AuthorsId = 8,
+                            BooksId = 96
+                        },
+                        new
+                        {
+                            AuthorsId = 65,
+                            BooksId = 97
+                        },
+                        new
+                        {
+                            AuthorsId = 65,
+                            BooksId = 98
+                        },
+                        new
+                        {
+                            AuthorsId = 66,
+                            BooksId = 99
+                        },
+                        new
+                        {
+                            AuthorsId = 17,
+                            BooksId = 100
+                        },
+                        new
+                        {
+                            AuthorsId = 16,
+                            BooksId = 101
+                        },
+                        new
+                        {
+                            AuthorsId = 67,
+                            BooksId = 102
+                        },
+                        new
+                        {
+                            AuthorsId = 33,
+                            BooksId = 103
+                        },
+                        new
+                        {
+                            AuthorsId = 38,
+                            BooksId = 104
+                        },
+                        new
+                        {
+                            AuthorsId = 35,
+                            BooksId = 105
+                        },
+                        new
+                        {
+                            AuthorsId = 37,
+                            BooksId = 106
+                        },
+                        new
+                        {
+                            AuthorsId = 27,
+                            BooksId = 107
+                        },
+                        new
+                        {
+                            AuthorsId = 36,
+                            BooksId = 108
+                        },
+                        new
+                        {
+                            AuthorsId = 68,
+                            BooksId = 109
+                        },
+                        new
+                        {
+                            AuthorsId = 69,
+                            BooksId = 110
+                        },
+                        new
+                        {
+                            AuthorsId = 70,
+                            BooksId = 111
+                        },
+                        new
+                        {
+                            AuthorsId = 71,
+                            BooksId = 112
                         });
                 });
 
@@ -178,7 +683,546 @@ namespace BookStore.Migrations
                         {
                             BooksId = 12,
                             GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 13,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 14,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 15,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 16,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 17,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 18,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 19,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 20,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 21,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 22,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 23,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 24,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 25,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 26,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 27,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 28,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 29,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 30,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 31,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 32,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 33,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 34,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 35,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 36,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 37,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 38,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 39,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 40,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 41,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 42,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 43,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 44,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 45,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 46,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 47,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 48,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 49,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 50,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 51,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 52,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 53,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 54,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 55,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 56,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 57,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 58,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 59,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 60,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 61,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 62,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 63,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 64,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 65,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 66,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 67,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 68,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 69,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 70,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 71,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 72,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 73,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 74,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 75,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 76,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 77,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 78,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 79,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 80,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 81,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 82,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 83,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 84,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 85,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 86,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 87,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 88,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 89,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 90,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 91,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 92,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 93,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 94,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 95,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 96,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 97,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 98,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 99,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 100,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 101,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 102,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 103,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 104,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 105,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 106,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 107,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 108,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 109,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 110,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 111,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 112,
+                            GenresId = 6
                         });
+                });
+
+            modelBuilder.Entity("BookStore.Models.Addresses.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("BookStore.Models.Authors.Author", b =>
@@ -239,6 +1283,550 @@ namespace BookStore.Migrations
                             FirstName = "Mark",
                             LastName = "Z. Danielewski",
                             UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "J.R.R.",
+                            LastName = "Tolkien",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Patrick",
+                            LastName = "Rothfuss",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Brandon",
+                            LastName = "Sanderson",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "George R.R.",
+                            LastName = "Martin",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Joe",
+                            LastName = "Abercrombie",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Scott",
+                            LastName = "Lynch",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Robert",
+                            LastName = "Jordan",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Neil",
+                            LastName = "Gaiman",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Terry",
+                            LastName = "Pratchett",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Ursula K.",
+                            LastName = "Le Guin",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "C.S.",
+                            LastName = "Lewis",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Robin",
+                            LastName = "Hobb",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Erin",
+                            LastName = "Morgenstern",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Susanna",
+                            LastName = "Clarke",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Guy Gavriel",
+                            LastName = "Kay",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Samantha",
+                            LastName = "Shannon",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "N.K.",
+                            LastName = "Jemisin",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Frank",
+                            LastName = "Herbert",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "George",
+                            LastName = "Orwell",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Aldous",
+                            LastName = "Huxley",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Douglas",
+                            LastName = "Adams",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Isaac",
+                            LastName = "Asimov",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "William",
+                            LastName = "Gibson",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Orson Scott",
+                            LastName = "Card",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "John",
+                            LastName = "Scalzi",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Andy",
+                            LastName = "Weir",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Liu",
+                            LastName = "Cixin",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Kazuo",
+                            LastName = "Ishiguro",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Neal",
+                            LastName = "Stephenson",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Adrian",
+                            LastName = "Tchaikovsky",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Peter",
+                            LastName = "Watts",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Martha",
+                            LastName = "Wells",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Blake",
+                            LastName = "Crouch",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Arkady",
+                            LastName = "Martine",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Becky",
+                            LastName = "Chambers",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Jane",
+                            LastName = "Austen",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Charlotte",
+                            LastName = "Brontë",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Emily",
+                            LastName = "Brontë",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Charles",
+                            LastName = "Dickens",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Leo",
+                            LastName = "Tolstoy",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Fyodor",
+                            LastName = "Dostoevsky",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Miguel de",
+                            LastName = "Cervantes",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "William",
+                            LastName = "Shakespeare",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Herman",
+                            LastName = "Melville",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Nathaniel",
+                            LastName = "Hawthorne",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Mark",
+                            LastName = "Twain",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Oscar",
+                            LastName = "Wilde",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Mary",
+                            LastName = "Shelley",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Bram",
+                            LastName = "Stoker",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Alexandre",
+                            LastName = "Dumas",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Victor",
+                            LastName = "Hugo",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Gustave",
+                            LastName = "Flaubert",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 56,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "George",
+                            LastName = "Eliot",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "James",
+                            LastName = "Joyce",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Virginia",
+                            LastName = "Woolf",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "F. Scott",
+                            LastName = "Fitzgerald",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "John",
+                            LastName = "Steinbeck",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Ernest",
+                            LastName = "Hemingway",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Harper",
+                            LastName = "Lee",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "J.D.",
+                            LastName = "Salinger",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "William",
+                            LastName = "Golding",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Mark",
+                            LastName = "Lawrence",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Brent",
+                            LastName = "Weeks",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Garth",
+                            LastName = "Nix",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Ralph",
+                            LastName = "Ellison",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Toni",
+                            LastName = "Morrison",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Gabriel García",
+                            LastName = "Márquez",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Albert",
+                            LastName = "Camus",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -430,6 +2018,1306 @@ namespace BookStore.Migrations
                             Publisher = "Tor Books",
                             Title = "The Crippled God",
                             UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The first part of Tolkien's epic fantasy trilogy, following hobbit Frodo Baggins as he sets out on a quest to destroy the One Ring.",
+                            Isbn = "978-0-261-10221-7",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1954, 7, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Allen & Unwin",
+                            Title = "The Fellowship of the Ring",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The second volume of The Lord of the Rings, continuing the War of the Ring as the Fellowship is broken.",
+                            Isbn = "978-0-261-10236-1",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1954, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Allen & Unwin",
+                            Title = "The Two Towers",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The final volume of The Lord of the Rings, culminating in the destruction of the One Ring and the defeat of Sauron.",
+                            Isbn = "978-0-261-10237-8",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1955, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Allen & Unwin",
+                            Title = "The Return of the King",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The tale of Kvothe, a legendary wizard and musician, told in his own words as he recounts his extraordinary life.",
+                            Isbn = "978-0-7432-7356-5",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2007, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "DAW Books",
+                            Title = "The Name of the Wind",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Epic fantasy set in the world of Roshar, where a war is fought on the Shattered Plains and ancient powers begin to return.",
+                            Isbn = "978-0-7564-0407-6",
+                            Price = 19.99m,
+                            PublishedDate = new DateTime(2010, 8, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "The Way of Kings",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The second book in The Stormlight Archive, continuing the story of the Knights Radiant and the Desolation threatening Roshar.",
+                            Isbn = "978-0-7564-0473-1",
+                            Price = 19.99m,
+                            PublishedDate = new DateTime(2014, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Words of Radiance",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "In a world where ash falls from the sky and mists dominate the night, a group of rebels plans to overthrow a seemingly immortal ruler.",
+                            Isbn = "978-0-7653-2637-9",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2006, 7, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "The Final Empire",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The first novel in the A Song of Ice and Fire series, set in the Seven Kingdoms of Westeros where noble houses vie for the Iron Throne.",
+                            Isbn = "978-0-380-97593-3",
+                            Price = 17.99m,
+                            PublishedDate = new DateTime(1996, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bantam Books",
+                            Title = "A Game of Thrones",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The second book in A Song of Ice and Fire, in which five kings claim the Iron Throne as the War of the Five Kings begins.",
+                            Isbn = "978-0-553-10354-0",
+                            Price = 17.99m,
+                            PublishedDate = new DateTime(1998, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bantam Books",
+                            Title = "A Clash of Kings",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The first book of The First Law trilogy, a gritty fantasy following a barbarian, a torturer, and a crippled war hero.",
+                            Isbn = "978-0-00-711835-0",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(2006, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gollancz",
+                            Title = "The Blade Itself",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A master thief and his gang of con artists pull off an elaborate heist in a city built on the ruins of an alien civilization.",
+                            Isbn = "978-0-06-112009-3",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2006, 6, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bantam Spectra",
+                            Title = "The Lies of Locke Lamora",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The first book in The Wheel of Time series, following a young farmhand who discovers he may be the Dragon Reborn.",
+                            Isbn = "978-0-345-45430-5",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(1990, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "The Eye of the World",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A recently released ex-convict is drawn into a conflict between old gods brought to America by immigrants and new gods of technology and media.",
+                            Isbn = "978-0-441-00897-8",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2001, 6, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "William Morrow",
+                            Title = "American Gods",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "After helping a mysterious injured girl, a London businessman finds himself in London Below, a magical underworld beneath the city streets.",
+                            Isbn = "978-0-06-093546-9",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1996, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Avon Books",
+                            Title = "Neverwhere",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The first Discworld novel, following the hapless wizard Rincewind and the world's first tourist across a flat world balanced on four elephants.",
+                            Isbn = "978-0-575-07979-0",
+                            Price = 12.99m,
+                            PublishedDate = new DateTime(1983, 11, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Colin Smythe",
+                            Title = "The Colour of Magic",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young girl and her cat travel through a mystical land in search of her missing uncle, guided by fantastic beings.",
+                            Isbn = "978-0-06-073218-2",
+                            Price = 11.99m,
+                            PublishedDate = new DateTime(1968, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ace Books",
+                            Title = "The Name of the Wind",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young boy with unusual magical ability is sent to a school for wizards on an island, where he unleashes a terrible shadow.",
+                            Isbn = "978-0-7432-7356-5",
+                            Price = 11.99m,
+                            PublishedDate = new DateTime(1968, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Parnassus Press",
+                            Title = "A Wizard of Earthsea",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Four children step through a wardrobe into the magical land of Narnia, where they must help the great lion Aslan defeat the White Witch.",
+                            Isbn = "978-0-06-447187-3",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1950, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Geoffrey Bles",
+                            Title = "The Lion, The Witch and the Wardrobe",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The illegitimate son of a prince is trained as a royal assassin while uncovering dangerous secrets about the kingdom.",
+                            Isbn = "978-0-7432-7357-2",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1995, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bantam Books",
+                            Title = "Assassin's Apprentice",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A mysterious black-and-white circus appears without warning and two young magicians compete within it, unaware of the stakes of their contest.",
+                            Isbn = "978-0-316-76948-0",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2011, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Doubleday",
+                            Title = "The Night Circus",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Two very different magicians attempt to restore magic to England during the Napoleonic Wars, with unpredictable consequences.",
+                            Isbn = "978-0-06-112008-6",
+                            Price = 17.99m,
+                            PublishedDate = new DateTime(2004, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bloomsbury",
+                            Title = "Jonathan Strange & Mr Norrell",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "In a conquered land whose very name has been magically erased, a band of rebels struggles to reclaim their history and freedom.",
+                            Isbn = "978-0-380-78868-0",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1990, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Penguin Books",
+                            Title = "Tigana",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A sweeping standalone fantasy of dragons, queens, and ancient prophecy, set in a richly imagined world on the brink of cataclysm.",
+                            Isbn = "978-0-06-055397-7",
+                            Price = 18.99m,
+                            PublishedDate = new DateTime(2019, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bloomsbury Publishing",
+                            Title = "The Priory of the Orange Tree",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An angel and a demon who have grown fond of Earth team up to avert the coming Apocalypse, complicated by a missing Antichrist.",
+                            Isbn = "978-0-385-33348-1",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1990, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gollancz",
+                            Title = "Good Omens",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "In a world that experiences catastrophic climate events, a woman searches for her daughter amid the end of civilization.",
+                            Isbn = "978-0-7564-1571-3",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2015, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Orbit Books",
+                            Title = "The Fifth Season",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young nobleman takes control of the desert planet Arrakis, the only source of the universe's most valuable substance, melange.",
+                            Isbn = "978-0-441-78935-8",
+                            Price = 17.99m,
+                            PublishedDate = new DateTime(1965, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Chilton Books",
+                            Title = "Dune",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The sequel to Dune, following Paul Atreides twelve years after his rise to power as religious and political forces conspire against him.",
+                            Isbn = "978-0-441-17271-9",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(1969, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Putnam",
+                            Title = "Dune Messiah",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "In a totalitarian future society, Winston Smith works for the government rewriting historical records and begins a doomed resistance.",
+                            Isbn = "978-0-451-52493-5",
+                            Price = 12.99m,
+                            PublishedDate = new DateTime(1949, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Secker & Warburg",
+                            Title = "1984",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A dystopian vision of a future where humans are genetically engineered and conditioned to be happy consumers in a rigid caste system.",
+                            Isbn = "978-0-06-085052-4",
+                            Price = 12.99m,
+                            PublishedDate = new DateTime(1932, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Chatto & Windus",
+                            Title = "Brave New World",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An ordinary man is swept into an absurd adventure across the universe after Earth is demolished to make way for a hyperspace bypass.",
+                            Isbn = "978-0-7432-7358-9",
+                            Price = 12.99m,
+                            PublishedDate = new DateTime(1979, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Pan Books",
+                            Title = "The Hitchhiker's Guide to the Galaxy",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A mathematician foresees the fall of a galactic empire and establishes a foundation to preserve knowledge and shorten the coming dark age.",
+                            Isbn = "978-0-553-29335-3",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1951, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gnome Press",
+                            Title = "Foundation",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The Foundation faces a dual threat: the remnants of the old Galactic Empire and a mysterious mutant known as the Mule.",
+                            Isbn = "978-0-553-29337-7",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1952, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gnome Press",
+                            Title = "Foundation and Empire",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A collection of interconnected stories exploring the relationship between humans and robots governed by the Three Laws of Robotics.",
+                            Isbn = "978-0-553-29338-4",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1950, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gnome Press",
+                            Title = "I, Robot",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A washed-up hacker is hired by a mysterious employer for one last job: hacking the most powerful artificial intelligence in the world.",
+                            Isbn = "978-0-7432-7359-6",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1984, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ace Books",
+                            Title = "Neuromancer",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A human emissary travels to a planet where the inhabitants have no fixed gender, challenging his own assumptions about identity and society.",
+                            Isbn = "978-0-316-76948-1",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1969, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ace Books",
+                            Title = "The Left Hand of Darkness",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A gifted child is trained at a military school in space to become the commander of Earth's forces against an alien species.",
+                            Isbn = "978-0-553-38016-3",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Ender's Game",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A 75-year-old man joins the army to fight humanity's interstellar wars, given a young enhanced body in exchange for military service.",
+                            Isbn = "978-1-59606-399-7",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Old Man's War",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An astronaut is accidentally left behind on Mars and must use his ingenuity to survive and signal his crew to return.",
+                            Isbn = "978-0-7653-7230-0",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2011, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Crown Publishing",
+                            Title = "The Martian",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A lone astronaut wakes with no memory in a spacecraft far from Earth and must piece together his mission to save humanity.",
+                            Isbn = "978-0-7653-7654-4",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2021, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ballantine Books",
+                            Title = "Project Hail Mary",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "During China's Cultural Revolution, a secret military project sends signals into space, leading to first contact with a civilization facing cosmic doom.",
+                            Isbn = "978-0-8041-7734-8",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "The Three-Body Problem",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "As alien invasion looms, one man is given the mission to devise a secret strategy to save Earth using only his own mind.",
+                            Isbn = "978-0-8041-7735-5",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2008, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "The Dark Forest",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An Artificial Friend observes the human world from a shop window, waiting to be chosen, and contemplating what it truly means to love.",
+                            Isbn = "978-0-316-38957-1",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2021, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Faber & Faber",
+                            Title = "Klara and the Sun",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A haunting tale of three friends who grew up together at a seemingly idyllic English boarding school and discover their terrifying purpose.",
+                            Isbn = "978-0-385-49081-6",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2005, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Faber & Faber",
+                            Title = "Never Let Me Go",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 56,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "In a near-future America, a hacker and pizza deliveryman investigates a new drug that is crashing the Metaverse and its users' minds.",
+                            Isbn = "978-0-7432-7360-2",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(1992, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bantam Books",
+                            Title = "Snow Crash",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Uplifted spiders evolve civilization on a terraformed planet while the last remnants of humanity desperately search for a new home.",
+                            Isbn = "978-0-525-55360-5",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2015, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Children of Time",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "First contact with an alien species forces humanity to question the nature of consciousness and what it means to be sentient.",
+                            Isbn = "978-0-7653-2635-5",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2006, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Blindsight",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A self-described 'murderbot' with hacked governor protocols just wants to watch TV serials while reluctantly protecting its human clients.",
+                            Isbn = "978-0-385-54734-9",
+                            Price = 11.99m,
+                            PublishedDate = new DateTime(2017, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor.com",
+                            Title = "All Systems Red",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A scientist's memory technology is weaponized to rewrite reality, forcing a detective and the inventor herself to fight through altered timelines.",
+                            Isbn = "978-0-316-23877-5",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2019, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Crown Publishing",
+                            Title = "Recursion",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An ambassador from a small space station arrives in the capital of a vast interstellar empire and discovers a plot threatening all humanity.",
+                            Isbn = "978-0-7653-9358-0",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2019, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "A Memory Called Empire",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A crew of misfits aboard a tunneling ship takes on a job that sends them on a long journey to the galactic core.",
+                            Isbn = "978-1-250-31357-3",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2014, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Hodder & Stoughton",
+                            Title = "The Long Way to a Small, Angry Planet",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The story of Elizabeth Bennet and her complex relationship with the proud and wealthy Mr. Darcy, set in rural England.",
+                            Isbn = "978-0-14-043723-0",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1813, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "T. Egerton",
+                            Title = "Pride and Prejudice",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Two sisters navigate the pitfalls of love and society in 19th century England, contrasting rational judgment with romantic feeling.",
+                            Isbn = "978-0-14-143951-8",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1811, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Thomas Egerton",
+                            Title = "Sense and Sensibility",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An orphaned girl grows up to become a governess and falls in love with her brooding employer, concealing a terrible secret.",
+                            Isbn = "978-0-14-143952-5",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1847, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Smith, Elder & Co.",
+                            Title = "Jane Eyre",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The brooding Heathcliff and his passionate love for Catherine Earnshaw unfold across two generations of turbulent Yorkshire families.",
+                            Isbn = "978-0-14-143955-6",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1847, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Thomas Newby",
+                            Title = "Wuthering Heights",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young orphan boy named Pip aspires to become a gentleman after a mysterious benefactor provides him with unexpected wealth.",
+                            Isbn = "978-0-14-143954-9",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1861, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Chapman & Hall",
+                            Title = "Great Expectations",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Set during the French Revolution, a story of love, sacrifice, and redemption connecting London and Paris.",
+                            Isbn = "978-0-14-143960-0",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1859, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Chapman & Hall",
+                            Title = "A Tale of Two Cities",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A married aristocrat risks everything for love, while a landowner seeks meaning in a changing Russian society.",
+                            Isbn = "978-0-14-143957-0",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1878, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "The Russian Messenger",
+                            Title = "Anna Karenina",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A sweeping epic of Russian society during the Napoleonic Wars, following five intertwined aristocratic families.",
+                            Isbn = "978-0-14-030474-4",
+                            Price = 19.99m,
+                            PublishedDate = new DateTime(1869, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "The Russian Messenger",
+                            Title = "War and Peace",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A destitute student murders a pawnbroker and then grapples with the psychological consequences of his act in St. Petersburg.",
+                            Isbn = "978-0-14-044913-4",
+                            Price = 11.99m,
+                            PublishedDate = new DateTime(1866, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "The Russian Messenger",
+                            Title = "Crime and Punishment",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Three brothers, representing different facets of humanity, are bound together by the murder of their despicable father.",
+                            Isbn = "978-0-14-044919-6",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1880, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "The Russian Messenger",
+                            Title = "The Brothers Karamazov",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An aging nobleman so obsessed with chivalric tales that he sets out as a knight-errant, accompanied by his practical squire Sancho Panza.",
+                            Isbn = "978-0-14-028329-7",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1605, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Francisco de Robles",
+                            Title = "Don Quixote",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Prince Hamlet seeks revenge for his father's murder by his uncle, who has seized the throne of Denmark and married Hamlet's mother.",
+                            Isbn = "978-0-14-028381-5",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1603, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Nicholas Ling",
+                            Title = "Hamlet",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Captain Ahab's obsessive quest to hunt the great white whale that took his leg leads his crew to disaster.",
+                            Isbn = "978-0-14-071455-7",
+                            Price = 12.99m,
+                            PublishedDate = new DateTime(1851, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Harper & Brothers",
+                            Title = "Moby-Dick",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A woman in Puritan New England is forced to wear a scarlet A as punishment for adultery, exploring themes of sin and guilt.",
+                            Isbn = "978-0-7432-7361-9",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1850, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ticknor, Reed and Fields",
+                            Title = "The Scarlet Letter",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young boy and an escaped slave travel down the Mississippi River on a raft, confronting the hypocrisy of society.",
+                            Isbn = "978-0-14-028381-6",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1884, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Chatto & Windus",
+                            Title = "The Adventures of Huckleberry Finn",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young man's portrait ages and becomes corrupt in his place while he himself remains young and beautiful, living a life of moral decay.",
+                            Isbn = "978-0-14-317752-0",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1890, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ward, Lock and Company",
+                            Title = "The Picture of Dorian Gray",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A scientist creates a living being from dead matter, only to be horrified by his creation and abandon it to a tragic existence.",
+                            Isbn = "978-0-14-028381-7",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1818, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Lackington, Hughes, Harding, Mavor & Jones",
+                            Title = "Frankenstein",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Solicitor Jonathan Harker visits a Transylvanian castle, and a vampiric Count follows him to England to prey on the living.",
+                            Isbn = "978-0-14-028381-8",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1897, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Archibald Constable and Company",
+                            Title = "Dracula",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A man wrongly imprisoned escapes after years of captivity and returns as the mysterious Count of Monte Cristo to exact his revenge.",
+                            Isbn = "978-0-14-028381-9",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1844, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Pétion",
+                            Title = "The Count of Monte Cristo",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An ex-convict pursued by a relentless policeman strives to become an honest man in post-Revolutionary France.",
+                            Isbn = "978-0-14-028382-0",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(1862, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "A. Lacroix, Verboeckhoven & Cie",
+                            Title = "Les Misérables",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 83,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A doctor's wife, dissatisfied with rural provincial life, pursues romantic affairs and material pleasures with ruinous consequences.",
+                            Isbn = "978-0-14-028382-1",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1857, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Michel Lévy Frères",
+                            Title = "Madame Bovary",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The interlocking stories of residents of a fictional English Midlands town in the period of 1829-32, exploring idealism and marriage.",
+                            Isbn = "978-0-14-028382-2",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1871, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "William Blackwood and Sons",
+                            Title = "Middlemarch",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Detailing one day in the life of Leopold Bloom in Dublin, this modernist novel mirrors the structure of Homer's Odyssey.",
+                            Isbn = "978-0-14-028382-3",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(1922, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Sylvia Beach",
+                            Title = "Ulysses",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A family's visit to a Scottish island over two days separated by ten years explores memory, loss, and the nature of time.",
+                            Isbn = "978-0-14-028382-4",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1927, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Hogarth Press",
+                            Title = "To the Lighthouse",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A mysterious millionaire's obsession with a lost love plays out against the backdrop of the decadent Jazz Age in 1920s America.",
+                            Isbn = "978-0-14-028382-5",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1925, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Charles Scribner's Sons",
+                            Title = "The Great Gatsby",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Two displaced ranch workers dream of owning their own farm during the Great Depression, but their dream is tragically fragile.",
+                            Isbn = "978-0-14-028382-6",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1937, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Covici Friede",
+                            Title = "Of Mice and Men",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An aging Cuban fisherman struggles to land a giant marlin far out in the Gulf Stream, a battle of will and endurance.",
+                            Isbn = "978-0-14-028382-7",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1952, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Charles Scribner's Sons",
+                            Title = "The Old Man and the Sea",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Lawyer Atticus Finch defends a Black man falsely accused of rape in the Deep South, seen through the eyes of his young daughter Scout.",
+                            Isbn = "978-0-06-112008-7",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "J. B. Lippincott & Co.",
+                            Title = "To Kill a Mockingbird",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A disenchanted teenager narrates his aimless days in New York City after being expelled from prep school, exploring alienation and identity.",
+                            Isbn = "978-0-316-76948-2",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1951, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Little, Brown and Company",
+                            Title = "The Catcher in the Rye",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "British boys stranded on a deserted island descend into savagery as they try to govern themselves without adult supervision.",
+                            Isbn = "978-0-14-028382-9",
+                            Price = 10.99m,
+                            PublishedDate = new DateTime(1954, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Faber and Faber",
+                            Title = "Lord of the Flies",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Following the defeat of the Lord Ruler, Vin and her companions struggle to maintain order as new threats and ancient prophecies emerge.",
+                            Isbn = "978-0-7432-7362-6",
+                            Price = 17.99m,
+                            PublishedDate = new DateTime(2007, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Mistborn: The Well of Ascension",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The conclusion of the Mistborn trilogy, in which Vin and Elend battle against the ancient force of Ruin threatening all life.",
+                            Isbn = "978-0-7432-7363-3",
+                            Price = 17.99m,
+                            PublishedDate = new DateTime(2008, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "The Hero of Ages",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The second book of The First Law trilogy, in which three storylines converge: a doomed expedition, a city under siege, and a torturer on trial.",
+                            Isbn = "978-0-575-09390-1",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(2007, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gollancz",
+                            Title = "Before They Are Hanged",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The First Law trilogy concludes as war comes to the Union, political machinations reach their peak, and dark truths are finally revealed.",
+                            Isbn = "978-0-575-07979-1",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(2008, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gollancz",
+                            Title = "Last Argument of Kings",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young girl with a gift for violence is recruited to a convent of killers on a dying world illuminated by a narrowing band of sunlight.",
+                            Isbn = "978-0-06-112009-4",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2017, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Ace Books",
+                            Title = "Red Sister",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young prince leads a band of brothers through a dark medieval world, seeking revenge for his mother's murder.",
+                            Isbn = "978-0-06-112009-5",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2011, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "HarperVoyager",
+                            Title = "Prince of Thorns",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The world's most powerful man discovers he has a son and must face the consequences of a secret kept for sixteen years.",
+                            Isbn = "978-1-59020-842-2",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2010, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Orbit Books",
+                            Title = "The Black Prism",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A man lives alone in a labyrinthine house with infinite halls filled with statues and tides, slowly uncovering his forgotten past.",
+                            Isbn = "978-0-316-38957-2",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(2020, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Bloomsbury Publishing",
+                            Title = "Piranesi",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A graduate student discovers a mysterious book that leads him to an underground world devoted to storytelling and books.",
+                            Isbn = "978-0-316-38957-3",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2019, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Doubleday",
+                            Title = "The Starless Sea",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A young woman crosses the Wall into the Old Kingdom to rescue her necromancer father, wielding bells to bind the dead.",
+                            Isbn = "978-0-316-38957-4",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1995, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "HarperCollins",
+                            Title = "Sabriel",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The sequel to Children of Time, in which human and spider-kind encounter a new alien intelligence across a distant solar system.",
+                            Isbn = "978-0-525-55360-6",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2019, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Children of Ruin",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An AI inhabiting a body for the first time must learn to navigate human society alongside a young woman escaping her own past.",
+                            Isbn = "978-1-250-31357-4",
+                            Price = 14.99m,
+                            PublishedDate = new DateTime(2016, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Hodder & Stoughton",
+                            Title = "A Closed and Common Orbit",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Murderbot continues its investigations while pretending to be a bot, teaming up with another rogue AI along the way.",
+                            Isbn = "978-0-385-54734-0",
+                            Price = 11.99m,
+                            PublishedDate = new DateTime(2018, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor.com",
+                            Title = "Rogue Protocol",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The sequel to A Memory Called Empire, in which a fleet commander investigates a mysterious alien entity beyond the empire's borders.",
+                            Isbn = "978-0-7653-9358-1",
+                            Price = 16.99m,
+                            PublishedDate = new DateTime(2021, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "A Desolation Called Peace",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Three thousand years after the Xenocide, Ender Wiggin travels to a distant world to speak for the dead and encounters a new alien species.",
+                            Isbn = "978-0-7653-2637-0",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1986, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Tor Books",
+                            Title = "Speaker for the Dead",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A physicist is abducted and wakes up in an alternate version of his life, desperate to find his way back to his family.",
+                            Isbn = "978-0-316-76948-3",
+                            Price = 15.99m,
+                            PublishedDate = new DateTime(2016, 7, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Crown Publishing",
+                            Title = "Dark Matter",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An unnamed Black man narrates his life from childhood in the South to adulthood in New York, exploring racial injustice and identity.",
+                            Isbn = "978-0-14-028383-0",
+                            Price = 11.99m,
+                            PublishedDate = new DateTime(1952, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Random House",
+                            Title = "Invisible Man",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A formerly enslaved woman is haunted by the ghost of her dead daughter in post-Civil War Ohio, confronting the trauma of slavery.",
+                            Isbn = "978-0-14-028383-1",
+                            Price = 12.99m,
+                            PublishedDate = new DateTime(1987, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Alfred A. Knopf",
+                            Title = "Beloved",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The Buendía family's multi-generational saga in the fictional town of Macondo, blending reality and magic in a chronicle of love and solitude.",
+                            Isbn = "978-0-14-028383-2",
+                            Price = 13.99m,
+                            PublishedDate = new DateTime(1967, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Editorial Sudamericana",
+                            Title = "One Hundred Years of Solitude",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CoverImageUrl = "",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A detached Algerian man commits a murder and faces trial, exploring themes of absurdism, indifference, and the meaning of existence.",
+                            Isbn = "978-0-14-028383-3",
+                            Price = 9.99m,
+                            PublishedDate = new DateTime(1942, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Publisher = "Gallimard",
+                            Title = "The Stranger",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -491,6 +3379,22 @@ namespace BookStore.Migrations
                             Description = "Fools are my theme, let satire be my song.",
                             Name = "Satire",
                             UpdatedAt = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Speculative fiction exploring futuristic science, technology, space exploration, and their impact on society.",
+                            Name = "Science Fiction",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Foundational works of literary fiction widely considered to be of superior quality and enduring significance.",
+                            Name = "Classic",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -579,18 +3483,76 @@ namespace BookStore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("AppUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("GuestEmail")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
                     b.Property<decimal>("OrderTotalCost")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BookStore.Models.PaymentMethods.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CVV")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardLastFour")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExpiryDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -599,7 +3561,45 @@ namespace BookStore.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("PaymentMethods");
+                });
+
+            modelBuilder.Entity("BookStore.Models.Payments.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("BookStore.Models.Reviews.Review", b =>
@@ -982,6 +3982,15 @@ namespace BookStore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BookStore.Models.Addresses.Address", b =>
+                {
+                    b.HasOne("BookStore.Models.Users.AppUser", "AppUser")
+                        .WithMany("Addresses")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("BookStore.Models.Inventories.Inventory", b =>
                 {
                     b.HasOne("BookStore.Models.Books.Book", "Book")
@@ -1014,13 +4023,57 @@ namespace BookStore.Migrations
 
             modelBuilder.Entity("BookStore.Models.Orders.Order", b =>
                 {
+                    b.HasOne("BookStore.Models.Addresses.Address", "Address")
+                        .WithMany("Orders")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("BookStore.Models.Users.AppUser", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("BookStore.Models.PaymentMethods.PaymentMethod", "PaymentMethod")
+                        .WithMany("Orders")
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("Address");
+
                     b.Navigation("Customer");
+
+                    b.Navigation("PaymentMethod");
+                });
+
+            modelBuilder.Entity("BookStore.Models.PaymentMethods.PaymentMethod", b =>
+                {
+                    b.HasOne("BookStore.Models.Users.AppUser", "AppUser")
+                        .WithMany("PaymentMethods")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("BookStore.Models.Payments.Payment", b =>
+                {
+                    b.HasOne("BookStore.Models.Orders.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("BookStore.Models.PaymentMethods.PaymentMethod", "PaymentMethod")
+                        .WithMany("Payments")
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("PaymentMethod");
                 });
 
             modelBuilder.Entity("BookStore.Models.Reviews.Review", b =>
@@ -1091,6 +4144,11 @@ namespace BookStore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BookStore.Models.Addresses.Address", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("BookStore.Models.Books.Book", b =>
                 {
                     b.Navigation("Inventory")
@@ -1106,9 +4164,20 @@ namespace BookStore.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("BookStore.Models.Users.AppUser", b =>
+            modelBuilder.Entity("BookStore.Models.PaymentMethods.PaymentMethod", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("BookStore.Models.Users.AppUser", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("PaymentMethods");
 
                     b.Navigation("Reviews");
                 });

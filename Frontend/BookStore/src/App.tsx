@@ -13,6 +13,7 @@ import VerifyAuth from './Auth/VerifyAuth';
 import RegisterPage from './Pages/RegisterPage';
 import Checkout from './Pages/Checkout';
 import { ToastProvider } from './Context/ToastContext';
+import OrderConfirmationPage from './Pages/OrderConfirmationPage';
 
 const App: Component = () => {
   return (
@@ -27,6 +28,7 @@ const App: Component = () => {
             <Route path="/register" component={RegisterPage} />
             <Route path="/user-profile" component={VerifyAuth(UserPage)} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/order/confirmation" component={OrderConfirmationPage} />
             <Route path="*" component={NotFound} />
           </Router>
         </CartProvider>

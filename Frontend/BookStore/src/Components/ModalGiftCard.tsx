@@ -1,10 +1,6 @@
 import { Component } from "solid-js";
 import Modal from "./Modal";
-
-interface GiftCardModalProps {
-  open: boolean;
-  onClose: () => void;
-}
+import { type GiftCardModalProps } from "../Types/modal";
 
 const ModalGiftCard: Component<GiftCardModalProps> = (props) => {
 

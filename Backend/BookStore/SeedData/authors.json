@@ -1,0 +1,478 @@
+[
+  {
+    "id": 4,
+    "firstName": "J.R.R.",
+    "lastName": "Tolkien",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 5,
+    "firstName": "Patrick",
+    "lastName": "Rothfuss",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 6,
+    "firstName": "Brandon",
+    "lastName": "Sanderson",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 7,
+    "firstName": "George R.R.",
+    "lastName": "Martin",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 8,
+    "firstName": "Joe",
+    "lastName": "Abercrombie",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 9,
+    "firstName": "Scott",
+    "lastName": "Lynch",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 10,
+    "firstName": "Robert",
+    "lastName": "Jordan",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 11,
+    "firstName": "Neil",
+    "lastName": "Gaiman",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 12,
+    "firstName": "Terry",
+    "lastName": "Pratchett",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 13,
+    "firstName": "Ursula K.",
+    "lastName": "Le Guin",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 14,
+    "firstName": "C.S.",
+    "lastName": "Lewis",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 15,
+    "firstName": "Robin",
+    "lastName": "Hobb",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 16,
+    "firstName": "Erin",
+    "lastName": "Morgenstern",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 17,
+    "firstName": "Susanna",
+    "lastName": "Clarke",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 18,
+    "firstName": "Guy Gavriel",
+    "lastName": "Kay",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 19,
+    "firstName": "Samantha",
+    "lastName": "Shannon",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 20,
+    "firstName": "N.K.",
+    "lastName": "Jemisin",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 21,
+    "firstName": "Frank",
+    "lastName": "Herbert",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 22,
+    "firstName": "George",
+    "lastName": "Orwell",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 23,
+    "firstName": "Aldous",
+    "lastName": "Huxley",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 24,
+    "firstName": "Douglas",
+    "lastName": "Adams",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 25,
+    "firstName": "Isaac",
+    "lastName": "Asimov",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 26,
+    "firstName": "William",
+    "lastName": "Gibson",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 27,
+    "firstName": "Orson Scott",
+    "lastName": "Card",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 28,
+    "firstName": "John",
+    "lastName": "Scalzi",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 29,
+    "firstName": "Andy",
+    "lastName": "Weir",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 30,
+    "firstName": "Liu",
+    "lastName": "Cixin",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 31,
+    "firstName": "Kazuo",
+    "lastName": "Ishiguro",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 32,
+    "firstName": "Neal",
+    "lastName": "Stephenson",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 33,
+    "firstName": "Adrian",
+    "lastName": "Tchaikovsky",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 34,
+    "firstName": "Peter",
+    "lastName": "Watts",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 35,
+    "firstName": "Martha",
+    "lastName": "Wells",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 36,
+    "firstName": "Blake",
+    "lastName": "Crouch",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 37,
+    "firstName": "Arkady",
+    "lastName": "Martine",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 38,
+    "firstName": "Becky",
+    "lastName": "Chambers",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 39,
+    "firstName": "Jane",
+    "lastName": "Austen",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 40,
+    "firstName": "Charlotte",
+    "lastName": "Brontë",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 41,
+    "firstName": "Emily",
+    "lastName": "Brontë",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 42,
+    "firstName": "Charles",
+    "lastName": "Dickens",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 43,
+    "firstName": "Leo",
+    "lastName": "Tolstoy",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 44,
+    "firstName": "Fyodor",
+    "lastName": "Dostoevsky",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 45,
+    "firstName": "Miguel de",
+    "lastName": "Cervantes",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 46,
+    "firstName": "William",
+    "lastName": "Shakespeare",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 47,
+    "firstName": "Herman",
+    "lastName": "Melville",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 48,
+    "firstName": "Nathaniel",
+    "lastName": "Hawthorne",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 49,
+    "firstName": "Mark",
+    "lastName": "Twain",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 50,
+    "firstName": "Oscar",
+    "lastName": "Wilde",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 51,
+    "firstName": "Mary",
+    "lastName": "Shelley",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 52,
+    "firstName": "Bram",
+    "lastName": "Stoker",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 53,
+    "firstName": "Alexandre",
+    "lastName": "Dumas",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 54,
+    "firstName": "Victor",
+    "lastName": "Hugo",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 55,
+    "firstName": "Gustave",
+    "lastName": "Flaubert",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 56,
+    "firstName": "George",
+    "lastName": "Eliot",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 57,
+    "firstName": "James",
+    "lastName": "Joyce",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 58,
+    "firstName": "Virginia",
+    "lastName": "Woolf",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 59,
+    "firstName": "F. Scott",
+    "lastName": "Fitzgerald",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 60,
+    "firstName": "John",
+    "lastName": "Steinbeck",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 61,
+    "firstName": "Ernest",
+    "lastName": "Hemingway",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 62,
+    "firstName": "Harper",
+    "lastName": "Lee",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 63,
+    "firstName": "J.D.",
+    "lastName": "Salinger",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 64,
+    "firstName": "William",
+    "lastName": "Golding",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 65,
+    "firstName": "Mark",
+    "lastName": "Lawrence",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 66,
+    "firstName": "Brent",
+    "lastName": "Weeks",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 67,
+    "firstName": "Garth",
+    "lastName": "Nix",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 68,
+    "firstName": "Ralph",
+    "lastName": "Ellison",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 69,
+    "firstName": "Toni",
+    "lastName": "Morrison",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 70,
+    "firstName": "Gabriel García",
+    "lastName": "Márquez",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  },
+  {
+    "id": 71,
+    "firstName": "Albert",
+    "lastName": "Camus",
+    "bio": null,
+    "createdAt": "2025-01-01T00:00:00"
+  }
+]

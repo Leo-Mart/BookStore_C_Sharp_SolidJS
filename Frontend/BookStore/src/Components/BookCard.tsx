@@ -3,25 +3,8 @@ import { Component } from 'solid-js';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
 import { useCart } from '../Context/CartContext';
 import { useToast } from '../Context/ToastContext';
+import { type BookProps } from '../Types/book';
 
-interface bookProps {
-  book: {
-    id: number;
-    isbn: string;
-    title: string;
-    publisher: string;
-    publishedDate: Date;
-    description?: string;
-    price: number;
-    coverImageUrl?: string;
-    authors: [
-      {
-        firstName: string;
-        lastName: string;
-      },
-    ];
-  };
-}
 
 
 
@@ -42,7 +25,7 @@ const BookCard: Component<bookProps> = (bookProps) => {
 };
 
   return (
-    <div class="bg-everforest-bg-0 block p-6 text-everforest-fg min-w-full md:max-w-xl shadow-xs">
+    <div class="flex flex-col bg-everforest-bg-0 block p-6 text-everforest-fg min-h-full min-w-full md:max-w-xl shadow-xs">
       <A href={`/books/${bookProps.book.id}`}>
         <img
           class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"
@@ -50,21 +33,22 @@ const BookCard: Component<bookProps> = (bookProps) => {
         />
       </A>
 
-      <div class="flex flex-col justify-between md:p-4 leading-normal">
-        <A href={`/books/${bookProps.book.id}`}>
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-heading">
-            {bookProps.book.title}
-          </h5>
-        </A>
+      <div class="flex flex-col grow md:p-4 leading-normal">
+        <div class="grow">
+          <A href={`/books/${bookProps.book.id}`}>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-heading">
+              {bookProps.book.title}
+            </h5>
+          </A>
 
-        <A href={`/books/${bookProps.book.id}`}>
-          <p class="mb-6 text-sm">
-            {bookProps.book.authors[0].firstName}
-            {bookProps.book.authors[0].lastName}
-          </p>
-        </A>
+          <A href={`/books/${bookProps.book.id}`}>
+            <p class="mb-6 text-sm">
+              {`${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`}
+            </p>
+          </A>
+        </div>
 
-        <div>
+        <div class="justify-end">
           <button
             onClick={handleClick}
             type="button"

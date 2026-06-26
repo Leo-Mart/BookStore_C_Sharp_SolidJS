@@ -2,25 +2,7 @@ import { For, Show } from 'solid-js';
 import Drawer from './Drawer';
 import { Component } from 'solid-js';
 import { A } from '@solidjs/router';
-
-export interface CartItem {
-  id: number;
-  title: string;
-  author: string;
-  price: number;
-  quantity: number;
-  imageUrl?: string;
-}
-
-interface CartDrawerProps {
-  open: boolean;
-  onClose: () => void;
-  items: CartItem[];
-  total: number;
-  count: number;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (id: number, qty: number) => void;
-}
+import { type CartDrawerProps } from '../Types/cart';
 
 const CartDrawer: Component<CartDrawerProps> = (props: CartDrawerProps) => {
   const footer = (

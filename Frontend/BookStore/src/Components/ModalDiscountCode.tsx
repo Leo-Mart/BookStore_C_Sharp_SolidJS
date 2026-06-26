@@ -1,10 +1,6 @@
 import { Component } from 'solid-js';
 import Modal from './Modal';
-
-interface DiscountCodeModalProps {
-  open: boolean;
-  onClose: () => void;
-}
+import { type DiscountCodeModalProps } from '../Types/modal';
 
 const ModalDiscountCode: Component<DiscountCodeModalProps> = (
   props: DiscountCodeModalProps,

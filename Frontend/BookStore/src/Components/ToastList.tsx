@@ -1,13 +1,5 @@
 import { Component, For } from 'solid-js';
-
-interface Toast {
-  id: string;
-  message: string;
-  type: ToastType;
-  duration: number;
-}
-
-type ToastType = 'info' | 'success' | 'error' | 'warning';
+import { type Toast } from '../Types/toasts';
 
 const ToastList: Component<{ toasts: Toast[]; onDismiss: (id: string) => void }> = (props: {
   toasts: Toast[];

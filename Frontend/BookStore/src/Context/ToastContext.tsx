@@ -1,30 +1,9 @@
-import { createContext, createSignal, ParentComponent, ParentProps, useContext } from "solid-js"
+import { createContext, createSignal, ParentComponent, useContext } from "solid-js"
 import { Portal } from "solid-js/web"
 import ToastList from "../Components/ToastList"
-
-type ToastType = "info" | "success" | "error" | "warning"
-
-interface Toast {
-  id: string
-  message: string
-  type: ToastType
-  duration: number
-}
-
-interface ToastOptions {
-  type?: ToastType
-  duration?: number
-}
-
-interface ToastContextValue {
-  toasts: () => Toast[]
-  add: (message: string, options?: ToastOptions) => string
-  remove: (id:string) => void
-}
+import { ToastContextValue, Toast, DEFAULT_DURATION, ToastOptions } from "../Types/toasts";
 
 const ToastContext = createContext<ToastContextValue>();
-
-const DEFAULT_DURATION = 4000
 
 export const ToastProvider: ParentComponent = (props) => {
   const [toasts, setToasts] = createSignal<Toast[]>([])

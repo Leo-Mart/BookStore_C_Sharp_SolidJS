@@ -5,10 +5,7 @@ import { useCart } from '../Context/CartContext';
 import { useToast } from '../Context/ToastContext';
 import { type BookProps } from '../Types/book';
 
-
-
-
-const BookCard: Component<bookProps> = (bookProps) => {
+const BookCard: Component<BookProps> = (bookProps) => {
   const cart = useCart();
   const toast = useToast();
 
@@ -25,7 +22,7 @@ const BookCard: Component<bookProps> = (bookProps) => {
 };
 
   return (
-    <div class="flex flex-col bg-everforest-bg-0 block p-6 text-everforest-fg min-h-full min-w-full md:max-w-xl shadow-xs">
+    <div class="flex flex-col bg-everforest-bg-0 p-6 text-everforest-fg min-h-full min-w-full md:max-w-xl shadow-xs">
       <A href={`/books/${bookProps.book.id}`}>
         <img
           class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"

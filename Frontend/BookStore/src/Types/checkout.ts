@@ -1,10 +1,10 @@
-export type ShippingMethod =
+export type ShippingCompany =
   | 'postnord'
   | 'instabox'
   | 'budbee'
   | 'dhl'
-  | 'pigeon'
-  | 'paper-plane';
+
+export type ShippingType = 'pick-up' | 'home' | 'box'
 
 export type PaymentMethod = 'card' | 'invoice' | 'swish';
 
@@ -18,7 +18,8 @@ export type OrderInformation = {
   postalCode: string;
   city: string;
   shippingMethod: {
-    type: ShippingMethod;
+    company: ShippingCompany;
+    type: ShippingType;
     price: number;
   };
   paymentMethod: {
@@ -36,6 +37,7 @@ export type NewOrderPayload = {
   orderTotalCost: number;
   guestEmail: string;
   address: OrderAddressPayload;
+  shippingMethod: OrderShippingMethodPayload;
   paymentMethod: OrderPaymentMethodPayload;
   items: OrderItemPayload[];
 };
@@ -58,4 +60,10 @@ export type OrderPaymentMethodPayload = {
   cardNumber?: string
   cvv?: string
   expiryDate?: Date
+}
+
+export type OrderShippingMethodPayload = {
+  company: string
+  type: string
+  price: number
 }

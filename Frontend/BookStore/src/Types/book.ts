@@ -1,6 +1,9 @@
 export interface BookProps {
-  book: {
-    id: number;
+  book: Book
+}
+
+export interface Book {
+  id: number;
     isbn: string;
     title: string;
     publisher: string;
@@ -14,5 +17,4 @@ export interface BookProps {
         lastName: string;
       },
     ];
-  };
 }

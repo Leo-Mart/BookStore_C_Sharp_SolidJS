@@ -12,5 +12,10 @@ namespace BookStore.Repository
     {
       return await _context.ShippingMethods.ToListAsync();
     }
+
+    public async Task<ShippingMethod?> GetShippingMethodByIdentifierAsync(string identifier)
+    {
+      return await _context.ShippingMethods.Where(sm => sm.Identifier == identifier).FirstOrDefaultAsync();
+    }
   }
 }

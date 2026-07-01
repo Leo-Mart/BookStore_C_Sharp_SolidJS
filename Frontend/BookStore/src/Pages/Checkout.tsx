@@ -114,7 +114,7 @@ const Checkout: Component = () => {
       },
       guestEmail: auth.isAuthenticated() ? '' : formData.email,
       shippingMethod: {
-        company: formData.shippingMethod.identifier,
+        identifier: formData.shippingMethod.identifier,
         type: formData.shippingMethod.type,
         price: formData.shippingMethod.price
       },
@@ -147,6 +147,7 @@ const Checkout: Component = () => {
         items: payload.items,
         address: payload.address,
         guestEmail: payload.guestEmail,
+        shippingMethod: payload.shippingMethod,
         paymentMethod: payload.paymentMethod,
         orderTotalCost: payload.orderTotalCost,
         orderStatus: payload.orderStatus,

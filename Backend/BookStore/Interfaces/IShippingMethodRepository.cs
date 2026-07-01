@@ -5,5 +5,6 @@ namespace BookStore.Interfaces
     public interface IShippingMethodRepository
     {
         Task<IEnumerable<ShippingMethod>> GetShippingMethodsAsync();
+        Task<ShippingMethod?> GetShippingMethodByIdentifierAsync(string identifier);
     }
 }

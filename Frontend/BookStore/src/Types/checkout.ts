@@ -67,7 +67,7 @@ export type OrderPaymentMethodPayload = {
 }
 
 export type OrderShippingMethodPayload = {
-  company: string
+  identifier: string
   type: string
   price: number
 }

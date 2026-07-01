@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BookStore.Services
 {
-    public class OrderService(ILogger<OrderService> logger, IOrderRepository orderRepo, IPaymentMethodRepository paymentMethodRepo, IPaymentRepository paymentRepo, IAddressRepository addressRepo, UserManager<AppUser> userManager, ApplicationDbContext context, IBookRepository bookRepo) : IOrderService
+    public class OrderService(ILogger<OrderService> logger, IOrderRepository orderRepo, IPaymentMethodRepository paymentMethodRepo, IPaymentRepository paymentRepo, IAddressRepository addressRepo, UserManager<AppUser> userManager, ApplicationDbContext context, IBookRepository bookRepo, IShippingMethodRepository smRepo) : IOrderService
     {
         private readonly ILogger<OrderService> _logger = logger;
         private readonly IOrderRepository _orderRepo = orderRepo;
@@ -18,6 +18,7 @@ namespace BookStore.Services
         private readonly IPaymentRepository _paymentRepo = paymentRepo;
         private readonly IAddressRepository _addressRepo = addressRepo;
         private readonly IBookRepository _bookRepo = bookRepo;
+        private readonly IShippingMethodRepository _smRepo = smRepo;
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly ApplicationDbContext _context = context;
 
@@ -55,7 +56,14 @@ namespace BookStore.Services
                 };
                 var savedPaymentMethod = await _paymentMethodRepo.CreateNewPaymentMethodAsync(paymentMethod);
 
-                decimal total = 0;
+                var shippingMethod = await _smRepo.GetShippingMethodByIdentifierAsync(order.ShippingMethod.Identifier);
+
+                if (shippingMethod == null)
+                {
+                    return null;
+                }
+
+                decimal total = shippingMethod.Price;
                 foreach (var item in order.Items)
                 {
                     var book = await _bookRepo.GetBookByIdAsync(item.BookId);
@@ -69,6 +77,7 @@ namespace BookStore.Services
                 orderToSave.AddressId = address.Id;
                 orderToSave.AppUserId = user.Id;
                 orderToSave.PaymentMethodId = paymentMethod.Id;
+                orderToSave.ShippingMethodId = shippingMethod.Id;
                 var savedOrder = await _orderRepo.CreateOrderAsync(orderToSave);
 
                 var payment = new Payment
@@ -118,7 +127,14 @@ namespace BookStore.Services
                 };
                 var savedPaymentMethod = await _paymentMethodRepo.CreateNewPaymentMethodAsync(paymentMethod);
 
-                decimal total = 0;
+                var shippingMethod = await _smRepo.GetShippingMethodByIdentifierAsync(order.ShippingMethod.Identifier);
+
+                if (shippingMethod == null)
+                {
+                    return null;
+                }
+
+                decimal total = shippingMethod.Price;
                 foreach (var item in order.Items)
                 {
                     var book = await _bookRepo.GetBookByIdAsync(item.BookId);
@@ -131,6 +147,7 @@ namespace BookStore.Services
                 var orderToSave = order.ToOrderFromCreateDto();
                 orderToSave.AddressId = address.Id;
                 orderToSave.PaymentMethodId = paymentMethod.Id;
+                orderToSave.ShippingMethodId = shippingMethod.Id;
                 orderToSave.GuestEmail = order.GuestEmail;
                 var savedOrder = await _orderRepo.CreateOrderAsync(orderToSave);
 

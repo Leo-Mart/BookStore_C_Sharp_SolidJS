@@ -12,7 +12,7 @@ namespace BookStore.Controllers
     {
         private readonly ILogger<BooksController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         private readonly IBookRepository _booksRepo = bookRepository;
-        const int maxBooksPageSize = 20;
+        const int maxBooksPageSize = 100;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookWithoutReviewsDto>>> GetBooks(string? title, string? searchQuery, int pageNumber = 1, int pageSize = 10)

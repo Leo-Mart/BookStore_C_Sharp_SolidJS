@@ -9,7 +9,7 @@ const CartDrawer: Component<CartDrawerProps> = (props: CartDrawerProps) => {
     <div class="space-y-3">
       <div class="flex justify-between text-sm font-medium text-everforest-fg">
         <span>Subtotal</span>
-        <span class="text-everforest-fg">{props.total} kr</span>
+        <span class="text-everforest-fg">{props.total.toFixed(2)} kr</span>
       </div>
       <A
         href="/checkout"

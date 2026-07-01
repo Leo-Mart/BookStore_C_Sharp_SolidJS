@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using BookStore.Models.Addresses;
 using BookStore.Models.OrderItems;
 using BookStore.Models.PaymentMethods;
+using BookStore.Models.ShippingMethods;
 using BookStore.Models.Users;
 
 namespace BookStore.Models.Orders
@@ -11,6 +12,7 @@ namespace BookStore.Models.Orders
         public string? AppUserId { get; set; }
         public int AddressId { get; set; }
         public int PaymentMethodId { get; set; }
+        public int ShippingMethodId { get; set; }
 
         [Required]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
@@ -21,5 +23,6 @@ namespace BookStore.Models.Orders
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
         public Address Address { get; set; } = null!;
         public PaymentMethod PaymentMethod { get; set; } = null!;
+        public ShippingMethod ShippingMethod { get; set; } = null!;
     }
 }

@@ -9,6 +9,7 @@ using BookStore.Models.Orders;
 using BookStore.Models.PaymentMethods;
 using BookStore.Models.Payments;
 using BookStore.Models.Reviews;
+using BookStore.Models.ShippingMethods;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace BookStore.DbContexts
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<ShippingMethod> ShippingMethods { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -347,6 +349,56 @@ namespace BookStore.DbContexts
                     UpdatedAt = new(2026, 1, 1)
                 }
             );
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.ShippingMethod)
+                .WithMany(sm => sm.Orders)
+                .HasForeignKey(o => o.ShippingMethodId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            modelBuilder.Entity<ShippingMethod>()
+                .HasData(
+                    new ShippingMethod
+                    {
+                        Id = 1,
+                        Identifier = "postnord-pick",
+                        Type = "pick-up",
+                        Price = 49,
+                        Description = "Pick up your parcel at a nearby pick-up point"
+                    },
+                    new ShippingMethod
+                    {
+                        Id = 2,
+                        Identifier = "postnord-home",
+                        Type = "home",
+                        Price = 100,
+                        Description = "The parcel is delivered to your door."
+                    },
+                    new ShippingMethod
+                    {
+                        Id = 3,
+                        Identifier = "dhl-pick",
+                        Type = "pick-up",
+                        Price = 49,
+                        Description = "The parcel can be picked up from a DHL service point."
+                    },
+                    new ShippingMethod
+                    {
+                        Id = 4,
+                        Identifier = "instabox-box",
+                        Type = "box",
+                        Price = 49,
+                        Description = "The parcel can be picked up from a Instabox parcel-box."
+                    },
+                    new ShippingMethod
+                    {
+                        Id = 5,
+                        Identifier = "budbee-box",
+                        Type = "box",
+                        Price = 49,
+                        Description = "The parcel can be picked up from a Budbee parcel-box."
+                    }
+                );
 
             modelBuilder.Entity<Book>()
                 .HasMany(a => a.Authors)

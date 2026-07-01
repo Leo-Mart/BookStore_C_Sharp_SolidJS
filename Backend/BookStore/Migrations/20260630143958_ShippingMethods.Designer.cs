@@ -4,6 +4,7 @@ using BookStore.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260630143958_ShippingMethods")]
+    partial class ShippingMethods
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3703,14 +3706,14 @@ namespace BookStore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Identifier")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -3731,9 +3734,9 @@ namespace BookStore.Migrations
                         new
                         {
                             Id = 1,
+                            Company = "Postnord",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Pick up your parcel at a nearby pick-up point",
-                            Identifier = "postnord-pick",
                             Price = 49m,
                             Type = "pick-up",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -3741,9 +3744,9 @@ namespace BookStore.Migrations
                         new
                         {
                             Id = 2,
+                            Company = "Postnord",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "The parcel is delivered to your door.",
-                            Identifier = "postnord-home",
                             Price = 100m,
                             Type = "home",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -3751,9 +3754,9 @@ namespace BookStore.Migrations
                         new
                         {
                             Id = 3,
+                            Company = "Dhl",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "The parcel can be picked up from a DHL service point.",
-                            Identifier = "dhl-pick",
                             Price = 49m,
                             Type = "pick-up",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -3761,9 +3764,9 @@ namespace BookStore.Migrations
                         new
                         {
                             Id = 4,
+                            Company = "instabox",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "The parcel can be picked up from a Instabox parcel-box.",
-                            Identifier = "instabox-box",
                             Price = 49m,
                             Type = "box",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -3771,9 +3774,9 @@ namespace BookStore.Migrations
                         new
                         {
                             Id = 5,
+                            Company = "budbee",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "The parcel can be picked up from a Budbee parcel-box.",
-                            Identifier = "budbee-box",
                             Price = 49m,
                             Type = "box",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)

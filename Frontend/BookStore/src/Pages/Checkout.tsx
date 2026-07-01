@@ -1,4 +1,4 @@
-import { Component, createSignal, For } from 'solid-js';
+import { Component, createResource, createSignal, For } from 'solid-js';
 import { createStore, produce } from 'solid-js/store';
 import Percent from 'lucide-solid/icons/percent';
 import Gift from 'lucide-solid/icons/gift';
@@ -8,12 +8,22 @@ import ModalDiscountCode from '../Components/ModalDiscountCode';
 import ModalGiftCard from '../Components/ModalGiftCard';
 import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from '@solidjs/router';
-import { type OrderInformation, NewOrderPayload, OrderItemPayload } from '../Types/checkout';
+import {
+  type OrderInformation,
+  NewOrderPayload,
+  OrderItemPayload,
+  ShippingMethod,
+} from '../Types/checkout';
 
+const fetchShippingMethods = async () => {
+  const response = await fetch('api/shipping-methods');
+  return response.json();
+};
 
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
+  const [shippingMethods] = createResource<ShippingMethod[]>(fetchShippingMethods);
 
   const cart = useCart();
   const auth = useAuth();
@@ -29,8 +39,9 @@ const Checkout: Component = () => {
     postalCode: '',
     city: '',
     shippingMethod: {
-      type: 'postnord',
-      price: 0,
+      identifier: 'postnord-pick',
+      type: 'pick-up',
+      price: 49,
     },
     paymentMethod: {
       type: 'card',
@@ -41,6 +52,8 @@ const Checkout: Component = () => {
       },
     },
   });
+
+  
 
   const handleInputChange = (
     e: Event & {
@@ -58,6 +71,12 @@ const Checkout: Component = () => {
           node = node[path[i]];
         }
         node[path[path.length - 1]] = coercedValue;
+
+        if (name == 'shippingMethod.identifier'){
+          const foundMethod = shippingMethods.latest!.find(sm => sm.identifier == coercedValue)
+          task.shippingMethod.price = foundMethod!.price
+          task.shippingMethod.type = foundMethod!.type
+        }
 
         if (name === 'paymentMethod.type' && coercedValue !== 'card') {
           task.paymentMethod.cardInfo = {
@@ -77,10 +96,12 @@ const Checkout: Component = () => {
   const handleOrderSubmit = async (e: Event) => {
     e.preventDefault();
 
-    let date = new Date()
-    if(formData.paymentMethod.cardInfo?.expiryDate){
-      let time: number = Date.parse(formData.paymentMethod.cardInfo?.expiryDate)
-      date = new Date(time)
+    let date = new Date();
+    if (formData.paymentMethod.cardInfo?.expiryDate) {
+      let time: number = Date.parse(
+        formData.paymentMethod.cardInfo?.expiryDate,
+      );
+      date = new Date(time);
     }
 
     const payload: NewOrderPayload = {
@@ -89,15 +110,22 @@ const Checkout: Component = () => {
       address: {
         street: formData.street,
         city: formData.city,
-        postalCode: formData.postalCode
+        postalCode: formData.postalCode,
       },
-      guestEmail: auth.isAuthenticated() ? "" : formData.email,
+      guestEmail: auth.isAuthenticated() ? '' : formData.email,
+      shippingMethod: {
+        company: formData.shippingMethod.identifier,
+        type: formData.shippingMethod.type,
+        price: formData.shippingMethod.price
+      },
       paymentMethod: {
         type: formData.paymentMethod.type,
-        cardLastFour: formData.paymentMethod.cardInfo?.cardNumber?.toString().slice(-4),
+        cardLastFour: formData.paymentMethod.cardInfo?.cardNumber
+          ?.toString()
+          .slice(-4),
         cardNumber: formData.paymentMethod.cardInfo?.cardNumber?.toString(),
         cvv: formData.paymentMethod.cardInfo?.cvv?.toString(),
-        expiryDate: date        
+        expiryDate: date,
       },
       items: cart.items.map((item) => {
         var items: OrderItemPayload = {
@@ -115,32 +143,31 @@ const Checkout: Component = () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${auth.token()}`,
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         items: payload.items,
         address: payload.address,
         guestEmail: payload.guestEmail,
         paymentMethod: payload.paymentMethod,
         orderTotalCost: payload.orderTotalCost,
-        orderStatus: payload.orderStatus
-       }),
+        orderStatus: payload.orderStatus,
+      }),
     });
     const result = await resp.json();
-    cart.clearCart()
-    nav("/order/confirmation", {state: result.items})
-  };  
+    cart.clearCart();
+    nav('/order/confirmation', { state: result.items });
+  };
 
   return (
     <div class="max-w-7xl lg:max-w-7xl mx-auto">
       <div class="flex w-full flex-col gap-20 pb-48 lg:flex-row-reverse">
         <div class="lg:w-1/2">
           <div class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5">
-            {/* header */}
             <div class="flex flex-col gap-2 text-everforest-fg">
               <h3 class="text-xl m-0">Your Order ({cart.count()})</h3>
             </div>
             <div class="flex flex-col gap-2">
               <div class="border px-12 py-8 text-xs text-everforest-fg">
-                <p>You have xxx kr remaining for shipping!</p>
+                <p>You have {250 - cart.total() > 0 ? `${(250 - cart.total()).toFixed(1)} kr remaining for free shipping!`: `unlocked free shipping!` } </p>
                 <div>
                   <div class="flex justify-between mb-1">
                     <span class="text-sm font-medium text-everforest-fg">
@@ -153,7 +180,7 @@ const Checkout: Component = () => {
                   <div class="w-full bg-everforest-bg-5 rounded-full h-2">
                     <div
                       class="bg-everforest-aqua h-2 rounded-full"
-                      style="width: 45%"
+                      style={`width: ${(cart.total() / 250) * 100}%`}
                     ></div>
                   </div>
                 </div>
@@ -170,7 +197,7 @@ const Checkout: Component = () => {
               <div class="flex flex-col gap-2">
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Total before discount</span>
-                  <span>{cart.total()} kr</span>
+                  <span>{cart.total().toFixed(2)} kr</span>
                 </div>
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Total discount</span>
@@ -178,11 +205,11 @@ const Checkout: Component = () => {
                 </div>
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Shipping</span>
-                  <span>xxx kr</span>
+                  <span>{cart.total() > 250 ? 'Gratis!' : `${formData.shippingMethod.price} kr`}</span>
                 </div>
                 <div class="flex items-baseline justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>{cart.total()}</span>
+                  <span>{(formData.shippingMethod.price + cart.total()).toFixed(2)}</span>
                 </div>
               </div>
               <div class="flex gap-2 flex-col md:flex-row">
@@ -396,184 +423,43 @@ const Checkout: Component = () => {
                 <fieldset>
                   <legend class="sr-only">Shipping Methods</legend>
 
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="instabox"
-                      type="radio"
-                      name="shippingMethod.type"
-                      value="instabox"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.type === 'instabox'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="instabox"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Instabox
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.type === 'instabox'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a Instabox self-help thingy.</p>
-                        <span>39 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="budbee"
-                      type="radio"
-                      name="shippingMethod.type"
-                      value="budbee"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.type === 'budbee'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="budbee"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Budbee
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.type === 'budbee'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a budbee self-help thingy.</p>
-                        <span>39 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="postnord"
-                      type="radio"
-                      name="shippingMethod.type"
-                      value="postnord"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.type === 'postnord'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="postnord"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Postnord
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.type === 'postnord'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a Postnord pick-up-point.</p>
-                        <span>49 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="dhl"
-                      type="radio"
-                      name="shippingMethod.type"
-                      value="dhl"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.type === 'dhl'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="dhl"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      DHL
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.type === 'dhl'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a DHL pick-up-point.</p>
-                        <span>45 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="pigeon"
-                      type="radio"
-                      name="shippingMethod.type"
-                      value="pigeon"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.type === 'pigeon'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="pigeon"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Pigeon
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.type === 'pigeon'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Poor bird.</p>
-                        <span>39 kr</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="paper-plane"
-                      type="radio"
-                      name="shippingMethod.type"
-                      checked={formData.shippingMethod.type === 'paper-plane'}
-                      value="paper-plane"
-                      class="peer hidden"
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="paper-plane"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Paper airplane
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.type === 'paper-plane'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Poor plane.</p>
-                        <span>39 kr</span>
-                      </div>
-                    </div>
-                  </div>
+                  <For each={shippingMethods()}>
+                    {(item, _) => (
+                        <div class="flex flex-col items-center mb-4">
+                          <input
+                            id={item.identifier}
+                            type="radio"
+                            name="shippingMethod.identifier"
+                            value={item.identifier}
+                            class="peer hidden"
+                            checked={
+                              formData.shippingMethod.identifier ===
+                              item.identifier
+                            }
+                            onChange={handleInputChange}
+                          />
+                          <label
+                            for={item.identifier}
+                            class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+                          >
+                            {item.identifier}
+                          </label>
+                          <div
+                            class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                              formData.shippingMethod.identifier ===
+                              item.identifier
+                                ? 'grid-rows-[1fr] opacity-100'
+                                : 'grid-rows-[0fr] opacity-0'
+                            }`}
+                          >
+                            <div class="overflow-hidden w-full flex justify-between">
+                              <p>{item.description}</p>
+                              <span>{item.price} kr</span>
+                            </div>
+                          </div>
+                        </div>
+                    )}
+                  </For>         
                 </fieldset>
               </div>
             </div>
@@ -667,7 +553,9 @@ const Checkout: Component = () => {
                               type="text"
                               class="border border-everforest-bg-dim dark:bg-everforest-bg-0 text-sm rounded-base block w-full ps-9 pe-3 py-2.5 shadow-xs placeholder:dark:text-everforest-fg"
                               placeholder="12/23"
-                              value={formData.paymentMethod.cardInfo?.expiryDate}
+                              value={
+                                formData.paymentMethod.cardInfo?.expiryDate
+                              }
                               onChange={handleInputChange}
                             />
                           </div>

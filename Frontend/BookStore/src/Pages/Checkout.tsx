@@ -12,6 +12,7 @@ import {
   type OrderInformation,
   NewOrderPayload,
   OrderItemPayload,
+  ShippingMethod,
 } from '../Types/checkout';
 
 const fetchShippingMethods = async () => {
@@ -22,7 +23,7 @@ const fetchShippingMethods = async () => {
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
-  const [shippingMethods] = createResource(fetchShippingMethods);
+  const [shippingMethods] = createResource<ShippingMethod[]>(fetchShippingMethods);
 
   const cart = useCart();
   const auth = useAuth();
@@ -38,9 +39,9 @@ const Checkout: Component = () => {
     postalCode: '',
     city: '',
     shippingMethod: {
-      company: 'postnord',
+      identifier: 'postnord-pick',
       type: 'pick-up',
-      price: 0,
+      price: 49,
     },
     paymentMethod: {
       type: 'card',
@@ -62,8 +63,6 @@ const Checkout: Component = () => {
     const { name, value, type } = e.currentTarget;
     const coercedValue = type === 'number' ? Number(value) : value;
     const path = name.split('.') as any;
-    console.log(formData)
-    console.log(shippingMethods.latest)
 
     setFormData(
       produce((task) => {
@@ -73,8 +72,10 @@ const Checkout: Component = () => {
         }
         node[path[path.length - 1]] = coercedValue;
 
-        if (name == 'shippingMethod.company'){
-          task.shippingMethod.price = shippingMethods()["Dhl-pick-up"]
+        if (name == 'shippingMethod.identifier'){
+          const foundMethod = shippingMethods.latest!.find(sm => sm.identifier == coercedValue)
+          task.shippingMethod.price = foundMethod!.price
+          task.shippingMethod.type = foundMethod!.type
         }
 
         if (name === 'paymentMethod.type' && coercedValue !== 'card') {
@@ -113,7 +114,7 @@ const Checkout: Component = () => {
       },
       guestEmail: auth.isAuthenticated() ? '' : formData.email,
       shippingMethod: {
-        company: formData.shippingMethod.company,
+        company: formData.shippingMethod.identifier,
         type: formData.shippingMethod.type,
         price: formData.shippingMethod.price
       },
@@ -135,25 +136,25 @@ const Checkout: Component = () => {
         return items;
       }),
     };
-    console.log(payload)
-    // const resp = await fetch('/api/orders', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${auth.token()}`,
-    //   },
-    //   body: JSON.stringify({
-    //     items: payload.items,
-    //     address: payload.address,
-    //     guestEmail: payload.guestEmail,
-    //     paymentMethod: payload.paymentMethod,
-    //     orderTotalCost: payload.orderTotalCost,
-    //     orderStatus: payload.orderStatus,
-    //   }),
-    // });
-    // const result = await resp.json();
-    // cart.clearCart();
-    // nav('/order/confirmation', { state: result.items });
+
+    const resp = await fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token()}`,
+      },
+      body: JSON.stringify({
+        items: payload.items,
+        address: payload.address,
+        guestEmail: payload.guestEmail,
+        paymentMethod: payload.paymentMethod,
+        orderTotalCost: payload.orderTotalCost,
+        orderStatus: payload.orderStatus,
+      }),
+    });
+    const result = await resp.json();
+    cart.clearCart();
+    nav('/order/confirmation', { state: result.items });
   };
 
   return (
@@ -161,13 +162,12 @@ const Checkout: Component = () => {
       <div class="flex w-full flex-col gap-20 pb-48 lg:flex-row-reverse">
         <div class="lg:w-1/2">
           <div class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5">
-            {/* header */}
             <div class="flex flex-col gap-2 text-everforest-fg">
               <h3 class="text-xl m-0">Your Order ({cart.count()})</h3>
             </div>
             <div class="flex flex-col gap-2">
               <div class="border px-12 py-8 text-xs text-everforest-fg">
-                <p>You have xxx kr remaining for shipping!</p>
+                <p>You have {250 - cart.total() > 0 ? `${(250 - cart.total()).toFixed(1)} kr remaining for free shipping!`: `unlocked free shipping!` } </p>
                 <div>
                   <div class="flex justify-between mb-1">
                     <span class="text-sm font-medium text-everforest-fg">
@@ -180,7 +180,7 @@ const Checkout: Component = () => {
                   <div class="w-full bg-everforest-bg-5 rounded-full h-2">
                     <div
                       class="bg-everforest-aqua h-2 rounded-full"
-                      style="width: 45%"
+                      style={`width: ${(cart.total() / 250) * 100}%`}
                     ></div>
                   </div>
                 </div>
@@ -205,11 +205,11 @@ const Checkout: Component = () => {
                 </div>
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Shipping</span>
-                  <span>{formData.shippingMethod.price} kr</span>
+                  <span>{cart.total() > 250 ? 'Gratis!' : `${formData.shippingMethod.price} kr`}</span>
                 </div>
                 <div class="flex items-baseline justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>{cart.total().toFixed(2)}</span>
+                  <span>{(formData.shippingMethod.price + cart.total()).toFixed(2)}</span>
                 </div>
               </div>
               <div class="flex gap-2 flex-col md:flex-row">
@@ -424,30 +424,30 @@ const Checkout: Component = () => {
                   <legend class="sr-only">Shipping Methods</legend>
 
                   <For each={shippingMethods()}>
-                    {(item, index) => (
+                    {(item, _) => (
                         <div class="flex flex-col items-center mb-4">
                           <input
-                            id={`${item.company}-${item.type}`}
+                            id={item.identifier}
                             type="radio"
-                            name="shippingMethod.company"
-                            value={`${item.company}-${item.type}`}
+                            name="shippingMethod.identifier"
+                            value={item.identifier}
                             class="peer hidden"
                             checked={
-                              formData.shippingMethod.company ===
-                              `${item.company}-${item.type}`
+                              formData.shippingMethod.identifier ===
+                              item.identifier
                             }
                             onChange={handleInputChange}
                           />
                           <label
-                            for={`${item.company}-${item.type}`}
+                            for={item.identifier}
                             class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
                           >
-                            {item.company} {item.type}
+                            {item.identifier}
                           </label>
                           <div
                             class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                              formData.shippingMethod.company ===
-                              `${item.company}-${item.type}`
+                              formData.shippingMethod.identifier ===
+                              item.identifier
                                 ? 'grid-rows-[1fr] opacity-100'
                                 : 'grid-rows-[0fr] opacity-0'
                             }`}
@@ -459,127 +459,7 @@ const Checkout: Component = () => {
                           </div>
                         </div>
                     )}
-                  </For>
-
-                  {/* <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="instabox"
-                      type="radio"
-                      name="shippingMethod.company"
-                      value="instabox"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.company === 'instabox'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="instabox"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Instabox
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.company === 'instabox'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a Instabox self-help thingy.</p>
-                        <span>39 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="budbee"
-                      type="radio"
-                      name="shippingMethod.company"
-                      value="budbee"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.company === 'budbee'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="budbee"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Budbee
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.company === 'budbee'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a budbee self-help thingy.</p>
-                        <span>39 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="postnord"
-                      type="radio"
-                      name="shippingMethod.company"
-                      value="postnord"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.company === 'postnord'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="postnord"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      Postnord
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.company === 'postnord'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a Postnord pick-up-point.</p>
-                        <span>49 kr</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center mb-4">
-                    <input
-                      id="dhl"
-                      type="radio"
-                      name="shippingMethod.company"
-                      value="dhl"
-                      class="peer hidden"
-                      checked={formData.shippingMethod.company === 'dhl'}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      for="dhl"
-                      class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                    >
-                      DHL
-                    </label>
-                    <div
-                      class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        formData.shippingMethod.company === 'dhl'
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
-                      }`}
-                    >
-                      <div class="overflow-hidden w-full flex justify-between">
-                        <p>Ship to a DHL pick-up-point.</p>
-                        <span>45 kr</span>
-                      </div>
-                    </div>
-                  </div>                   */}
+                  </For>         
                 </fieldset>
               </div>
             </div>

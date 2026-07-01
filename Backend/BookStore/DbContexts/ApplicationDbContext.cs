@@ -361,7 +361,7 @@ namespace BookStore.DbContexts
                     new ShippingMethod
                     {
                         Id = 1,
-                        Company = "Postnord",
+                        Identifier = "postnord-pick",
                         Type = "pick-up",
                         Price = 49,
                         Description = "Pick up your parcel at a nearby pick-up point"
@@ -369,7 +369,7 @@ namespace BookStore.DbContexts
                     new ShippingMethod
                     {
                         Id = 2,
-                        Company = "Postnord",
+                        Identifier = "postnord-home",
                         Type = "home",
                         Price = 100,
                         Description = "The parcel is delivered to your door."
@@ -377,7 +377,7 @@ namespace BookStore.DbContexts
                     new ShippingMethod
                     {
                         Id = 3,
-                        Company = "Dhl",
+                        Identifier = "dhl-pick",
                         Type = "pick-up",
                         Price = 49,
                         Description = "The parcel can be picked up from a DHL service point."
@@ -385,7 +385,7 @@ namespace BookStore.DbContexts
                     new ShippingMethod
                     {
                         Id = 4,
-                        Company = "instabox",
+                        Identifier = "instabox-box",
                         Type = "box",
                         Price = 49,
                         Description = "The parcel can be picked up from a Instabox parcel-box."
@@ -393,7 +393,7 @@ namespace BookStore.DbContexts
                     new ShippingMethod
                     {
                         Id = 5,
-                        Company = "budbee",
+                        Identifier = "budbee-box",
                         Type = "box",
                         Price = 49,
                         Description = "The parcel can be picked up from a Budbee parcel-box."

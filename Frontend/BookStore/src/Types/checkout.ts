@@ -1,8 +1,9 @@
-export type ShippingCompany =
-  | 'postnord'
-  | 'instabox'
-  | 'budbee'
-  | 'dhl'
+export type ShippingIdentifier =
+  | 'postnord-pick' 
+  | 'postnord-home'
+  | 'instabox-box'
+  | 'budbee-box'
+  | 'dhl-pick'
 
 export type ShippingType = 'pick-up' | 'home' | 'box'
 
@@ -17,11 +18,7 @@ export type OrderInformation = {
   street: string;
   postalCode: string;
   city: string;
-  shippingMethod: {
-    company: ShippingCompany;
-    type: ShippingType;
-    price: number;
-  };
+  shippingMethod: ShippingMethod
   paymentMethod: {
     type: PaymentMethod;
     cardInfo?: {
@@ -31,6 +28,13 @@ export type OrderInformation = {
     };
   };
 };
+
+export type ShippingMethod = {
+  identifier: ShippingIdentifier;
+  type: ShippingType;
+  price: number;
+  description?: string
+}
 
 export type NewOrderPayload = {
   orderStatus: number;

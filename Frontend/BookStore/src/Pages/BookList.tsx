@@ -47,14 +47,14 @@ const BookList: Component = () => {
               )}
             </For>
           </ul>
-          <div class='col-span-8 col-start-2 flex flex-col items-center'>
+          <div class='col-span-8 flex flex-col items-center'>
             <p class='text-everforest-fg text-sm'>
               Currently displaying{' '}
               {books().length} books of a total of {paginationMetaData()?.TotalItemCount} books
             </p>
             <button
               name="load-more"
-              class="flex w-1/2 items-center justify-center text-everforest-fg border  hover:border-everforest-aqua hover:cursor-pointer shadow-xs font-medium leading-5 text-sm px-3 h-9 focus:outline-none"
+              class={`flex w-1/3 mt-3 items-center justify-center text-everforest-fg border  hover:border-everforest-aqua hover:cursor-pointer shadow-xs font-medium leading-5 text-sm px-3 h-9 focus:outline-none ${books.loading ? "pointer-events-none cursor-not-allowed disabled": ""}`}
               onClick={handlePageClick}
             >
               Load More

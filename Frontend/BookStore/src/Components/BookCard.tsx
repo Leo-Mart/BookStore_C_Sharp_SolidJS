@@ -49,7 +49,7 @@ const BookCard: Component<BookProps> = (bookProps) => {
           <button
             onClick={handleClick}
             type="button"
-            class="inline-flex gap-2 items-center w-auto text-body border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
+            class="inline-flex gap-2 items-center w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
           >
             {bookProps.book.price} kr
             <ShoppingBasket color="#D3C6AA" />

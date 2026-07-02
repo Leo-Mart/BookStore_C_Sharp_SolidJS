@@ -1,18 +1,62 @@
-import { Component, createResource } from 'solid-js';
+import { Component, createResource, For } from 'solid-js';
 import ClipboardList from 'lucide-solid/icons/clipboard-list';
 import User from 'lucide-solid/icons/user';
 import Heart from 'lucide-solid/icons/heart';
 import Star from 'lucide-solid/icons/star';
 import { useAuth } from '../../Context/AuthContext';
 import { A } from '@solidjs/router';
+import { ShippingMethod } from '../../Types/checkout';
+import { BasicBookInfo } from '../../Types/book';
 
-const fetchUserInfo = async () => {
-  const resp = await fetch("/api/user")
-  return resp.json();
+
+
+interface UserInfo {
+  email: string
+  firstName: string
+  lastName: string
+  addresses: Address[]
+  orders: Order[]
+  reviews: Review[]
+}
+
+interface Address {
+  street: string
+  city: string
+  postalCode: string
+  isDefault: boolean
+}
+
+interface Order {
+  orderStatus: number
+  orderTotalCost: number
+  orderItems: OrderItem[]
+  shippingMethod: ShippingMethod
+}
+
+interface Review {
+  title: string
+  text: string
+  score: number
+}
+
+interface OrderItem {
+  unitPrice: number
+  quantity: number
+  Book: BasicBookInfo
 }
 const UserPage: Component = () => {
-  const [userInfo] = createResource(fetchUserInfo)
   const auth = useAuth();
+
+  const fetchUserInfo = async () => {
+  const resp = await fetch("/api/user", {
+    method: 'GET',
+    headers: {
+        Authorization: `Bearer ${auth.token()}`,
+      },
+  })
+  return resp.json();
+}
+  const [userInfo] = createResource<UserInfo>(fetchUserInfo)
 
   return (
     <div class="grid grid-cols-12">
@@ -24,9 +68,9 @@ const UserPage: Component = () => {
           <hr class="border w-full mx-1"></hr>
           <A href='/user-profile/user-info' class='text-nowrap underline hover:text-everforest-aqua'>View info</A>
         </div>
-        <div class='bg-everforest-bg-2'>
+        <div class='bg-everforest-bg-2 text-everforest-fg'>
           <p>
-            user info goes here
+            {userInfo()?.firstName}
           </p>
         </div>
   
@@ -39,7 +83,7 @@ const UserPage: Component = () => {
           <hr class="border w-full mx-1"></hr>
           <A href='/user-profile/user-orders' class='text-nowrap underline hover:text-everforest-aqua'>View all</A>
         </div>
-        <div class='bg-everforest-bg-2'>
+        <div class='bg-everforest-bg-2 text-everforest-fg'>
           <p>
             Orders go here
           </p>
@@ -53,9 +97,9 @@ const UserPage: Component = () => {
           <hr class="border w-full mx-1"></hr>
           <A href='/user-profile/user-wishlists' class='text-nowrap underline hover:text-everforest-aqua'>View all</A>
         </div>
-        <div class='bg-everforest-bg-2'>
+        <div class='bg-everforest-bg-2 text-everforest-fg'>
           <p>
-            Wishlists go here
+            Not yet implemented, coming soon!
           </p>
         </div>
       </section>
@@ -67,7 +111,7 @@ const UserPage: Component = () => {
           <hr class="border w-full mx-1"></hr>
           <A href='/user-profile/user-reviews' class='text-nowrap underline hover:text-everforest-aqua'>View all</A>
         </div>
-        <div class='bg-everforest-bg-2'>
+        <div class='bg-everforest-bg-2 text-everforest-fg'>
           <p>
             Reviews go here
           </p>

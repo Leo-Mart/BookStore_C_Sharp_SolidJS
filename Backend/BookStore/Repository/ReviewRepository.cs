@@ -9,7 +9,7 @@ namespace BookStore.Repository
     {
         private readonly ApplicationDbContext _context = context;
 
-    public async Task<Review> CreateReviewAsync(Review review)
+        public async Task<Review> CreateReviewAsync(Review review)
         {
             review.CreatedAt = DateTime.UtcNow;
             await _context.Reviews.AddAsync(review);
@@ -36,19 +36,34 @@ namespace BookStore.Repository
             return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.BookId == bookId && r.Id == reviewId).FirstOrDefaultAsync();
         }
 
+        public async Task<ICollection<ReviewInfoDto>?> GetReviewsForUserByIdAsync(string userId)
+        {
+            return await _context.Reviews
+                .Where(r => r.AppUserId == userId)
+                .Select(r => new ReviewInfoDto
+                {
+                    Title = r.Title,
+                    Text = r.Text,
+                    Score = r.Score
+
+                }).ToListAsync();
+        }
+
         public async Task<IEnumerable<Review>> GetReviewsForBookAsync(int bookId)
         {
             return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.BookId == bookId).ToListAsync();
         }
 
+
+
         public async Task<Review?> UpdateReviewAsync(int reviewId, UpdateReviewDto updateDto)
-        {            
-            var reviewFromDb =  await _context.Reviews.FirstOrDefaultAsync(r => r.Id == reviewId);
+        {
+            var reviewFromDb = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == reviewId);
 
             if (reviewFromDb == null)
             {
                 return null;
-            } 
+            }
 
             reviewFromDb.Title = updateDto.Title;
             reviewFromDb.Text = updateDto.Text;

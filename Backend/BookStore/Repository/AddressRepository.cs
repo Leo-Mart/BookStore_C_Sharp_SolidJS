@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Repository
 {
-    public class AddressRepository(ApplicationDbContext context) : IAddressRepository
-    {
-        private readonly ApplicationDbContext _context = context;
+  public class AddressRepository(ApplicationDbContext context) : IAddressRepository
+  {
+    private readonly ApplicationDbContext _context = context;
 
     public async Task<bool> AddressExistsAsync(int addressId)
     {
@@ -29,9 +29,17 @@ namespace BookStore.Repository
       throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Address>> GetAddressesForUserAsync(string userId)
+    public async Task<ICollection<AddressInfoDto>?> GetAddressesForUserAsync(string userId)
     {
-      throw new NotImplementedException();
+      return await _context.Addresses
+        .Where(a => a.AppUserId == userId)
+        .Select(a => new AddressInfoDto
+        {
+          Street = a.Street,
+          City = a.City,
+          PostalCode = a.PostalCode,
+          IsDefault = a.IsDefault
+        }).ToListAsync();
     }
   }
 }

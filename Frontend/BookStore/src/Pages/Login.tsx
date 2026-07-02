@@ -1,7 +1,7 @@
 import { Component } from 'solid-js';
 import { useAuth } from '../Context/AuthContext';
 import { A, useNavigate } from '@solidjs/router';
-import { createForm, required, email, minLength, SubmitHandler } from '@modular-forms/solid';
+import { createForm, required, email, minLength, SubmitHandler, replace } from '@modular-forms/solid';
 import { type LoginForm } from '../Types/auth';
 
 const Login: Component = () => {

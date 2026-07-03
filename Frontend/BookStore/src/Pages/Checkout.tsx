@@ -181,7 +181,7 @@ const Checkout: Component = () => {
                   <div class="w-full bg-everforest-bg-5 rounded-full h-2">
                     <div
                       class="bg-everforest-aqua h-2 rounded-full"
-                      style={`width: ${(cart.total() / 250) * 100}%`}
+                      style={`width: ${(cart.total() / 250) * 100 > 100 ? 100 : (cart.total() / 250) * 100}%`}
                     ></div>
                   </div>
                 </div>
@@ -206,7 +206,7 @@ const Checkout: Component = () => {
                 </div>
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Shipping</span>
-                  <span>{cart.total() > 250 ? 'Gratis!' : `${formData.shippingMethod.price} kr`}</span>
+                  <span>{cart.total() > 250 ? 'Free!' : `${formData.shippingMethod.price} kr`}</span>
                 </div>
                 <div class="flex items-baseline justify-between font-bold text-lg">
                   <span>Total</span>

@@ -4,6 +4,7 @@ using BookStore.Mappers;
 using BookStore.Models.Books;
 using BookStore.Models.OrderItems;
 using BookStore.Models.Orders;
+using BookStore.Models.ShippingMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Repository
@@ -38,7 +39,13 @@ namespace BookStore.Repository
       {
         OrderStatus = o.OrderStatus,
         OrderTotalCost = o.OrderTotalCost,
-        ShippingMethod = o.ShippingMethod,
+        ShippingMethod = new ShippingMethodInfoDto
+        {
+          Identifier = o.ShippingMethod.Identifier,
+          Type = o.ShippingMethod.Type,
+          Price = o.ShippingMethod.Price,
+          Description = o.ShippingMethod.Description
+        },
         Items = o.Items.Select(oi => new OrderItemInfoDto
         {
           UnitPrice = oi.UnitPrice,

@@ -13,6 +13,6 @@ namespace BookStore.Models.Users
         public ICollection<ReviewInfoDto> Reviews { get; set; } = new List<ReviewInfoDto>();
         public ICollection<OrderInfoDto> Orders { get; set; } = new List<OrderInfoDto>();
         public ICollection<AddressInfoDto> Addresses { get; set; } = new List<AddressInfoDto>();
-        public ICollection<WishlistInfoDto> Wishlits {get;set;} = new List<WishlistInfoDto>();
+        public ICollection<WishlistInfoDto> Wishlists {get;set;} = new List<WishlistInfoDto>();
     }
 }

@@ -44,7 +44,7 @@ namespace BookStore.Services
                     Addresses = foundAddresses ?? [],
                     Reviews = foundReviews ?? [],
                     Orders = foundOrders ?? [],
-                    Wishlits = foundWishlists ?? []
+                    Wishlists = foundWishlists ?? []
                     
                 };
 

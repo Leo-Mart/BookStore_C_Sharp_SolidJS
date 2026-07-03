@@ -102,6 +102,7 @@ namespace BookStore.Repository
         public async Task<ICollection<WishlistInfoDto>?> GetWishlistsForUserByUserIdAsync(string userId)
         {
             return await _context.Wishlists
+                .AsAsyncEnumerable()
                 .Where(wl => wl.AppUserId == Guid.Parse(userId))
                 .Select(wl => new WishlistInfoDto
                 {

@@ -7,7 +7,7 @@ namespace BookStore.Models.Orders
     {
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
         public decimal OrderTotalCost { get; set; }
-        public ShippingMethod ShippingMethod { get; set; } = null!;
+        public ShippingMethodInfoDto ShippingMethod { get; set; } = null!;
         public ICollection<OrderItemInfoDto> Items { get; set; } = new List<OrderItemInfoDto>();
     }
 }

@@ -1,17 +1,17 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
-using BookStore.Models.Addresses;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookStore.Services
 {
-    public class UserService(UserManager<AppUser> userManager, IOrderRepository orderRepo, IAddressRepository addressRepo, IReviewRepository reviewRepo, ApplicationDbContext context) : IUserService
+    public class UserService(UserManager<AppUser> userManager, IOrderRepository orderRepo, IAddressRepository addressRepo, IWishlistRepository wishlistRepo,IReviewRepository reviewRepo, ApplicationDbContext context) : IUserService
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly IOrderRepository _orderRepo = orderRepo;
         private readonly IAddressRepository _addressRepo = addressRepo;
         private readonly IReviewRepository _reviewRepo = reviewRepo;
+        private readonly IWishlistRepository _wishlistRepo = wishlistRepo;
         private readonly ApplicationDbContext _context = context;
         public async Task<CustomerDto?> GetCustomerInfo(string userId)
         {
@@ -33,6 +33,8 @@ namespace BookStore.Services
 
                 var foundReviews = await _reviewRepo.GetReviewsForUserByIdAsync(userId);
 
+                var foundWishlists = await _wishlistRepo.GetWishlistsForUserByUserIdAsync(userId);
+
 
                 var userResponse = new CustomerDto
                 {
@@ -42,6 +44,8 @@ namespace BookStore.Services
                     Addresses = foundAddresses ?? [],
                     Reviews = foundReviews ?? [],
                     Orders = foundOrders ?? [],
+                    Wishlits = foundWishlists ?? []
+                    
                 };
 
                 return userResponse;

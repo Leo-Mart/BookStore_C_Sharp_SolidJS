@@ -25,5 +25,23 @@ namespace BookStore.Mappers
                 WishListId = wishlistItem.WishListId
             };
         }
+
+        public static Wishlist ToWishlistFromCreateDto(this CreateWishlistDto createWishlist)
+        {
+            return new Wishlist
+            {
+                Name = createWishlist.Name,
+                IsDefault = createWishlist.IsDefault,
+                Description = createWishlist.Description,
+            };
+        }
+
+        public static WishlistItem ToListItemFromCreateItemDto(this CreateWishlistItemDto itemDto)
+        {
+            return new WishlistItem
+            {
+                BookId = itemDto.BookId,
+            };
+        }
     }
 }

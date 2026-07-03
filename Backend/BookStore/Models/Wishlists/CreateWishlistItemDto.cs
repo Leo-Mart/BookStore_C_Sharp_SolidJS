@@ -6,7 +6,6 @@ namespace BookStore.Models.Wishlists
     {
         [Required]
         public int BookId { get; set; }
-        [Required]
-        public int WishListId { get; set; }
+        public int? WishListId { get; set; }
     }
 }

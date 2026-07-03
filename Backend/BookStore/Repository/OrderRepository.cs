@@ -39,7 +39,7 @@ namespace BookStore.Repository
         OrderStatus = o.OrderStatus,
         OrderTotalCost = o.OrderTotalCost,
         ShippingMethod = o.ShippingMethod,
-        Items = (ICollection<OrderItemInfoDto>)o.Items.Select(oi => new OrderItemInfoDto
+        Items = o.Items.Select(oi => new OrderItemInfoDto
         {
           UnitPrice = oi.UnitPrice,
           Quantity = oi.Quantity,
@@ -53,7 +53,7 @@ namespace BookStore.Repository
             CoverImageUrl = oi.Book.CoverImageUrl,
             Authors = oi.Book.Authors.Select(a => a.ToAuthorDto()).ToList()
           }
-        })
+        }).ToList()
       }).ToListAsync();
     }
 

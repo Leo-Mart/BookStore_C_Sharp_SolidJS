@@ -24,9 +24,9 @@ namespace BookStore.Repository
       return address;
     }
 
-    public Task<Address> GetAddressByIdAsync(int addressId)
+    public async Task<Address?> GetAddressByIdAsync(int addressId)
     {
-      throw new NotImplementedException();
+      return await _context.Addresses.Where(a => a.Id == addressId).FirstOrDefaultAsync();
     }
 
     public async Task<ICollection<AddressInfoDto>?> GetAddressesForUserAsync(string userId)
@@ -40,6 +40,27 @@ namespace BookStore.Repository
           PostalCode = a.PostalCode,
           IsDefault = a.IsDefault
         }).ToListAsync();
+    }
+
+    public async Task<Address?> MarkAddressAsDefault(int addressId)
+    {
+      var addressFromDB = await _context.Addresses.Where(a => a.Id == addressId).FirstOrDefaultAsync();
+      if (addressFromDB == null)
+      {
+        return null;
+      }
+
+      if (addressFromDB.IsDefault == true)
+      {
+        //TODO: send back a proper "this address is already the default" or similar error
+        return null;
+      }
+
+      addressFromDB.IsDefault = true;
+      addressFromDB.UpdatedAt = DateTime.UtcNow;
+      await _context.SaveChangesAsync();
+
+      return addressFromDB;
     }
   }
 }

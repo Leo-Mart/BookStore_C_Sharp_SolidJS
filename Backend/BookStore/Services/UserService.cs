@@ -48,7 +48,6 @@ namespace BookStore.Services
             }
             catch
             {
-
                 await transaction.RollbackAsync();
                 throw;
             }

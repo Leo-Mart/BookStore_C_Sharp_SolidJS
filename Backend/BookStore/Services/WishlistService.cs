@@ -34,7 +34,7 @@ namespace BookStore.Services
 
         }
 
-        public async Task<WishlistInfoDto?> CreateNewWishList(string userId, CreateWishlistDto wishlist)
+        public async Task<Wishlist?> CreateNewWishList(string userId, CreateWishlistDto wishlist)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -46,12 +46,8 @@ namespace BookStore.Services
             newWishlist.AppUserId = Guid.Parse(userId);
 
             var createdWishlist = await _wishListRepo.CreateNewWishlistAsync(newWishlist);
-            if (createdWishlist == null)
-            {
-                return null;
-            }
 
-            return createdWishlist.ToInfoDtoFromWishlist();
+            return createdWishlist;
         }
 
         public async Task<WishlistInfoDto?> DeleteWishlist(int wishlistId)

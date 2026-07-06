@@ -8,7 +8,6 @@ namespace BookStore.Mappers
         {
             return new WishlistInfoDto
             {
-                AppUserId = wishlist.AppUserId,
                 Name = wishlist.Name,
                 IsDefault = wishlist.IsDefault,
                 Description = wishlist.Description,
@@ -22,7 +21,7 @@ namespace BookStore.Mappers
             return new WishlistItemInfoDto
             {
                 BookId = wishlistItem.BookId,
-                WishListId = wishlistItem.WishListId
+                WishlistId = wishlistItem.WishListId
             };
         }
 

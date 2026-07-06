@@ -5,14 +5,13 @@ namespace BookStore.Models.Wishlists
 {
     public class Wishlist : BaseEntity
     {
-        [Required]
-        public Guid AppUserId { get; set; }
+        public string AppUserId { get; set; } = string.Empty;
         public AppUser AppUser { get; set; } = null!;
         [Required]
         public string Name { get; set; } = "Default";
         public bool IsDefault { get; set; } = true;
         public string? Description { get; set; }
-        public ICollection<WishlistItem> WishlistItems = new List<WishlistItem>();
+        public ICollection<WishlistItem> WishlistItems { get; set; } = new List<WishlistItem>();
 
     }
 }

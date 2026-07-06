@@ -526,6 +526,11 @@ namespace BookStore.DbContexts
                 .HasForeignKey(oi => oi.BookId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Wishlist>()
+                .HasOne(w => w.AppUser)
+                .WithMany(u => u.Wishlists)
+                .HasForeignKey(w => w.AppUserId);
+
             modelBuilder.Entity<Book>().HasData(SeedBooksFromJSON(@"./SeedData/books.json"));
             modelBuilder.Entity<Author>().HasData(SeedAuthorFromJSON(@"./SeedData/authors.json"));
 

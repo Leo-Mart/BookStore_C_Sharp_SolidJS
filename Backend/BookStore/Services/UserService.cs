@@ -1,5 +1,6 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
+using BookStore.Mappers;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
 
@@ -45,7 +46,7 @@ namespace BookStore.Services
                     Reviews = foundReviews ?? [],
                     Orders = foundOrders ?? [],
                     Wishlists = foundWishlists ?? []
-                    
+
                 };
 
                 return userResponse;

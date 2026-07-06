@@ -1,6 +1,7 @@
 import { A, useParams } from '@solidjs/router';
 import {
   Component,
+  createEffect,
   createResource,
   createSignal,
   For,
@@ -12,16 +13,59 @@ import HeartMinus from 'lucide-solid/icons/heart-minus';
 import HeartPlus from 'lucide-solid/icons/heart-plus';
 import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
 import { useCart } from '../Context/CartContext';
+import { useAuth } from '../Context/AuthContext';
+import { useToast } from '../Context/ToastContext';
 
-const fetchBook = async (bookId: string) => {
-  const response = await fetch(`/api/books/${bookId}`);
-  return response.json();
-};
+interface Wishlist {
+  id: number;
+  name: string;
+  isDefault: boolean;
+  description?: string;
+  wishlistItems: WishlistItem[];
+}
+
+interface WishlistItem {
+  id?: number;
+  bookId: number;
+  wishlistId: number;
+}
 
 const BookDetail: Component = () => {
   const params = useParams();
-  const [book] = createResource(() => params.bookId, fetchBook);
+
   const cart = useCart();
+  const auth = useAuth();
+  const toast = useToast();
+
+  const fetchWishlist = async () => {
+    const response = await fetch('/api/wishlists', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${auth.token()}`,
+      },
+    });
+    return response.json();
+  };
+
+  const fetchBook = async (bookId: string) => {
+    const response = await fetch(`/api/books/${bookId}`);
+    return response.json();
+  };
+
+  const [book] = createResource(() => params.bookId, fetchBook);
+  const [wishlists, { mutate }] = createResource<Wishlist[], boolean>(
+    () => auth.isAuthenticated() === true,
+    fetchWishlist,
+  );
+
+  createEffect(() => {
+    if(!wishlists.loading){
+      const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
+      if (defaultWishlist?.wishlistItems.find(wli => wli.bookId === book().id)){
+        setWishlisted(true)
+      }
+    }
+  })
 
   const [wishlisted, setWishlisted] = createSignal(false);
 
@@ -44,6 +88,56 @@ const BookDetail: Component = () => {
       }
       return prev - 1;
     });
+  };
+
+  const handleWishlistClick = async () => {
+    if (auth.isAuthenticated()) {
+      if (wishlisted()) {
+        const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
+        const itemToRemove = defaultWishlist?.wishlistItems.find((wli) => wli.bookId === book().id && wli.wishlistId === defaultWishlist.id)
+        
+        if (itemToRemove === undefined) {
+          console.log("oh no")
+          return;
+        }
+        
+        mutate((items) => items?.filter(wl => wl.wishlistItems.filter(wli => wli.id !== itemToRemove.id)))
+
+        const resp = await fetch(`/api/wishlists/${+defaultWishlist!.id!}/remove-item/${itemToRemove.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${auth.token()}`,            
+          }
+        });
+        toast.add('Removed from wishlist!', { type: 'success' });
+        setWishlisted(false);
+      } else {
+        const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
+        const newWishlisteItem: WishlistItem = {
+          bookId: book().id,
+          wishlistId: +defaultWishlist!.id!,
+        };
+        defaultWishlist?.wishlistItems.push(newWishlisteItem);
+
+        const resp = await fetch(`/api/wishlists/${+defaultWishlist!.id!}/add-item`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${auth.token()}`,            
+          },
+          body: JSON.stringify(newWishlisteItem)
+        });
+        setWishlisted(true);
+        toast.add('Added to wishlist!', { type: 'success' });
+      }
+
+      // handle the click and set the book as a wishlisted item for the logged in user
+    } else {
+      toast.add('You need to be registered to add books to wishlist!', {
+        type: 'error',
+      });
+    }
   };
 
   return (
@@ -130,7 +224,7 @@ const BookDetail: Component = () => {
                 </button>
                 <button
                   class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
-                  onclick={() => setWishlisted(!wishlisted())}
+                  onclick={handleWishlistClick}
                 >
                   <Switch>
                     <Match when={wishlisted()}>
@@ -146,7 +240,6 @@ const BookDetail: Component = () => {
               <div class="flex max-w-3/4 justify-between gap-1 border">
                 <div class="p-1">Inventory status goes here</div>
               </div>
-              {/* Accordion with various info. Addiotional format, Description, More info (author, isbn, language, weight, exact publishdate, publisher, page number ), Shipping and payment, A list of tags, reviews go here as well */}
               <div class="py-8 max-w-3/4 flex flex-col gap-3">
                 <button
                   type="button"
@@ -359,7 +452,7 @@ const BookDetail: Component = () => {
                   }`}
                 >
                   <div class="overflow-hidden">
-                    <ul class='flex gap-2'>
+                    <ul class="flex gap-2">
                       <For each={book().genres}>
                         {(item, index) => (
                           <A
@@ -498,8 +591,6 @@ const BookDetail: Component = () => {
                   </Match>
                 </Switch>
               </div>
-
-              {/* a list of books from the same author, a list of similar books (based on tags or some such) etc etc */}
             </div>
           </Show>
         </div>

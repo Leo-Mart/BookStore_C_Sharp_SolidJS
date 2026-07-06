@@ -43,7 +43,7 @@ namespace BookStore.Services
             }
 
             Wishlist newWishlist = wishlist.ToWishlistFromCreateDto();
-            newWishlist.AppUserId = Guid.Parse(userId);
+            newWishlist.AppUserId = userId;
 
             var createdWishlist = await _wishListRepo.CreateNewWishlistAsync(newWishlist);
 

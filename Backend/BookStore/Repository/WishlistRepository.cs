@@ -5,9 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Repository
 {
-    public class WishlistRepository(ApplicationDbContext context) : IWishlistRepository
+    public class WishlistRepository(ApplicationDbContext context, ILogger<WishlistRepository> logger) : IWishlistRepository
     {
         private readonly ApplicationDbContext _context = context;
+        private readonly ILogger<WishlistRepository> _logger = logger;
 
         public async Task<WishlistItem?> AddItemToWishListAsync(int? wishlistId, WishlistItem wishlistItem)
         {
@@ -83,17 +84,16 @@ namespace BookStore.Repository
         public async Task<WishlistInfoDto?> GetSingleWishlistForUserByIdAsync(string userId, int wishlistId)
         {
             return await _context.Wishlists
-                .Where(wl => wl.Id == wishlistId && wl.AppUserId == Guid.Parse(userId))
+                .Where(wl => wl.Id == wishlistId && wl.AppUserId == userId)
                 .Select(wl => new WishlistInfoDto
                 {
-                    AppUserId = wl.AppUserId,
                     Name = wl.Name,
                     IsDefault = wl.IsDefault,
                     Description = wl.Description,
                     WishlistItems = wl.WishlistItems.Select(wli => new WishlistItemInfoDto
                     {
                         BookId = wli.BookId,
-                        WishListId = wli.WishListId
+                        WishlistId = wli.WishListId
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
@@ -102,18 +102,18 @@ namespace BookStore.Repository
         public async Task<ICollection<WishlistInfoDto>?> GetWishlistsForUserByUserIdAsync(string userId)
         {
             return await _context.Wishlists
-                .AsAsyncEnumerable()
-                .Where(wl => wl.AppUserId == Guid.Parse(userId))
+                .Where(wl => wl.AppUserId == userId)
                 .Select(wl => new WishlistInfoDto
                 {
-                    AppUserId = wl.AppUserId,
+                    Id = wl.Id,
                     Name = wl.Name,
                     IsDefault = wl.IsDefault,
                     Description = wl.Description,
                     WishlistItems = wl.WishlistItems.Select(wli => new WishlistItemInfoDto
                     {
+                        Id = wli.Id,
                         BookId = wli.BookId,
-                        WishListId = wli.WishListId
+                        WishlistId = wli.WishListId
                     }).ToList()
                 }).ToListAsync();
 
@@ -169,13 +169,19 @@ namespace BookStore.Repository
             }
             else
             {
-                var wishlistFromDb = await _context.Wishlists.Where(wl => wl.Id == wishlistId).FirstOrDefaultAsync();
+                var wishlistFromDb = await _context.Wishlists
+                    .Include(wl => wl.WishlistItems)
+                    .Where(wl => wl.Id == wishlistId)
+                    .FirstOrDefaultAsync();
+
                 if (wishlistFromDb == null)
                 {
                     return null;
                 }
 
-                var foundWLItem = wishlistFromDb.WishlistItems.FirstOrDefault(wli => wli.Id == wishlistItemId);
+                var foundWLItem = wishlistFromDb.WishlistItems
+                    .FirstOrDefault(wli => wli.Id == wishlistItemId);
+
                 if (foundWLItem == null)
                 {
                     return null;

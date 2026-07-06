@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookStore.Controllers
 {
     [ApiController]
-    [Route("api/wishlist")]
+    [Route("api/wishlists/")]
     [Authorize]
-    public class WishlistController(IWishlistService wishlistService) : ControllerBase
+    public class WishlistController(ILogger<WishlistController> logger, IWishlistService wishlistService) : ControllerBase
     {
         private readonly IWishlistService _wishlistService = wishlistService;
+        private readonly ILogger<WishlistController> _logger = logger;
 
-        [HttpGet("/get-all")]
+        [HttpGet]
         public async Task<ActionResult<ICollection<WishlistInfoDto>>> GetWishlists()
         {
             var userId = User.GetUserId();
@@ -32,7 +33,7 @@ namespace BookStore.Controllers
             return Ok(wishlists);
         }
 
-        [HttpGet("/get-wishlist/{wishlistId}", Name = "GetWishlist")]
+        [HttpGet("{wishlistId}", Name = "GetWishlist")]
         public async Task<ActionResult<ICollection<WishlistInfoDto>>> GetWishlist(int wishlistId)
         {
             var userId = User.GetUserId();

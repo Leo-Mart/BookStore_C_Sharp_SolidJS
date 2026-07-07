@@ -15,20 +15,7 @@ import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
 import { useCart } from '../Context/CartContext';
 import { useAuth } from '../Context/AuthContext';
 import { useToast } from '../Context/ToastContext';
-
-interface Wishlist {
-  id: number;
-  name: string;
-  isDefault: boolean;
-  description?: string;
-  wishlistItems: WishlistItem[];
-}
-
-interface WishlistItem {
-  id?: number;
-  bookId: number;
-  wishlistId: number;
-}
+import { type Wishlist, WishlistItem } from '../Types/User/wishlist';
 
 const BookDetail: Component = () => {
   const params = useParams();
@@ -93,6 +80,8 @@ const BookDetail: Component = () => {
   const handleWishlistClick = async () => {
     if (auth.isAuthenticated()) {
       if (wishlisted()) {
+        setWishlisted(false);
+        toast.add('Removed from wishlist!', { type: 'success' });
         const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
         const itemToRemove = defaultWishlist?.wishlistItems.find((wli) => wli.bookId === book().id && wli.wishlistId === defaultWishlist.id)
         
@@ -110,9 +99,10 @@ const BookDetail: Component = () => {
             Authorization: `Bearer ${auth.token()}`,            
           }
         });
-        toast.add('Removed from wishlist!', { type: 'success' });
-        setWishlisted(false);
+        
       } else {
+        setWishlisted(true);
+        toast.add('Added to wishlist!', { type: 'success' });
         const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
         const newWishlisteItem: WishlistItem = {
           bookId: book().id,
@@ -128,11 +118,7 @@ const BookDetail: Component = () => {
           },
           body: JSON.stringify(newWishlisteItem)
         });
-        setWishlisted(true);
-        toast.add('Added to wishlist!', { type: 'success' });
       }
-
-      // handle the click and set the book as a wishlisted item for the logged in user
     } else {
       toast.add('You need to be registered to add books to wishlist!', {
         type: 'error',

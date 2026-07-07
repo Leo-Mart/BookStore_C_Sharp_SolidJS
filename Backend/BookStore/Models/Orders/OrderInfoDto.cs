@@ -9,5 +9,7 @@ namespace BookStore.Models.Orders
         public decimal OrderTotalCost { get; set; }
         public ShippingMethodInfoDto ShippingMethod { get; set; } = null!;
         public ICollection<OrderItemInfoDto> Items { get; set; } = new List<OrderItemInfoDto>();
+        public DateTime CreatedAt { get; set; }
+        public int OrderNumber { get; set; }
     }
 }

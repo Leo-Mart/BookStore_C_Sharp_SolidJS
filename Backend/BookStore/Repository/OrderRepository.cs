@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using BookStore.DbContexts;
 using BookStore.Interfaces;
 using BookStore.Mappers;
@@ -37,6 +38,8 @@ namespace BookStore.Repository
       .Where(o => o.AppUserId == userId)
       .Select(o => new OrderInfoDto
       {
+        OrderNumber = o.Id,
+        CreatedAt = o.CreatedAt.Date,
         OrderStatus = o.OrderStatus,
         OrderTotalCost = o.OrderTotalCost,
         ShippingMethod = new ShippingMethodInfoDto

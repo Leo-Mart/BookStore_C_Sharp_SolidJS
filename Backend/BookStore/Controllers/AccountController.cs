@@ -1,5 +1,7 @@
+using BookStore.DbContexts;
 using BookStore.Interfaces;
 using BookStore.Models.Users;
+using BookStore.Models.Wishlists;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,11 +10,17 @@ namespace BookStore.Controllers
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager) : ControllerBase
+    public class AccountController(
+        UserManager<AppUser> userManager,
+        ITokenService tokenService,
+        SignInManager<AppUser> signInManager,
+        ApplicationDbContext context
+    ) : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly ITokenService _tokenService = tokenService;
-        private readonly SignInManager<AppUser> _signIngManager =  signInManager;
+        private readonly SignInManager<AppUser> _signIngManager = signInManager;
+        private readonly ApplicationDbContext _context = context;
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -22,20 +30,24 @@ namespace BookStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Email.ToLower());
+            var user = await _userManager.Users.FirstOrDefaultAsync(x =>
+                x.UserName == loginDto.Email.ToLower()
+            );
 
-            if (user == null) return Unauthorized("Invalid email!");
+            if (user == null)
+                return Unauthorized("Invalid email!");
 
-            var result = await _signIngManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            var result = await _signIngManager.CheckPasswordSignInAsync(
+                user,
+                loginDto.Password,
+                false
+            );
 
-            if(!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
+            if (!result.Succeeded)
+                return Unauthorized("Username not found and/or password incorrect");
 
             return Ok(
-                new NewUserDto
-                {
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
-                }
+                new NewUserDto { Email = user.Email, Token = _tokenService.CreateToken(user) }
             );
         }
 
@@ -52,7 +64,7 @@ namespace BookStore.Controllers
                 var appUser = new AppUser
                 {
                     UserName = registerDto.Email,
-                    Email = registerDto.Email
+                    Email = registerDto.Email,
                 };
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
@@ -62,11 +74,22 @@ namespace BookStore.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
+                        // Probably find a better spot for this somewhere, but should work for now
+                        await _context.Wishlists.AddAsync(
+                            new Wishlist
+                            {
+                                AppUserId = appUser.Id,
+                                Description = "This is the default wishlist",
+                            }
+                        );
+
+                        await _context.SaveChangesAsync();
+
                         return Ok(
                             new NewUserDto
                             {
                                 Email = appUser.Email,
-                                Token = _tokenService.CreateToken(appUser)
+                                Token = _tokenService.CreateToken(appUser),
                             }
                         );
                     }
@@ -82,8 +105,9 @@ namespace BookStore.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);                
+                return StatusCode(500, e);
             }
         }
-  }
+    }
 }
+

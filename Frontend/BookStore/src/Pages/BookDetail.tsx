@@ -1,4 +1,4 @@
-import { A, useParams } from '@solidjs/router';
+import { A, useParams } from "@solidjs/router";
 import {
   Component,
   createEffect,
@@ -8,14 +8,14 @@ import {
   Match,
   Show,
   Switch,
-} from 'solid-js';
-import HeartMinus from 'lucide-solid/icons/heart-minus';
-import HeartPlus from 'lucide-solid/icons/heart-plus';
-import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
-import { useCart } from '../Context/CartContext';
-import { useAuth } from '../Context/AuthContext';
-import { useToast } from '../Context/ToastContext';
-import { type Wishlist, WishlistItem } from '../Types/User/wishlist';
+} from "solid-js";
+import HeartMinus from "lucide-solid/icons/heart-minus";
+import HeartPlus from "lucide-solid/icons/heart-plus";
+import ShoppingBasket from "lucide-solid/icons/shopping-basket";
+import { useCart } from "../Context/CartContext";
+import { useAuth } from "../Context/AuthContext";
+import { useToast } from "../Context/ToastContext";
+import { type Wishlist, WishlistItem } from "../Types/User/wishlist";
 
 const BookDetail: Component = () => {
   const params = useParams();
@@ -25,8 +25,8 @@ const BookDetail: Component = () => {
   const toast = useToast();
 
   const fetchWishlist = async () => {
-    const response = await fetch('/api/wishlists', {
-      method: 'GET',
+    const response = await fetch("/api/wishlists", {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${auth.token()}`,
       },
@@ -46,13 +46,15 @@ const BookDetail: Component = () => {
   );
 
   createEffect(() => {
-    if(!wishlists.loading){
+    if (!wishlists.loading) {
       const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
-      if (defaultWishlist?.wishlistItems.find(wli => wli.bookId === book().id)){
-        setWishlisted(true)
+      if (
+        defaultWishlist?.wishlistItems.find((wli) => wli.bookId === book().id)
+      ) {
+        setWishlisted(true);
       }
     }
-  })
+  });
 
   const [wishlisted, setWishlisted] = createSignal(false);
 
@@ -81,47 +83,62 @@ const BookDetail: Component = () => {
     if (auth.isAuthenticated()) {
       if (wishlisted()) {
         setWishlisted(false);
-        toast.add('Removed from wishlist!', { type: 'success' });
-        const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
-        const itemToRemove = defaultWishlist?.wishlistItems.find((wli) => wli.bookId === book().id && wli.wishlistId === defaultWishlist.id)
-        
+        toast.add("Removed from wishlist!", { type: "success" });
+        const defaultWishlist = wishlists()?.find(
+          (wl) => wl.isDefault === true,
+        );
+        const itemToRemove = defaultWishlist?.wishlistItems.find(
+          (wli) =>
+            wli.bookId === book().id && wli.wishlistId === defaultWishlist.id,
+        );
+
         if (itemToRemove === undefined) {
-          console.log("oh no")
+          console.log("oh no");
           return;
         }
-        
-        mutate((items) => items?.filter(wl => wl.wishlistItems.filter(wli => wli.id !== itemToRemove.id)))
 
-        const resp = await fetch(`/api/wishlists/${+defaultWishlist!.id!}/remove-item/${itemToRemove.id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${auth.token()}`,            
-          }
-        });
-        
+        mutate((items) =>
+          items?.filter((wl) =>
+            wl.wishlistItems.filter((wli) => wli.id !== itemToRemove.id),
+          ),
+        );
+
+        const resp = await fetch(
+          `/api/wishlists/${+defaultWishlist!.id!}/remove-item/${itemToRemove.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth.token()}`,
+            },
+          },
+        );
       } else {
         setWishlisted(true);
-        toast.add('Added to wishlist!', { type: 'success' });
-        const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
+        toast.add("Added to wishlist!", { type: "success" });
+        let defaultWishlist: Wishlist | undefined =
+          wishlists()?.find((wl) => wl.isDefault === true) ?? undefined;
         const newWishlisteItem: WishlistItem = {
           bookId: book().id,
-          wishlistId: +defaultWishlist!.id!,
+          wishlistId: +defaultWishlist?.id!,
         };
         defaultWishlist?.wishlistItems.push(newWishlisteItem);
 
-        const resp = await fetch(`/api/wishlists/${+defaultWishlist!.id!}/add-item`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${auth.token()}`,            
+        const resp = await fetch(
+          `/api/wishlists/${+defaultWishlist!.id!}/add-item`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth.token()}`,
+            },
+            body: JSON.stringify(newWishlisteItem),
           },
-          body: JSON.stringify(newWishlisteItem)
-        });
+        );
       }
     } else {
-      toast.add('You need to be registered to add books to wishlist!', {
-        type: 'error',
+      toast.add("You need to be registered to add books to wishlist!", {
+        type: "error",
       });
     }
   };
@@ -148,7 +165,7 @@ const BookDetail: Component = () => {
               <h1 class="text-4xl pb-2">{book().title}</h1>
               <div>
                 <span>
-                  Author: {book().authors[0].firstName}{' '}
+                  Author: {book().authors[0].firstName}{" "}
                   {book().authors[0].lastName}
                 </span>
               </div>
@@ -245,7 +262,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        descOpen() && 'rotate-180!'
+                        descOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -254,7 +271,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        descOpen() && 'rotate-180!'
+                        descOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -262,8 +279,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     descOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">{book().description}</div>
@@ -286,7 +303,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        prodInfoOpen() && 'rotate-180!'
+                        prodInfoOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -295,7 +312,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        prodInfoOpen() && 'rotate-180!'
+                        prodInfoOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -303,8 +320,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg0 text-md ${
                     prodInfoOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">
@@ -314,7 +331,7 @@ const BookDetail: Component = () => {
                           Author
                         </dt>
                         <dd class="inline-block">
-                          {book().authors[0].firstName}{' '}
+                          {book().authors[0].firstName}{" "}
                           {book().authors[0].lastName}
                         </dd>
                       </div>
@@ -361,7 +378,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        paymenAndDeliveryOpen() && 'rotate-180!'
+                        paymenAndDeliveryOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -370,7 +387,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        paymenAndDeliveryOpen() && 'rotate-180!'
+                        paymenAndDeliveryOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -378,8 +395,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     paymenAndDeliveryOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">
@@ -416,7 +433,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        discoverOpen() && 'rotate-180!'
+                        discoverOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -425,7 +442,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        discoverOpen() && 'rotate-180!'
+                        discoverOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -433,8 +450,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     discoverOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">
@@ -472,7 +489,7 @@ const BookDetail: Component = () => {
                           height="2"
                           rx="1"
                           class={`transform origin-center transition duration-200 ease-out ${
-                            reviewsOpen() && 'rotate-180!'
+                            reviewsOpen() && "rotate-180!"
                           }`}
                         />
                         <rect
@@ -481,7 +498,7 @@ const BookDetail: Component = () => {
                           height="2"
                           rx="1"
                           class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                            reviewsOpen() && 'rotate-180!'
+                            reviewsOpen() && "rotate-180!"
                           }`}
                         />
                       </svg>
@@ -489,8 +506,8 @@ const BookDetail: Component = () => {
                     <div
                       class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                         reviewsOpen()
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
                       }`}
                     >
                       <div class="overflow-hidden">
@@ -499,13 +516,13 @@ const BookDetail: Component = () => {
                             <div class="py-2">
                               <div>
                                 <div class="text-xl">
-                                  {item.reviewer.firstName}{' '}
+                                  {item.reviewer.firstName}{" "}
                                   {item.reviewer.lastName}
                                 </div>
 
                                 <div class="flex items-center space-x-1">
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 1 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 1 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -516,7 +533,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 2 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 2 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -527,7 +544,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 3 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 3 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -538,7 +555,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 4 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 4 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -549,7 +566,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 5 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 5 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"

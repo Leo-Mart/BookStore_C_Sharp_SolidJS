@@ -1,14 +1,14 @@
-import { Component, createResource, For, Show } from 'solid-js';
-import ClipboardList from 'lucide-solid/icons/clipboard-list';
-import User from 'lucide-solid/icons/user';
-import Heart from 'lucide-solid/icons/heart';
-import Star from 'lucide-solid/icons/star';
-import { useAuth } from '../../Context/AuthContext';
-import { A } from '@solidjs/router';
-import { ShippingMethod } from '../../Types/checkout';
-import { BasicBookInfo } from '../../Types/book';
-import { Wishlist } from '../../Types/User/wishlist';
-import { FormatDate } from '../../Utils/Datehelpers';
+import { Component, createResource, For, Show } from "solid-js";
+import ClipboardList from "lucide-solid/icons/clipboard-list";
+import User from "lucide-solid/icons/user";
+import Heart from "lucide-solid/icons/heart";
+import Star from "lucide-solid/icons/star";
+import { useAuth } from "../../Context/AuthContext";
+import { A } from "@solidjs/router";
+import { ShippingMethod } from "../../Types/checkout";
+import { BasicBookInfo } from "../../Types/book";
+import { Wishlist } from "../../Types/User/wishlist";
+import { FormatDate } from "../../Utils/Datehelpers";
 
 interface UserInfo {
   email: string;
@@ -32,8 +32,8 @@ interface Order {
   orderTotalCost: number;
   items: OrderItem[];
   shippingMethod: ShippingMethod;
-  createdAt: string
-  orderNumber: number
+  createdAt: string;
+  orderNumber: number;
 }
 
 interface Review {
@@ -53,17 +53,15 @@ enum OrderStatus {
   Confirmed,
   Shipped,
   Delivered,
-  Cancelled
+  Cancelled,
 }
-
-
 
 const UserPage: Component = () => {
   const auth = useAuth();
 
   const fetchUserInfo = async () => {
-    const resp = await fetch('/api/user', {
-      method: 'GET',
+    const resp = await fetch("/api/user", {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${auth.token()}`,
       },
@@ -155,20 +153,12 @@ const UserPage: Component = () => {
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
           <For each={userInfo()?.orders}>
-            {(item) => (    
-              <div class='flex justify-between border-b border-everforest-fg'>
-                <div>
-                  {FormatDate(item.createdAt)} 
-                </div>
-                <div>
-                  {item.orderNumber}
-                </div>
-                <div>
-                  {OrderStatus[item.orderStatus]}
-                </div>
-                <div>
-                  {item.orderTotalCost} kr
-                </div>
+            {(item) => (
+              <div class="flex justify-between border-b border-everforest-fg">
+                <div>{FormatDate(item.createdAt)}</div>
+                <div>{item.orderNumber}</div>
+                <div>{OrderStatus[item.orderStatus]}</div>
+                <div>{item.orderTotalCost} kr</div>
               </div>
             )}
           </For>
@@ -189,17 +179,11 @@ const UserPage: Component = () => {
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
           <For each={userInfo()?.wishlists}>
-            {(item) => (    
-              <div class='flex justify-between border-b border-everforest-fg'>
-                <div>
-                  {item.name}
-                </div>
-                <div class='truncate'>
-                  {item.description}
-                </div>
-                <div>
-                  {item.wishlistItems.length}
-                </div>
+            {(item) => (
+              <div class="flex justify-between border-b border-everforest-fg">
+                <div>{item.name}</div>
+                <div class="truncate">{item.description}</div>
+                <div>{item.wishlistItems.length}</div>
               </div>
             )}
           </For>
@@ -219,7 +203,10 @@ const UserPage: Component = () => {
           </A>
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
-          <Show when={userInfo() !== undefined && userInfo()!.reviews.length > 0} fallback={<div>No reviews found</div>}>
+          <Show
+            when={userInfo() !== undefined && userInfo()!.reviews.length > 0}
+            fallback={<div>No reviews found</div>}
+          >
             <div>A list of the users reviews/reviewed objects</div>
           </Show>
         </div>

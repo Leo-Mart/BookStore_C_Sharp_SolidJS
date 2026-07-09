@@ -5,54 +5,37 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Repository
 {
-    public class WishlistRepository(ApplicationDbContext context, ILogger<WishlistRepository> logger) : IWishlistRepository
+    public class WishlistRepository(
+        ApplicationDbContext context,
+        ILogger<WishlistRepository> logger
+    ) : IWishlistRepository
     {
         private readonly ApplicationDbContext _context = context;
         private readonly ILogger<WishlistRepository> _logger = logger;
 
-        public async Task<WishlistItem?> AddItemToWishListAsync(int? wishlistId, WishlistItem wishlistItem)
+        public async Task<WishlistItem?> AddItemToWishListAsync(
+            int wishlistId,
+            WishlistItem wishlistItem
+        )
         {
-            if (wishlistId == null)
+            var wishlistFromDb = await _context
+                .Wishlists.Where(wl => wl.Id == wishlistId)
+                .FirstOrDefaultAsync();
+            if (wishlistFromDb == null)
             {
-                var defaultWishlist = await _context.Wishlists.Where(wl => wl.IsDefault == true).FirstOrDefaultAsync();
-
-                if (defaultWishlist == null)
-                {
-                    return null;
-                }
-
-                defaultWishlist.UpdatedAt = DateTime.UtcNow;
-
-                wishlistItem.UpdatedAt = DateTime.UtcNow;
-                wishlistItem.CreatedAt = DateTime.UtcNow;
-                wishlistItem.WishListId = defaultWishlist.Id;
-
-                await _context.WishlistItems.AddAsync(wishlistItem);
-                await _context.SaveChangesAsync();
-
-                return wishlistItem;
-
-            }
-            else
-            {
-                var wishlistFromDb = await _context.Wishlists.Where(wl => wl.Id == wishlistId).FirstOrDefaultAsync();
-                if (wishlistFromDb == null)
-                {
-                    return null;
-                }
-
-                wishlistFromDb.UpdatedAt = DateTime.UtcNow;
-
-                wishlistItem.UpdatedAt = DateTime.UtcNow;
-                wishlistItem.CreatedAt = DateTime.UtcNow;
-                wishlistItem.WishListId = wishlistFromDb.Id;
-
-                await _context.WishlistItems.AddAsync(wishlistItem);
-                await _context.SaveChangesAsync();
-
-                return wishlistItem;
+                return null;
             }
 
+            wishlistFromDb.UpdatedAt = DateTime.UtcNow;
+
+            wishlistItem.UpdatedAt = DateTime.UtcNow;
+            wishlistItem.CreatedAt = DateTime.UtcNow;
+            wishlistItem.WishListId = wishlistFromDb.Id;
+
+            await _context.WishlistItems.AddAsync(wishlistItem);
+            await _context.SaveChangesAsync();
+
+            return wishlistItem;
         }
 
         public async Task<Wishlist> CreateNewWishlistAsync(Wishlist wishlist)
@@ -68,7 +51,9 @@ namespace BookStore.Repository
 
         public async Task<Wishlist?> DeleteWishlistByIdAsync(int wishlistId)
         {
-            var foundWishlist = await _context.Wishlists.Where(wl => wl.Id == wishlistId).FirstOrDefaultAsync();
+            var foundWishlist = await _context
+                .Wishlists.Where(wl => wl.Id == wishlistId)
+                .FirstOrDefaultAsync();
 
             if (foundWishlist == null)
             {
@@ -81,47 +66,58 @@ namespace BookStore.Repository
             return foundWishlist;
         }
 
-        public async Task<WishlistInfoDto?> GetSingleWishlistForUserByIdAsync(string userId, int wishlistId)
+        public async Task<WishlistInfoDto?> GetSingleWishlistForUserByIdAsync(
+            string userId,
+            int wishlistId
+        )
         {
-            return await _context.Wishlists
-                .Where(wl => wl.Id == wishlistId && wl.AppUserId == userId)
+            return await _context
+                .Wishlists.Where(wl => wl.Id == wishlistId && wl.AppUserId == userId)
                 .Select(wl => new WishlistInfoDto
                 {
                     Name = wl.Name,
                     IsDefault = wl.IsDefault,
                     Description = wl.Description,
-                    WishlistItems = wl.WishlistItems.Select(wli => new WishlistItemInfoDto
-                    {
-                        BookId = wli.BookId,
-                        WishlistId = wli.WishListId
-                    }).ToList()
+                    WishlistItems = wl
+                        .WishlistItems.Select(wli => new WishlistItemInfoDto
+                        {
+                            BookId = wli.BookId,
+                            WishlistId = wli.WishListId,
+                        })
+                        .ToList(),
                 })
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ICollection<WishlistInfoDto>?> GetWishlistsForUserByUserIdAsync(string userId)
+        public async Task<ICollection<WishlistInfoDto>?> GetWishlistsForUserByUserIdAsync(
+            string userId
+        )
         {
-            return await _context.Wishlists
-                .Where(wl => wl.AppUserId == userId)
+            return await _context
+                .Wishlists.Where(wl => wl.AppUserId == userId)
                 .Select(wl => new WishlistInfoDto
                 {
                     Id = wl.Id,
                     Name = wl.Name,
                     IsDefault = wl.IsDefault,
                     Description = wl.Description,
-                    WishlistItems = wl.WishlistItems.Select(wli => new WishlistItemInfoDto
-                    {
-                        Id = wli.Id,
-                        BookId = wli.BookId,
-                        WishlistId = wli.WishListId
-                    }).ToList()
-                }).ToListAsync();
-
+                    WishlistItems = wl
+                        .WishlistItems.Select(wli => new WishlistItemInfoDto
+                        {
+                            Id = wli.Id,
+                            BookId = wli.BookId,
+                            WishlistId = wli.WishListId,
+                        })
+                        .ToList(),
+                })
+                .ToListAsync();
         }
 
         public async Task<Wishlist?> MarkWishlistDefaultAsync(int wishlistId)
         {
-            var wishlistFromDB = await _context.Wishlists.Where(wl => wl.Id == wishlistId).FirstOrDefaultAsync();
+            var wishlistFromDB = await _context
+                .Wishlists.Where(wl => wl.Id == wishlistId)
+                .FirstOrDefaultAsync();
             if (wishlistFromDB == null)
             {
                 return null;
@@ -140,60 +136,36 @@ namespace BookStore.Repository
             return wishlistFromDB;
         }
 
-        public async Task<WishlistItem?> RemoveItemFromWishListAsync(int? wishlistId, int wishlistItemId)
+        public async Task<WishlistItem?> RemoveItemFromWishListAsync(
+            int wishlistId,
+            int wishlistItemId
+        )
         {
-            if (wishlistId == null)
+            var wishlistFromDb = await _context
+                .Wishlists.Include(wl => wl.WishlistItems)
+                .Where(wl => wl.Id == wishlistId)
+                .FirstOrDefaultAsync();
+
+            if (wishlistFromDb == null)
             {
-                var defaultWishlist = await _context.Wishlists.Where(wl => wl.IsDefault == true).FirstOrDefaultAsync();
-
-                if (defaultWishlist == null)
-                {
-                    return null;
-                }
-
-                var foundWLItem = defaultWishlist.WishlistItems.FirstOrDefault(wli => wli.Id == wishlistItemId);
-
-                if (foundWLItem == null)
-                {
-                    return null;
-                }
-
-                defaultWishlist.UpdatedAt = DateTime.UtcNow;
-                defaultWishlist.WishlistItems.Remove(foundWLItem);
-
-                await _context.SaveChangesAsync();
-
-                return foundWLItem;
-
-
-            }
-            else
-            {
-                var wishlistFromDb = await _context.Wishlists
-                    .Include(wl => wl.WishlistItems)
-                    .Where(wl => wl.Id == wishlistId)
-                    .FirstOrDefaultAsync();
-
-                if (wishlistFromDb == null)
-                {
-                    return null;
-                }
-
-                var foundWLItem = wishlistFromDb.WishlistItems
-                    .FirstOrDefault(wli => wli.Id == wishlistItemId);
-
-                if (foundWLItem == null)
-                {
-                    return null;
-                }
-
-                wishlistFromDb.UpdatedAt = DateTime.UtcNow;
-                wishlistFromDb.WishlistItems.Remove(foundWLItem);
-                await _context.SaveChangesAsync();
-
-                return foundWLItem;
+                return null;
             }
 
+            var foundWLItem = wishlistFromDb.WishlistItems.FirstOrDefault(wli =>
+                wli.Id == wishlistItemId
+            );
+
+            if (foundWLItem == null)
+            {
+                return null;
+            }
+
+            wishlistFromDb.UpdatedAt = DateTime.UtcNow;
+            wishlistFromDb.WishlistItems.Remove(foundWLItem);
+            await _context.SaveChangesAsync();
+
+            return foundWLItem;
         }
     }
 }
+

@@ -9,5 +9,6 @@ export interface Wishlist {
 export interface WishlistItem {
   id?: number;
   bookId: number;
-  wishlistId: number;
+  wishlistId?: number;
 }
+

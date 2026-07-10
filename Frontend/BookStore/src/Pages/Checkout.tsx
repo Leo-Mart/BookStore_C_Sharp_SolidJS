@@ -1,59 +1,58 @@
-import { Component, createResource, createSignal, For } from 'solid-js';
-import { createStore, produce } from 'solid-js/store';
-import Percent from 'lucide-solid/icons/percent';
-import Gift from 'lucide-solid/icons/gift';
-import { useCart } from '../Context/CartContext';
-import CheckoutItem from '../Components/CheckoutItem';
-import ModalDiscountCode from '../Components/ModalDiscountCode';
-import ModalGiftCard from '../Components/ModalGiftCard';
-import { useAuth } from '../Context/AuthContext';
-import { useNavigate } from '@solidjs/router';
+import { Component, createResource, createSignal, For } from "solid-js";
+import { createStore, produce } from "solid-js/store";
+import Percent from "lucide-solid/icons/percent";
+import Gift from "lucide-solid/icons/gift";
+import { useCart } from "../Context/CartContext";
+import CheckoutItem from "../Components/CheckoutItem";
+import ModalDiscountCode from "../Components/ModalDiscountCode";
+import ModalGiftCard from "../Components/ModalGiftCard";
+import { useAuth } from "../Context/AuthContext";
+import { useNavigate } from "@solidjs/router";
 import {
   type OrderInformation,
   NewOrderPayload,
   OrderItemPayload,
   ShippingMethod,
-} from '../Types/checkout';
+} from "../Types/checkout";
 
 const fetchShippingMethods = async () => {
-  const response = await fetch('api/shipping-methods');
+  const response = await fetch("api/shipping-methods");
   return response.json();
 };
 
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
-  const [shippingMethods] = createResource<ShippingMethod[]>(fetchShippingMethods);
+  const [shippingMethods] =
+    createResource<ShippingMethod[]>(fetchShippingMethods);
 
   const cart = useCart();
   const auth = useAuth();
   const nav = useNavigate();
 
   const [formData, setFormData] = createStore<OrderInformation>({
-    email: '',
-    phoneNumber: '',
-    socialSecurityNumber: '',
-    firstName: '',
-    lastName: '',
-    street: '',
-    postalCode: '',
-    city: '',
+    email: "booklover88@gmail.com",
+    phoneNumber: "0123456",
+    socialSecurityNumber: "010101-0101",
+    firstName: "Book",
+    lastName: "Lover",
+    street: "The Street 123",
+    postalCode: "12345",
+    city: "The City",
     shippingMethod: {
-      identifier: 'postnord-pick',
-      type: 'pick-up',
+      identifier: "postnord-pick",
+      type: "pick-up",
       price: 49,
     },
     paymentMethod: {
-      type: 'card',
+      type: "card",
       cardInfo: {
         cardNumber: 4242424242424242,
-        expiryDate: '',
+        expiryDate: "",
         cvv: 123,
       },
     },
   });
-
-  
 
   const handleInputChange = (
     e: Event & {
@@ -61,8 +60,8 @@ const Checkout: Component = () => {
     },
   ) => {
     const { name, value, type } = e.currentTarget;
-    const coercedValue = type === 'number' ? Number(value) : value;
-    const path = name.split('.') as any;
+    const coercedValue = type === "number" ? Number(value) : value;
+    const path = name.split(".") as any;
 
     setFormData(
       produce((task) => {
@@ -72,16 +71,18 @@ const Checkout: Component = () => {
         }
         node[path[path.length - 1]] = coercedValue;
 
-        if (name == 'shippingMethod.identifier'){
-          const foundMethod = shippingMethods.latest!.find(sm => sm.identifier == coercedValue)
-          task.shippingMethod.price = foundMethod!.price
-          task.shippingMethod.type = foundMethod!.type
+        if (name == "shippingMethod.identifier") {
+          const foundMethod = shippingMethods.latest!.find(
+            (sm) => sm.identifier == coercedValue,
+          );
+          task.shippingMethod.price = foundMethod!.price;
+          task.shippingMethod.type = foundMethod!.type;
         }
 
-        if (name === 'paymentMethod.type' && coercedValue !== 'card') {
+        if (name === "paymentMethod.type" && coercedValue !== "card") {
           task.paymentMethod.cardInfo = {
             cardNumber: 4242424242424242,
-            expiryDate: '',
+            expiryDate: "",
             cvv: 123,
           };
         }
@@ -90,7 +91,7 @@ const Checkout: Component = () => {
   };
 
   const handleFetchAdress = () => {
-    console.log('Fetch the address based on social security number');
+    console.log("Fetch the address based on social security number");
   };
 
   const handleOrderSubmit = async (e: Event) => {
@@ -112,11 +113,11 @@ const Checkout: Component = () => {
         city: formData.city,
         postalCode: formData.postalCode,
       },
-      guestEmail: auth.isAuthenticated() ? '' : formData.email,
+      guestEmail: auth.isAuthenticated() ? "" : formData.email,
       shippingMethod: {
         identifier: formData.shippingMethod.identifier,
         type: formData.shippingMethod.type,
-        price: formData.shippingMethod.price
+        price: formData.shippingMethod.price,
       },
       paymentMethod: {
         type: formData.paymentMethod.type,
@@ -137,10 +138,10 @@ const Checkout: Component = () => {
       }),
     };
 
-    const resp = await fetch('/api/orders', {
-      method: 'POST',
+    const resp = await fetch("/api/orders", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${auth.token()}`,
       },
       body: JSON.stringify({
@@ -155,7 +156,7 @@ const Checkout: Component = () => {
     });
     const result = await resp.json();
     cart.clearCart();
-    nav('/order/confirmation', { state: result.items });
+    nav("/order/confirmation", { state: result.items });
   };
 
   return (
@@ -168,7 +169,12 @@ const Checkout: Component = () => {
             </div>
             <div class="flex flex-col gap-2">
               <div class="border px-12 py-8 text-xs text-everforest-fg">
-                <p>You have {250 - cart.total() > 0 ? `${(250 - cart.total()).toFixed(1)} kr remaining for free shipping!`: `unlocked free shipping!` } </p>
+                <p>
+                  You have{" "}
+                  {250 - cart.total() > 0
+                    ? `${(250 - cart.total()).toFixed(1)} kr remaining for free shipping!`
+                    : `unlocked free shipping!`}{" "}
+                </p>
                 <div>
                   <div class="flex justify-between mb-1">
                     <span class="text-sm font-medium text-everforest-fg">
@@ -206,11 +212,17 @@ const Checkout: Component = () => {
                 </div>
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Shipping</span>
-                  <span>{cart.total() > 250 ? 'Free!' : `${formData.shippingMethod.price} kr`}</span>
+                  <span>
+                    {cart.total() > 250
+                      ? "Free!"
+                      : `${formData.shippingMethod.price} kr`}
+                  </span>
                 </div>
                 <div class="flex items-baseline justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>{(formData.shippingMethod.price + cart.total()).toFixed(2)}</span>
+                  <span>
+                    {(formData.shippingMethod.price + cart.total()).toFixed(2)}
+                  </span>
                 </div>
               </div>
               <div class="flex gap-2 flex-col md:flex-row">
@@ -426,41 +438,41 @@ const Checkout: Component = () => {
 
                   <For each={shippingMethods()}>
                     {(item, _) => (
-                        <div class="flex flex-col items-center mb-4">
-                          <input
-                            id={item.identifier}
-                            type="radio"
-                            name="shippingMethod.identifier"
-                            value={item.identifier}
-                            class="peer hidden"
-                            checked={
-                              formData.shippingMethod.identifier ===
-                              item.identifier
-                            }
-                            onChange={handleInputChange}
-                          />
-                          <label
-                            for={item.identifier}
-                            class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
-                          >
-                            {item.identifier}
-                          </label>
-                          <div
-                            class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                              formData.shippingMethod.identifier ===
-                              item.identifier
-                                ? 'grid-rows-[1fr] opacity-100'
-                                : 'grid-rows-[0fr] opacity-0'
-                            }`}
-                          >
-                            <div class="overflow-hidden w-full flex justify-between">
-                              <p>{item.description}</p>
-                              <span>{item.price} kr</span>
-                            </div>
+                      <div class="flex flex-col items-center mb-4">
+                        <input
+                          id={item.identifier}
+                          type="radio"
+                          name="shippingMethod.identifier"
+                          value={item.identifier}
+                          class="peer hidden"
+                          checked={
+                            formData.shippingMethod.identifier ===
+                            item.identifier
+                          }
+                          onChange={handleInputChange}
+                        />
+                        <label
+                          for={item.identifier}
+                          class="flex items-center justify-between bg-everforest-aqua w-full p-5 rounded cursor-pointer peer-checked:bg-everforest-fg hover:bg-everforest-fg"
+                        >
+                          {item.identifier}
+                        </label>
+                        <div
+                          class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+                            formData.shippingMethod.identifier ===
+                            item.identifier
+                              ? "grid-rows-[1fr] opacity-100"
+                              : "grid-rows-[0fr] opacity-0"
+                          }`}
+                        >
+                          <div class="overflow-hidden w-full flex justify-between">
+                            <p>{item.description}</p>
+                            <span>{item.price} kr</span>
                           </div>
                         </div>
+                      </div>
                     )}
-                  </For>         
+                  </For>
                 </fieldset>
               </div>
             </div>
@@ -479,7 +491,7 @@ const Checkout: Component = () => {
                     name="paymentMethod.type"
                     value="card"
                     class="peer hidden"
-                    checked={formData.paymentMethod.type === 'card'}
+                    checked={formData.paymentMethod.type === "card"}
                     onChange={handleInputChange}
                   />
                   <label
@@ -490,9 +502,9 @@ const Checkout: Component = () => {
                   </label>
                   <div
                     class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                      formData.paymentMethod.type === 'card'
-                        ? 'grid-rows-[1fr] opacity-100'
-                        : 'grid-rows-[0fr] opacity-0'
+                      formData.paymentMethod.type === "card"
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
                     }`}
                   >
                     <div class="overflow-hidden w-full flex justify-between">
@@ -587,7 +599,7 @@ const Checkout: Component = () => {
                     name="paymentMethod.type"
                     value="invoice"
                     class="peer hidden"
-                    checked={formData.paymentMethod.type === 'invoice'}
+                    checked={formData.paymentMethod.type === "invoice"}
                     onChange={handleInputChange}
                   />
                   <label
@@ -599,9 +611,9 @@ const Checkout: Component = () => {
                 </div>
                 <div
                   class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    formData.paymentMethod.type === 'invoice'
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                    formData.paymentMethod.type === "invoice"
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden w-full flex justify-between">
@@ -615,7 +627,7 @@ const Checkout: Component = () => {
                     name="paymentMethod.type"
                     value="swish"
                     class="peer hidden"
-                    checked={formData.paymentMethod.type === 'swish'}
+                    checked={formData.paymentMethod.type === "swish"}
                     onChange={handleInputChange}
                   />
                   <label
@@ -627,9 +639,9 @@ const Checkout: Component = () => {
                 </div>
                 <div
                   class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    formData.paymentMethod.type === 'swish'
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                    formData.paymentMethod.type === "swish"
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden w-full flex justify-between">

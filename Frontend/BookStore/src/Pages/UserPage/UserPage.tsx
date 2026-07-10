@@ -107,7 +107,14 @@ const UserPage: Component = () => {
             </dl>
           </div>
 
-          {!defaultAddress === undefined ? (
+          <Show
+            when={!defaultAddress === undefined}
+            fallback={
+              <div class="my-2">
+                No default address set, set one in user options.
+              </div>
+            }
+          >
             <div>
               <span class="text-nowrap underline px-2">Default Address</span>
               <dl class="columns-1 gap-8 space-y-4 lg:columns-2">
@@ -131,11 +138,7 @@ const UserPage: Component = () => {
                 </div>
               </dl>
             </div>
-          ) : (
-            <div class="my-2">
-              No default address set, set one in user options.
-            </div>
-          )}
+          </Show>
         </div>
       </section>
 
@@ -152,16 +155,21 @@ const UserPage: Component = () => {
           </A>
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
-          <For each={userInfo()?.orders}>
-            {(item) => (
-              <div class="flex justify-between border-b border-everforest-fg">
-                <div>{FormatDate(item.createdAt)}</div>
-                <div>{item.orderNumber}</div>
-                <div>{OrderStatus[item.orderStatus]}</div>
-                <div>{item.orderTotalCost} kr</div>
-              </div>
-            )}
-          </For>
+          <Show
+            when={!userInfo()?.orders === undefined}
+            fallback={<div class="my-2">Found no orders!</div>}
+          >
+            <For each={userInfo()?.orders}>
+              {(item) => (
+                <div class="flex justify-between border-b border-everforest-fg">
+                  <div>{FormatDate(item.createdAt)}</div>
+                  <div>{item.orderNumber}</div>
+                  <div>{OrderStatus[item.orderStatus]}</div>
+                  <div>{item.orderTotalCost} kr</div>
+                </div>
+              )}
+            </For>
+          </Show>
         </div>
       </section>
 

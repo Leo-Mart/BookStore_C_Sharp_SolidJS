@@ -1,63 +1,25 @@
-import { Component, createResource, For, Show } from "solid-js";
+import {
+  Component,
+  createEffect,
+  createResource,
+  createSignal,
+  For,
+  Show,
+} from "solid-js";
 import ClipboardList from "lucide-solid/icons/clipboard-list";
 import User from "lucide-solid/icons/user";
 import Heart from "lucide-solid/icons/heart";
 import Star from "lucide-solid/icons/star";
 import { useAuth } from "../../Context/AuthContext";
 import { A } from "@solidjs/router";
-import { ShippingMethod } from "../../Types/checkout";
-import { BasicBookInfo } from "../../Types/book";
-import { Wishlist } from "../../Types/User/wishlist";
 import { FormatDate } from "../../Utils/Datehelpers";
-
-interface UserInfo {
-  email: string;
-  firstName: string;
-  lastName: string;
-  addresses: Address[];
-  orders: Order[];
-  reviews: Review[];
-  wishlists: Wishlist[];
-}
-
-interface Address {
-  street: string;
-  city: string;
-  postalCode: string;
-  isDefault: boolean;
-}
-
-interface Order {
-  orderStatus: OrderStatus;
-  orderTotalCost: number;
-  items: OrderItem[];
-  shippingMethod: ShippingMethod;
-  createdAt: string;
-  orderNumber: number;
-}
-
-interface Review {
-  title: string;
-  text: string;
-  score: number;
-}
-
-interface OrderItem {
-  unitPrice: number;
-  quantity: number;
-  Book: BasicBookInfo;
-}
-
-enum OrderStatus {
-  Pending = 1,
-  Confirmed,
-  Shipped,
-  Delivered,
-  Cancelled,
-}
+import { OrderStatus } from "../../Types/User/order";
+import { type UserInfo } from "../../Types/User/userinfo";
+import { Address } from "../../Types/User/address";
 
 const UserPage: Component = () => {
   const auth = useAuth();
+  const [defaultAddress, setDefaultAddress] = createSignal<Address>();
 
   const fetchUserInfo = async () => {
     const resp = await fetch("/api/user", {
@@ -70,8 +32,13 @@ const UserPage: Component = () => {
   };
   const [userInfo] = createResource<UserInfo>(fetchUserInfo);
 
-  const defaultAddress = userInfo()?.addresses.find((a) => a.isDefault == true);
-
+  createEffect(() => {
+    if (!userInfo.loading && !userInfo.error) {
+      setDefaultAddress(
+        userInfo()?.addresses.find((a) => a.isDefault === true),
+      );
+    }
+  });
   return (
     <div class="grid grid-cols-12">
       <div class="col-span-2"></div>
@@ -108,33 +75,33 @@ const UserPage: Component = () => {
           </div>
 
           <Show
-            when={!defaultAddress === undefined}
+            when={!userInfo.loading && defaultAddress !== undefined}
             fallback={
               <div class="my-2">
                 No default address set, set one in user options.
               </div>
             }
           >
-            <div>
-              <span class="text-nowrap underline px-2">Default Address</span>
+            <div class="mt-2">
+              <span class="text-nowrap underline">Default Address</span>
               <dl class="columns-1 gap-8 space-y-4 lg:columns-2">
                 <div>
                   <dt class='inline-block after:mr-2 after:content-[":"]'>
                     Street
                   </dt>
-                  <dd class="inline-block">{defaultAddress?.street}</dd>
+                  <dd class="inline-block">{defaultAddress()?.street}</dd>
                 </div>
                 <div>
                   <dt class='inline-block after:mr-2 after:content-[":"]'>
                     City
                   </dt>
-                  <dd class="inline-block">{defaultAddress?.city}</dd>
+                  <dd class="inline-block">{defaultAddress()?.city}</dd>
                 </div>
                 <div>
                   <dt class='inline-block after:mr-2 after:content-[":"]'>
                     Postal Code
                   </dt>
-                  <dd class="inline-block">{defaultAddress?.postalCode}</dd>
+                  <dd class="inline-block">{defaultAddress()?.postalCode}</dd>
                 </div>
               </dl>
             </div>
@@ -156,7 +123,7 @@ const UserPage: Component = () => {
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
           <Show
-            when={!userInfo()?.orders === undefined}
+            when={userInfo()?.orders !== undefined}
             fallback={<div class="my-2">Found no orders!</div>}
           >
             <For each={userInfo()?.orders}>

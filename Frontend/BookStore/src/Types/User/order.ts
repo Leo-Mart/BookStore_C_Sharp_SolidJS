@@ -13,7 +13,7 @@ export interface Order {
 export interface OrderItem {
   unitPrice: number;
   quantity: number;
-  Book: BasicBookInfo;
+  bookInfo: BasicBookInfo;
 }
 
 export enum OrderStatus {

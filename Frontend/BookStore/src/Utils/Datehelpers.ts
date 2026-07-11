@@ -1,7 +1,8 @@
 export const FormatDate = (dateString: string): string => {
-  const date = new Date(dateString)
+  const date = new Date(dateString);
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
-  return `${year}/${month}/${day}`
-}
+  return `${day}/${month}/${year}`;
+};
+

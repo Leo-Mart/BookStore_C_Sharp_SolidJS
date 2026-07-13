@@ -9,8 +9,7 @@ import {
 import { useAuth } from "../../Context/AuthContext";
 import { type UserInfo } from "../../Types/User/userinfo";
 import { Order, OrderStatus } from "../../Types/User/order";
-import { FormatDate } from "../../Utils/Datehelpers";
-import OrderItemDetailsAccordion from "../../Components/AccordionOrderDetails";
+import AccordionOrderDetails from "../../Components/AccordionOrderDetails";
 
 const UserPageOrders: Component = () => {
   const auth = useAuth();
@@ -27,7 +26,6 @@ const UserPageOrders: Component = () => {
   const [userOrders] = createResource<UserInfo>(fetchUserOrders);
   const [activeOrders, setActiveOrders] = createSignal<Order[]>();
   const [completedOrders, setCompletedOrders] = createSignal<Order[]>();
-  // const [open, setOpen] = createSignal<boolean>(false);
 
   createEffect(() => {
     if (!userOrders.loading && !userOrders.error) {
@@ -72,7 +70,7 @@ const UserPageOrders: Component = () => {
             </li>
 
             <For each={activeOrders()}>
-              {(item, _) => <OrderItemDetailsAccordion Order={item} />}
+              {(item, _) => <AccordionOrderDetails Order={item} />}
             </For>
           </ul>
         </section>
@@ -90,7 +88,7 @@ const UserPageOrders: Component = () => {
             </li>
 
             <For each={completedOrders()}>
-              {(item, _) => <OrderItemDetailsAccordion Order={item} />}
+              {(item, _) => <AccordionOrderDetails Order={item} />}
             </For>
           </ul>
         </section>

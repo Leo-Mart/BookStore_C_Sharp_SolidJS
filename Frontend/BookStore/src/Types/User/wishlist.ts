@@ -1,3 +1,5 @@
+import { BasicBookInfo } from "../book";
+
 export interface Wishlist {
   id: number;
   name: string;
@@ -10,5 +12,5 @@ export interface WishlistItem {
   id?: number;
   bookId: number;
   wishlistId?: number;
+  book: BasicBookInfo;
 }
-

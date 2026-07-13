@@ -6,7 +6,7 @@ export interface ItemDetailsProps {
   Order: Order;
 }
 
-const OrderItemDetailsAccordion: Component<ItemDetailsProps> = (
+const AccordionOrderDetails: Component<ItemDetailsProps> = (
   props: ItemDetailsProps,
 ) => {
   const [open, setOpen] = createSignal<boolean>(false);
@@ -53,7 +53,7 @@ const OrderItemDetailsAccordion: Component<ItemDetailsProps> = (
         </button>
       </li>
       <div
-        class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
+        class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg border-b border-t border-everforest-aqua py-2 text-md ${
           open() ? "grid-rows-[1fr]" : "grid-rows-[0fr] hidden"
         }`}
       >
@@ -92,4 +92,4 @@ const OrderItemDetailsAccordion: Component<ItemDetailsProps> = (
   );
 };
 
-export default OrderItemDetailsAccordion;
+export default AccordionOrderDetails;

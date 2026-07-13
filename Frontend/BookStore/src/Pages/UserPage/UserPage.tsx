@@ -129,10 +129,10 @@ const UserPage: Component = () => {
             <For each={userInfo()?.orders}>
               {(item) => (
                 <div class="flex justify-between border-b border-everforest-fg">
-                  <div>{FormatDate(item.createdAt)}</div>
-                  <div>{item.orderNumber}</div>
-                  <div>{OrderStatus[item.orderStatus]}</div>
-                  <div>{item.orderTotalCost} kr</div>
+                  <div class="grow">{FormatDate(item.createdAt)}</div>
+                  <div class="basis-3xs">{item.orderNumber}</div>
+                  <div class="basis-3xs">{OrderStatus[item.orderStatus]}</div>
+                  <div class="basis-xs">{item.orderTotalCost} kr</div>
                 </div>
               )}
             </For>
@@ -158,7 +158,7 @@ const UserPage: Component = () => {
               <div class="flex justify-between border-b border-everforest-fg">
                 <div>{item.name}</div>
                 <div class="truncate">{item.description}</div>
-                <div>{item.wishlistItems.length}</div>
+                <div>Items: {item.wishlistItems.length}</div>
               </div>
             )}
           </For>

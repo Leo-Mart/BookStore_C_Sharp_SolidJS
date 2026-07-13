@@ -1,5 +1,7 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
+using BookStore.Mappers;
+using BookStore.Models.Books;
 using BookStore.Models.Wishlists;
 using Microsoft.EntityFrameworkCore;
 
@@ -106,6 +108,13 @@ namespace BookStore.Repository
                         {
                             Id = wli.Id,
                             BookId = wli.BookId,
+                            Book = new BookItemInfoDto
+                            {
+                                Title = wli.Book.Title,
+                                PublishedDate = wli.Book.PublishedDate,
+                                Authors = wli.Book.Authors.Select(a => a.ToAuthorDto()).ToList(),
+                                CoverImageUrl = wli.Book.CoverImageUrl,
+                            },
                             WishlistId = wli.WishListId,
                         })
                         .ToList(),
@@ -168,4 +177,3 @@ namespace BookStore.Repository
         }
     }
 }
-

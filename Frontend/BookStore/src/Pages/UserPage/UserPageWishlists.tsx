@@ -137,7 +137,7 @@ const UserPageWishlists: Component = () => {
         <section class="col-span-8 flex-col my-3 mx-2">
           <button
             onClick={() => setListOverviewOpen(!listOverviewOpen())}
-            class="text-2xl flex justify-between p-2 w-full bg-everforest-bg-4 hover:cursor-pointer text-everforest-fg"
+            class="text-2xl flex justify-between p-2 w-full hover:cursor-pointer text-everforest-fg"
           >
             <span>Your wishlists</span>
             <svg
@@ -167,7 +167,7 @@ const UserPageWishlists: Component = () => {
             </svg>
           </button>
           <div
-            class={`bg-everforest-bg-4 text-everforest-fg overflow-hidden p-2 ${listOverviewOpen() ? "" : "hidden"}`}
+            class={` text-everforest-fg overflow-hidden p-2 ${listOverviewOpen() ? "" : "hidden"}`}
           >
             <div class="w-full flex justify-start p-3 hover:underline">
               <button
@@ -211,7 +211,7 @@ const UserPageWishlists: Component = () => {
             </ul>
           </div>
 
-          <ul class="flex flex-col p-2 bg-everforest-bg-4">
+          <ul class="flex flex-col p-2">
             <h3 class="text-xl text-everforest-fg">
               Viewing list: {selectedList()?.name}
             </h3>

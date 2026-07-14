@@ -53,7 +53,7 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
         </button>
       </li>
       <div
-        class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg border-b border-t border-everforest-aqua py-2 text-md ${
+        class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg py-2 text-md ${
           open() ? "grid-rows-[1fr]" : "grid-rows-[0fr] hidden"
         }`}
       >
@@ -68,6 +68,8 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
             <div class="basis-3xs">Quantity</div>
             <div class="basis-3xs">Price</div>
           </li>
+
+          <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
 
           <For each={props.Order.items}>
             {(book, _) => (
@@ -86,6 +88,8 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
               </li>
             )}
           </For>
+
+          <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
         </ul>
       </div>
     </div>

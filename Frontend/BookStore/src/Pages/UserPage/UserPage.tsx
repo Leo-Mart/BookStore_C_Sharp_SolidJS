@@ -128,11 +128,15 @@ const UserPage: Component = () => {
           >
             <For each={userInfo()?.orders}>
               {(item) => (
-                <div class="flex justify-between border-b border-everforest-fg">
-                  <div class="grow">{FormatDate(item.createdAt)}</div>
-                  <div class="basis-3xs">{item.orderNumber}</div>
-                  <div class="basis-3xs">{OrderStatus[item.orderStatus]}</div>
-                  <div class="basis-xs">{item.orderTotalCost} kr</div>
+                <div>
+                  <div class="flex justify-between">
+                    <div class="grow">{FormatDate(item.createdAt)}</div>
+                    <div class="basis-3xs">{item.orderNumber}</div>
+                    <div class="basis-3xs">{OrderStatus[item.orderStatus]}</div>
+                    <div class="basis-xs">{item.orderTotalCost} kr</div>
+                  </div>
+
+                  <hr class="my-1 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
                 </div>
               )}
             </For>
@@ -155,10 +159,14 @@ const UserPage: Component = () => {
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
           <For each={userInfo()?.wishlists}>
             {(item) => (
-              <div class="flex justify-between border-b border-everforest-fg">
-                <div>{item.name}</div>
-                <div class="truncate">{item.description}</div>
-                <div>Items: {item.wishlistItems.length}</div>
+              <div>
+                <div class="flex justify-between">
+                  <div>{item.name}</div>
+                  <div class="truncate">{item.description}</div>
+                  <div>Items: {item.wishlistItems.length}</div>
+                </div>
+
+                <hr class="my-1 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
               </div>
             )}
           </For>

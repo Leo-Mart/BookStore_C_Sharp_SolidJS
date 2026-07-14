@@ -12,5 +12,11 @@ export interface WishlistItem {
   id?: number;
   bookId: number;
   wishlistId?: number;
-  book: BasicBookInfo;
+  book?: BasicBookInfo;
+}
+
+export interface WishlistInput {
+  name: string;
+  description: string;
+  isDefault: boolean;
 }

@@ -10,7 +10,10 @@ namespace BookStore.Controllers
     [ApiController]
     [Route("api/wishlists/")]
     [Authorize]
-    public class WishlistController(ILogger<WishlistController> logger, IWishlistService wishlistService) : ControllerBase
+    public class WishlistController(
+        ILogger<WishlistController> logger,
+        IWishlistService wishlistService
+    ) : ControllerBase
     {
         private readonly IWishlistService _wishlistService = wishlistService;
         private readonly ILogger<WishlistController> _logger = logger;
@@ -52,7 +55,9 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<WishlistInfoDto>> CreateNewWishlist([FromBody] CreateWishlistDto wishlist)
+        public async Task<ActionResult<WishlistInfoDto>> CreateNewWishlist(
+            [FromBody] CreateWishlistDto wishlist
+        )
         {
             var userId = User.GetUserId();
             if (userId == null)
@@ -67,18 +72,17 @@ namespace BookStore.Controllers
                 return Unauthorized();
             }
 
-            return CreatedAtAction("GetWishlist",
-            new
-            {
-                userId,
-                wishlistId = wishlistToSave.Id
-            }, wishlistToSave.ToInfoDtoFromWishlist());
+            return CreatedAtAction(
+                "GetWishlist",
+                new { userId, wishlistId = wishlistToSave.Id },
+                wishlistToSave.ToInfoDtoFromWishlist()
+            );
         }
 
         [HttpDelete("{wishlistId}")]
         public async Task<ActionResult> DeleteWishlist(int wishlistId)
         {
-            var deletedWishlist = _wishlistService.DeleteWishlist(wishlistId);
+            var deletedWishlist = await _wishlistService.DeleteWishlist(wishlistId);
             if (deletedWishlist == null)
             {
                 return NotFound();
@@ -88,7 +92,10 @@ namespace BookStore.Controllers
         }
 
         [HttpPost("{wishlistId}/add-item")]
-        public async Task<ActionResult<WishlistItemInfoDto>> AddItemToWishlist(int wishlistId, [FromBody] CreateWishlistItemDto wishlistItem)
+        public async Task<ActionResult<WishlistItemInfoDto>> AddItemToWishlist(
+            int wishlistId,
+            [FromBody] CreateWishlistItemDto wishlistItem
+        )
         {
             var userId = User.GetUserId();
             if (userId == null)
@@ -103,11 +110,7 @@ namespace BookStore.Controllers
                 return Unauthorized();
             }
 
-            return CreatedAtAction("GetWishlist", new
-            {
-                userId,
-                wishlistId
-            }, itemToSave);
+            return CreatedAtAction("GetWishlist", new { userId, wishlistId }, itemToSave);
         }
 
         [HttpPut("{wishlistId}/mark-default")]
@@ -132,10 +135,7 @@ namespace BookStore.Controllers
             }
 
             return NoContent();
-
         }
-
-
-
     }
 }
+

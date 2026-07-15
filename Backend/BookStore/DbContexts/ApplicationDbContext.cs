@@ -11,6 +11,7 @@ using BookStore.Models.Payments;
 using BookStore.Models.Reviews;
 using BookStore.Models.ShippingMethods;
 using BookStore.Models.Users;
+using BookStore.Models.Wishlists;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,8 @@ namespace BookStore.DbContexts
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
@@ -355,7 +358,7 @@ namespace BookStore.DbContexts
                 .WithMany(sm => sm.Orders)
                 .HasForeignKey(o => o.ShippingMethodId)
                 .OnDelete(DeleteBehavior.NoAction);
-                
+
             modelBuilder.Entity<ShippingMethod>()
                 .HasData(
                     new ShippingMethod
@@ -522,6 +525,11 @@ namespace BookStore.DbContexts
                 .WithMany(b => b.OrderItems)
                 .HasForeignKey(oi => oi.BookId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Wishlist>()
+                .HasOne(w => w.AppUser)
+                .WithMany(u => u.Wishlists)
+                .HasForeignKey(w => w.AppUserId);
 
             modelBuilder.Entity<Book>().HasData(SeedBooksFromJSON(@"./SeedData/books.json"));
             modelBuilder.Entity<Author>().HasData(SeedAuthorFromJSON(@"./SeedData/authors.json"));

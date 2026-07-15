@@ -9,29 +9,89 @@ namespace BookStore.Repository
     {
         private readonly ApplicationDbContext _context = context;
 
-    public async Task<bool> AddressExistsAsync(int addressId)
-    {
-      return await _context.Addresses.AnyAsync(a => a.Id == addressId);
-    }
+        public async Task<bool> AddressExistsAsync(int addressId)
+        {
+            return await _context.Addresses.AnyAsync(a => a.Id == addressId);
+        }
 
-    public async Task<Address> CreateNewAddressAsync(Address address)
-    {
-      address.CreatedAt = DateTime.UtcNow;
-      address.UpdatedAt = DateTime.UtcNow;
-      await _context.Addresses.AddAsync(address);
-      await _context.SaveChangesAsync();
+        public async Task<bool> CheckAddressExistsByInfoAsync(Address address, string userId)
+        {
+            return await _context
+                .Addresses.Where(a => a.AppUserId == userId)
+                .AnyAsync(a =>
+                    a.Street.ToLower() == address.Street.ToLower()
+                    && a.City.ToLower() == a.City.ToLower()
+                    && a.PostalCode.ToLower() == address.PostalCode.ToLower()
+                );
+        }
 
-      return address;
-    }
+        public async Task<bool> CheckIfUserHasAddresses(string userId)
+        {
+            return await _context.Addresses.Where(a => a.AppUserId == userId).AnyAsync();
+        }
 
-    public Task<Address> GetAddressByIdAsync(int addressId)
-    {
-      throw new NotImplementedException();
-    }
+        public async Task<Address> CreateNewAddressAsync(Address address)
+        {
+            address.CreatedAt = DateTime.UtcNow;
+            address.UpdatedAt = DateTime.UtcNow;
+            await _context.Addresses.AddAsync(address);
+            await _context.SaveChangesAsync();
 
-    public Task<IEnumerable<Address>> GetAddressesForUserAsync(string userId)
-    {
-      throw new NotImplementedException();
+            return address;
+        }
+
+        public async Task<Address?> GetAddressByIdAsync(int addressId)
+        {
+            return await _context.Addresses.Where(a => a.Id == addressId).FirstOrDefaultAsync();
+        }
+
+        public async Task<Address?> GetAddressByInfoAsync(Address address)
+        {
+            return await _context
+                .Addresses.Where(a =>
+                    a.Street.ToLower() == address.Street.ToLower()
+                    && a.City.ToLower() == a.City.ToLower()
+                    && a.PostalCode.ToLower() == address.PostalCode.ToLower()
+                )
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ICollection<AddressInfoDto>?> GetAddressesForUserAsync(string userId)
+        {
+            return await _context
+                .Addresses.Where(a => a.AppUserId == userId)
+                .Select(a => new AddressInfoDto
+                {
+                    Street = a.Street,
+                    City = a.City,
+                    PostalCode = a.PostalCode,
+                    IsDefault = a.IsDefault,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<Address?> MarkAddressAsDefault(int addressId)
+        {
+            var addressFromDB = await _context
+                .Addresses.Where(a => a.Id == addressId)
+                .FirstOrDefaultAsync();
+            if (addressFromDB == null)
+            {
+                return null;
+            }
+
+            if (addressFromDB.IsDefault == true)
+            {
+                //TODO: send back a proper "this address is already the default" or similar error
+                return null;
+            }
+
+            addressFromDB.IsDefault = true;
+            addressFromDB.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            return addressFromDB;
+        }
     }
-  }
 }
+

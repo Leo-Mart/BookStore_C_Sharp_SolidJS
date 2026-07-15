@@ -3,7 +3,6 @@ using BookStore.Interfaces;
 using BookStore.Mappers;
 using BookStore.Models.Orders;
 using BookStore.Models.Users;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +10,15 @@ namespace BookStore.Controllers
 {
     [ApiController]
     [Route("api/orders")]
-    public class OrdersController(ILogger<OrdersController> logger, IOrderService orderService, IOrderRepository orderRepo, UserManager<AppUser> userManager) : ControllerBase
+    public class OrdersController(
+        ILogger<OrdersController> logger,
+        IOrderService orderService,
+        IOrderRepository orderRepo,
+        UserManager<AppUser> userManager
+    ) : ControllerBase
     {
-        private readonly ILogger<OrdersController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly ILogger<OrdersController> _logger =
+            logger ?? throw new ArgumentNullException(nameof(logger));
         private readonly IOrderService _orderService = orderService;
         private readonly IOrderRepository _orderRepo = orderRepo;
         private readonly UserManager<AppUser> _userManager = userManager;
@@ -48,12 +53,12 @@ namespace BookStore.Controllers
             if (userId == null)
             {
                 var savedOrder = await _orderService.CreateNewOrderForGuest(order);
-                
-                return CreatedAtAction("GetOrder",
-                new
-                {
-                    orderId = savedOrder.Id
-                }, savedOrder.ToDtoFromOrder());
+
+                return CreatedAtAction(
+                    "GetOrder",
+                    new { orderId = savedOrder.Id },
+                    savedOrder.ToDtoFromOrder()
+                );
             }
             else
             {
@@ -63,16 +68,15 @@ namespace BookStore.Controllers
                     return NotFound();
                 }
 
-                var savedOrder = await _orderService.CreateNewOrderForUser(order, user.Id); 
+                var savedOrder = await _orderService.CreateNewOrderForUser(order, user.Id);
 
-                return CreatedAtAction("GetOrder",
-                new
-                {
-                    orderId = savedOrder.Id
-                }, savedOrder.ToDtoFromOrder());
+                return CreatedAtAction(
+                    "GetOrder",
+                    new { orderId = savedOrder.Id },
+                    savedOrder.ToDtoFromOrder()
+                );
             }
-
-
         }
     }
 }
+

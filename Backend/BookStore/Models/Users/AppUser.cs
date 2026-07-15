@@ -3,6 +3,7 @@ using BookStore.Models.Addresses;
 using BookStore.Models.Orders;
 using BookStore.Models.PaymentMethods;
 using BookStore.Models.Reviews;
+using BookStore.Models.Wishlists;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookStore.Models.Users
@@ -20,5 +21,6 @@ namespace BookStore.Models.Users
         public ICollection<Order> Orders { get; set; } = new List<Order>();
         public ICollection<Address> Addresses { get; set; } = new List<Address>();
         public ICollection<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();
+        public ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
     }
 }

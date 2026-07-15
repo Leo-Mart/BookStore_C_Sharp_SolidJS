@@ -10,7 +10,17 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BookStore.Services
 {
-    public class OrderService(ILogger<OrderService> logger, IOrderRepository orderRepo, IPaymentMethodRepository paymentMethodRepo, IPaymentRepository paymentRepo, IAddressRepository addressRepo, UserManager<AppUser> userManager, ApplicationDbContext context, IBookRepository bookRepo, IShippingMethodRepository smRepo) : IOrderService
+    public class OrderService(
+        ILogger<OrderService> logger,
+        IOrderRepository orderRepo,
+        IPaymentMethodRepository paymentMethodRepo,
+        IPaymentRepository paymentRepo,
+        IAddressRepository addressRepo,
+        UserManager<AppUser> userManager,
+        ApplicationDbContext context,
+        IBookRepository bookRepo,
+        IShippingMethodRepository smRepo
+    ) : IOrderService
     {
         private readonly ILogger<OrderService> _logger = logger;
         private readonly IOrderRepository _orderRepo = orderRepo;
@@ -34,16 +44,63 @@ namespace BookStore.Services
                 {
                     return null;
                 }
-
-                var address = new Address
+                // check if the user has any addresses
+                var addressesExist = await _addressRepo.CheckIfUserHasAddresses(user.Id);
+                Address? savedAddress = new Address { };
+                if (addressesExist)
                 {
-                    AppUserId = user.Id,
-                    Street = order.Address.Street,
-                    City = order.Address.City,
-                    PostalCode = order.Address.PostalCode,
-                    AppUser = user,
-                };
-                var savedAddress = await _addressRepo.CreateNewAddressAsync(address);
+                    // if addresses exists, check if this specific incoming address exists
+                    var addressExists = await _addressRepo.CheckAddressExistsByInfoAsync(
+                        new Address
+                        {
+                            Street = order.Address.Street,
+                            City = order.Address.City,
+                            PostalCode = order.Address.PostalCode,
+                        },
+                        user.Id
+                    );
+                    if (addressExists)
+                    {
+                        // if the incoming address already exists, get that address and pass that onward
+                        savedAddress = await _addressRepo.GetAddressByInfoAsync(
+                            new Address
+                            {
+                                Street = order.Address.Street,
+                                City = order.Address.City,
+                                PostalCode = order.Address.PostalCode,
+                            }
+                        );
+                    }
+                    else
+                    {
+                        // the incoming address does not exits in the db for that user, we create a new address
+                        // and add that to the db, it does not get marked as default however.
+                        // The User can do this themseles in the user-page.
+                        var address = new Address
+                        {
+                            AppUserId = user.Id,
+                            Street = order.Address.Street,
+                            City = order.Address.City,
+                            PostalCode = order.Address.PostalCode,
+                        };
+
+                        savedAddress = await _addressRepo.CreateNewAddressAsync(address);
+                    }
+                }
+                else
+                {
+                    // create the new address, mark as default and save
+                    var address = new Address
+                    {
+                        AppUserId = user.Id,
+                        Street = order.Address.Street,
+                        City = order.Address.City,
+                        PostalCode = order.Address.PostalCode,
+                        IsDefault = true,
+                    };
+
+                    savedAddress = await _addressRepo.CreateNewAddressAsync(address);
+                }
 
                 var paymentMethod = new PaymentMethod
                 {
@@ -54,9 +111,13 @@ namespace BookStore.Services
                     CVV = order.PaymentMethod.CVV,
                     ExpiryDate = order.PaymentMethod.ExpiryDate,
                 };
-                var savedPaymentMethod = await _paymentMethodRepo.CreateNewPaymentMethodAsync(paymentMethod);
+                var savedPaymentMethod = await _paymentMethodRepo.CreateNewPaymentMethodAsync(
+                    paymentMethod
+                );
 
-                var shippingMethod = await _smRepo.GetShippingMethodByIdentifierAsync(order.ShippingMethod.Identifier);
+                var shippingMethod = await _smRepo.GetShippingMethodByIdentifierAsync(
+                    order.ShippingMethod.Identifier
+                );
 
                 if (shippingMethod == null)
                 {
@@ -74,7 +135,12 @@ namespace BookStore.Services
                     order.OrderTotalCost = total;
                 }
                 var orderToSave = order.ToOrderFromCreateDto();
-                orderToSave.AddressId = address.Id;
+                if (savedAddress == null)
+                {
+                    // something went wrong, throw a 500
+                    return null;
+                }
+                orderToSave.AddressId = savedAddress.Id;
                 orderToSave.AppUserId = user.Id;
                 orderToSave.PaymentMethodId = paymentMethod.Id;
                 orderToSave.ShippingMethodId = shippingMethod.Id;
@@ -99,8 +165,6 @@ namespace BookStore.Services
                 await transaction.RollbackAsync();
                 throw;
             }
-
-
         }
 
         public async Task<Order?> CreateNewOrderForGuest(CreateOrderDto order)
@@ -125,9 +189,13 @@ namespace BookStore.Services
                     CVV = order.PaymentMethod.CVV,
                     ExpiryDate = order.PaymentMethod.ExpiryDate,
                 };
-                var savedPaymentMethod = await _paymentMethodRepo.CreateNewPaymentMethodAsync(paymentMethod);
+                var savedPaymentMethod = await _paymentMethodRepo.CreateNewPaymentMethodAsync(
+                    paymentMethod
+                );
 
-                var shippingMethod = await _smRepo.GetShippingMethodByIdentifierAsync(order.ShippingMethod.Identifier);
+                var shippingMethod = await _smRepo.GetShippingMethodByIdentifierAsync(
+                    order.ShippingMethod.Identifier
+                );
 
                 if (shippingMethod == null)
                 {
@@ -173,3 +241,4 @@ namespace BookStore.Services
         }
     }
 }
+

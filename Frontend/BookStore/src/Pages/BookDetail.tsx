@@ -1,29 +1,79 @@
-import { A, useParams } from '@solidjs/router';
+import { A, useParams } from "@solidjs/router";
 import {
   Component,
+  createEffect,
   createResource,
   createSignal,
   For,
   Match,
   Show,
   Switch,
-} from 'solid-js';
-import HeartMinus from 'lucide-solid/icons/heart-minus';
-import HeartPlus from 'lucide-solid/icons/heart-plus';
-import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
-import { useCart } from '../Context/CartContext';
-
-const fetchBook = async (bookId: string) => {
-  const response = await fetch(`/api/books/${bookId}`);
-  return response.json();
-};
+} from "solid-js";
+import HeartMinus from "lucide-solid/icons/heart-minus";
+import HeartPlus from "lucide-solid/icons/heart-plus";
+import ShoppingBasket from "lucide-solid/icons/shopping-basket";
+import { useCart } from "../Context/CartContext";
+import { useAuth } from "../Context/AuthContext";
+import { useToast } from "../Context/ToastContext";
+import { type Wishlist, WishlistItem } from "../Types/User/wishlist";
+import ModalAddToWishlist from "../Components/ModalAddToWishlist";
 
 const BookDetail: Component = () => {
   const params = useParams();
-  const [book] = createResource(() => params.bookId, fetchBook);
+
   const cart = useCart();
+  const auth = useAuth();
+  const toast = useToast();
+
+  const fetchWishlist = async () => {
+    const response = await fetch("/api/wishlists", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.token()}`,
+      },
+    });
+    return response.json();
+  };
+
+  const fetchBook = async (bookId: string) => {
+    const response = await fetch(`/api/books/${bookId}`);
+    return response.json();
+  };
+
+  const [book] = createResource(() => params.bookId, fetchBook);
+  const [wishlists] = createResource<Wishlist[], boolean>(
+    () => auth.isAuthenticated() === true,
+    fetchWishlist,
+  );
+
+  createEffect(() => {
+    if (!wishlists.loading && !book.loading) {
+      if (selectedWishlist() === undefined) {
+        const defaultWishlist = wishlists()?.find(
+          (wl) => wl.isDefault === true,
+        );
+        setSelectedWishlist(defaultWishlist!);
+      }
+
+      const found = wishlists()?.find((list) => {
+        const foundItem = list.wishlistItems.find(
+          (item) => item.bookId === book().id,
+        );
+        if (foundItem) {
+          setWishlisted(true);
+          return true;
+        }
+        return false;
+      });
+      setFoundInList(found);
+    }
+  });
 
   const [wishlisted, setWishlisted] = createSignal(false);
+  const [selectedWishlist, setSelectedWishlist] = createSignal<Wishlist>();
+  const [addToWishlistModalOpen, setAddToWishlistModalOpen] =
+    createSignal<boolean>(false);
+  const [foundInList, setFoundInList] = createSignal<Wishlist>();
 
   const [amount, setAmount] = createSignal(1);
   const [descOpen, setDescOpen] = createSignal(false);
@@ -44,6 +94,74 @@ const BookDetail: Component = () => {
       }
       return prev - 1;
     });
+  };
+  const handleRemoveFromWishlist = async () => {
+    if (auth.isAuthenticated()) {
+      setWishlisted(false);
+      toast.add(`Removed from the ${foundInList()?.name} wishlist!`, {
+        type: "success",
+      });
+
+      const itemToRemove = foundInList()?.wishlistItems.find(
+        (item) => item.bookId === book().id,
+      );
+      if (itemToRemove === undefined) {
+        console.log("oh no");
+        return;
+      }
+
+      await fetch(
+        `/api/wishlists/${+foundInList()!.id!}/remove-item/${itemToRemove.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token()}`,
+          },
+        },
+      );
+    } else {
+      toast.add("You need to be registered to remove books from wishlist!", {
+        type: "error",
+      });
+    }
+  };
+  const handleWishlistSelect = async (selectedList: Wishlist) => {
+    if (auth.isAuthenticated()) {
+      setWishlisted(true);
+      toast.add("Added to wishlist!", { type: "success" });
+
+      if (selectedList) {
+        setSelectedWishlist(selectedList);
+      } else {
+        const defaultWishlist = wishlists()?.find(
+          (wl) => wl.isDefault === true,
+        );
+        setSelectedWishlist(defaultWishlist!);
+      }
+      const newWishlisteItem: WishlistItem = {
+        bookId: book().id,
+        wishlistId: +selectedWishlist()?.id!,
+      };
+      selectedWishlist()?.wishlistItems.push(newWishlisteItem);
+
+      const resp = await fetch(
+        `/api/wishlists/${+selectedWishlist()!.id!}/add-item`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token()}`,
+          },
+          body: JSON.stringify(newWishlisteItem),
+        },
+      );
+      setAddToWishlistModalOpen(false);
+    } else {
+      toast.add("You need to be registered to add books to wishlist!", {
+        type: "error",
+      });
+    }
   };
 
   return (
@@ -68,7 +186,7 @@ const BookDetail: Component = () => {
               <h1 class="text-4xl pb-2">{book().title}</h1>
               <div>
                 <span>
-                  Author: {book().authors[0].firstName}{' '}
+                  Author: {book().authors[0].firstName}{" "}
                   {book().authors[0].lastName}
                 </span>
               </div>
@@ -128,25 +246,29 @@ const BookDetail: Component = () => {
                   Add to cart
                   <ShoppingBasket />
                 </button>
-                <button
-                  class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
-                  onclick={() => setWishlisted(!wishlisted())}
-                >
-                  <Switch>
-                    <Match when={wishlisted()}>
-                      <HeartMinus /> Remove from Wishlist
-                    </Match>
-                    <Match when={!wishlisted()}>
-                      <HeartPlus /> Add to Wishlist
-                    </Match>
-                  </Switch>
-                </button>
+                <Switch>
+                  <Match when={wishlisted()}>
+                    <button
+                      class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
+                      onclick={async () => await handleRemoveFromWishlist()}
+                    >
+                      <HeartMinus /> Remove
+                    </button>
+                  </Match>
+                  <Match when={!wishlisted()}>
+                    <button
+                      class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
+                      onclick={() => setAddToWishlistModalOpen(true)}
+                    >
+                      <HeartPlus /> Wishlist
+                    </button>
+                  </Match>
+                </Switch>
               </div>
 
               <div class="flex max-w-3/4 justify-between gap-1 border">
                 <div class="p-1">Inventory status goes here</div>
               </div>
-              {/* Accordion with various info. Addiotional format, Description, More info (author, isbn, language, weight, exact publishdate, publisher, page number ), Shipping and payment, A list of tags, reviews go here as well */}
               <div class="py-8 max-w-3/4 flex flex-col gap-3">
                 <button
                   type="button"
@@ -166,7 +288,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        descOpen() && 'rotate-180!'
+                        descOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -175,7 +297,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        descOpen() && 'rotate-180!'
+                        descOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -183,8 +305,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     descOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">{book().description}</div>
@@ -207,7 +329,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        prodInfoOpen() && 'rotate-180!'
+                        prodInfoOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -216,7 +338,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        prodInfoOpen() && 'rotate-180!'
+                        prodInfoOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -224,8 +346,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg0 text-md ${
                     prodInfoOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">
@@ -235,7 +357,7 @@ const BookDetail: Component = () => {
                           Author
                         </dt>
                         <dd class="inline-block">
-                          {book().authors[0].firstName}{' '}
+                          {book().authors[0].firstName}{" "}
                           {book().authors[0].lastName}
                         </dd>
                       </div>
@@ -282,7 +404,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        paymenAndDeliveryOpen() && 'rotate-180!'
+                        paymenAndDeliveryOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -291,7 +413,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        paymenAndDeliveryOpen() && 'rotate-180!'
+                        paymenAndDeliveryOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -299,8 +421,8 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     paymenAndDeliveryOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">
@@ -337,7 +459,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center transition duration-200 ease-out ${
-                        discoverOpen() && 'rotate-180!'
+                        discoverOpen() && "rotate-180!"
                       }`}
                     />
                     <rect
@@ -346,7 +468,7 @@ const BookDetail: Component = () => {
                       height="2"
                       rx="1"
                       class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        discoverOpen() && 'rotate-180!'
+                        discoverOpen() && "rotate-180!"
                       }`}
                     />
                   </svg>
@@ -354,14 +476,14 @@ const BookDetail: Component = () => {
                 <div
                   class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                     discoverOpen()
-                      ? 'grid-rows-[1fr] opacity-100'
-                      : 'grid-rows-[0fr] opacity-0'
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div class="overflow-hidden">
-                    <ul class='flex gap-2'>
+                    <ul class="flex gap-2">
                       <For each={book().genres}>
-                        {(item, index) => (
+                        {(item, _) => (
                           <A
                             class="w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
                             href={`/category/${item.name}`}
@@ -393,7 +515,7 @@ const BookDetail: Component = () => {
                           height="2"
                           rx="1"
                           class={`transform origin-center transition duration-200 ease-out ${
-                            reviewsOpen() && 'rotate-180!'
+                            reviewsOpen() && "rotate-180!"
                           }`}
                         />
                         <rect
@@ -402,7 +524,7 @@ const BookDetail: Component = () => {
                           height="2"
                           rx="1"
                           class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                            reviewsOpen() && 'rotate-180!'
+                            reviewsOpen() && "rotate-180!"
                           }`}
                         />
                       </svg>
@@ -410,23 +532,23 @@ const BookDetail: Component = () => {
                     <div
                       class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
                         reviewsOpen()
-                          ? 'grid-rows-[1fr] opacity-100'
-                          : 'grid-rows-[0fr] opacity-0'
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
                       }`}
                     >
                       <div class="overflow-hidden">
                         <For each={book().reviews}>
-                          {(item, index) => (
+                          {(item, _) => (
                             <div class="py-2">
                               <div>
                                 <div class="text-xl">
-                                  {item.reviewer.firstName}{' '}
+                                  {item.reviewer.firstName}{" "}
                                   {item.reviewer.lastName}
                                 </div>
 
                                 <div class="flex items-center space-x-1">
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 1 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 1 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -437,7 +559,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 2 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 2 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -448,7 +570,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 3 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 3 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -459,7 +581,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 4 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 4 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -470,7 +592,7 @@ const BookDetail: Component = () => {
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                   </svg>
                                   <svg
-                                    class={`w-3 h-3 ${item.score >= 5 ? 'text-everforest-aqua' : 'text-everforest-bg-1'}`}
+                                    class={`w-3 h-3 ${item.score >= 5 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -498,13 +620,17 @@ const BookDetail: Component = () => {
                   </Match>
                 </Switch>
               </div>
-
-              {/* a list of books from the same author, a list of similar books (based on tags or some such) etc etc */}
             </div>
           </Show>
         </div>
       </div>
       <div class="col-span-1"></div>
+      <ModalAddToWishlist
+        open={addToWishlistModalOpen()}
+        selectWishlist={handleWishlistSelect}
+        wishlists={wishlists()!}
+        onClose={() => setAddToWishlistModalOpen(false)}
+      />
     </div>
   );
 };

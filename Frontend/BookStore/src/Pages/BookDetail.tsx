@@ -127,41 +127,30 @@ const BookDetail: Component = () => {
     }
   };
   const handleWishlistSelect = async (selectedList: Wishlist) => {
-    if (auth.isAuthenticated()) {
-      setWishlisted(true);
-      toast.add("Added to wishlist!", { type: "success" });
+    setWishlisted(true);
+    toast.add("Added to wishlist!", { type: "success" });
 
-      if (selectedList) {
-        setSelectedWishlist(selectedList);
-      } else {
-        const defaultWishlist = wishlists()?.find(
-          (wl) => wl.isDefault === true,
-        );
-        setSelectedWishlist(defaultWishlist!);
-      }
-      const newWishlisteItem: WishlistItem = {
-        bookId: book().id,
-        wishlistId: +selectedWishlist()?.id!,
-      };
-      selectedWishlist()?.wishlistItems.push(newWishlisteItem);
-
-      const resp = await fetch(
-        `/api/wishlists/${+selectedWishlist()!.id!}/add-item`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token()}`,
-          },
-          body: JSON.stringify(newWishlisteItem),
-        },
-      );
-      setAddToWishlistModalOpen(false);
+    if (selectedList) {
+      setSelectedWishlist(selectedList);
     } else {
-      toast.add("You need to be registered to add books to wishlist!", {
-        type: "error",
-      });
+      const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
+      setSelectedWishlist(defaultWishlist!);
     }
+    const newWishlisteItem: WishlistItem = {
+      bookId: book().id,
+      wishlistId: +selectedWishlist()?.id!,
+    };
+    selectedWishlist()?.wishlistItems.push(newWishlisteItem);
+
+    await fetch(`/api/wishlists/${+selectedWishlist()!.id!}/add-item`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.token()}`,
+      },
+      body: JSON.stringify(newWishlisteItem),
+    });
+    setAddToWishlistModalOpen(false);
   };
 
   return (
@@ -258,7 +247,14 @@ const BookDetail: Component = () => {
                   <Match when={!wishlisted()}>
                     <button
                       class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
-                      onclick={() => setAddToWishlistModalOpen(true)}
+                      onclick={() =>
+                        auth.isAuthenticated()
+                          ? setAddToWishlistModalOpen(true)
+                          : toast.add(
+                              "You need to be registered to add books to wishlist!",
+                              { type: "error" },
+                            )
+                      }
                     >
                       <HeartPlus /> Wishlist
                     </button>

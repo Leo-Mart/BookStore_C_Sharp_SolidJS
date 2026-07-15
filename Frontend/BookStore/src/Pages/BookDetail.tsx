@@ -47,7 +47,7 @@ const BookDetail: Component = () => {
   );
 
   createEffect(() => {
-    if (!wishlists.loading) {
+    if (!wishlists.loading && !book.loading) {
       if (selectedWishlist() === undefined) {
         const defaultWishlist = wishlists()?.find(
           (wl) => wl.isDefault === true,

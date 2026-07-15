@@ -16,6 +16,7 @@ import { useCart } from "../Context/CartContext";
 import { useAuth } from "../Context/AuthContext";
 import { useToast } from "../Context/ToastContext";
 import { type Wishlist, WishlistItem } from "../Types/User/wishlist";
+import ModalAddToWishlist from "../Components/ModalAddToWishlist";
 
 const BookDetail: Component = () => {
   const params = useParams();
@@ -40,23 +41,39 @@ const BookDetail: Component = () => {
   };
 
   const [book] = createResource(() => params.bookId, fetchBook);
-  const [wishlists, { mutate }] = createResource<Wishlist[], boolean>(
+  const [wishlists] = createResource<Wishlist[], boolean>(
     () => auth.isAuthenticated() === true,
     fetchWishlist,
   );
 
   createEffect(() => {
     if (!wishlists.loading) {
-      const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
-      if (
-        defaultWishlist?.wishlistItems.find((wli) => wli.bookId === book().id)
-      ) {
-        setWishlisted(true);
+      if (selectedWishlist() === undefined) {
+        const defaultWishlist = wishlists()?.find(
+          (wl) => wl.isDefault === true,
+        );
+        setSelectedWishlist(defaultWishlist!);
       }
+
+      const found = wishlists()?.find((list) => {
+        const foundItem = list.wishlistItems.find(
+          (item) => item.bookId === book().id,
+        );
+        if (foundItem) {
+          setWishlisted(true);
+          return true;
+        }
+        return false;
+      });
+      setFoundInList(found);
     }
   });
 
   const [wishlisted, setWishlisted] = createSignal(false);
+  const [selectedWishlist, setSelectedWishlist] = createSignal<Wishlist>();
+  const [addToWishlistModalOpen, setAddToWishlistModalOpen] =
+    createSignal<boolean>(false);
+  const [foundInList, setFoundInList] = createSignal<Wishlist>();
 
   const [amount, setAmount] = createSignal(1);
   const [descOpen, setDescOpen] = createSignal(false);
@@ -78,64 +95,68 @@ const BookDetail: Component = () => {
       return prev - 1;
     });
   };
-
-  const handleWishlistClick = async () => {
+  const handleRemoveFromWishlist = async () => {
     if (auth.isAuthenticated()) {
-      if (wishlisted()) {
-        setWishlisted(false);
-        toast.add("Removed from wishlist!", { type: "success" });
+      setWishlisted(false);
+      toast.add(`Removed from the ${foundInList()?.name} wishlist!`, {
+        type: "success",
+      });
+
+      const itemToRemove = foundInList()?.wishlistItems.find(
+        (item) => item.bookId === book().id,
+      );
+      if (itemToRemove === undefined) {
+        console.log("oh no");
+        return;
+      }
+
+      await fetch(
+        `/api/wishlists/${+foundInList()!.id!}/remove-item/${itemToRemove.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token()}`,
+          },
+        },
+      );
+    } else {
+      toast.add("You need to be registered to remove books from wishlist!", {
+        type: "error",
+      });
+    }
+  };
+  const handleWishlistSelect = async (selectedList: Wishlist) => {
+    if (auth.isAuthenticated()) {
+      setWishlisted(true);
+      toast.add("Added to wishlist!", { type: "success" });
+
+      if (selectedList) {
+        setSelectedWishlist(selectedList);
+      } else {
         const defaultWishlist = wishlists()?.find(
           (wl) => wl.isDefault === true,
         );
-        const itemToRemove = defaultWishlist?.wishlistItems.find(
-          (wli) =>
-            wli.bookId === book().id && wli.wishlistId === defaultWishlist.id,
-        );
-
-        if (itemToRemove === undefined) {
-          console.log("oh no");
-          return;
-        }
-
-        mutate((items) =>
-          items?.filter((wl) =>
-            wl.wishlistItems.filter((wli) => wli.id !== itemToRemove.id),
-          ),
-        );
-
-        const resp = await fetch(
-          `/api/wishlists/${+defaultWishlist!.id!}/remove-item/${itemToRemove.id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${auth.token()}`,
-            },
-          },
-        );
-      } else {
-        setWishlisted(true);
-        toast.add("Added to wishlist!", { type: "success" });
-        let defaultWishlist: Wishlist | undefined =
-          wishlists()?.find((wl) => wl.isDefault === true) ?? undefined;
-        const newWishlisteItem: WishlistItem = {
-          bookId: book().id,
-          wishlistId: +defaultWishlist?.id!,
-        };
-        defaultWishlist?.wishlistItems.push(newWishlisteItem);
-
-        const resp = await fetch(
-          `/api/wishlists/${+defaultWishlist!.id!}/add-item`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${auth.token()}`,
-            },
-            body: JSON.stringify(newWishlisteItem),
-          },
-        );
+        setSelectedWishlist(defaultWishlist!);
       }
+      const newWishlisteItem: WishlistItem = {
+        bookId: book().id,
+        wishlistId: +selectedWishlist()?.id!,
+      };
+      selectedWishlist()?.wishlistItems.push(newWishlisteItem);
+
+      const resp = await fetch(
+        `/api/wishlists/${+selectedWishlist()!.id!}/add-item`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token()}`,
+          },
+          body: JSON.stringify(newWishlisteItem),
+        },
+      );
+      setAddToWishlistModalOpen(false);
     } else {
       toast.add("You need to be registered to add books to wishlist!", {
         type: "error",
@@ -225,19 +246,24 @@ const BookDetail: Component = () => {
                   Add to cart
                   <ShoppingBasket />
                 </button>
-                <button
-                  class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
-                  onclick={handleWishlistClick}
-                >
-                  <Switch>
-                    <Match when={wishlisted()}>
-                      <HeartMinus /> Remove from Wishlist
-                    </Match>
-                    <Match when={!wishlisted()}>
-                      <HeartPlus /> Add to Wishlist
-                    </Match>
-                  </Switch>
-                </button>
+                <Switch>
+                  <Match when={wishlisted()}>
+                    <button
+                      class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
+                      onclick={async () => await handleRemoveFromWishlist()}
+                    >
+                      <HeartMinus /> Remove
+                    </button>
+                  </Match>
+                  <Match when={!wishlisted()}>
+                    <button
+                      class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
+                      onclick={() => setAddToWishlistModalOpen(true)}
+                    >
+                      <HeartPlus /> Wishlist
+                    </button>
+                  </Match>
+                </Switch>
               </div>
 
               <div class="flex max-w-3/4 justify-between gap-1 border">
@@ -457,7 +483,7 @@ const BookDetail: Component = () => {
                   <div class="overflow-hidden">
                     <ul class="flex gap-2">
                       <For each={book().genres}>
-                        {(item, index) => (
+                        {(item, _) => (
                           <A
                             class="w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
                             href={`/category/${item.name}`}
@@ -512,7 +538,7 @@ const BookDetail: Component = () => {
                     >
                       <div class="overflow-hidden">
                         <For each={book().reviews}>
-                          {(item, index) => (
+                          {(item, _) => (
                             <div class="py-2">
                               <div>
                                 <div class="text-xl">
@@ -599,6 +625,12 @@ const BookDetail: Component = () => {
         </div>
       </div>
       <div class="col-span-1"></div>
+      <ModalAddToWishlist
+        open={addToWishlistModalOpen()}
+        selectWishlist={handleWishlistSelect}
+        wishlists={wishlists()!}
+        onClose={() => setAddToWishlistModalOpen(false)}
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { JSX } from "solid-js";
-import { WishlistInput } from "./User/wishlist";
+import { JSX, Setter } from "solid-js";
+import { Wishlist, WishlistInput } from "./User/wishlist";
 
 export interface ModalProps {
   open: boolean;
@@ -17,6 +17,13 @@ export interface DiscountCodeModalProps {
 export interface GiftCardModalProps {
   open: boolean;
   onClose: () => void;
+}
+
+export interface AddToWishlistModalProps {
+  open: boolean;
+  onClose: () => void;
+  wishlists: Wishlist[];
+  selectWishlist: (wishlist: Wishlist) => void;
 }
 
 export interface CreateWishlistModalProps {

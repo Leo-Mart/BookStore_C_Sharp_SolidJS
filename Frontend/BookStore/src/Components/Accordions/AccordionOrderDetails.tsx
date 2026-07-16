@@ -1,6 +1,6 @@
 import { Component, createSignal, For } from "solid-js";
-import { FormatDate } from "../Utils/Datehelpers";
-import { Order, OrderStatus } from "../Types/User/order";
+import { FormatDate } from "../../Utils/Datehelpers";
+import { Order, OrderStatus } from "../../Types/User/order";
 
 export interface ItemDetailsProps {
   Order: Order;
@@ -12,8 +12,8 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
   const [open, setOpen] = createSignal<boolean>(false);
 
   return (
-    <div class="bg-everforest-bg-0 p-1 ">
-      <li class="flex justify-between text-everforest-fg">
+    <li class="bg-everforest-bg-0 p-1 ">
+      <div class="flex justify-between text-everforest-fg">
         <div class="grow basis-20">{FormatDate(props.Order.createdAt)}</div>
         <div class="basis-3xs">{props.Order.orderNumber}</div>
         <div class="basis-3xs">{OrderStatus[props.Order.orderStatus]}</div>
@@ -51,7 +51,7 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
             />
           </svg>
         </button>
-      </li>
+      </div>
       <div
         class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg py-2 text-md ${
           open() ? "grid-rows-[1fr]" : "grid-rows-[0fr] hidden"
@@ -92,7 +92,7 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
           <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
         </ul>
       </div>
-    </div>
+    </li>
   );
 };
 

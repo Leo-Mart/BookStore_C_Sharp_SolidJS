@@ -4,7 +4,6 @@ import {
   createEffect,
   createResource,
   createSignal,
-  For,
   Match,
   Show,
   Switch,
@@ -17,6 +16,11 @@ import { useAuth } from "../Context/AuthContext";
 import { useToast } from "../Context/ToastContext";
 import { type Wishlist, WishlistItem } from "../Types/User/wishlist";
 import ModalAddToWishlist from "../Components/ModalAddToWishlist";
+import Accordion from "../Components/Accordions/Accordion";
+import AccordionProductInfo from "../Components/Accordions/AccordionProductInfo";
+import AccordionPaymentAndDelivery from "../Components/Accordions/AccordionPaymentAndDelivery";
+import AccordionDiscoverMore from "../Components/Accordions/AccordionDiscoverMore";
+import AccordionReviews from "../Components/Accordions/AccordionReviews";
 
 const BookDetail: Component = () => {
   const params = useParams();
@@ -76,12 +80,6 @@ const BookDetail: Component = () => {
   const [foundInList, setFoundInList] = createSignal<Wishlist>();
 
   const [amount, setAmount] = createSignal(1);
-  const [descOpen, setDescOpen] = createSignal(false);
-  const [prodInfoOpen, setProdInfoOpen] = createSignal(false);
-  const [paymenAndDeliveryOpen, setPaymentAndDeliveryOpen] =
-    createSignal(false);
-  const [discoverOpen, setDiscoverOpen] = createSignal(false);
-  const [reviewsOpen, setReviewsOpen] = createSignal(false);
 
   const increaseAmount = () => {
     setAmount((prev) => prev + 1);
@@ -266,353 +264,16 @@ const BookDetail: Component = () => {
                 <div class="p-1">Inventory status goes here</div>
               </div>
               <div class="py-8 max-w-3/4 flex flex-col gap-3">
-                <button
-                  type="button"
-                  onClick={() => setDescOpen(!descOpen())}
-                  class="flex justify-between w-full hover:cursor-pointer"
-                >
-                  <span class="text-2xl font-bold">Description</span>
-                  <svg
-                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
-                    width="8"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center transition duration-200 ease-out ${
-                        descOpen() && "rotate-180!"
-                      }`}
-                    />
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        descOpen() && "rotate-180!"
-                      }`}
-                    />
-                  </svg>
-                </button>
-                <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    descOpen()
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div class="overflow-hidden">{book().description}</div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setProdInfoOpen(!prodInfoOpen())}
-                  class="flex justify-between w-full hover:cursor-pointer"
-                >
-                  <span class="text-2xl font-bold">Product Info</span>
-                  <svg
-                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
-                    width="8"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center transition duration-200 ease-out ${
-                        prodInfoOpen() && "rotate-180!"
-                      }`}
-                    />
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        prodInfoOpen() && "rotate-180!"
-                      }`}
-                    />
-                  </svg>
-                </button>
-                <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg0 text-md ${
-                    prodInfoOpen()
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div class="overflow-hidden">
-                    <dl class="columns-1 gap-8 space-y-4 lg:columns-2">
-                      <div>
-                        <dt class='inline-block after:mr-2 after:content-[":"]'>
-                          Author
-                        </dt>
-                        <dd class="inline-block">
-                          {book().authors[0].firstName}{" "}
-                          {book().authors[0].lastName}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt class='inline-block after:mr-2 after:content-[":"]'>
-                          ISBN
-                        </dt>
-                        <dd class="inline-block">{book().isbn}</dd>
-                      </div>
-                      <div>
-                        <dt class='inline-block after:mr-2 after:content-[":"]'>
-                          Published Date
-                        </dt>
-                        <dd class="inline-block">
-                          {new Date(book().publishedDate).toLocaleDateString()}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt class='inline-block after:mr-2 after:content-[":"]'>
-                          Publisher
-                        </dt>
-                        <dd class="inline-block">{book().publisher}</dd>
-                      </div>
-                    </dl>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setPaymentAndDeliveryOpen(!paymenAndDeliveryOpen())
-                  }
-                  class="flex justify-between w-full hover:cursor-pointer"
-                >
-                  <span class="text-2xl font-bold">Payment and Delivery</span>
-                  <svg
-                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
-                    width="8"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center transition duration-200 ease-out ${
-                        paymenAndDeliveryOpen() && "rotate-180!"
-                      }`}
-                    />
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        paymenAndDeliveryOpen() && "rotate-180!"
-                      }`}
-                    />
-                  </svg>
-                </button>
-                <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    paymenAndDeliveryOpen()
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div class="overflow-hidden">
-                    <div>
-                      <h4 class="text-xl">Devlivery Information</h4>
-                      <div>Lorem ipsum adlkjadkljakdlj</div>
-                    </div>
-                    <div>
-                      <h4 class="text-xl">Payment Information</h4>
-                      <div>Lorem ipsum adlkjadkljakdlj</div>
-                    </div>
-                    <div>
-                      <h4 class="text-xl">Returns</h4>
-                      <div>Lorem ipsum adlkjadkljakdlj</div>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setDiscoverOpen(!discoverOpen())}
-                  class="flex justify-between w-full hover:cursor-pointer"
-                >
-                  <span class="text-2xl font-bold">Discover More</span>
-                  <svg
-                    class="fill-everforest-fg shrink-0 ml-8 my-auto"
-                    width="8"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center transition duration-200 ease-out ${
-                        discoverOpen() && "rotate-180!"
-                      }`}
-                    />
-                    <rect
-                      y="7"
-                      width="8"
-                      height="2"
-                      rx="1"
-                      class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                        discoverOpen() && "rotate-180!"
-                      }`}
-                    />
-                  </svg>
-                </button>
-                <div
-                  class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                    discoverOpen()
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div class="overflow-hidden">
-                    <ul class="flex gap-2">
-                      <For each={book().genres}>
-                        {(item, _) => (
-                          <A
-                            class="w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
-                            href={`/category/${item.name}`}
-                          >
-                            {item.name}
-                          </A>
-                        )}
-                      </For>
-                    </ul>
-                  </div>
-                </div>
-                <Switch>
+                <Accordion
+                  title={"Description"}
+                  children={book().description}
+                />
+                <AccordionProductInfo book={book()} />
+                <AccordionPaymentAndDelivery />
+                <AccordionDiscoverMore book={book()} />
+                <Switch fallback={<div></div>}>
                   <Match when={book().reviews.length !== 0}>
-                    <button
-                      type="button"
-                      onClick={() => setReviewsOpen(!reviewsOpen())}
-                      class="flex justify-between w-full hover:cursor-pointer"
-                    >
-                      <span class="text-2xl font-bold">Reviews</span>
-                      <svg
-                        class="fill-everforest-fg shrink-0 ml-8 my-auto"
-                        width="8"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          y="7"
-                          width="8"
-                          height="2"
-                          rx="1"
-                          class={`transform origin-center transition duration-200 ease-out ${
-                            reviewsOpen() && "rotate-180!"
-                          }`}
-                        />
-                        <rect
-                          y="7"
-                          width="8"
-                          height="2"
-                          rx="1"
-                          class={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                            reviewsOpen() && "rotate-180!"
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                    <div
-                      class={`grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                        reviewsOpen()
-                          ? "grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
-                      }`}
-                    >
-                      <div class="overflow-hidden">
-                        <For each={book().reviews}>
-                          {(item, _) => (
-                            <div class="py-2">
-                              <div>
-                                <div class="text-xl">
-                                  {item.reviewer.firstName}{" "}
-                                  {item.reviewer.lastName}
-                                </div>
-
-                                <div class="flex items-center space-x-1">
-                                  <svg
-                                    class={`w-3 h-3 ${item.score >= 1 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-                                  </svg>
-                                  <svg
-                                    class={`w-3 h-3 ${item.score >= 2 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-                                  </svg>
-                                  <svg
-                                    class={`w-3 h-3 ${item.score >= 3 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-                                  </svg>
-                                  <svg
-                                    class={`w-3 h-3 ${item.score >= 4 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-                                  </svg>
-                                  <svg
-                                    class={`w-3 h-3 ${item.score >= 5 ? "text-everforest-aqua" : "text-everforest-bg-1"}`}
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-                                  </svg>
-                                </div>
-
-                                <div>{item.score}</div>
-                              </div>
-                              <div>
-                                <div>{item.text}</div>
-                              </div>
-                            </div>
-                          )}
-                        </For>
-                      </div>
-                    </div>
-                  </Match>
-                  <Match when={book().reviews.length === 0}>
-                    <div></div>
+                    <AccordionReviews book={book()} />
                   </Match>
                 </Switch>
               </div>

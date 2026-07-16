@@ -9,7 +9,7 @@ import {
 import { useAuth } from "../../Context/AuthContext";
 import { type UserInfo } from "../../Types/User/userinfo";
 import { Order, OrderStatus } from "../../Types/User/order";
-import AccordionOrderDetails from "../../Components/AccordionOrderDetails";
+import AccordionOrderDetails from "../../Components/Accordions/AccordionOrderDetails";
 
 const UserPageOrders: Component = () => {
   const auth = useAuth();

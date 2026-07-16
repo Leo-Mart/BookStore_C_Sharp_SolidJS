@@ -21,6 +21,8 @@ import AccordionProductInfo from "../Components/Accordions/AccordionProductInfo"
 import AccordionPaymentAndDelivery from "../Components/Accordions/AccordionPaymentAndDelivery";
 import AccordionDiscoverMore from "../Components/Accordions/AccordionDiscoverMore";
 import AccordionReviews from "../Components/Accordions/AccordionReviews";
+import { Book } from "../Types/book";
+import Score from "../Components/Score";
 
 const BookDetail: Component = () => {
   const params = useParams();
@@ -39,12 +41,12 @@ const BookDetail: Component = () => {
     return response.json();
   };
 
-  const fetchBook = async (bookId: string) => {
+  const fetchBook = async (bookId: string): Promise<Book> => {
     const response = await fetch(`/api/books/${bookId}`);
     return response.json();
   };
 
-  const [book] = createResource(() => params.bookId, fetchBook);
+  const [book] = createResource<Book, string>(() => params.bookId, fetchBook);
   const [wishlists] = createResource<Wishlist[], boolean>(
     () => auth.isAuthenticated() === true,
     fetchWishlist,
@@ -61,7 +63,7 @@ const BookDetail: Component = () => {
 
       const found = wishlists()?.find((list) => {
         const foundItem = list.wishlistItems.find(
-          (item) => item.bookId === book().id,
+          (item) => item.bookId === book()?.id,
         );
         if (foundItem) {
           setWishlisted(true);
@@ -69,6 +71,18 @@ const BookDetail: Component = () => {
         }
         return false;
       });
+
+      if (book()?.reviews) {
+        const totalScore = book()?.reviews.reduce(
+          (sum: number, r) => sum + r.score,
+          0,
+        );
+        if (totalScore === undefined) {
+          return;
+        }
+        setAverageScore(totalScore / book()!.reviews.length);
+      }
+
       setFoundInList(found);
     }
   });
@@ -78,7 +92,7 @@ const BookDetail: Component = () => {
   const [addToWishlistModalOpen, setAddToWishlistModalOpen] =
     createSignal<boolean>(false);
   const [foundInList, setFoundInList] = createSignal<Wishlist>();
-
+  const [averageScore, setAverageScore] = createSignal<number>(0);
   const [amount, setAmount] = createSignal(1);
 
   const increaseAmount = () => {
@@ -101,7 +115,7 @@ const BookDetail: Component = () => {
       });
 
       const itemToRemove = foundInList()?.wishlistItems.find(
-        (item) => item.bookId === book().id,
+        (item) => item.bookId === book()?.id,
       );
       if (itemToRemove === undefined) {
         console.log("oh no");
@@ -135,7 +149,7 @@ const BookDetail: Component = () => {
       setSelectedWishlist(defaultWishlist!);
     }
     const newWishlisteItem: WishlistItem = {
-      bookId: book().id,
+      bookId: book()!.id,
       wishlistId: +selectedWishlist()?.id!,
     };
     selectedWishlist()?.wishlistItems.push(newWishlisteItem);
@@ -166,22 +180,26 @@ const BookDetail: Component = () => {
             </div>
           </div>
         </aside>
-
         <div class="lg:col-span-5">
-          <Show when={!book.loading} fallback={<p>Loading...</p>}>
+          <Show when={!book.loading && book()} fallback={<p>Loading...</p>}>
             <div>
-              <h1 class="text-4xl pb-2">{book().title}</h1>
+              <h1 class="text-4xl pb-2">{book()!.title}</h1>
+              <Switch fallback={<div></div>}>
+                <Match when={book()!.reviews.length !== 0}>
+                  <Score score={averageScore()} />
+                </Match>
+              </Switch>
               <div>
                 <span>
-                  Author: {book().authors[0].firstName}{" "}
-                  {book().authors[0].lastName}
+                  Author: {book()!.authors[0].firstName}{" "}
+                  {book()!.authors[0].lastName}
                 </span>
               </div>
               <div class="pb-2">
-                <span>{new Date(book().publishedDate).getFullYear()}</span>
+                <span>{new Date(book()!.publishedDate).getFullYear()}</span>
               </div>
               <div class="text-xl font-bold leading-none">
-                <span>{book().price} kr</span>
+                <span>{book()!.price} kr</span>
               </div>
 
               <div class="flex max-w-3/4 justify-between gap-2 border p-2 mt-2">
@@ -220,12 +238,14 @@ const BookDetail: Component = () => {
                 <button
                   onClick={() =>
                     cart.addItem({
-                      id: book().id,
-                      title: book().title,
-                      author: book().author,
-                      price: book().price,
-                      quantity: amount(),
-                      imageUrl: book().coverImageUrl,
+                      id: book()!.id,
+                      title: book()!.title,
+                      author:
+                        book()!.authors[0].firstName +
+                        book()!.authors[0].lastName,
+                      price: book()!.price,
+                      quantity: amount()!,
+                      imageUrl: book()!.coverImageUrl,
                     })
                   }
                   class="flex gap-1 grow justify-center bg-everforest-aqua px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer"
@@ -266,14 +286,14 @@ const BookDetail: Component = () => {
               <div class="py-8 max-w-3/4 flex flex-col gap-3">
                 <Accordion
                   title={"Description"}
-                  children={book().description}
+                  children={book()!.description}
                 />
-                <AccordionProductInfo book={book()} />
+                <AccordionProductInfo book={book()!} />
                 <AccordionPaymentAndDelivery />
-                <AccordionDiscoverMore book={book()} />
+                <AccordionDiscoverMore book={book()!} />
                 <Switch fallback={<div></div>}>
-                  <Match when={book().reviews.length !== 0}>
-                    <AccordionReviews book={book()} />
+                  <Match when={book()!.reviews.length !== 0}>
+                    <AccordionReviews book={book()!} />
                   </Match>
                 </Switch>
               </div>

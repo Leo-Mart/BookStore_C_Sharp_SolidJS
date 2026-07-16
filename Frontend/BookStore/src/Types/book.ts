@@ -1,5 +1,5 @@
 export interface BookProps {
-  book: Book
+  book: Book;
 }
 
 export interface Book {
@@ -11,6 +11,12 @@ export interface Book {
   description?: string;
   price: number;
   coverImageUrl?: string;
+  reviews: Review[];
+  genres: [
+    {
+      name: string;
+    },
+  ];
   authors: [
     {
       firstName: string;
@@ -19,17 +25,28 @@ export interface Book {
   ];
 }
 
+export interface Review {
+  id: number;
+  title: string;
+  text: string;
+  score: number;
+  reviewer: {
+    firstName: string;
+    lastName: string;
+  };
+}
+
 export interface BasicBookInfo {
-  isbn: string
-  title: string
-  description?: string
-  publishedDate: Date
-  price: number
-  coverImageUrl?: string
+  isbn: string;
+  title: string;
+  description?: string;
+  publishedDate: Date;
+  price: number;
+  coverImageUrl?: string;
   authors: [
     {
-      firstName: string
-      lastName: string
-    }
-  ]
+      firstName: string;
+      lastName: string;
+    },
+  ];
 }

@@ -1,29 +1,41 @@
-import { Component, createResource, createSignal, For, Show } from "solid-js";
+import {
+  Component,
+  createEffect,
+  createResource,
+  createSignal,
+  For,
+  Show,
+} from "solid-js";
 import BookCard from "../Components/BookCard";
 import { PaginationMetaData } from "../Types/metadata";
 import { Book } from "../Types/book";
 import { useSearchParams } from "@solidjs/router";
+import Spinner from "../Components/Spinner";
 
 const FindPage: Component = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = createSignal(1);
+  // const [currentPage, setCurrentPage] = createSignal(1);
   const [paginationMetaData, setpaginationMetaData] =
     createSignal<PaginationMetaData | null>(null);
 
-  const handlePageClick = async () => {
-    const newBooks = await fetchBooks(paginationMetaData()!.CurrentPage + 1);
-    mutate((books = []) => [...books, ...newBooks]);
-  };
+  // const handlePageClick = async () => {
+  //   const newBooks = await fetchBooks(paginationMetaData()!.CurrentPage + 1);
+  //   mutate((books = []) => [...books, ...newBooks]);
+  // };
+  //
+  createEffect(async () => {
+    console.log(searchParams.searchQuery);
+    const newResults = await fetchBooks(searchParams.searchQuery as string);
+    mutate(() => [...newResults]);
+  });
 
-  const fetchBooks = async (pageNumber: number): Promise<Book[]> => {
-    const response = await fetch(
-      `/api/find?pageNumber=${pageNumber}&searchQuery=${searchParams.searchQuery}`,
-    );
+  const fetchBooks = async (searchQuery: string): Promise<Book[]> => {
+    const response = await fetch(`/api/find?searchQuery=${searchQuery}`);
     setpaginationMetaData(JSON.parse(response.headers.get("x-pagination")!));
     return response.json();
   };
-  const [books, { mutate }] = createResource<Book[], number>(
-    currentPage,
+  const [books, { mutate }] = createResource<Book[], string>(
+    searchParams.searchQuery as string,
     fetchBooks,
   );
 
@@ -83,13 +95,21 @@ const FindPage: Component = () => {
           </ul>
         </div>
       </aside>
+
+      <Show when={books.loading}>
+        <div class="min-h-screen col-span-8 flex items-center">
+          <Spinner />
+        </div>
+      </Show>
       <Show
-        when={!books.loading}
+        when={!books.loading && books()!.length > 0}
         fallback={
-          <p class="dark:text-everforest-fg col-span-8">Loading books...</p>
+          <p class="dark:text-everforest-fg col-span-8">No books found...</p>
         }
       >
-        <div class="col-span-8 grid grid-cols-subgrid gap-2">
+        <div class="col-span-8 flex flex-col gap-2 p-3">
+          <h3 class="text-2xl dark:text-everforest-fg">Search Results:</h3>
+          <p class="text-sm dark:text-everforest-fg">{`Found ${books()?.length} potential matches`}</p>
           <ul class="col-span-8 grid grid-cols-6 gap-2">
             <For each={books()}>
               {(book: Book, _) => (

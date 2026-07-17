@@ -1,6 +1,7 @@
 import { Component, createResource, createSignal, For, Show } from "solid-js";
 import BookCard from "../Components/BookCard";
 import { PaginationMetaData } from "../Types/metadata";
+import Spinner from "../Components/Spinner";
 
 const BookList: Component = () => {
   const [currentPage, setCurrentPage] = createSignal(1);
@@ -27,7 +28,9 @@ const BookList: Component = () => {
       <Show
         when={!books.loading}
         fallback={
-          <p class="dark:text-everforest-fg col-span-8">Loading books...</p>
+          <div class="min-h-screen col-span-8 flex items-center">
+            <Spinner />
+          </div>
         }
       >
         <div class="col-span-8 grid grid-cols-subgrid gap-2">

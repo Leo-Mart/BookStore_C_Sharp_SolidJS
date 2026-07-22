@@ -1,6 +1,6 @@
-import { Component } from 'solid-js';
-import { useAuth } from '../Context/AuthContext';
-import { useNavigate } from '@solidjs/router';
+import { Component, createSignal } from "solid-js";
+import { useAuth } from "../Context/AuthContext";
+import { useLocation, useNavigate } from "@solidjs/router";
 import {
   createForm,
   required,
@@ -8,29 +8,33 @@ import {
   minLength,
   SubmitHandler,
   getValue,
-} from '@modular-forms/solid';
-import { type RegisterForm } from '../Types/auth';
+} from "@modular-forms/solid";
+import { type RegisterForm } from "../Types/auth";
 
 const RegisterPage: Component = () => {
   const [registerForm, { Form, Field }] = createForm<RegisterForm>();
+  const [error, setError] = createSignal<string>("");
+
+  const location = useLocation();
+  const redirect = () => location.query.redirect as string;
 
   const nav = useNavigate();
   const auth = useAuth();
 
-  const handleSubmit: SubmitHandler<RegisterForm> = async (values, e) => {
-  
-      const resp = await fetch('/api/account/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
-      });
-      const result = await resp.json();
-      await auth.login(values.email, values.password);
-      nav('/', { replace: true }); // TODO: redirect back to the page the user was at
-
+  const handleSubmit: SubmitHandler<RegisterForm> = async (values) => {
+    const resp = await fetch("/api/account/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
+      }),
+    });
+    if (!resp.ok) {
+      setError(await resp.text());
+    }
+    await auth.login(values.email, values.password);
+    nav(redirect(), { replace: true });
   };
 
   return (
@@ -42,8 +46,8 @@ const RegisterPage: Component = () => {
         <Field
           name="email"
           validate={[
-            required('Please enter a valid email!'),
-            email('Invalid email.'),
+            required("Please enter a valid email!"),
+            email("Invalid email."),
           ]}
         >
           {(field, props) => (
@@ -75,8 +79,8 @@ const RegisterPage: Component = () => {
         <Field
           name="password"
           validate={[
-            required('Please enter a valid password!'),
-            minLength(12, 'Password must be at least 12 characters long.'),
+            required("Please enter a valid password!"),
+            minLength(12, "Password must be at least 12 characters long."),
           ]}
         >
           {(field, props) => (
@@ -108,9 +112,12 @@ const RegisterPage: Component = () => {
         <Field
           name="confirmPassword"
           validate={[
-            required('Please enter a valid password!'),
-            minLength(12, 'Password must be at least 12 characters long.'),
-            (value) => value !== getValue(registerForm, "password") ? "Passwords do not match" : "",
+            required("Please enter a valid password!"),
+            minLength(12, "Password must be at least 12 characters long."),
+            (value) =>
+              value !== getValue(registerForm, "password")
+                ? "Passwords do not match"
+                : "",
           ]}
         >
           {(field, props) => (
@@ -138,7 +145,8 @@ const RegisterPage: Component = () => {
               )}
             </div>
           )}
-        </Field>    
+        </Field>
+        {error() && <div class="text-everforest-red py-1">{error()}</div>}
         <button
           type="submit"
           class="bg-white block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"

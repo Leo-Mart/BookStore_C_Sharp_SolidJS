@@ -117,7 +117,7 @@ const Login: Component = () => {
           Register an account for faster checkout, order-tracking, and more!
         </p>
         <A
-          href="/register"
+          href={redirect() ? `/register?redirect=${redirect()}` : `/register`}
           type="submit"
           class="mx-auto text-center bg-white mt-2 block w-1/2 rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
         >

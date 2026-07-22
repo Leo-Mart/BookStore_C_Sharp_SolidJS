@@ -75,7 +75,7 @@ const UserPage: Component = () => {
           </div>
 
           <Show
-            when={!userInfo.loading && defaultAddress !== undefined}
+            when={defaultAddress() !== undefined}
             fallback={
               <div class="my-2">
                 No default address set, set one in user options.
@@ -123,7 +123,7 @@ const UserPage: Component = () => {
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
           <Show
-            when={userInfo()?.orders !== undefined}
+            when={!userInfo.loading && userInfo()!.orders.length < 0}
             fallback={<div class="my-2">Found no orders!</div>}
           >
             <For each={userInfo()?.orders}>

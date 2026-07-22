@@ -49,11 +49,19 @@ export const AuthProvider: ParentComponent = (props) => {
     setToken(null);
   };
 
+  const isTokenExpired = (token: string): boolean => {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return Date.now() >= payload.exp * 1000;
+  };
+
   const auth: AuthContextValue = {
     token,
     login,
     logout,
-    isAuthenticated: () => !!token(), //TODO: only checks that there actually is a token, so might need a deeper check here
+    isAuthenticated: () => {
+      const t = token();
+      return !!t && !isTokenExpired(t);
+    },
   };
 
   return (

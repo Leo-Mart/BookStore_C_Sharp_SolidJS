@@ -1,6 +1,6 @@
 import { Component, createSignal } from "solid-js";
 import { useAuth } from "../Context/AuthContext";
-import { A, useNavigate } from "@solidjs/router";
+import { A, useLocation, useNavigate } from "@solidjs/router";
 import {
   createForm,
   required,
@@ -13,6 +13,8 @@ import { type LoginForm } from "../Types/auth";
 const Login: Component = () => {
   const [loginForm, { Form, Field }] = createForm<LoginForm>();
   const [error, setError] = createSignal<string>("");
+  const location = useLocation();
+  const redirect = () => location.query.redirect as string;
 
   const nav = useNavigate();
   const auth = useAuth();
@@ -20,7 +22,7 @@ const Login: Component = () => {
   const handleSubmit: SubmitHandler<LoginForm> = async (values) => {
     try {
       await auth.login(values.email, values.password);
-      nav("/", { replace: true }); // TODO: redirect back to the page the user was at
+      nav(redirect(), { replace: true });
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);

@@ -1,7 +1,6 @@
 import { Component, createSignal, For } from "solid-js";
 import Modal from "./Modal";
 import { AddToWishlistModalProps } from "../Types/modal";
-import { Wishlist } from "../Types/User/wishlist";
 
 const ModalAddToWishlist: Component<AddToWishlistModalProps> = (props) => {
   const [selectedList, setSelectedList] = createSignal<string>("");

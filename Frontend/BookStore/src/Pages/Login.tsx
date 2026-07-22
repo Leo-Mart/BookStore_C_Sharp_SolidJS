@@ -1,20 +1,32 @@
-import { Component } from 'solid-js';
-import { useAuth } from '../Context/AuthContext';
-import { A, useNavigate } from '@solidjs/router';
-import { createForm, required, email, minLength, SubmitHandler, replace } from '@modular-forms/solid';
-import { type LoginForm } from '../Types/auth';
+import { Component, createSignal } from "solid-js";
+import { useAuth } from "../Context/AuthContext";
+import { A, useNavigate } from "@solidjs/router";
+import {
+  createForm,
+  required,
+  email,
+  minLength,
+  SubmitHandler,
+} from "@modular-forms/solid";
+import { type LoginForm } from "../Types/auth";
 
 const Login: Component = () => {
   const [loginForm, { Form, Field }] = createForm<LoginForm>();
+  const [error, setError] = createSignal<string>("");
 
   const nav = useNavigate();
   const auth = useAuth();
 
-  const handleSubmit: SubmitHandler<LoginForm> = async (values, event) => {
-    await auth.login(values.email, values.password)
-    nav('/', { replace: true }); // TODO: redirect back to the page the user was at
-
-  }
+  const handleSubmit: SubmitHandler<LoginForm> = async (values) => {
+    try {
+      await auth.login(values.email, values.password);
+      nav("/", { replace: true }); // TODO: redirect back to the page the user was at
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
+    }
+  };
   return (
     <div class="grid grid-cols-3 gap-2">
       <h2 class="text-2xl font-bold text-everforest-bg-dim md:text-3xl dark:text-everforest-fg col-start-2">
@@ -24,8 +36,8 @@ const Login: Component = () => {
         <Field
           name="email"
           validate={[
-            required('Please enter your email'),
-            email('Invalid email.'),
+            required("Please enter your email"),
+            email("Invalid email."),
           ]}
         >
           {(field, props) => (
@@ -57,8 +69,8 @@ const Login: Component = () => {
         <Field
           name="password"
           validate={[
-            required('Please enter your password'),
-            minLength(12, 'Your password must have at least 12 characters.'),
+            required("Please enter your password"),
+            minLength(12, "Your password must have at least 12 characters."),
           ]}
         >
           {(field, props) => (
@@ -87,9 +99,10 @@ const Login: Component = () => {
             </div>
           )}
         </Field>
+        {error() && <div class="text-everforest-red py-1">{error()}</div>}
         <button
           type="submit"
-          class={`${loginForm.submitting && 'disabled'}bg-white block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer`}
+          class={`${loginForm.submitting && "disabled"}bg-white block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer`}
         >
           Login
         </button>

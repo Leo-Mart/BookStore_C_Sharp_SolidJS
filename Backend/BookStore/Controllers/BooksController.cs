@@ -8,21 +8,30 @@ namespace BookStore.Controllers
 {
     [ApiController]
     [Route("api/books")]
-    public class BooksController(ILogger<BooksController> logger, IBookRepository bookRepository) : ControllerBase
+    public class BooksController(ILogger<BooksController> logger, IBookRepository bookRepository)
+        : ControllerBase
     {
-        private readonly ILogger<BooksController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly ILogger<BooksController> _logger =
+            logger ?? throw new ArgumentNullException(nameof(logger));
         private readonly IBookRepository _booksRepo = bookRepository;
         const int maxBooksPageSize = 100;
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookWithoutReviewsDto>>> GetBooks(string? title, string? searchQuery, int pageNumber = 1, int pageSize = 12)
+        public async Task<ActionResult<IEnumerable<BookWithoutReviewsDto>>> GetBooks(
+            int pageNumber = 1,
+            int pageSize = 12
+        )
         {
             if (pageSize > maxBooksPageSize)
             {
                 pageSize = maxBooksPageSize;
             }
 
-            var (books, paginationMetaData) = await _booksRepo.GetBooksAsync(title, searchQuery, pageNumber, pageSize);
+            var (books, paginationMetaData) = await _booksRepo.GetBooksAsync(
+                null,
+                pageNumber,
+                pageSize
+            );
             var bookDtos = books.Select(b => b.ToBookWithoutReviewsDto());
             Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(paginationMetaData));
             return Ok(bookDtos);

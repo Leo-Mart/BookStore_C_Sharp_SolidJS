@@ -1,17 +1,15 @@
-import { A, useNavigate } from '@solidjs/router';
-import { createSignal, Match, Switch } from 'solid-js';
-
-import House from 'lucide-solid/icons/house';
-import User from 'lucide-solid/icons/user';
-import UserCog from 'lucide-solid/icons/user-cog';
-import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
-import CartDrawer from './CartDrawer';
-import { useCart } from '../Context/CartContext';
-import { useAuth } from '../Context/AuthContext';
-// seems like Lucide-icons imports all ~1700 icons if I use the import { House } from 'lucide-solid' syntax. Check https://github.com/lucide-icons/lucide/issues/1944#issuecomment-3704423258 maybe use https://github.com/WarningImHack3r/vite-plugin-lucide-preprocess or try the other Icon package
+import { A, useNavigate } from "@solidjs/router";
+import { createSignal, Match, Switch } from "solid-js";
+import House from "lucide-solid/icons/house";
+import User from "lucide-solid/icons/user";
+import UserCog from "lucide-solid/icons/user-cog";
+import ShoppingBasket from "lucide-solid/icons/shopping-basket";
+import CartDrawer from "./CartDrawer";
+import { useCart } from "../Context/CartContext";
+import { useAuth } from "../Context/AuthContext";
 
 function Header() {
-  const [searchTerm, setSearchTerm] = createSignal('');
+  const [searchTerm, setSearchTerm] = createSignal("");
   const [cartOpen, setCartOpen] = createSignal(false);
 
   const cart = useCart();
@@ -21,7 +19,8 @@ function Header() {
 
   const handleSubmit = (event: Event) => {
     event.preventDefault();
-    navigate(`/books?searchQuery=${searchTerm()}`);
+    navigate(`/find?searchQuery=${searchTerm()}`);
+    setSearchTerm("");
   };
 
   return (

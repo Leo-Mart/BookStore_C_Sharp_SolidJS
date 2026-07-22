@@ -26,7 +26,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 builder.Services.AddOpenApi();
-builder.Services.AddControllers(options =>
+builder
+    .Services.AddControllers(options =>
     {
         options.ReturnHttpNotAcceptable = true;
     })
@@ -44,37 +45,46 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
-    });
+    options.AddPolicy(
+        "AllowFrontend",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    );
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-{
-   options.Password.RequireDigit = true;
-   options.Password.RequireLowercase = true;
-   options.Password.RequireUppercase = true;
-   options.Password.RequireNonAlphanumeric = true;
-   options.Password.RequiredLength = 12;
+builder
+    .Services.AddIdentity<AppUser, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequiredLength = 12;
 
-   options.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+        options.User.RequireUniqueEmail = true;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = 
-    options.DefaultChallengeScheme = 
-    options.DefaultForbidScheme = 
-    options.DefaultScheme = 
-    options.DefaultSignInScheme = 
-    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new()
+builder
+    .Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme =
+            options.DefaultChallengeScheme =
+            options.DefaultForbidScheme =
+            options.DefaultScheme =
+            options.DefaultSignInScheme =
+            options.DefaultSignOutScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new()
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -82,10 +92,10 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = builder.Configuration["JWT:Issuer"],
             ValidAudience = builder.Configuration["JWT:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-             Convert.FromBase64String(builder.Configuration["JWT:SigningKey"])
-            )
+                Convert.FromBase64String(builder.Configuration["JWT:SigningKey"])
+            ),
         };
-});
+    });
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
@@ -99,6 +109,7 @@ builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 builder.Services.AddScoped<IShippingMethodRepository, ShippingMethodRepository>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IFindServce, FindServce>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -125,4 +136,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

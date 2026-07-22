@@ -1,13 +1,7 @@
-import { Component, createResource, createSignal, For, Show } from 'solid-js';
-import BookCard from '../Components/BookCard';
-import { useLocation, useSearchParams } from '@solidjs/router';
-
-interface PaginationMetaData {
-  TotalItemCount: number;
-  TotalPageCount: number;
-  PageSize: number;
-  CurrentPage: number;
-}
+import { Component, createResource, createSignal, For, Show } from "solid-js";
+import BookCard from "../Components/BookCard";
+import { PaginationMetaData } from "../Types/metadata";
+import Spinner from "../Components/Spinner";
 
 const BookList: Component = () => {
   const [currentPage, setCurrentPage] = createSignal(1);
@@ -15,16 +9,16 @@ const BookList: Component = () => {
     createSignal<PaginationMetaData | null>(null);
 
   const handlePageClick = async () => {
-    const newBooks = await fetchBooks(paginationMetaData()!.CurrentPage + 1)
-    mutate((books = []) => [...books, ...newBooks])
+    const newBooks = await fetchBooks(paginationMetaData()!.CurrentPage + 1);
+    mutate((books = []) => [...books, ...newBooks]);
   };
 
   const fetchBooks = async (pageNumber: number) => {
     const response = await fetch(`/api/books?pageNumber=${pageNumber}`);
-    setpaginationMetaData(JSON.parse(response.headers.get('x-pagination')!));
+    setpaginationMetaData(JSON.parse(response.headers.get("x-pagination")!));
     return response.json();
   };
-  const [books, {mutate}] = createResource(currentPage, fetchBooks);
+  const [books, { mutate }] = createResource(currentPage, fetchBooks);
 
   return (
     <div class="grid grid-cols-12">
@@ -34,7 +28,9 @@ const BookList: Component = () => {
       <Show
         when={!books.loading}
         fallback={
-          <p class="dark:text-everforest-fg col-span-8">Loading books...</p>
+          <div class="min-h-screen col-span-8 flex items-center">
+            <Spinner />
+          </div>
         }
       >
         <div class="col-span-8 grid grid-cols-subgrid gap-2">
@@ -47,14 +43,14 @@ const BookList: Component = () => {
               )}
             </For>
           </ul>
-          <div class='col-span-8 flex flex-col items-center'>
-            <p class='text-everforest-fg text-sm'>
-              Currently displaying{' '}
-              {books().length} books of a total of {paginationMetaData()?.TotalItemCount} books
+          <div class="col-span-8 flex flex-col items-center">
+            <p class="text-everforest-fg text-sm">
+              Currently displaying {books().length} books of a total of{" "}
+              {paginationMetaData()?.TotalItemCount} books
             </p>
             <button
               name="load-more"
-              class={`flex w-1/3 mt-3 items-center justify-center text-everforest-fg border  hover:border-everforest-aqua hover:cursor-pointer shadow-xs font-medium leading-5 text-sm px-3 h-9 focus:outline-none ${books.loading ? "pointer-events-none cursor-not-allowed disabled": ""}`}
+              class={`flex w-1/3 mt-3 items-center justify-center text-everforest-fg border  hover:border-everforest-aqua hover:cursor-pointer shadow-xs font-medium leading-5 text-sm px-3 h-9 focus:outline-none ${books.loading ? "pointer-events-none cursor-not-allowed disabled" : ""}`}
               onClick={handlePageClick}
             >
               Load More

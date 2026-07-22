@@ -41,60 +41,33 @@ const FindPage: Component = () => {
 
   return (
     <div class="grid grid-cols-12">
-      <aside id="default-sidebar" class="col-span-2" aria-label="Sidebar">
+      {/*<aside id="default-sidebar" class="col-span-2" aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto dark:text-everforest-fg">
           <ul class="space-y-2 font-medium">
             <li>
-              <a
-                href="#"
-                class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <span class="ms-3">Dashboard</span>
-              </a>
+              <button class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
+                <span class="ms-3">Genre</span>
+              </button>
             </li>
             <li>
-              <a
-                href="#"
-                class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <span class="flex-1 ms-3 whitespace-nowrap">Kanban</span>
-              </a>
+              <button class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
+                <span class="flex-1 ms-3 whitespace-nowrap">Format</span>
+              </button>
             </li>
             <li>
-              <a
-                href="#"
-                class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>
-              </a>
+              <button class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
+                <span class="flex-1 ms-3 whitespace-nowrap">Author</span>
+              </button>
             </li>
+
             <li>
-              <a
-                href="#"
-                class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <span class="flex-1 ms-3 whitespace-nowrap">Sign In</span>
-              </a>
+              <button class="flex items-center px-2 py-1.5">
+                <span class="flex-1 ms-3 whitespace-nowrap">Clear filters</span>
+              </button>
             </li>
           </ul>
         </div>
-      </aside>
+      </aside> */}
 
       <Show when={books.loading}>
         <div class="min-h-screen col-span-8 flex items-center">

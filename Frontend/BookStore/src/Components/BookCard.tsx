@@ -1,25 +1,25 @@
-import { A } from '@solidjs/router';
-import { Component } from 'solid-js';
-import ShoppingBasket from 'lucide-solid/icons/shopping-basket';
-import { useCart } from '../Context/CartContext';
-import { useToast } from '../Context/ToastContext';
-import { type BookProps } from '../Types/book';
+import { A } from "@solidjs/router";
+import { Component } from "solid-js";
+import ShoppingBasket from "lucide-solid/icons/shopping-basket";
+import { useCart } from "../Context/CartContext";
+import { useToast } from "../Context/ToastContext";
+import { type BookProps } from "../Types/book";
 
 const BookCard: Component<BookProps> = (bookProps) => {
   const cart = useCart();
   const toast = useToast();
 
   const handleClick = () => {
-  cart.addItem({
-    id: bookProps.book.id,
-    title: bookProps.book.title,
-    author: `${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`,
-    price: bookProps.book.price,
-    quantity: 1,
-    imageUrl: bookProps.book.coverImageUrl,
-  });
-  toast.add('Added to cart!', {type: "success"});
-};
+    cart.addItem({
+      id: bookProps.book.id,
+      title: bookProps.book.title,
+      author: `${bookProps.book.authors[0].firstName} ${bookProps.book.authors[0].lastName}`,
+      price: bookProps.book.price,
+      quantity: 1,
+      imageUrl: bookProps.book.coverImageUrl,
+    });
+    toast.add("Added to cart!", { type: "success" });
+  };
 
   return (
     <div class="flex flex-col bg-everforest-bg-0 p-6 text-everforest-fg min-h-full min-w-full md:max-w-xl shadow-xs">
@@ -45,14 +45,14 @@ const BookCard: Component<BookProps> = (bookProps) => {
           </A>
         </div>
 
-        <div class="justify-end">
+        <div class="grow-0 justify-end">
           <button
             onClick={handleClick}
             type="button"
-            class="inline-flex gap-2 items-center w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
+            class="flex gap-2 items-center w-auto border hover:border-everforest-aqua hover:cursor-pointer font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
           >
             {bookProps.book.price} kr
-            <ShoppingBasket color="#D3C6AA" />
+            <ShoppingBasket color="#D3C6AA" width="20" />
           </button>
         </div>
       </div>

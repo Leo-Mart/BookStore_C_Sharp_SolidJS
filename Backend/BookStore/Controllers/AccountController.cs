@@ -35,7 +35,9 @@ namespace BookStore.Controllers
             );
 
             if (user == null)
-                return Unauthorized("Invalid email!");
+                return Unauthorized(
+                    new ErrorResponse { Message = "Username not found and/or password incorrect." }
+                );
 
             var result = await _signIngManager.CheckPasswordSignInAsync(
                 user,
@@ -44,7 +46,9 @@ namespace BookStore.Controllers
             );
 
             if (!result.Succeeded)
-                return Unauthorized("Username not found and/or password incorrect");
+                return Unauthorized(
+                    new ErrorResponse { Message = "Username not found and/or password incorrect." }
+                );
 
             return Ok(
                 new NewUserDto { Email = user.Email, Token = _tokenService.CreateToken(user) }
@@ -110,4 +114,3 @@ namespace BookStore.Controllers
         }
     }
 }
-

@@ -24,7 +24,6 @@ const FindPage: Component = () => {
   // };
   //
   createEffect(async () => {
-    console.log(searchParams.searchQuery);
     const newResults = await fetchBooks(searchParams.searchQuery as string);
     mutate(() => [...newResults]);
   });

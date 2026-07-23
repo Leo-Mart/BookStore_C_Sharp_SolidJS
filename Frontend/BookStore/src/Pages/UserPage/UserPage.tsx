@@ -122,10 +122,10 @@ const UserPage: Component = () => {
           </A>
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
-          <Show
-            when={!userInfo.loading && userInfo()!.orders.length < 0}
-            fallback={<div class="my-2">Found no orders!</div>}
-          >
+          <Show when={userInfo()} fallback={<div>Loading orders...</div>}>
+            <Show when={userInfo()!.orders.length <= 0}>
+              <div class="my-2">Found no orders!</div>
+            </Show>
             <For each={userInfo()?.orders}>
               {(item) => (
                 <div>

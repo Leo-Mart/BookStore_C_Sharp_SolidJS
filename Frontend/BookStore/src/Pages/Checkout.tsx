@@ -9,7 +9,7 @@ import ModalGiftCard from "../Components/ModalGiftCard";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "@solidjs/router";
 import {
-  type OrderInformation,
+  type OrderFormData,
   NewOrderPayload,
   OrderItemPayload,
   ShippingMethod,
@@ -30,7 +30,7 @@ const Checkout: Component = () => {
   const auth = useAuth();
   const nav = useNavigate();
 
-  const [formData, setFormData] = createStore<OrderInformation>({
+  const [formData, setFormData] = createStore<OrderFormData>({
     email: "booklover88@gmail.com",
     phoneNumber: "0123456",
     socialSecurityNumber: "010101-0101",

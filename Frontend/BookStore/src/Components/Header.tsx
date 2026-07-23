@@ -35,7 +35,7 @@ function Header() {
           <label for="search" class="block mb-2.5 text-sm font-medium sr-only">
             Search
           </label>
-          <div class="relative">
+          <div class="invisible md:visible md:relative">
             <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
               <svg
                 class="w-4 h-4 dark:text-everforest-fg"
@@ -57,7 +57,7 @@ function Header() {
             <input
               type="search"
               id="search"
-              class="block w-full p-3 ps-9 bg-everforest-bg-3 text-everforest-fg text-sm shadow-xs"
+              class="hidden md:block w-full p-3 ps-9 bg-everforest-bg-3 text-everforest-fg text-sm shadow-xs"
               placeholder="Search"
               value={searchTerm()}
               onChange={(e) => setSearchTerm(e.target.value)}

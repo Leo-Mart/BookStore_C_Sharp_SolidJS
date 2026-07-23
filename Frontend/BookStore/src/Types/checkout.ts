@@ -1,15 +1,15 @@
 export type ShippingIdentifier =
-  | 'postnord-pick' 
-  | 'postnord-home'
-  | 'instabox-box'
-  | 'budbee-box'
-  | 'dhl-pick'
+  | "postnord-pick"
+  | "postnord-home"
+  | "instabox-box"
+  | "budbee-box"
+  | "dhl-pick";
 
-export type ShippingType = 'pick-up' | 'home' | 'box'
+export type ShippingType = "pick-up" | "home" | "box";
 
-export type PaymentMethod = 'card' | 'invoice' | 'swish';
+export type PaymentMethod = "card" | "invoice" | "swish";
 
-export type OrderInformation = {
+export type OrderFormData = {
   email: string;
   phoneNumber: string;
   socialSecurityNumber?: string;
@@ -18,7 +18,7 @@ export type OrderInformation = {
   street: string;
   postalCode: string;
   city: string;
-  shippingMethod: ShippingMethod
+  shippingMethod: ShippingMethod;
   paymentMethod: {
     type: PaymentMethod;
     cardInfo?: {
@@ -33,8 +33,8 @@ export type ShippingMethod = {
   identifier: ShippingIdentifier;
   type: ShippingType;
   price: number;
-  description?: string
-}
+  description?: string;
+};
 
 export type NewOrderPayload = {
   orderStatus: number;
@@ -53,21 +53,22 @@ export type OrderItemPayload = {
 };
 
 export type OrderAddressPayload = {
-  street: string
-  city: string
-  postalCode: string
-}
+  street: string;
+  city: string;
+  postalCode: string;
+};
 
 export type OrderPaymentMethodPayload = {
-  type: string
-  cardLastFour?: string
-  cardNumber?: string
-  cvv?: string
-  expiryDate?: Date
-}
+  type: string;
+  cardLastFour?: string;
+  cardNumber?: string;
+  cvv?: string;
+  expiryDate?: Date;
+};
 
 export type OrderShippingMethodPayload = {
-  identifier: string
-  type: string
-  price: number
-}
+  identifier: string;
+  type: string;
+  price: number;
+};
+

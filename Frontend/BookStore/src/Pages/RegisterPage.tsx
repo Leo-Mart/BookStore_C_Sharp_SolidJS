@@ -10,6 +10,8 @@ import {
   getValue,
 } from "@modular-forms/solid";
 import { type RegisterForm } from "../Types/auth";
+import TextInput from "../Components/Input/TextInput";
+import { ErrorResponse } from "../Types/error";
 
 const RegisterPage: Component = () => {
   const [registerForm, { Form, Field }] = createForm<RegisterForm>();
@@ -22,27 +24,39 @@ const RegisterPage: Component = () => {
   const auth = useAuth();
 
   const handleSubmit: SubmitHandler<RegisterForm> = async (values) => {
-    const resp = await fetch("/api/account/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
-    });
-    if (!resp.ok) {
-      setError(await resp.text());
+    try {
+      const resp = await fetch("/api/account/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+          firstName: values.firstName,
+          lastName: values.lastName,
+        }),
+      });
+
+      if (resp.status === 400) {
+        const error: ErrorResponse = await resp.json();
+        throw new Error(error.message);
+      }
+      if (resp.ok) {
+        await auth.login(values.email, values.password);
+        nav(redirect(), { replace: true });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
     }
-    await auth.login(values.email, values.password);
-    nav(redirect(), { replace: true });
   };
 
   return (
-    <div class="grid grid-cols-3 gap-2">
-      <h2 class="text-2xl font-bold text-everforest-bg-dim md:text-3xl dark:text-everforest-fg col-start-2">
+    <div class="flex flex-col mx-auto gap-2">
+      <h2 class="text-2xl mx-auto font-bold text-everforest-bg-dim md:mx-auto md:text-3xl dark:text-everforest-fg col-start-2">
         Register new User
       </h2>
-      <Form class="mt-8 col-start-2" onSubmit={handleSubmit}>
+      <Form class="mt-8 mx-2 md:mx-auto min-w-1/3" onSubmit={handleSubmit}>
         <Field
           name="email"
           validate={[
@@ -51,29 +65,48 @@ const RegisterPage: Component = () => {
           ]}
         >
           {(field, props) => (
-            <div>
-              <label
-                for="email"
-                class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3 mb-3"
-              >
-                <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
-                  Email
-                </span>
-                <input
-                  {...props}
-                  type="email"
-                  name="email"
-                  class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
-                  placeholder="Enter email"
-                  id={field.name}
-                  value={field.value}
-                  required
-                />
-              </label>
-              {field.error && (
-                <div class="text-everforest-red pb-1">{field.error}</div>
-              )}
-            </div>
+            <TextInput
+              {...props}
+              type="email"
+              label="Email"
+              placeholder="Email"
+              value={field.value}
+              error={field.error}
+              required
+            />
+          )}
+        </Field>
+        <Field
+          name="firstName"
+          validate={[required("Please fill out this field")]}
+        >
+          {(field, props) => (
+            <TextInput
+              {...props}
+              type="text"
+              label="First Name"
+              placeholder="First name"
+              value={field.value}
+              error={field.error}
+              required
+            />
+          )}
+        </Field>
+
+        <Field
+          name="lastName"
+          validate={[required("Please fill out this field")]}
+        >
+          {(field, props) => (
+            <TextInput
+              {...props}
+              type="text"
+              label="Last Name"
+              placeholder="Last name"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
         <Field
@@ -84,29 +117,15 @@ const RegisterPage: Component = () => {
           ]}
         >
           {(field, props) => (
-            <div>
-              <label
-                for="password"
-                class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3 mb-3"
-              >
-                <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
-                  Password
-                </span>
-                <input
-                  {...props}
-                  type="password"
-                  name="password"
-                  class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
-                  placeholder="Enter password"
-                  id={field.name}
-                  value={field.value}
-                  required
-                />
-              </label>
-              {field.error && (
-                <div class="text-everforest-red pb-1">{field.error}</div>
-              )}
-            </div>
+            <TextInput
+              {...props}
+              type="password"
+              label="Password"
+              placeholder="Password"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
         <Field
@@ -121,29 +140,15 @@ const RegisterPage: Component = () => {
           ]}
         >
           {(field, props) => (
-            <div>
-              <label
-                for="confirmPassword"
-                class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3 mb-3"
-              >
-                <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
-                  Confirm Password
-                </span>
-                <input
-                  {...props}
-                  type="password"
-                  name="confirmPassword"
-                  class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
-                  placeholder="Confirm password"
-                  id={field.name}
-                  value={field.value}
-                  required
-                />
-              </label>
-              {field.error && (
-                <div class="text-everforest-red pb-1">{field.error}</div>
-              )}
-            </div>
+            <TextInput
+              {...props}
+              type="password"
+              label="Confirm Password"
+              placeholder="Confirm Password"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
         {error() && <div class="text-everforest-red py-1">{error()}</div>}

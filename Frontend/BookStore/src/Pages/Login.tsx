@@ -9,6 +9,7 @@ import {
   SubmitHandler,
 } from "@modular-forms/solid";
 import { type LoginForm } from "../Types/auth";
+import TextInput from "../Components/Input/TextInput";
 
 const Login: Component = () => {
   const [loginForm, { Form, Field }] = createForm<LoginForm>();
@@ -30,11 +31,11 @@ const Login: Component = () => {
     }
   };
   return (
-    <div class="grid grid-cols-3 gap-2">
-      <h2 class="text-2xl font-bold text-everforest-bg-dim md:text-3xl dark:text-everforest-fg col-start-2">
+    <div class="flex flex-col mx-auto gap-2">
+      <h2 class="text-2xl mx-auto font-bold text-everforest-bg-dim md:text-3xl dark:text-everforest-fg col-start-2">
         Login
       </h2>
-      <Form class="mt-8 col-start-2" onSubmit={handleSubmit}>
+      <Form class="mt-8 mx-2 md:mx-auto min-w-1/3" onSubmit={handleSubmit}>
         <Field
           name="email"
           validate={[
@@ -43,29 +44,15 @@ const Login: Component = () => {
           ]}
         >
           {(field, props) => (
-            <div>
-              <label
-                for="username"
-                class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3 mb-3"
-              >
-                <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
-                  Email
-                </span>
-                <input
-                  {...props}
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  id={field.name}
-                  value={field.value}
-                  required
-                  class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
-                />
-              </label>
-              {field.error && (
-                <div class="text-everforest-red pb-1">{field.error}</div>
-              )}
-            </div>
+            <TextInput
+              {...props}
+              type="email"
+              label="Email"
+              placeholder="Enter Email"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
         <Field
@@ -76,29 +63,15 @@ const Login: Component = () => {
           ]}
         >
           {(field, props) => (
-            <div>
-              <label
-                for="password"
-                class="block overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3"
-              >
-                <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
-                  Password
-                </span>
-                <input
-                  {...props}
-                  type="password"
-                  name="password"
-                  placeholder="Enter password"
-                  id={field.name}
-                  value={field.value}
-                  required
-                  class="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-everforest-fg"
-                />
-              </label>
-              {field.error && (
-                <div class="text-everforest-red pb-1">{field.error}</div>
-              )}
-            </div>
+            <TextInput
+              {...props}
+              type="password"
+              label="password"
+              placeholder="Enter password"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
         {error() && <div class="text-everforest-red py-1">{error()}</div>}
@@ -109,7 +82,7 @@ const Login: Component = () => {
           Login
         </button>
       </Form>
-      <div class="col-start-2 mt-8">
+      <div class="flex flex-col mt-8">
         <h4 class="px-3 py-2 text-xl text-center font-medium text-everforest-bg-dim dark:text-everforest-fg">
           No Account yet?
         </h4>
@@ -118,8 +91,8 @@ const Login: Component = () => {
         </p>
         <A
           href={redirect() ? `/register?redirect=${redirect()}` : `/register`}
-          type="submit"
-          class="mx-auto text-center bg-white mt-2 block w-1/2 rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
+          type="button"
+          class="text-center mx-2 md:mx-auto mt-2 block min-w-1/3 rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
         >
           Register
         </A>

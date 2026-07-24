@@ -1,9 +1,4 @@
-export type ShippingIdentifier =
-  | "postnord-pick"
-  | "postnord-home"
-  | "instabox-box"
-  | "budbee-box"
-  | "dhl-pick";
+export type ShippingIdentifier = "postnord" | "instabox" | "budbee" | "dhl";
 
 export type ShippingType = "pick-up" | "home" | "box";
 
@@ -71,4 +66,3 @@ export type OrderShippingMethodPayload = {
   type: string;
   price: number;
 };
-

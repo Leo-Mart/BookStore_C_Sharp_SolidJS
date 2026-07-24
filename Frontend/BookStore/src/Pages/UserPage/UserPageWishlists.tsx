@@ -19,6 +19,7 @@ import Plus from "lucide-solid/icons/plus";
 import { A } from "@solidjs/router";
 import ModalCreateWishlist from "../../Components/ModalCreateWishlist";
 import { useToast } from "../../Context/ToastContext";
+import Divider from "../../Components/Divider";
 
 const UserPageWishlists: Component = () => {
   const auth = useAuth();
@@ -204,7 +205,7 @@ const UserPageWishlists: Component = () => {
                         </button>
                       </Show>
                     </div>
-                    <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
+                    <Divider />
                   </li>
                 )}
               </For>
@@ -272,7 +273,7 @@ const UserPageWishlists: Component = () => {
                         <HeartX />
                       </button>
                     </li>
-                    <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
+                    <Divider />
                   </>
                 )}
               </For>

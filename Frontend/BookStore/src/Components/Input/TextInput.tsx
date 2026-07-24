@@ -21,7 +21,7 @@ const TextInput: Component<TextInputProps> = (props) => {
     <div>
       <label
         for={props.name}
-        class="block mb-3 overflow-hidden border border-everforest-bg-dim px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3"
+        class="block mb-3 overflow-hidden px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3"
       >
         <span class="text-xs font-medium text-everforest-bg-dim dark:text-everforest-fg">
           {props.label}

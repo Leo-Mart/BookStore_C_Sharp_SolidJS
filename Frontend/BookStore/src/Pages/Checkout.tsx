@@ -22,7 +22,6 @@ import {
 import TextInput from "../Components/Input/TextInput";
 import Divider from "../Components/Divider";
 import RadioInput from "../Components/Input/RadioInput";
-import * as v from "valibot";
 import {
   createForm,
   Field,
@@ -32,62 +31,12 @@ import {
   SubmitHandler,
 } from "@formisch/solid";
 import { ParseExpiryDate } from "../Utils/Datehelpers";
+import { OrderFormSchema } from "../Types/validation-schemas";
 
 const fetchShippingMethods = async () => {
   const response = await fetch("api/shipping-methods");
   return response.json();
 };
-
-const OrderFormSchema = v.object({
-  email: v.pipe(
-    v.string(),
-    v.nonEmpty("Please enter your email"),
-    v.email("The email address is invalid"),
-  ),
-  phoneNumber: v.pipe(v.string(), v.nonEmpty("Please enter a phonenumber")),
-  socialSecurityNumber: v.pipe(v.string()),
-  firstName: v.pipe(v.string()),
-  lastName: v.pipe(v.string()),
-  street: v.pipe(v.string()),
-  postalCode: v.pipe(v.string()),
-  city: v.pipe(v.string()),
-  shippingMethod: v.object({
-    identifier: v.pipe(v.string()),
-    type: v.pipe(v.string()),
-    price: v.pipe(v.number()),
-    description: v.pipe(v.string()),
-  }),
-  paymentMethod: v.variant("type", [
-    v.object({
-      type: v.literal("card"),
-      cardInfo: v.object({
-        cardNumber: v.pipe(v.string(), v.creditCard()),
-        expiryDate: v.pipe(
-          v.string(),
-          v.regex(
-            /^(?:0[1-9]|1[0-2])\/(?:2[5-9]|3[0-9])$/,
-            "The expiration date is badly formatted.",
-          ),
-        ),
-        cvv: v.pipe(v.string()),
-      }),
-    }),
-    v.object({
-      type: v.literal("swish"),
-      phoneNumber: v.pipe(
-        v.string(),
-        v.nonEmpty("Please enter a phone number"),
-      ),
-    }),
-    v.object({
-      type: v.literal("invoice"),
-      socialSecurityNumber: v.pipe(
-        v.string(),
-        v.nonEmpty("Please enter a number"),
-      ),
-    }),
-  ]),
-});
 
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
@@ -145,8 +94,6 @@ const Checkout: Component = () => {
     if (values.paymentMethod.type === "card") {
       date = ParseExpiryDate(values.paymentMethod.cardInfo.expiryDate);
     }
-    console.log(values);
-    console.log(date);
 
     const payload: NewOrderPayload = {
       orderStatus: 1,
@@ -180,7 +127,6 @@ const Checkout: Component = () => {
       }),
     };
 
-    console.log(payload);
     const resp = await fetch("/api/orders", {
       method: "POST",
       headers: {

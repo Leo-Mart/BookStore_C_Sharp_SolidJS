@@ -1,4 +1,11 @@
-import { Component, createResource, createSignal, For } from "solid-js";
+import {
+  Component,
+  createEffect,
+  createMemo,
+  createResource,
+  createSignal,
+  For,
+} from "solid-js";
 import Percent from "lucide-solid/icons/percent";
 import Gift from "lucide-solid/icons/gift";
 import { useCart } from "../Context/CartContext";
@@ -8,54 +15,87 @@ import ModalGiftCard from "../Components/ModalGiftCard";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "@solidjs/router";
 import {
-  type OrderFormData,
   NewOrderPayload,
   OrderItemPayload,
   ShippingMethod,
 } from "../Types/checkout";
-import {
-  createForm,
-  email,
-  getValue,
-  required,
-  setValues,
-  SubmitHandler,
-} from "@modular-forms/solid";
 import TextInput from "../Components/Input/TextInput";
 import Divider from "../Components/Divider";
 import RadioInput from "../Components/Input/RadioInput";
+import * as v from "valibot";
+import {
+  createForm,
+  Field,
+  Form,
+  getInput,
+  setInput,
+  SubmitHandler,
+} from "@formisch/solid";
+import { ParseExpiryDate } from "../Utils/Datehelpers";
 
 const fetchShippingMethods = async () => {
   const response = await fetch("api/shipping-methods");
   return response.json();
 };
 
+const OrderFormSchema = v.object({
+  email: v.pipe(
+    v.string(),
+    v.nonEmpty("Please enter your email"),
+    v.email("The email address is invalid"),
+  ),
+  phoneNumber: v.pipe(v.string(), v.nonEmpty("Please enter a phonenumber")),
+  socialSecurityNumber: v.pipe(v.string()),
+  firstName: v.pipe(v.string()),
+  lastName: v.pipe(v.string()),
+  street: v.pipe(v.string()),
+  postalCode: v.pipe(v.string()),
+  city: v.pipe(v.string()),
+  shippingMethod: v.object({
+    identifier: v.pipe(v.string()),
+    type: v.pipe(v.string()),
+    price: v.pipe(v.number()),
+    description: v.pipe(v.string()),
+  }),
+  paymentMethod: v.variant("type", [
+    v.object({
+      type: v.literal("card"),
+      cardInfo: v.object({
+        cardNumber: v.pipe(v.string(), v.creditCard()),
+        expiryDate: v.pipe(
+          v.string(),
+          v.regex(
+            /^(?:0[1-9]|1[0-2])\/(?:2[5-9]|3[0-9])$/,
+            "The expiration date is badly formatted.",
+          ),
+        ),
+        cvv: v.pipe(v.string()),
+      }),
+    }),
+    v.object({
+      type: v.literal("swish"),
+      phoneNumber: v.pipe(
+        v.string(),
+        v.nonEmpty("Please enter a phone number"),
+      ),
+    }),
+    v.object({
+      type: v.literal("invoice"),
+      socialSecurityNumber: v.pipe(
+        v.string(),
+        v.nonEmpty("Please enter a number"),
+      ),
+    }),
+  ]),
+});
+
 const Checkout: Component = () => {
   const [discountModalOpen, setDiscountModalOpen] = createSignal(false);
   const [giftcardModalOpen, setGiftcardModalOpen] = createSignal(false);
-  const [orderForm, { Form, Field }] = createForm<OrderFormData>();
-  setValues(orderForm, {
-    email: "booklover88@gmail.com",
-    phoneNumber: "0123456",
-    socialSecurityNumber: "010101-0101",
-    firstName: "Book",
-    lastName: "Lover",
-    street: "The Street 123",
-    postalCode: "12345",
-    city: "The City",
-    shippingMethod: {
-      identifier: "postnord",
-      type: "pick-up",
-      price: 49,
-    },
-    paymentMethod: {
-      type: "card",
-      cardInfo: {
-        cardNumber: 4242424242424242,
-        expiryDate: "",
-        cvv: 123,
-      },
-    },
+  const orderForm = createForm({
+    schema: OrderFormSchema,
+    validate: "submit",
+    revalidate: "input",
   });
   const [shippingMethods] =
     createResource<ShippingMethod[]>(fetchShippingMethods);
@@ -64,81 +104,109 @@ const Checkout: Component = () => {
   const auth = useAuth();
   const nav = useNavigate();
 
+  const costWithShipping = createMemo(
+    () =>
+      cart.total() +
+      getInput(orderForm, { path: ["shippingMethod", "price"] })!,
+  );
+
+  const updateShippingInfo = () => {
+    if (!shippingMethods.loading && !shippingMethods.error) {
+      const foundMethod = shippingMethods.latest?.find(
+        (sm) =>
+          sm.identifier ==
+          getInput(orderForm, { path: ["shippingMethod", "identifier"] }),
+      );
+      if (foundMethod === undefined) {
+        return;
+      }
+      setInput(orderForm, {
+        path: ["shippingMethod", "price"],
+        input: foundMethod!.price,
+      });
+
+      setInput(orderForm, {
+        path: ["shippingMethod", "type"],
+        input: foundMethod!.type,
+      });
+    }
+  };
+
+  createEffect(() => updateShippingInfo());
+
   const handleFetchAdress = () => {
     console.log("Fetch the address based on social security number");
   };
 
-  const handleOrderSubmit: SubmitHandler<OrderFormData> = async (values) => {
-    console.log("submitted");
+  const handleOrderSubmit: SubmitHandler<typeof OrderFormSchema> = async (
+    values,
+  ) => {
+    let date = new Date();
+    if (values.paymentMethod.type === "card") {
+      date = ParseExpiryDate(values.paymentMethod.cardInfo.expiryDate);
+    }
     console.log(values);
-    //
-    //   let date = new Date();
-    //   if (formData.paymentMethod.cardInfo?.expiryDate) {
-    //     let time: number = Date.parse(
-    //       formData.paymentMethod.cardInfo?.expiryDate,
-    //     );
-    //     date = new Date(time);
-    //   }
-    //
-    //   const payload: NewOrderPayload = {
-    //     orderStatus: 1,
-    //     orderTotalCost: cart.total(),
-    //     address: {
-    //       street: formData.street,
-    //       city: formData.city,
-    //       postalCode: formData.postalCode,
-    //     },
-    //     guestEmail: auth.isAuthenticated() ? "" : formData.email,
-    //     shippingMethod: {
-    //       identifier: formData.shippingMethod.identifier,
-    //       type: formData.shippingMethod.type,
-    //       price: formData.shippingMethod.price,
-    //     },
-    //     paymentMethod: {
-    //       type: formData.paymentMethod.type,
-    //       cardLastFour: formData.paymentMethod.cardInfo?.cardNumber
-    //         ?.toString()
-    //         .slice(-4),
-    //       cardNumber: formData.paymentMethod.cardInfo?.cardNumber?.toString(),
-    //       cvv: formData.paymentMethod.cardInfo?.cvv?.toString(),
-    //       expiryDate: date,
-    //     },
-    //     items: cart.items.map((item) => {
-    //       var items: OrderItemPayload = {
-    //         bookId: item.id,
-    //         unitPrice: item.price,
-    //         quantity: item.quantity,
-    //       };
-    //       return items;
-    //     }),
-    //   };
-    //
-    //   const resp = await fetch("/api/orders", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${auth.token()}`,
-    //     },
-    //     body: JSON.stringify({
-    //       items: payload.items,
-    //       address: payload.address,
-    //       guestEmail: payload.guestEmail,
-    //       shippingMethod: payload.shippingMethod,
-    //       paymentMethod: payload.paymentMethod,
-    //       orderTotalCost: payload.orderTotalCost,
-    //       orderStatus: payload.orderStatus,
-    //     }),
-    //   });
-    //   const result = await resp.json();
-    //   cart.clearCart();
-    //   nav("/order/confirmation", { state: result.items });
+    console.log(date);
+
+    const payload: NewOrderPayload = {
+      orderStatus: 1,
+      orderTotalCost: cart.total(),
+      address: {
+        city: values.city,
+        postalCode: values.postalCode,
+        street: values.street,
+      },
+      guestEmail: auth.isAuthenticated() ? "" : values.email,
+      shippingMethod: values.shippingMethod,
+      paymentMethod:
+        values.paymentMethod.type === "card"
+          ? {
+              type: values.paymentMethod.type,
+              cardNumber: values.paymentMethod.cardInfo.cardNumber,
+              cvv: values.paymentMethod.cardInfo.cvv,
+              cardLastFour: values.paymentMethod.cardInfo.cardNumber
+                .toString()
+                .slice(-4),
+              expiryDate: date,
+            }
+          : values.paymentMethod,
+      items: cart.items.map((item) => {
+        var items: OrderItemPayload = {
+          bookId: item.id,
+          unitPrice: item.price,
+          quantity: item.quantity,
+        };
+        return items;
+      }),
+    };
+
+    console.log(payload);
+    const resp = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.token()}`,
+      },
+      body: JSON.stringify({
+        items: payload.items,
+        address: payload.address,
+        guestEmail: payload.guestEmail,
+        shippingMethod: payload.shippingMethod,
+        paymentMethod: payload.paymentMethod,
+        orderTotalCost: payload.orderTotalCost,
+        orderStatus: payload.orderStatus,
+      }),
+    });
+    const result = await resp.json();
+    cart.clearCart();
+    nav("/order/confirmation", { state: result.items });
   };
 
   return (
     <div class="max-w-7xl lg:max-w-7xl mx-auto">
       <div class="flex w-full flex-col gap-20 pb-48 lg:flex-row-reverse">
         <div class="lg:w-1/2">
-          <div class="flex flex-col gap-3 bg-everforest-bg-3 p-4 lg:p-5">
+          <div class="flex flex-col gap-3 bg-everforest-bg-0 p-4 lg:p-5">
             <div class="flex flex-col gap-2 text-everforest-fg">
               <h3 class="text-xl m-0">Your Order ({cart.count()})</h3>
             </div>
@@ -190,18 +258,19 @@ const Checkout: Component = () => {
                   <span>
                     {cart.total() > 250
                       ? "Free!"
-                      : `${getValue(orderForm, "shippingMethod.price")} kr`}
+                      : `${getInput(orderForm, { path: ["shippingMethod", "price"] }) ?? 0} kr`}
                   </span>
                 </div>
                 <div class="flex items-baseline justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>
-                    {getValue(orderForm, "shippingMethod.price") +
-                      cart.total().toFixed(2)}
+                  <span class="text-xs md:text-lg">
+                    {costWithShipping().toFixed(2) === "NaN"
+                      ? "Select a shipping method to see total cost"
+                      : costWithShipping().toFixed(2)}
                   </span>
                 </div>
               </div>
-              <div class="flex gap-2 flex-col md:flex-row">
+              <div class="flex gap-2 md:flex-row">
                 <button
                   onclick={() => setDiscountModalOpen(true)}
                   class="inline-flex items-center py-2 justify-center w-1/2 text-sm text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
@@ -220,6 +289,7 @@ const Checkout: Component = () => {
         </div>
         <div class="lg:w-1/2">
           <Form
+            of={orderForm}
             onSubmit={handleOrderSubmit}
             class="flex flex-col gap-3 bg-everforest-bg-0 p-4 lg:p-5"
           >
@@ -230,39 +300,30 @@ const Checkout: Component = () => {
               <div>
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                   <div class="md:col-span-2">
-                    <Field
-                      name="email"
-                      validate={[
-                        required("Please enter a valid email"),
-                        email("Invalid email"),
-                      ]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["email"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="email"
                           label="Email"
                           placeholder="Email"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
                   </div>
                   <div class="md:col-span-2">
-                    <Field
-                      name="phoneNumber"
-                      validate={[required("Please fill out this field")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["phoneNumber"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="tel"
                           label="Phone"
                           placeholder="Phone"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
@@ -270,15 +331,15 @@ const Checkout: Component = () => {
                   </div>
                   <div class="flex gap-2 md:col-span-2">
                     <div class="grow">
-                      <Field name="socialSecurityNumber">
-                        {(field, props) => (
+                      <Field of={orderForm} path={["socialSecurityNumber"]}>
+                        {(field) => (
                           <TextInput
-                            {...props}
+                            {...field.props}
                             type="text"
                             label="Social-security number"
                             placeholder="Social-security number"
-                            value={field.value}
-                            error={field.error}
+                            input={field.input}
+                            errors={field.errors}
                             required
                           />
                         )}
@@ -295,88 +356,73 @@ const Checkout: Component = () => {
                   </div>
 
                   <div>
-                    <Field
-                      name="firstName"
-                      validate={[required("Please fill out this field")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["firstName"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="First name"
                           placeholder="First name"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
                   </div>
                   <div>
-                    <Field
-                      name="lastName"
-                      validate={[required("Please fill out this field")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["lastName"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="Last name"
                           placeholder="Last name"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
                   </div>
                   <div class="md:col-span-2">
-                    <Field
-                      name="street"
-                      validate={[required("Please fill out this field")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["street"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="Street"
                           placeholder="Street 123"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
                   </div>
                   <div class="md:col-span-2 flex gap-2">
-                    <Field
-                      name="postalCode"
-                      validate={[required("Please fill out this field")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["postalCode"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="Postal Code"
                           placeholder="123 45"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
-                    <Field
-                      name="city"
-                      validate={[required("Please fill out this field")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["city"]}>
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="City"
                           placeholder="The City"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
@@ -398,24 +444,25 @@ const Checkout: Component = () => {
                     {(item, _) => (
                       <>
                         <Field
-                          name="shippingMethod.identifier"
-                          validate={[required("Please select an option")]}
+                          of={orderForm}
+                          path={["shippingMethod", "identifier"]}
                         >
-                          {(field, props) => (
+                          {(field) => (
                             <RadioInput
-                              {...props}
-                              label={`${item.identifier} ${item.type}`}
-                              value={`${item.identifier}-${item.type}`}
-                              checked={field.value === item.identifier}
-                              error={field.error}
+                              {...field.props}
+                              label={item.identifier}
+                              input={item.identifier}
+                              checked={field.input === item.identifier}
+                              errors={field.errors}
                               required
                             />
                           )}
                         </Field>
                         <div
                           class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                            getValue(orderForm, "shippingMethod.identifier") ===
-                            `${item.identifier}-${item.type}`
+                            getInput(orderForm, {
+                              path: ["shippingMethod", "identifier"],
+                            }) === item.identifier
                               ? "grid-rows-[1fr] opacity-100"
                               : "grid-rows-[0fr] opacity-0"
                           }`}
@@ -447,18 +494,14 @@ const Checkout: Component = () => {
                   ]}
                 >
                   {({ label, value }) => (
-                    <Field
-                      name="paymentMethod.type"
-                      type="string"
-                      validate={[required("Please select an option")]}
-                    >
-                      {(field, props) => (
+                    <Field of={orderForm} path={["paymentMethod", "type"]}>
+                      {(field) => (
                         <RadioInput
-                          {...props}
+                          {...field.props}
                           label={label}
-                          value={value}
-                          checked={field.value === value}
-                          error={field.error}
+                          input={value}
+                          checked={field.input === value}
+                          errors={field.errors}
                           required
                         />
                       )}
@@ -468,50 +511,60 @@ const Checkout: Component = () => {
               </fieldset>
               <div
                 class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                  getValue(orderForm, "paymentMethod.type") === "card"
+                  getInput(orderForm, { path: ["paymentMethod", "type"] }) ===
+                  "card"
                     ? "grid-rows-[1fr] opacity-100"
                     : "grid-rows-[0fr] opacity-0"
                 }`}
               >
                 <div class="overflow-hidden w-full mt-2 p-1 flex flex-col justify-between">
                   <div>
-                    <Field name="paymentMethod.cardInfo.cardNumber">
-                      {(field, props) => (
+                    <Field
+                      of={orderForm}
+                      path={["paymentMethod", "cardInfo", "cardNumber"]}
+                    >
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="Card Number"
                           placeholder="4242 4242 4242 4242"
-                          value={field.value}
-                          error={field.error}
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
                   </div>
                   <div class="flex flex-row justify-between gap-2">
-                    <Field name="paymentMethod.cardInfo.expiryDate">
-                      {(field, props) => (
+                    <Field
+                      of={orderForm}
+                      path={["paymentMethod", "cardInfo", "expiryDate"]}
+                    >
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="Expiry Date"
-                          placeholder="01/30"
-                          value={field.value}
-                          error={field.error}
+                          placeholder="MM/YY"
+                          input={field.input}
+                          errors={field.errors}
                           required
                         />
                       )}
                     </Field>
-                    <Field name="paymentMethod.cardInfo.cvv">
-                      {(field, props) => (
+                    <Field
+                      of={orderForm}
+                      path={["paymentMethod", "cardInfo", "cvv"]}
+                    >
+                      {(field) => (
                         <TextInput
-                          {...props}
+                          {...field.props}
                           type="text"
                           label="CVV"
                           placeholder="123"
-                          value={field.value}
-                          error={field.error}
+                          input={String(field.input)}
+                          errors={field.errors}
                           required
                         />
                       )}
@@ -523,7 +576,8 @@ const Checkout: Component = () => {
             <div class="flex flex-col items-center mb-4"></div>
             <div
               class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                getValue(orderForm, "paymentMethod.type") === "invoice"
+                getInput(orderForm, { path: ["paymentMethod", "type"] }) ===
+                "invoice"
                   ? "grid-rows-[1fr] opacity-100"
                   : "grid-rows-[0fr] opacity-0"
               }`}
@@ -534,13 +588,27 @@ const Checkout: Component = () => {
             </div>
             <div
               class={`w-full grid overflow-hidden transition-all duration-300 ease-in-out text-everforest-fg text-md ${
-                getValue(orderForm, "paymentMethod.type") === "swish"
+                getInput(orderForm, { path: ["paymentMethod", "type"] }) ===
+                "swish"
                   ? "grid-rows-[1fr] opacity-100"
                   : "grid-rows-[0fr] opacity-0"
               }`}
             >
-              <div class="overflow-hidden w-full flex justify-between">
-                Pay by swish
+              <div class="overflow-hidden w-1/2 p-1  flex flex-col mx-auto">
+                <p class="pb-1">Pay by swish</p>
+                <Field of={orderForm} path={["paymentMethod", "phoneNumber"]}>
+                  {(field) => (
+                    <TextInput
+                      {...field.props}
+                      type="text"
+                      label="Phone"
+                      placeholder="0123 456789"
+                      input={String(field.input)}
+                      errors={field.errors}
+                      required
+                    />
+                  )}
+                </Field>
               </div>
             </div>
             <Divider />

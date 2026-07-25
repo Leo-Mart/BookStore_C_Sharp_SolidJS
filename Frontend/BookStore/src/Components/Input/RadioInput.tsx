@@ -1,22 +1,18 @@
+import { FieldElementProps } from "@formisch/solid";
 import { Component, JSX, splitProps } from "solid-js";
 
-type RadioInputProps = {
-  name: string;
+interface RadioInputProps extends FieldElementProps {
   label: string;
   placeholder?: string;
-  value?: string;
-  error: string;
+  input: string | undefined;
+  errors: [string, ...string[]] | null;
   required?: boolean;
   checked?: boolean;
-  ref: (element: HTMLInputElement) => void;
-  onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
-  onChange: JSX.EventHandler<HTMLInputElement, Event>;
-  onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
-};
+}
 
 const RadioInput: Component<RadioInputProps> = (props) => {
-  const [, inputProps] = splitProps(props, ["value", "label", "error"]);
-  const id = () => `${props.name}-${props.value}`;
+  const [, inputProps] = splitProps(props, ["input", "label", "errors"]);
+  const id = () => `${props.name}-${props.input}`;
 
   return (
     <div>
@@ -24,7 +20,7 @@ const RadioInput: Component<RadioInputProps> = (props) => {
         {...inputProps}
         id={id()}
         type="radio"
-        value={props.value}
+        value={props.input}
         class="peer hidden"
         checked={props.checked}
       />

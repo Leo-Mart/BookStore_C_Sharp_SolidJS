@@ -16,6 +16,7 @@ import { FormatDate } from "../../Utils/Datehelpers";
 import { OrderStatus } from "../../Types/User/order";
 import { type UserInfo } from "../../Types/User/userinfo";
 import { Address } from "../../Types/User/address";
+import Divider from "../../Components/Divider";
 
 const UserPage: Component = () => {
   const auth = useAuth();
@@ -75,7 +76,7 @@ const UserPage: Component = () => {
           </div>
 
           <Show
-            when={!userInfo.loading && defaultAddress !== undefined}
+            when={defaultAddress() !== undefined}
             fallback={
               <div class="my-2">
                 No default address set, set one in user options.
@@ -122,10 +123,10 @@ const UserPage: Component = () => {
           </A>
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
-          <Show
-            when={userInfo()?.orders !== undefined}
-            fallback={<div class="my-2">Found no orders!</div>}
-          >
+          <Show when={userInfo()} fallback={<div>Loading orders...</div>}>
+            <Show when={userInfo()!.orders.length <= 0}>
+              <div class="my-2">Found no orders!</div>
+            </Show>
             <For each={userInfo()?.orders}>
               {(item) => (
                 <div>
@@ -135,8 +136,7 @@ const UserPage: Component = () => {
                     <div class="basis-3xs">{OrderStatus[item.orderStatus]}</div>
                     <div class="basis-xs">{item.orderTotalCost} kr</div>
                   </div>
-
-                  <hr class="my-1 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
+                  <Divider />
                 </div>
               )}
             </For>
@@ -165,8 +165,7 @@ const UserPage: Component = () => {
                   <div class="truncate">{item.description}</div>
                   <div>Items: {item.wishlistItems.length}</div>
                 </div>
-
-                <hr class="my-1 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
+                <Divider />
               </div>
             )}
           </For>

@@ -1,6 +1,7 @@
 import { Component, createSignal, For } from "solid-js";
 import { FormatDate } from "../../Utils/Datehelpers";
 import { Order, OrderStatus } from "../../Types/User/order";
+import Divider from "../Divider";
 
 export interface ItemDetailsProps {
   Order: Order;
@@ -69,7 +70,7 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
             <div class="basis-3xs">Price</div>
           </li>
 
-          <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
+          <Divider />
 
           <For each={props.Order.items}>
             {(book, _) => (
@@ -89,7 +90,7 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
             )}
           </For>
 
-          <hr class="my-6 h-px border-t-0 bg-linear-to-r from-transparent via-everforest-fg to-transparent opacity-75 dark:via-everforest-fg" />
+          <Divider />
         </ul>
       </div>
     </li>

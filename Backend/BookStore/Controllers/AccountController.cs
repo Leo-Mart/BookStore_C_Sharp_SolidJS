@@ -69,6 +69,8 @@ namespace BookStore.Controllers
                 {
                     UserName = registerDto.Email,
                     Email = registerDto.Email,
+                    FirstName = registerDto.FirstName,
+                    LastName = registerDto.LastName,
                 };
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
@@ -104,6 +106,13 @@ namespace BookStore.Controllers
                 }
                 else
                 {
+                    if (createdUser.Errors.Any(err => err.Code == "DuplicateEmail"))
+                    {
+                        return StatusCode(
+                            400,
+                            new ErrorResponse { Message = "That Email is already taken" }
+                        );
+                    }
                     return StatusCode(500, createdUser.Errors);
                 }
             }

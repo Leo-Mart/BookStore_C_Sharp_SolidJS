@@ -1,5 +1,6 @@
 using BookStore.Extensions;
 using BookStore.Interfaces;
+using BookStore.Models.Addresses;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,7 @@ namespace BookStore.Controllers
                 return NotFound();
             }
 
-            return customerOrders;
+            return Ok(customerOrders);
         }
 
         [HttpGet("addresses")]
@@ -67,7 +68,26 @@ namespace BookStore.Controllers
                 return NotFound();
             }
 
-            return customerAddresses;
+            return Ok(customerAddresses);
+        }
+
+        [HttpGet("addresses/default")]
+        public async Task<ActionResult<AddressInfoDto>> GetUserDefaultAddress()
+        {
+            var userId = User.GetUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var defaultAddress = await _userService.GetCustomerDefaultAddress(userId);
+
+            if (defaultAddress == null)
+            {
+                return NotFound(new ErrorResponse { Message = "No Default address found" });
+            }
+
+            return Ok(defaultAddress);
         }
 
         [HttpGet("wishlists")]
@@ -86,7 +106,7 @@ namespace BookStore.Controllers
                 return NotFound();
             }
 
-            return customerWishlists;
+            return Ok(customerWishlists);
         }
     }
 }

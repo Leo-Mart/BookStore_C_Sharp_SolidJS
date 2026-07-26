@@ -1,5 +1,6 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
+using BookStore.Models.Addresses;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
 
@@ -81,6 +82,24 @@ namespace BookStore.Services
             return response;
         }
 
+        public async Task<AddressInfoDto?> GetCustomerDefaultAddress(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var foundDefaultAddress = await _addressRepo.GetDefaultAddressForUser(userId);
+
+            if (foundDefaultAddress == null)
+            {
+                return null;
+            }
+
+            return foundDefaultAddress;
+        }
+
         public async Task<CustomerDto?> GetCustomerOrders(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -120,4 +139,3 @@ namespace BookStore.Services
         }
     }
 }
-

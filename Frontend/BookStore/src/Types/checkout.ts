@@ -48,6 +48,8 @@ export type OrderItemPayload = {
 };
 
 export type OrderAddressPayload = {
+  firstName: string;
+  lastName: string;
   street: string;
   city: string;
   postalCode: string;

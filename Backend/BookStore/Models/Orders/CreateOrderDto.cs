@@ -10,14 +10,17 @@ namespace BookStore.Models.Orders
     {
         [Required]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
+
         [Required]
         public decimal OrderTotalCost { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         public string? GuestEmail { get; set; }
         public CreateAddressDto Address { get; set; } = null!;
         public ShippingMethod ShippingMethod { get; set; } = null!;
         public CreatePaymentMethodDto PaymentMethod { get; set; } = null!;
+
         [Required]
         public ICollection<OrderItemDto> Items { get; set; } = new List<OrderItemDto>();
-
     }
 }

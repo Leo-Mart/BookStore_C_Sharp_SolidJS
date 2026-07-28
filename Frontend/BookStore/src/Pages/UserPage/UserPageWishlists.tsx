@@ -134,8 +134,8 @@ const UserPageWishlists: Component = () => {
       }
     >
       <div class="grid grid-cols-12">
-        <div class="col-span-2"></div>
-        <section class="col-span-8 flex-col my-3 mx-2">
+        <div class="hidden lg:flex lg:col-span-2"></div>
+        <section class="col-span-12 lg:col-span-8 flex-col my-3 mx-2">
           <button
             onClick={() => setListOverviewOpen(!listOverviewOpen())}
             class="text-2xl flex justify-between p-2 w-full hover:cursor-pointer text-everforest-fg"
@@ -228,7 +228,7 @@ const UserPageWishlists: Component = () => {
               }
               fallback={
                 <div class="text-everforest-fg text-center p-2">
-                  No items in the wishlist, go add some!
+                  No items in the wishlist.
                 </div>
               }
             >
@@ -238,12 +238,12 @@ const UserPageWishlists: Component = () => {
                     <li class="flex text-everforest-fg my-2">
                       {item.book?.coverImageUrl !== "" ? (
                         <img
-                          class="mr-2 object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"
+                          class="mr-2 hidden lg:flex object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"
                           src="{item.book.coverImageUrl}"
                         />
                       ) : (
                         <img
-                          class="mr-2 object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"
+                          class="mr-2 hidden lg:flex object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0"
                           src="/images/atbqj8.jpg"
                         />
                       )}
@@ -281,7 +281,7 @@ const UserPageWishlists: Component = () => {
           </ul>
         </section>
 
-        <div class="col-span-2"></div>
+        <div class="hidden lg:flex lg:col-span-2"></div>
 
         <ModalCreateWishlist
           open={createWishlistModalOpen()}

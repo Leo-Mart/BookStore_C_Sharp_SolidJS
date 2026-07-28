@@ -21,8 +21,8 @@ const BookList: Component = () => {
   const [books, { mutate }] = createResource(currentPage, fetchBooks);
 
   return (
-    <div class="grid grid-cols-12">
-      <div class="col-span-2 dark:bg-everforest-bg-dim dark:text-everforest-fg">
+    <div class="grid grid-cols-6 lg:grid-cols-12">
+      <div class="hidden lg:flex lg:col-span-2 dark:bg-everforest-bg-dim dark:text-everforest-fg">
         SIDEBAR
       </div>
       <Show
@@ -33,8 +33,8 @@ const BookList: Component = () => {
           </div>
         }
       >
-        <div class="col-span-8 grid grid-cols-subgrid gap-2">
-          <ul class="col-span-8 grid grid-cols-6 gap-2">
+        <div class="col-span-6 lg:col-span-8 grid grid-cols-subgrid gap-2">
+          <ul class="col-span-6 lg:col-span-8 grid grid-cols-1 lg:grid-cols-6 gap-2 m-1 lg:m-0">
             <For each={books()}>
               {(item, _) => (
                 <li>
@@ -59,7 +59,7 @@ const BookList: Component = () => {
         </div>
       </Show>
 
-      <div class="col-span-2 col-start-11 dark:bg-everforest-bg-dim dark:text-everforest-fg">
+      <div class="hidden lg:flex lf:col-span-2 lf:col-start-11 dark:bg-everforest-bg-dim dark:text-everforest-fg">
         ANOTHER SIDEBAR?
       </div>
     </div>

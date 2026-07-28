@@ -107,6 +107,18 @@ const BookDetail: Component = () => {
       return prev - 1;
     });
   };
+
+  const handleAddToCartClick = () => {
+    cart.addItem({
+      id: book()!.id,
+      title: book()!.title,
+      author: book()!.authors[0].firstName + book()!.authors[0].lastName,
+      price: book()!.price,
+      quantity: amount()!,
+      imageUrl: book()!.coverImageUrl,
+    });
+    toast.add("Added to cart!", { type: "success" });
+  };
   const handleRemoveFromWishlist = async () => {
     if (auth.isAuthenticated()) {
       setWishlisted(false);
@@ -133,7 +145,7 @@ const BookDetail: Component = () => {
         },
       );
     } else {
-      toast.add("You need to be registered to remove books from wishlist!", {
+      toast.add("You need to be logged in to remove books from wishlist!", {
         type: "error",
       });
     }
@@ -167,10 +179,10 @@ const BookDetail: Component = () => {
 
   return (
     <div class="grid grid-cols-12 gap-4 pt-3">
-      <div class="col-span-1"></div>
-      <div class="col-span-10 grid grid-cols-1 lg:grid-cols-6 text-everforest-fg gap-2">
-        <aside class="self-start flex flex-col gap-20">
-          <div class="pointer-events-none py-16">
+      <div class="hidden lg:flex lg:col-span-1"></div>
+      <div class="col-span-12 lg:col-span-10 grid grid-cols-1 lg:grid-cols-6 text-everforest-fg gap-2">
+        <aside class="self-start flex flex-col gap-10">
+          <div class="pointer-events-none py-10">
             <div class="mx-auto flex">
               <img
                 class="h-full w-full object-contain"
@@ -182,7 +194,7 @@ const BookDetail: Component = () => {
         </aside>
         <div class="lg:col-span-5">
           <Show when={!book.loading && book()} fallback={<p>Loading...</p>}>
-            <div>
+            <div class="m-1 lg:m-0">
               <h1 class="text-4xl pb-2">{book()!.title}</h1>
               <Switch fallback={<div></div>}>
                 <Match when={book()!.reviews.length !== 0}>
@@ -202,8 +214,8 @@ const BookDetail: Component = () => {
                 <span>{book()!.price} kr</span>
               </div>
 
-              <div class="flex max-w-3/4 justify-between gap-2 border p-2 mt-2">
-                <div class="border flex h-13 md:h-auto">
+              <div class="flex max-w-100% lg:max-w-3/4 justify-between items-center gap-2 border p-2 mt-2">
+                <div class="border flex h-10 lg:h-auto">
                   <span class="w-full rounded flex justify-between font-bold">
                     <button
                       class="font-normal w-7.5 select-none hover:cursor-pointer"
@@ -236,18 +248,7 @@ const BookDetail: Component = () => {
                 </div>
 
                 <button
-                  onClick={() =>
-                    cart.addItem({
-                      id: book()!.id,
-                      title: book()!.title,
-                      author:
-                        book()!.authors[0].firstName +
-                        book()!.authors[0].lastName,
-                      price: book()!.price,
-                      quantity: amount()!,
-                      imageUrl: book()!.coverImageUrl,
-                    })
-                  }
+                  onClick={handleAddToCartClick}
                   class="flex gap-1 grow justify-center bg-everforest-aqua px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer"
                 >
                   Add to cart
@@ -280,10 +281,10 @@ const BookDetail: Component = () => {
                 </Switch>
               </div>
 
-              <div class="flex max-w-3/4 justify-between gap-1 border">
+              <div class="flex max-w-100% lg:max-w-3/4 justify-between gap-1 border">
                 <div class="p-1">Inventory status goes here</div>
               </div>
-              <div class="py-8 max-w-3/4 flex flex-col gap-3">
+              <div class="py-8 max-w-100% lg:max-w-3/4 flex flex-col gap-3">
                 <Accordion
                   title={"Description"}
                   children={book()!.description}
@@ -301,7 +302,7 @@ const BookDetail: Component = () => {
           </Show>
         </div>
       </div>
-      <div class="col-span-1"></div>
+      <div class="hidden lg:flex lg:col-span-1"></div>
       <ModalAddToWishlist
         open={addToWishlistModalOpen()}
         selectWishlist={handleWishlistSelect}

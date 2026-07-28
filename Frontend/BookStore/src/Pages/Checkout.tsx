@@ -210,7 +210,7 @@ const Checkout: Component = () => {
                   </li>
                 )}
               </For>
-              <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-2 text-everforest-fg">
                 <div class="flex items-baseline justify-between font-medium text-xs">
                   <span>Total before discount</span>
                   <span>{cart.total().toFixed(2)} kr</span>

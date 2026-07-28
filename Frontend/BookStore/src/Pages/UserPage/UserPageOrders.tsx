@@ -54,19 +54,19 @@ const UserPageOrders: Component = () => {
       }
     >
       <div class="grid grid-cols-12">
-        <div class="col-span-2"></div>
-        <section class="col-span-8 flex-col my-3 mx-2">
+        <div class="hidden lg:flex lg:col-span-2"></div>
+        <section class="col-span-12 lg:col-span-8 flex-col my-3 mx-2">
           <h2 class="text-2xl text-everforest-fg">
             Active orders ({activeOrders()?.length})
           </h2>
 
           <ul class="flex flex-col">
             <li class="flex justify-between text-everforest-fg">
-              <div class="grow">Date</div>
-              <div class="basis-3xs">Order Number</div>
-              <div class="basis-3xs">Order Status</div>
-              <div class="basis-3xs">Order value</div>
-              <div class="basis-22.5"></div>
+              <div class="grow-0 lg:grow">Date</div>
+              <div class="lg:basis-3xs">Order Number</div>
+              <div class="lg:basis-3xs">Order Status</div>
+              <div class="lg:basis-3xs">Order value</div>
+              <div class="lg:basis-22.5"></div>
             </li>
 
             <For each={activeOrders()}>
@@ -74,17 +74,17 @@ const UserPageOrders: Component = () => {
             </For>
           </ul>
         </section>
-        <section class="col-start-3 col-span-8 flex-col mb-3 mx-2">
+        <section class="col-span-12 lg:col-start-3 lg:col-span-8 flex-col mb-3 mx-2">
           <h2 class="text-2xl text-everforest-fg">
             Completed orders ({completedOrders()?.length})
           </h2>
           <ul>
             <li class="flex justify-between text-everforest-fg">
-              <div class="grow">Date</div>
-              <div class="basis-3xs">Order Number</div>
-              <div class="basis-3xs">Order Status</div>
-              <div class="basis-3xs">Order value</div>
-              <div class="basis-22.5"></div>
+              <div class="grow-0 lg:grow">Date</div>
+              <div class="lg:basis-3xs">Order Number</div>
+              <div class="lg:basis-3xs">Order Status</div>
+              <div class="lg:basis-3xs">Order value</div>
+              <div class="lg:basis-22.5"></div>
             </li>
 
             <For each={completedOrders()}>
@@ -93,7 +93,7 @@ const UserPageOrders: Component = () => {
           </ul>
         </section>
 
-        <div class="col-span-2"></div>
+        <div class="hidden lg:flex lg:col-span-2"></div>
       </div>
     </Show>
   );

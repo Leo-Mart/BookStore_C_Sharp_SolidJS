@@ -15,10 +15,12 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
   return (
     <li class="bg-everforest-bg-0 p-1 ">
       <div class="flex justify-between text-everforest-fg">
-        <div class="grow basis-20">{FormatDate(props.Order.createdAt)}</div>
-        <div class="basis-3xs">{props.Order.orderNumber}</div>
-        <div class="basis-3xs">{OrderStatus[props.Order.orderStatus]}</div>
-        <div class="basis-3xs">{props.Order.orderTotalCost} kr</div>
+        <div class="lg:grow lg:basis-20">
+          {FormatDate(props.Order.createdAt)}
+        </div>
+        <div class="lg:basis-3xs">{props.Order.orderNumber}</div>
+        <div class="lg:basis-3xs">{OrderStatus[props.Order.orderStatus]}</div>
+        <div class="lg:basis-3xs">{props.Order.orderTotalCost} kr</div>
 
         <button
           type="button"
@@ -63,11 +65,11 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
         <h3 class="text-lg mt-2">Products</h3>
         <ul class="flex flex-col overflow-hidden">
           <li class="flex justify-between text-everforest-fg">
-            <div class="grow">ISBN</div>
-            <div class="basis-3xs">Title</div>
-            <div class="basis-3xs">Author</div>
-            <div class="basis-3xs">Quantity</div>
-            <div class="basis-3xs">Price</div>
+            <div class=" lg:grow">ISBN</div>
+            <div class="lg:basis-3xs">Title</div>
+            <div class="lg:basis-3xs">Author</div>
+            <div class="lg:basis-3xs">Quantity</div>
+            <div class="lg:basis-3xs">Price</div>
           </li>
 
           <Divider />
@@ -75,16 +77,20 @@ const AccordionOrderDetails: Component<ItemDetailsProps> = (
           <For each={props.Order.items}>
             {(book, _) => (
               <li>
-                <div class="flex">
-                  <div class="grow">{book.bookInfo.isbn}</div>
-                  <div class="basis-3xs">{book.bookInfo.title}</div>
+                <div class="flex justify-between">
+                  <div class="truncate lg:whitespace-normal max-w-18 lg:max-w-lg grow-0 lg:grow">
+                    {book.bookInfo.isbn}
+                  </div>
+                  <div class="truncate lg:whitespace-normal max-w-16 lg:max-w-lg lg:basis-3xs">
+                    {book.bookInfo.title}
+                  </div>
 
-                  <div class="basis-3xs">
+                  <div class="truncate lg:whitespace-normal max-w-16 grow-0 lg:max-w-lg lg:basis-3xs">
                     {book.bookInfo.authors[0].firstName}{" "}
                     {book.bookInfo.authors[0].lastName}
                   </div>
-                  <div class="basis-3xs">{book.quantity}</div>
-                  <div class="basis-3xs">{book.unitPrice}</div>
+                  <div class="lg:basis-3xs">{book.quantity}</div>
+                  <div class="lg:basis-3xs">{book.unitPrice}</div>
                 </div>
               </li>
             )}

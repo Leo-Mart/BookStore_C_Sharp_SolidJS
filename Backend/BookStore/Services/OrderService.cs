@@ -53,6 +53,8 @@ namespace BookStore.Services
                     var addressExists = await _addressRepo.CheckAddressExistsByInfoAsync(
                         new Address
                         {
+                            FirstName = order.Address.FirstName,
+                            LastName = order.Address.LastName,
                             Street = order.Address.Street,
                             City = order.Address.City,
                             PostalCode = order.Address.PostalCode,
@@ -65,6 +67,8 @@ namespace BookStore.Services
                         savedAddress = await _addressRepo.GetAddressByInfoAsync(
                             new Address
                             {
+                                FirstName = order.Address.FirstName,
+                                LastName = order.Address.LastName,
                                 Street = order.Address.Street,
                                 City = order.Address.City,
                                 PostalCode = order.Address.PostalCode,
@@ -79,6 +83,8 @@ namespace BookStore.Services
                         var address = new Address
                         {
                             AppUserId = user.Id,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
                             Street = order.Address.Street,
                             City = order.Address.City,
                             PostalCode = order.Address.PostalCode,
@@ -93,6 +99,8 @@ namespace BookStore.Services
                     var address = new Address
                     {
                         AppUserId = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
                         Street = order.Address.Street,
                         City = order.Address.City,
                         PostalCode = order.Address.PostalCode,
@@ -175,6 +183,8 @@ namespace BookStore.Services
             {
                 var address = new Address
                 {
+                    FirstName = order.FirstName,
+                    LastName = order.LastName,
                     Street = order.Address.Street,
                     City = order.Address.City,
                     PostalCode = order.Address.PostalCode,
@@ -241,4 +251,3 @@ namespace BookStore.Services
         }
     }
 }
-

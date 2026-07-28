@@ -1,3 +1,4 @@
+using BookStore.Models.Addresses;
 using BookStore.Models.Users;
 
 namespace BookStore.Interfaces
@@ -8,6 +9,6 @@ namespace BookStore.Interfaces
         Task<CustomerDto?> GetCustomerOrders(string userId);
         Task<CustomerDto?> GetCustomerWishlists(string userId);
         Task<CustomerDto?> GetCustomerAddresses(string userId);
+        Task<AddressInfoDto> GetCustomerDefaultAddress(string userId);
     }
 }
-

@@ -27,11 +27,13 @@ import {
   Field,
   Form,
   getInput,
+  reset,
   setInput,
   SubmitHandler,
 } from "@formisch/solid";
 import { ParseExpiryDate } from "../Utils/Datehelpers";
 import { OrderFormSchema } from "../Types/validation-schemas";
+import { Address } from "../Types/User/address";
 
 const fetchShippingMethods = async () => {
   const response = await fetch("api/shipping-methods");
@@ -53,6 +55,20 @@ const Checkout: Component = () => {
   const auth = useAuth();
   const nav = useNavigate();
 
+  const fetchLoggedInUserDefaultAddress = async () => {
+    const response = await fetch("api/user/addresses/default", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.token()}`,
+      },
+    });
+    return response.json();
+  };
+
+  const [userDefaultAddress] = createResource<Address, boolean>(
+    () => auth.isAuthenticated() === true,
+    fetchLoggedInUserDefaultAddress,
+  );
   const costWithShipping = createMemo(
     () =>
       cart.total() +
@@ -81,7 +97,9 @@ const Checkout: Component = () => {
     }
   };
 
-  createEffect(() => updateShippingInfo());
+  createEffect(() => {
+    updateShippingInfo();
+  });
 
   const handleFetchAdress = () => {
     console.log("Fetch the address based on social security number");
@@ -99,6 +117,8 @@ const Checkout: Component = () => {
       orderStatus: 1,
       orderTotalCost: cart.total(),
       address: {
+        firstName: values.firstName,
+        lastName: values.lastName,
         city: values.city,
         postalCode: values.postalCode,
         street: values.street,
@@ -253,7 +273,11 @@ const Checkout: Component = () => {
                           type="email"
                           label="Email"
                           placeholder="Email"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.email
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />
@@ -268,7 +292,11 @@ const Checkout: Component = () => {
                           type="tel"
                           label="Phone"
                           placeholder="Phone"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.phoneNumber
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />
@@ -309,7 +337,11 @@ const Checkout: Component = () => {
                           type="text"
                           label="First name"
                           placeholder="First name"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.firstName
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />
@@ -324,7 +356,11 @@ const Checkout: Component = () => {
                           type="text"
                           label="Last name"
                           placeholder="Last name"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.lastName
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />
@@ -339,7 +375,11 @@ const Checkout: Component = () => {
                           type="text"
                           label="Street"
                           placeholder="Street 123"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.street
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />
@@ -354,7 +394,11 @@ const Checkout: Component = () => {
                           type="text"
                           label="Postal Code"
                           placeholder="123 45"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.postalCode
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />
@@ -367,7 +411,11 @@ const Checkout: Component = () => {
                           type="text"
                           label="City"
                           placeholder="The City"
-                          input={field.input}
+                          input={
+                            !userDefaultAddress.loading
+                              ? userDefaultAddress()?.city
+                              : field.input
+                          }
                           errors={field.errors}
                           required
                         />

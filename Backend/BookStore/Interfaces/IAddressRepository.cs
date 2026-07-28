@@ -8,10 +8,10 @@ namespace BookStore.Interfaces
         Task<ICollection<AddressInfoDto>?> GetAddressesForUserAsync(string userId);
         Task<Address?> GetAddressByIdAsync(int addressId);
         Task<Address?> GetAddressByInfoAsync(Address address);
-        Task<Address?> MarkAddressAsDefault(int addressId);
+        Task<AddressInfoDto?> GetDefaultAddressForUserAsync(string userId);
+        Task<Address?> MarkAddressAsDefaultAsync(int addressId);
         Task<bool> AddressExistsAsync(int addressId);
         Task<bool> CheckAddressExistsByInfoAsync(Address address, string userId);
         Task<bool> CheckIfUserHasAddresses(string userId);
     }
 }
-

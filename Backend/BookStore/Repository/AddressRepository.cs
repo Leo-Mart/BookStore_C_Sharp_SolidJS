@@ -70,7 +70,26 @@ namespace BookStore.Repository
                 .ToListAsync();
         }
 
-        public async Task<Address?> MarkAddressAsDefault(int addressId)
+        public async Task<AddressInfoDto?> GetDefaultAddressForUserAsync(string userId)
+        {
+            return await _context
+                .Addresses.Include(a => a.AppUser)
+                .Where(a => a.AppUserId == userId && a.IsDefault == true)
+                .Select(a => new AddressInfoDto
+                {
+                    FirstName = a.AppUser.FirstName,
+                    LastName = a.AppUser.LastName,
+                    Email = a.AppUser.Email,
+                    PhoneNumber = a.AppUser.PhoneNumber,
+                    Street = a.Street,
+                    City = a.City,
+                    PostalCode = a.PostalCode,
+                    IsDefault = a.IsDefault,
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Address?> MarkAddressAsDefaultAsync(int addressId)
         {
             var addressFromDB = await _context
                 .Addresses.Where(a => a.Id == addressId)
@@ -94,4 +113,3 @@ namespace BookStore.Repository
         }
     }
 }
-

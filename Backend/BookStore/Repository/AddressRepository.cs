@@ -70,7 +70,7 @@ namespace BookStore.Repository
                 .ToListAsync();
         }
 
-        public async Task<AddressInfoDto?> GetDefaultAddressForUser(string userId)
+        public async Task<AddressInfoDto?> GetDefaultAddressForUserAsync(string userId)
         {
             return await _context
                 .Addresses.Include(a => a.AppUser)
@@ -89,7 +89,7 @@ namespace BookStore.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Address?> MarkAddressAsDefault(int addressId)
+        public async Task<Address?> MarkAddressAsDefaultAsync(int addressId)
         {
             var addressFromDB = await _context
                 .Addresses.Where(a => a.Id == addressId)

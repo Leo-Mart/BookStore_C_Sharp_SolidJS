@@ -17,6 +17,9 @@ export const AuthProvider: ParentComponent = (props) => {
     const t = token();
     if (t) {
       localStorage.setItem("jwt", t); //TODO: probably some other choice for persistence here, but this suffices for now.
+    } else if (t && isTokenExpired(t)) {
+      setToken(null);
+      localStorage.removeItem("jwt");
     } else {
       localStorage.removeItem("jwt");
     }

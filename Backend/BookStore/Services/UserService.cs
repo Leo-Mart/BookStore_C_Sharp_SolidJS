@@ -90,7 +90,7 @@ namespace BookStore.Services
                 return null;
             }
 
-            var foundDefaultAddress = await _addressRepo.GetDefaultAddressForUser(userId);
+            var foundDefaultAddress = await _addressRepo.GetDefaultAddressForUserAsync(userId);
 
             if (foundDefaultAddress == null)
             {

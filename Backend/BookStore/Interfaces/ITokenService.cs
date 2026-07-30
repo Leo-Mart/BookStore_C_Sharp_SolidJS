@@ -4,6 +4,8 @@ namespace BookStore.Interfaces
 {
     public interface ITokenService
     {
-        string CreateToken(AppUser user);
+        string CreateJWT(AppUser user);
+        string CreateRefreshToken();
+        Task<(RefreshToken?, AppUser?)> RefreshTokenAsync(string refreshToken);
     }
 }

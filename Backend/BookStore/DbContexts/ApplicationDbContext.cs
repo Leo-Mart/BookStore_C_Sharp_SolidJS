@@ -30,11 +30,16 @@ namespace BookStore.DbContexts
         public required DbSet<Inventory> Inventories { get; set; }
         public required DbSet<Order> Orders { get; set; }
         public required DbSet<OrderItem> OrderItems { get; set; }
+
         public required DbSet<Wishlist> Wishlists { get; set; }
         public required DbSet<WishlistItem> WishlistItems { get; set; }
+
         public required DbSet<Address> Addresses { get; set; }
+        public required DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public required DbSet<Payment> Payments { get; set; }
         public required DbSet<PaymentMethod> PaymentMethods { get; set; }
+
         public required DbSet<ShippingMethod> ShippingMethods { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -242,6 +247,12 @@ namespace BookStore.DbContexts
                 );
 
             modelBuilder
+                .Entity<RefreshToken>()
+                .HasOne(t => t.AppUser)
+                .WithMany(u => u.RefreshTokens)
+                .HasForeignKey(t => t.AppUserId);
+
+            modelBuilder
                 .Entity<Review>()
                 .HasData(
                     new Review()
@@ -298,7 +309,7 @@ namespace BookStore.DbContexts
                         Id = 1,
                         FirstName = "Steven",
                         LastName = "Eriksson",
-                        Bio = "Canadian?",
+                        Bio = "Canadian",
                         UpdatedAt = new DateTime(2026, 6, 5),
                         CreatedAt = new DateTime(2026, 6, 5),
                     },
@@ -307,7 +318,7 @@ namespace BookStore.DbContexts
                         Id = 2,
                         FirstName = "Jane",
                         LastName = "Austen",
-                        Bio = "English?",
+                        Bio = "English",
                         UpdatedAt = new DateTime(2026, 6, 5),
                         CreatedAt = new DateTime(2026, 6, 5),
                     },
@@ -316,7 +327,7 @@ namespace BookStore.DbContexts
                         Id = 3,
                         FirstName = "Mark",
                         LastName = "Z. Danielewski",
-                        Bio = "no clue where this dude is from, could google it, but...",
+                        Bio = "American",
                         UpdatedAt = new DateTime(2026, 6, 5),
                         CreatedAt = new DateTime(2026, 6, 5),
                     }

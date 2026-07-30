@@ -4,7 +4,6 @@ using BookStore.Models.Users;
 using BookStore.Models.Wishlists;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers
 {
@@ -13,12 +12,14 @@ namespace BookStore.Controllers
     public class AccountController(
         UserManager<AppUser> userManager,
         ITokenService tokenService,
+        IRefreshTokenRepository refreshTokenRepo,
         SignInManager<AppUser> signInManager,
         ApplicationDbContext context
     ) : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly ITokenService _tokenService = tokenService;
+        private readonly IRefreshTokenRepository _refreshTokenRepo = refreshTokenRepo;
         private readonly SignInManager<AppUser> _signIngManager = signInManager;
         private readonly ApplicationDbContext _context = context;
 
@@ -30,10 +31,7 @@ namespace BookStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x =>
-                x.UserName == loginDto.Email.ToLower()
-            );
-
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
                 return Unauthorized(
                     new ErrorResponse { Message = "Username not found and/or password incorrect." }
@@ -50,9 +48,58 @@ namespace BookStore.Controllers
                     new ErrorResponse { Message = "Username not found and/or password incorrect." }
                 );
 
-            return Ok(
-                new NewUserDto { Email = user.Email, Token = _tokenService.CreateToken(user) }
+            var refreshToken = _tokenService.CreateRefreshToken();
+
+            var savedRefreshToken = await _refreshTokenRepo.SaveRefreshTokenAsync(
+                new RefreshToken { Token = refreshToken, AppUserId = user.Id }
             );
+
+            return Ok(
+                new AuthResponse
+                {
+                    Email = user.Email,
+                    AccessToken = _tokenService.CreateJWT(user),
+                    RefreshToken = savedRefreshToken.Token,
+                    RefreshTokenExpiry = savedRefreshToken.Expires,
+                }
+            );
+        }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh(RefreshTokenDto refreshDto)
+        {
+            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(
+                refreshDto.RefreshToken
+            );
+            if (newRefreshToken == null)
+            {
+                return Unauthorized(new ErrorResponse { Message = "Refresh token not valid." });
+            }
+
+            return Ok(
+                new AuthResponse
+                {
+                    Email = user.Email,
+                    AccessToken = _tokenService.CreateJWT(user),
+                    RefreshToken = newRefreshToken.Token,
+                    RefreshTokenExpiry = newRefreshToken.Expires,
+                }
+            );
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout(RefreshTokenDto refreshDto)
+        {
+            var foundToken = await _refreshTokenRepo.RefreshTokenExistsAsync(
+                refreshDto.RefreshToken
+            );
+            if (foundToken == null || !foundToken.IsActive)
+            {
+                return NotFound(new ErrorResponse { Message = "Token not found or inactive." });
+            }
+
+            await _refreshTokenRepo.RevokeRefreshToken(foundToken);
+            return Ok("Token revoked");
         }
 
         [HttpPost("register")]
@@ -80,7 +127,6 @@ namespace BookStore.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
-                        // Probably find a better spot for this somewhere, but should work for now
                         await _context.Wishlists.AddAsync(
                             new Wishlist
                             {
@@ -91,11 +137,19 @@ namespace BookStore.Controllers
 
                         await _context.SaveChangesAsync();
 
+                        var refreshToken = _tokenService.CreateRefreshToken();
+
+                        var savedRefreshToken = await _refreshTokenRepo.SaveRefreshTokenAsync(
+                            new RefreshToken { Token = refreshToken, AppUserId = appUser.Id }
+                        );
+
                         return Ok(
-                            new NewUserDto
+                            new AuthResponse
                             {
                                 Email = appUser.Email,
-                                Token = _tokenService.CreateToken(appUser),
+                                AccessToken = _tokenService.CreateJWT(appUser),
+                                RefreshToken = savedRefreshToken.Token,
+                                RefreshTokenExpiry = savedRefreshToken.Expires,
                             }
                         );
                     }

@@ -1,19 +1,22 @@
-import { Component, Match, Switch } from 'solid-js';
-import { useAuth } from '../Context/AuthContext';
-import Login from '../Pages/Login';
+import { createEffect, Match, ParentComponent, Switch } from "solid-js";
+import { useAuth } from "../Context/AuthContext";
+import Login from "../Pages/Login";
 
-const VerifyAuth = (Component: Component) => {
-  return () => {
-    const auth = useAuth();
+const VerifyAuth: ParentComponent = (props) => {
+  const auth = useAuth();
 
-    return (
-      <Switch fallback={<Login />}>
-        <Match when={auth.isAuthenticated()}>
-          <Component />
-        </Match>
-      </Switch>
-    );
-  };
+  createEffect(() => {
+    const jwt = auth.token();
+    if (jwt && auth.isTokenExpired(jwt)) {
+      auth.refreshJWT();
+    }
+  });
+
+  return (
+    <Switch fallback={<Login />}>
+      <Match when={auth.isAuthenticated()}>{props.children}</Match>
+    </Switch>
+  );
 };
 
 export default VerifyAuth;

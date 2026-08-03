@@ -4,6 +4,7 @@ import {
   ParentComponent,
   createSignal,
   createEffect,
+  onCleanup,
 } from "solid-js";
 import { type AuthContextValue, LoginResponse } from "../Types/auth";
 import { ErrorResponse } from "../Types/error";
@@ -11,18 +12,31 @@ import { ErrorResponse } from "../Types/error";
 const AuthContext = createContext<AuthContextValue>();
 
 export const AuthProvider: ParentComponent = (props) => {
-  const [token, setToken] = createSignal<string | null>("");
+  const [token, setToken] = createSignal<string>("");
+  const [refreshToken, setRefreshToken] = createSignal<string>("");
 
   createEffect(() => {
-    const t = token();
-    if (t) {
-      localStorage.setItem("jwt", t); //TODO: probably some other choice for persistence here, but this suffices for now.
-    } else if (t && isTokenExpired(t)) {
-      setToken(null);
-      localStorage.removeItem("jwt");
-    } else {
-      localStorage.removeItem("jwt");
-    }
+    const jwt = token();
+    if (!jwt) return;
+
+    const checkExpiry = () => {
+      if (isTokenExpired(jwt)) {
+        try {
+          refreshJWT();
+        } catch (error) {
+          if (error instanceof Error) {
+            setToken("");
+            setRefreshToken("");
+          }
+        }
+      }
+    };
+
+    checkExpiry();
+
+    const interval = setInterval(checkExpiry, 60 * 1000);
+
+    onCleanup(() => clearInterval(interval));
   });
 
   const login = async (
@@ -44,12 +58,31 @@ export const AuthProvider: ParentComponent = (props) => {
     }
 
     const result: LoginResponse = await response.json();
-    setToken(result.token);
+    setToken(result.accessToken);
+    setRefreshToken(result.refreshToken);
+    localStorage.setItem("jwt", result.accessToken);
+    localStorage.setItem("refresh", result.refreshToken);
     return result;
   };
 
-  const logout = () => {
-    setToken(null);
+  const logout = async () => {
+    const response = await fetch("/api/account/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        refreshToken: refreshToken(),
+      }),
+    });
+
+    if (response.status === 401) {
+      const error: ErrorResponse = await response.json();
+      throw new Error(error.message);
+    }
+
+    setToken("");
+    setRefreshToken("");
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("refresh");
   };
 
   const isTokenExpired = (token: string): boolean => {
@@ -57,14 +90,36 @@ export const AuthProvider: ParentComponent = (props) => {
     return Date.now() >= payload.exp * 1000;
   };
 
+  const refreshJWT = async () => {
+    console.log("Refreshing jwt...");
+    const response = await fetch("/api/account/refresh", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        refreshToken: refreshToken(),
+      }),
+    });
+
+    if (!response.ok) {
+      const error: ErrorResponse = await response.json();
+      throw new Error(error.message);
+    }
+    const authResponse: LoginResponse = await response.json();
+
+    setToken(authResponse.accessToken);
+    setRefreshToken(authResponse.refreshToken);
+    localStorage.setItem("jwt", authResponse.accessToken);
+    localStorage.setItem("refresh", authResponse.refreshToken);
+  };
+
   const auth: AuthContextValue = {
     token,
+    refreshToken,
     login,
     logout,
-    isAuthenticated: () => {
-      const t = token();
-      return !!t && !isTokenExpired(t);
-    },
+    isAuthenticated: () => !!token(),
+    isTokenExpired,
+    refreshJWT,
   };
 
   return (

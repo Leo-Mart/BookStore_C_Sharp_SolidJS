@@ -99,7 +99,7 @@ namespace BookStore.Controllers
             }
 
             await _refreshTokenRepo.RevokeRefreshToken(foundToken);
-            return Ok("Token revoked");
+            return Ok("Logout successful");
         }
 
         [HttpPost("register")]

@@ -1,7 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using BookStore.Interfaces;
 using BookStore.Models.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BookStore.Services
@@ -10,14 +12,22 @@ namespace BookStore.Services
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+        private readonly IRefreshTokenRepository _refreshTokenRepo;
+        private readonly UserManager<AppUser> _userManager;
 
-        public TokenService(IConfiguration config)
+        public TokenService(
+            UserManager<AppUser> userManager,
+            IRefreshTokenRepository refreshTokenRepo,
+            IConfiguration config
+        )
         {
             _config = config;
             _key = new SymmetricSecurityKey(Convert.FromBase64String(_config["JWT:SigningKey"]));
+            _refreshTokenRepo = refreshTokenRepo;
+            _userManager = userManager;
         }
 
-        public string CreateToken(AppUser user)
+        public string CreateJWT(AppUser user)
         {
             var claims = new List<Claim>
             {
@@ -46,6 +56,47 @@ namespace BookStore.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public string CreateRefreshToken()
+        {
+            var randomBytes = RandomNumberGenerator.GetBytes(64);
+            return Convert.ToBase64String(randomBytes);
+        }
+
+        public async Task<(RefreshToken?, AppUser?)> RefreshTokenAsync(string refreshToken)
+        {
+            var foundRefreshToken = await _refreshTokenRepo.RefreshTokenExistsAsync(refreshToken);
+            if (foundRefreshToken == null)
+            {
+                return (null, null);
+            }
+
+            var user = await _userManager.FindByIdAsync(foundRefreshToken.AppUserId);
+            if (user == null)
+            {
+                return (null, null);
+            }
+
+            if (!foundRefreshToken.IsActive)
+            {
+                if (foundRefreshToken.Revoked != null)
+                {
+                    await _refreshTokenRepo.RevokeAllActiveRefreshTokensAsync(
+                        foundRefreshToken.AppUserId
+                    );
+                }
+                return (null, null);
+            }
+
+            var revokedToken = await _refreshTokenRepo.RevokeRefreshToken(foundRefreshToken);
+
+            var newRefreshToken = CreateRefreshToken();
+            var savedRefreshToken = await _refreshTokenRepo.SaveRefreshTokenAsync(
+                new RefreshToken { Token = newRefreshToken, AppUserId = user.Id }
+            );
+
+            return (savedRefreshToken, user);
         }
     }
 }

@@ -32,24 +32,12 @@ const App: Component = () => {
             <Route path="/find" component={FindPage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={RegisterPage} />
-            <Route path="/user-profile">
-              <Route path="/" component={VerifyAuth(UserPage)} />
-              <Route
-                path="/user-wishlists"
-                component={VerifyAuth(UserPageWishlists)}
-              />
-              <Route
-                path="/user-orders"
-                component={VerifyAuth(UserPageOrders)}
-              />
-              <Route
-                path="/user-reviews"
-                component={VerifyAuth(UserPageReviews)}
-              />
-              <Route
-                path="/user-info"
-                component={VerifyAuth(UserPageUserInfo)}
-              />
+            <Route path="/user-profile" component={VerifyAuth}>
+              <Route path="/" component={UserPage} />
+              <Route path="/user-wishlists" component={UserPageWishlists} />
+              <Route path="/user-orders" component={UserPageOrders} />
+              <Route path="/user-reviews" component={UserPageReviews} />
+              <Route path="/user-info" component={UserPageUserInfo} />
             </Route>
             <Route path="/checkout" component={Checkout} />
             <Route

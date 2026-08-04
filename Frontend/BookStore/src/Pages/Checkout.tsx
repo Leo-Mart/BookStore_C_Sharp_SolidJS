@@ -34,6 +34,7 @@ import {
 import { ParseExpiryDate } from "../Utils/Datehelpers";
 import { OrderFormSchema } from "../Types/validation-schemas";
 import { Address } from "../Types/User/address";
+import { useToast } from "../Context/ToastContext";
 
 const fetchShippingMethods = async () => {
   const response = await fetch("api/shipping-methods");
@@ -52,6 +53,7 @@ const Checkout: Component = () => {
     createResource<ShippingMethod[]>(fetchShippingMethods);
 
   const cart = useCart();
+  const toast = useToast();
   const auth = useAuth();
   const nav = useNavigate();
 
@@ -98,6 +100,12 @@ const Checkout: Component = () => {
   };
 
   createEffect(() => {
+    if (cart.count() === 0) {
+      toast.add("Found no books in cart, sending to books...", {
+        type: "info",
+      });
+      nav("/books");
+    }
     updateShippingInfo();
   });
 

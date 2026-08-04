@@ -54,33 +54,37 @@ namespace BookStore.Controllers
                 new RefreshToken { Token = refreshToken, AppUserId = user.Id }
             );
 
-            _tokenService.SetTokensInsideCookie(
-                _tokenService.CreateJWT(user),
-                savedRefreshToken.Token,
-                HttpContext
+            return Ok(
+                new AuthResponse
+                {
+                    Email = user.Email,
+                    AccessToken = _tokenService.CreateJWT(user),
+                    RefreshToken = savedRefreshToken.Token,
+                    RefreshTokenExpiry = savedRefreshToken.Expires,
+                }
             );
-
-            return Ok();
         }
 
         [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh()
+        public async Task<IActionResult> Refresh(RefreshTokenDto refreshDto)
         {
-            HttpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken);
-            // throw error if cookie is null?
-            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(refreshToken);
+            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(
+                refreshDto.RefreshToken
+            );
             if (newRefreshToken == null)
             {
                 return Unauthorized(new ErrorResponse { Message = "Refresh token not valid." });
             }
 
-            _tokenService.SetTokensInsideCookie(
-                _tokenService.CreateJWT(user),
-                newRefreshToken.Token,
-                HttpContext
+            return Ok(
+                new AuthResponse
+                {
+                    Email = user.Email,
+                    AccessToken = _tokenService.CreateJWT(user),
+                    RefreshToken = newRefreshToken.Token,
+                    RefreshTokenExpiry = newRefreshToken.Expires,
+                }
             );
-
-            return Ok();
         }
 
         [HttpPost("logout")]

@@ -8,7 +8,6 @@ import {
 } from "solid-js";
 import { type AuthContextValue, LoginResponse } from "../Types/auth";
 import { ErrorResponse } from "../Types/error";
-import { redirect } from "@solidjs/router";
 
 const AuthContext = createContext<AuthContextValue>();
 
@@ -28,7 +27,6 @@ export const AuthProvider: ParentComponent = (props) => {
           if (error instanceof Error) {
             setToken("");
             setRefreshToken("");
-            redirect("/login");
           }
         }
       }
@@ -93,6 +91,7 @@ export const AuthProvider: ParentComponent = (props) => {
   };
 
   const refreshJWT = async () => {
+    console.log("Refreshing jwt...");
     const response = await fetch("/api/account/refresh", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -103,10 +102,6 @@ export const AuthProvider: ParentComponent = (props) => {
 
     if (!response.ok) {
       const error: ErrorResponse = await response.json();
-      setToken("");
-      setRefreshToken("");
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("refresh");
       throw new Error(error.message);
     }
     const authResponse: LoginResponse = await response.json();

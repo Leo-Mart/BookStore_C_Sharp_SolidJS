@@ -14,20 +14,17 @@ namespace BookStore.Services
         private readonly SymmetricSecurityKey _key;
         private readonly IRefreshTokenRepository _refreshTokenRepo;
         private readonly UserManager<AppUser> _userManager;
-        private readonly ILogger<TokenService> _logger;
 
         public TokenService(
             UserManager<AppUser> userManager,
             IRefreshTokenRepository refreshTokenRepo,
-            IConfiguration config,
-            ILogger<TokenService> logger
+            IConfiguration config
         )
         {
             _config = config;
             _key = new SymmetricSecurityKey(Convert.FromBase64String(_config["JWT:SigningKey"]));
             _refreshTokenRepo = refreshTokenRepo;
             _userManager = userManager;
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public string CreateJWT(AppUser user)
@@ -100,39 +97,6 @@ namespace BookStore.Services
             );
 
             return (savedRefreshToken, user);
-        }
-
-        public void SetTokensInsideCookie(
-            string accessToken,
-            string refreshToken,
-            HttpContext context
-        )
-        {
-            context.Response.Cookies.Append(
-                "accessToken",
-                accessToken,
-                new CookieOptions
-                {
-                    Expires = DateTimeOffset.UtcNow.AddHours(1),
-                    HttpOnly = true,
-                    IsEssential = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.None,
-                }
-            );
-
-            context.Response.Cookies.Append(
-                "refreshToken",
-                refreshToken,
-                new CookieOptions
-                {
-                    Expires = DateTimeOffset.UtcNow.AddDays(30),
-                    HttpOnly = true,
-                    IsEssential = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.None,
-                }
-            );
         }
     }
 }

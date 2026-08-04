@@ -7,6 +7,5 @@ namespace BookStore.Interfaces
         string CreateJWT(AppUser user);
         string CreateRefreshToken();
         Task<(RefreshToken?, AppUser?)> RefreshTokenAsync(string refreshToken);
-        void SetTokensInsideCookie(string accessToken, string refreshToken, HttpContext context);
     }
 }

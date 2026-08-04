@@ -1,6 +1,7 @@
 import { createEffect, Match, ParentComponent, Switch } from "solid-js";
 import { useAuth } from "../Context/AuthContext";
 import Login from "../Pages/Login";
+import { redirect } from "@solidjs/router";
 
 const VerifyAuth: ParentComponent = (props) => {
   const auth = useAuth();
@@ -8,7 +9,13 @@ const VerifyAuth: ParentComponent = (props) => {
   createEffect(() => {
     const jwt = auth.token();
     if (jwt && auth.isTokenExpired(jwt)) {
-      auth.refreshJWT();
+      try {
+        auth.refreshJWT();
+      } catch (error) {
+        if (error instanceof Error) {
+          redirect("/login");
+        }
+      }
     }
   });
 

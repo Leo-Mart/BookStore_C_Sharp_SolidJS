@@ -16,7 +16,7 @@ namespace BookStore.Mappers
                 Description = bookModel.Description,
                 Price = bookModel.Price,
                 CoverImageUrl = bookModel.CoverImageUrl,
-                Authors = bookModel.Authors.Select(a => a.ToAuthorDto()).ToList()
+                Authors = bookModel.Authors.Select(a => a.ToAuthorDto()).ToList(),
             };
         }
 
@@ -33,18 +33,15 @@ namespace BookStore.Mappers
                 Price = bookModel.Price,
                 CoverImageUrl = bookModel.CoverImageUrl,
                 Reviews = bookModel.Reviews.Select(r => r.ToReviewDto()).ToList(),
-                Authors = bookModel.Authors.Select(r => r.ToAuthorDto()).ToList(),
-                Genres = bookModel.Genres.Select(r => r.ToGenreDto()).ToList()                
+                Authors = bookModel.Authors.Select(a => a.ToAuthorDto()).ToList(),
+                Genres = bookModel.Genres.Select(g => g.ToGenreDto()).ToList(),
+                Inventory = bookModel.Inventory.ToInventoryInfoDto(),
             };
         }
 
         public static BookOrderItemInfoDto ToBookOrderItemInfoDtoFromBook(this Book book)
         {
-            return new BookOrderItemInfoDto
-            {
-                Id = book.Id,
-                Price = book.Price
-            };
+            return new BookOrderItemInfoDto { Id = book.Id, Price = book.Price };
         }
     }
 }

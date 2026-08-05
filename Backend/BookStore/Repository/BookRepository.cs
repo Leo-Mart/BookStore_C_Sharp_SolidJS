@@ -17,8 +17,9 @@ namespace BookStore.Repository
             return await _context
                 .Books.Include(r => r.Reviews)
                     .ThenInclude(r => r.Reviewer)
-                .Include(g => g.Genres)
-                .Include(a => a.Authors)
+                .Include(b => b.Genres)
+                .Include(b => b.Authors)
+                .Include(b => b.Inventory)
                 .Where(c => c.Id == bookId)
                 .FirstOrDefaultAsync();
         }

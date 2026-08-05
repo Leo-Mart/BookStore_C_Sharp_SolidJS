@@ -12,6 +12,7 @@ using BookStore.Models.Reviews;
 using BookStore.Models.ShippingMethods;
 using BookStore.Models.Users;
 using BookStore.Models.Wishlists;
+using BookStore.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -509,19 +510,7 @@ namespace BookStore.DbContexts
                 .HasForeignKey<Inventory>(i => i.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder
-                .Entity<Inventory>()
-                .HasData(
-                    new Inventory()
-                    {
-                        Id = 1,
-                        BookId = 1,
-                        AmountInStock = 20,
-                        ReorderThreshold = 5,
-                        UpdatedAt = new DateTime(2026, 6, 12),
-                        CreatedAt = new DateTime(2026, 6, 12),
-                    }
-                );
+            modelBuilder.Entity<Inventory>().HasData(StaticData.InventoryData);
 
             modelBuilder
                 .Entity<Order>()

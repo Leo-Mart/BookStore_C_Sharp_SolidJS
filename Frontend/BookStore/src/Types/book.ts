@@ -2,7 +2,7 @@ export interface BookProps {
   book: Book;
 }
 
-export interface Book {
+export type Book = {
   id: number;
   isbn: string;
   title: string;
@@ -23,9 +23,10 @@ export interface Book {
       lastName: string;
     },
   ];
-}
+  inventory: Inventory;
+};
 
-export interface Review {
+export type Review = {
   id: number;
   title: string;
   text: string;
@@ -34,9 +35,13 @@ export interface Review {
     firstName: string;
     lastName: string;
   };
-}
+};
 
-export interface BasicBookInfo {
+export type Inventory = {
+  amountInStock: number;
+};
+
+export type BasicBookInfo = {
   isbn: string;
   title: string;
   description?: string;
@@ -49,4 +54,4 @@ export interface BasicBookInfo {
       lastName: string;
     },
   ];
-}
+};

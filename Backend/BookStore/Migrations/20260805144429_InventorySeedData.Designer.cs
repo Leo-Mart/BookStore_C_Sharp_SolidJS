@@ -4,6 +4,7 @@ using BookStore.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260805144429_InventorySeedData")]
+    partial class InventorySeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3585,7 +3588,7 @@ namespace BookStore.Migrations
                             AmountInStock = 18,
                             BookId = 4,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3621,7 +3624,7 @@ namespace BookStore.Migrations
                             AmountInStock = 9,
                             BookId = 8,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3630,7 +3633,7 @@ namespace BookStore.Migrations
                             AmountInStock = 48,
                             BookId = 9,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3648,7 +3651,7 @@ namespace BookStore.Migrations
                             AmountInStock = 28,
                             BookId = 11,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3657,7 +3660,7 @@ namespace BookStore.Migrations
                             AmountInStock = 1,
                             BookId = 12,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3675,7 +3678,7 @@ namespace BookStore.Migrations
                             AmountInStock = 27,
                             BookId = 14,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3684,7 +3687,7 @@ namespace BookStore.Migrations
                             AmountInStock = 42,
                             BookId = 15,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3693,7 +3696,7 @@ namespace BookStore.Migrations
                             AmountInStock = 16,
                             BookId = 16,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3702,7 +3705,7 @@ namespace BookStore.Migrations
                             AmountInStock = 36,
                             BookId = 17,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3711,7 +3714,7 @@ namespace BookStore.Migrations
                             AmountInStock = 17,
                             BookId = 18,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3738,7 +3741,7 @@ namespace BookStore.Migrations
                             AmountInStock = 28,
                             BookId = 21,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3747,7 +3750,7 @@ namespace BookStore.Migrations
                             AmountInStock = 21,
                             BookId = 22,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3765,7 +3768,7 @@ namespace BookStore.Migrations
                             AmountInStock = 17,
                             BookId = 24,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3792,7 +3795,7 @@ namespace BookStore.Migrations
                             AmountInStock = 48,
                             BookId = 27,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3801,7 +3804,7 @@ namespace BookStore.Migrations
                             AmountInStock = 7,
                             BookId = 28,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3819,7 +3822,7 @@ namespace BookStore.Migrations
                             AmountInStock = 36,
                             BookId = 30,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3837,7 +3840,7 @@ namespace BookStore.Migrations
                             AmountInStock = 4,
                             BookId = 32,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3846,7 +3849,7 @@ namespace BookStore.Migrations
                             AmountInStock = 42,
                             BookId = 33,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3864,7 +3867,7 @@ namespace BookStore.Migrations
                             AmountInStock = 9,
                             BookId = 35,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3873,7 +3876,7 @@ namespace BookStore.Migrations
                             AmountInStock = 7,
                             BookId = 36,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3882,7 +3885,7 @@ namespace BookStore.Migrations
                             AmountInStock = 34,
                             BookId = 37,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3918,7 +3921,7 @@ namespace BookStore.Migrations
                             AmountInStock = 15,
                             BookId = 41,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3927,7 +3930,7 @@ namespace BookStore.Migrations
                             AmountInStock = 42,
                             BookId = 42,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3936,7 +3939,7 @@ namespace BookStore.Migrations
                             AmountInStock = 13,
                             BookId = 43,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3954,7 +3957,7 @@ namespace BookStore.Migrations
                             AmountInStock = 34,
                             BookId = 45,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3963,7 +3966,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 46,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3990,7 +3993,7 @@ namespace BookStore.Migrations
                             AmountInStock = 32,
                             BookId = 49,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -3999,7 +4002,7 @@ namespace BookStore.Migrations
                             AmountInStock = 25,
                             BookId = 50,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4017,7 +4020,7 @@ namespace BookStore.Migrations
                             AmountInStock = 12,
                             BookId = 52,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4026,7 +4029,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 53,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4035,7 +4038,7 @@ namespace BookStore.Migrations
                             AmountInStock = 26,
                             BookId = 54,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4044,7 +4047,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 55,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4062,7 +4065,7 @@ namespace BookStore.Migrations
                             AmountInStock = 21,
                             BookId = 57,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4071,7 +4074,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 58,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4089,7 +4092,7 @@ namespace BookStore.Migrations
                             AmountInStock = 40,
                             BookId = 60,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4098,7 +4101,7 @@ namespace BookStore.Migrations
                             AmountInStock = 25,
                             BookId = 61,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4107,7 +4110,7 @@ namespace BookStore.Migrations
                             AmountInStock = 34,
                             BookId = 62,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4116,7 +4119,7 @@ namespace BookStore.Migrations
                             AmountInStock = 41,
                             BookId = 63,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4179,7 +4182,7 @@ namespace BookStore.Migrations
                             AmountInStock = 2,
                             BookId = 70,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4188,7 +4191,7 @@ namespace BookStore.Migrations
                             AmountInStock = 49,
                             BookId = 71,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4215,7 +4218,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 74,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4224,7 +4227,7 @@ namespace BookStore.Migrations
                             AmountInStock = 40,
                             BookId = 75,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4242,7 +4245,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 77,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4260,7 +4263,7 @@ namespace BookStore.Migrations
                             AmountInStock = 8,
                             BookId = 79,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4287,7 +4290,7 @@ namespace BookStore.Migrations
                             AmountInStock = 19,
                             BookId = 82,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4296,7 +4299,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 83,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4314,7 +4317,7 @@ namespace BookStore.Migrations
                             AmountInStock = 4,
                             BookId = 85,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4323,7 +4326,7 @@ namespace BookStore.Migrations
                             AmountInStock = 1,
                             BookId = 86,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4341,7 +4344,7 @@ namespace BookStore.Migrations
                             AmountInStock = 3,
                             BookId = 88,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4350,7 +4353,7 @@ namespace BookStore.Migrations
                             AmountInStock = 48,
                             BookId = 89,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4359,7 +4362,7 @@ namespace BookStore.Migrations
                             AmountInStock = 20,
                             BookId = 90,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4377,7 +4380,7 @@ namespace BookStore.Migrations
                             AmountInStock = 16,
                             BookId = 92,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4395,7 +4398,7 @@ namespace BookStore.Migrations
                             AmountInStock = 46,
                             BookId = 94,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4404,7 +4407,7 @@ namespace BookStore.Migrations
                             AmountInStock = 2,
                             BookId = 95,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4431,7 +4434,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 98,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4440,7 +4443,7 @@ namespace BookStore.Migrations
                             AmountInStock = 1,
                             BookId = 99,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4449,7 +4452,7 @@ namespace BookStore.Migrations
                             AmountInStock = 48,
                             BookId = 100,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4458,7 +4461,7 @@ namespace BookStore.Migrations
                             AmountInStock = 27,
                             BookId = 101,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4467,7 +4470,7 @@ namespace BookStore.Migrations
                             AmountInStock = 6,
                             BookId = 102,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4476,7 +4479,7 @@ namespace BookStore.Migrations
                             AmountInStock = 2,
                             BookId = 103,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4485,7 +4488,7 @@ namespace BookStore.Migrations
                             AmountInStock = 40,
                             BookId = 104,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4503,7 +4506,7 @@ namespace BookStore.Migrations
                             AmountInStock = 19,
                             BookId = 106,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4539,7 +4542,7 @@ namespace BookStore.Migrations
                             AmountInStock = 7,
                             BookId = 110,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4548,7 +4551,7 @@ namespace BookStore.Migrations
                             AmountInStock = 44,
                             BookId = 111,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 8,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -4557,7 +4560,7 @@ namespace BookStore.Migrations
                             AmountInStock = 0,
                             BookId = 112,
                             CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReorderThreshold = 5,
+                            ReorderThreshold = 10,
                             UpdatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

@@ -11,6 +11,7 @@ import {
 import HeartMinus from "lucide-solid/icons/heart-minus";
 import HeartPlus from "lucide-solid/icons/heart-plus";
 import ShoppingBasket from "lucide-solid/icons/shopping-basket";
+import Truck from "lucide-solid/icons/truck";
 import { useCart } from "../Context/CartContext";
 import { useAuth } from "../Context/AuthContext";
 import { useToast } from "../Context/ToastContext";
@@ -282,7 +283,57 @@ const BookDetail: Component = () => {
               </div>
 
               <div class="flex max-w-100% lg:max-w-3/4 justify-between gap-1 border">
-                <div class="p-1">Inventory status goes here</div>
+                <div class="flex flex-col lg:flex-row justify-between w-full p-1">
+                  <Switch fallback={"No inventory status found."}>
+                    <Match when={book()!.inventory.amountInStock <= 0}>
+                      <div>Out of Stock!</div>
+                      <div class="flex lg:justify-between align-middle">
+                        <span class="mr-2">
+                          <Truck />
+                        </span>
+                        <p>Estimated Delivery time: 7+ days</p>
+                      </div>
+                    </Match>
+                    <Match when={book()!.inventory.amountInStock < 5}>
+                      <div class="text-everforest-red">
+                        Almost out! Only {book()?.inventory.amountInStock} in
+                        stock.
+                      </div>
+                      <div class="flex lg:justify-between align-middle">
+                        <span class="mr-2">
+                          <Truck />
+                        </span>
+                        <p>Estimated Delivery time: 1-3 days</p>
+                      </div>
+                    </Match>
+                    <Match
+                      when={
+                        book()!.inventory.amountInStock > 5 &&
+                        book()!.inventory.amountInStock <= 10
+                      }
+                    >
+                      <div class="text-everforest-yellow">
+                        Running low! Only {book()?.inventory.amountInStock} in
+                        stock.
+                      </div>
+                      <div class="flex lg:justify-between align-middle">
+                        <span class="mr-2">
+                          <Truck />
+                        </span>
+                        <p>Estimated Delivery time: 1-3 days</p>
+                      </div>
+                    </Match>
+                    <Match when={book()!.inventory.amountInStock > 10}>
+                      <div>{book()?.inventory.amountInStock} in stock.</div>
+                      <div class="flex lg:justify-between align-middle">
+                        <span class="mr-2">
+                          <Truck />
+                        </span>
+                        <p>Estimated Delivery time: 1-3 days</p>
+                      </div>
+                    </Match>
+                  </Switch>
+                </div>
               </div>
               <div class="py-8 max-w-100% lg:max-w-3/4 flex flex-col gap-3">
                 <Accordion

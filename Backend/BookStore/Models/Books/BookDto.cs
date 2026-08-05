@@ -1,5 +1,6 @@
 using BookStore.Models.Authors;
 using BookStore.Models.Genres;
+using BookStore.Models.Inventories;
 using BookStore.Models.Reviews;
 
 namespace BookStore.Models.Books
@@ -7,16 +8,16 @@ namespace BookStore.Models.Books
     public class BookDto
     {
         public int Id { get; set; }
-        public string Isbn {get;set;} = string.Empty;
+        public string Isbn { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Publisher { get; set; } = string.Empty;
         public DateTime PublishedDate { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public string? CoverImageUrl { get; set; }
-        public ICollection<ReviewDto> Reviews {get;set;} = new List<ReviewDto>();
-        public ICollection<AuthorDto> Authors {get; set;} = new List<AuthorDto>();
-        public ICollection<GenreDto> Genres {get; set;} = new List<GenreDto>();
-        
+        public ICollection<ReviewDto> Reviews { get; set; } = new List<ReviewDto>();
+        public ICollection<AuthorDto> Authors { get; set; } = new List<AuthorDto>();
+        public ICollection<GenreDto> Genres { get; set; } = new List<GenreDto>();
+        public InventoryInfoDto Inventory { get; set; } = null!;
     }
 }

@@ -282,7 +282,9 @@ const BookDetail: Component = () => {
               </div>
 
               <div class="flex max-w-100% lg:max-w-3/4 justify-between gap-1 border">
-                <div class="p-1">Inventory status goes here</div>
+                <div class="p-1">
+                  {book()?.inventory.amountInStock} in stock
+                </div>
               </div>
               <div class="py-8 max-w-100% lg:max-w-3/4 flex flex-col gap-3">
                 <Accordion

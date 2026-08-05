@@ -283,11 +283,11 @@ const BookDetail: Component = () => {
               </div>
 
               <div class="flex max-w-100% lg:max-w-3/4 justify-between gap-1 border">
-                <div class="flex justify-between w-full p-1">
+                <div class="flex flex-col lg:flex-row justify-between w-full p-1">
                   <Switch fallback={"No inventory status found."}>
                     <Match when={book()!.inventory.amountInStock <= 0}>
                       <div>Out of Stock!</div>
-                      <div class="flex justify-between align-middle">
+                      <div class="flex lg:justify-between align-middle">
                         <span class="mr-2">
                           <Truck />
                         </span>
@@ -299,7 +299,7 @@ const BookDetail: Component = () => {
                         Almost out! Only {book()?.inventory.amountInStock} in
                         stock.
                       </div>
-                      <div class="flex justify-between align-middle">
+                      <div class="flex lg:justify-between align-middle">
                         <span class="mr-2">
                           <Truck />
                         </span>
@@ -316,7 +316,7 @@ const BookDetail: Component = () => {
                         Running low! Only {book()?.inventory.amountInStock} in
                         stock.
                       </div>
-                      <div class="flex justify-between align-middle">
+                      <div class="flex lg:justify-between align-middle">
                         <span class="mr-2">
                           <Truck />
                         </span>
@@ -325,7 +325,7 @@ const BookDetail: Component = () => {
                     </Match>
                     <Match when={book()!.inventory.amountInStock > 10}>
                       <div>{book()?.inventory.amountInStock} in stock.</div>
-                      <div class="flex justify-between align-middle">
+                      <div class="flex lg:justify-between align-middle">
                         <span class="mr-2">
                           <Truck />
                         </span>

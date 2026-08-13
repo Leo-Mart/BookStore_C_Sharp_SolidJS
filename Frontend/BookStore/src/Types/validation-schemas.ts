@@ -65,6 +65,16 @@ export const LoginFormSchema = v.object({
   ),
 });
 
+export const CreateReviewSchema = v.object({
+  title: v.pipe(v.string(), v.trim(), v.nonEmpty("A title is required")),
+  text: v.pipe(v.string(), v.trim(), v.nonEmpty("A review text is required.")),
+  score: v.pipe(
+    v.number(),
+    v.minValue(1, "A rating is required."),
+    v.maxValue(5),
+  ),
+});
+
 export const RegisterFormSchema = v.pipe(
   v.object({
     email: v.pipe(

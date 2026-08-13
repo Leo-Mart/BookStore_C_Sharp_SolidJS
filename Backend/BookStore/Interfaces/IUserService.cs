@@ -9,6 +9,7 @@ namespace BookStore.Interfaces
         Task<CustomerDto?> GetCustomerOrders(string userId);
         Task<CustomerDto?> GetCustomerWishlists(string userId);
         Task<CustomerDto?> GetCustomerAddresses(string userId);
-        Task<AddressInfoDto> GetCustomerDefaultAddress(string userId);
+        Task<AddressInfoDto?> GetCustomerDefaultAddress(string userId);
+        Task<CustomerDto?> GetCustomerReviews(string userId);
     }
 }

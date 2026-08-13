@@ -9,10 +9,14 @@ namespace BookStore.Controllers
     [ApiController]
     [Authorize]
     [Route("api/books/{bookId}/reviews")]
-    public class ReviewsController(ILogger<ReviewsController> logger, IReviewRepository reviewRepository, IBookRepository bookRepository) : ControllerBase
+    public class ReviewsController(
+        ILogger<ReviewsController> logger,
+        IReviewRepository reviewRepository,
+        IBookRepository bookRepository
+    ) : ControllerBase
     {
-
-        private readonly ILogger<ReviewsController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly ILogger<ReviewsController> _logger =
+            logger ?? throw new ArgumentNullException(nameof(logger));
         private readonly IReviewRepository _reviewRepo = reviewRepository;
 
         private readonly IBookRepository _bookRepo = bookRepository;
@@ -42,7 +46,6 @@ namespace BookStore.Controllers
         [HttpGet("{reviewId}", Name = "GetReview")]
         public async Task<ActionResult<ReviewDto>> GetReview(int bookId, int reviewId)
         {
-
             if (!await _bookRepo.BookExistsAsync(bookId))
             {
                 _logger.LogInformation($"Book with ID: {bookId} was not found.");
@@ -61,7 +64,6 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<ActionResult<ReviewDto>> CreateReview(int bookId, CreateReviewDto review)
         {
-
             if (!await _bookRepo.BookExistsAsync(bookId))
             {
                 return NotFound();
@@ -70,17 +72,19 @@ namespace BookStore.Controllers
             var reviewToSave = review.ToReviewFromCreateDto();
             var savedReview = await _reviewRepo.CreateReviewAsync(reviewToSave);
 
-            return CreatedAtAction("GetReview",
-            new
-            {
-                bookId = reviewToSave.BookId,
-                reviewId = reviewToSave.Id
-            },
-            savedReview.ToReviewDto());
+            return CreatedAtAction(
+                "GetReview",
+                new { bookId = reviewToSave.BookId, reviewId = reviewToSave.Id },
+                savedReview.ToReviewDto()
+            );
         }
 
         [HttpPut("{reviewId}")]
-        public async Task<ActionResult> UpdateReview(int bookId, int reviewId, UpdateReviewDto review)
+        public async Task<ActionResult> UpdateReview(
+            int bookId,
+            int reviewId,
+            UpdateReviewDto review
+        )
         {
             if (!await _bookRepo.BookExistsAsync(bookId))
             {
@@ -90,10 +94,7 @@ namespace BookStore.Controllers
             var updatedReview = await _reviewRepo.UpdateReviewAsync(reviewId, review);
 
             return Ok(updatedReview);
-
         }
-
-        //TODO: possibly a patch endpoint
 
         [HttpDelete("{reviewId}")]
         public async Task<ActionResult> DeleteReview(int bookId, int reviewId)

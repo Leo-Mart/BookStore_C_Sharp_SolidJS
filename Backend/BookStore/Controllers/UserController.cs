@@ -108,5 +108,23 @@ namespace BookStore.Controllers
 
             return Ok(customerWishlists);
         }
+
+        [HttpGet("reviews")]
+        public async Task<ActionResult<CustomerDto?>> GetUsersReviews()
+        {
+            var userId = User.GetUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var customerReviews = await _userService.GetCustomerReviews(userId);
+            if (customerReviews == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customerReviews);
+        }
     }
 }

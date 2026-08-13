@@ -137,5 +137,24 @@ namespace BookStore.Services
 
             return response;
         }
+
+        public async Task<CustomerDto?> GetCustomerReviews(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var foundReviews = await _reviewRepo.GetReviewsForUserByIdAsync(userId);
+            if (foundReviews == null)
+            {
+                return null;
+            }
+
+            var response = new CustomerDto { Reviews = foundReviews };
+
+            return response;
+        }
     }
 }

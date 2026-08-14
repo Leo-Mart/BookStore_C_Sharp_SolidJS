@@ -6,6 +6,8 @@ import {
   Field,
   Form,
   getInput,
+  reset,
+  setInput,
   SubmitHandler,
 } from "@formisch/solid";
 import { CreateReviewSchema } from "../Types/validation-schemas";
@@ -16,18 +18,23 @@ import ScoreInput from "./Input/ScoreInput";
 const ModalCreateNewReview: Component<CreateNewReviewModalProps> = (props) => {
   const newReviewForm = createForm({
     schema: CreateReviewSchema,
-    initialInput: { score: 0 },
+    initialInput: { score: 0, text: "" },
   });
 
   const handleSubmit: SubmitHandler<typeof CreateReviewSchema> = (values) => {
-    console.log(getInput(newReviewForm));
+    if (props.bookId === 0) {
+      throw Error("Bookd Id not found.");
+    }
     const newReview: ReviewInput = {
       title: values.title,
       text: values.text,
       score: values.score,
-      bookId: 1,
+      bookId: props.bookId,
     };
     props.createNewReview(newReview);
+    reset(newReviewForm);
+    // setInput(newReviewForm, { path: ["text"], input: "" });
+    props.onClose();
   };
 
   return (
@@ -89,9 +96,10 @@ const ModalCreateNewReview: Component<CreateNewReviewModalProps> = (props) => {
         <div class=" flex flex-row items-center justify-center gap-1">
           <button
             type="submit"
+            disabled={props.loading}
             class="w-full bg-everforest-aqua py-3 text-sm font-semibold text-everforest-bg-dim transition hover:bg-everforest-fg hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-everforest-aqua focus:ring-offset-2"
           >
-            Leave Review
+            {props.loading ? "Leaving review..." : "Leave review"}
           </button>
           <button
             type="button"

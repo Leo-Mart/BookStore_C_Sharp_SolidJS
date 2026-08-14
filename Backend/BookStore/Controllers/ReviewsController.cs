@@ -1,7 +1,10 @@
+using BookStore.Extensions;
 using BookStore.Interfaces;
 using BookStore.Mappers;
 using BookStore.Models.Reviews;
+using BookStore.Models.Users;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
@@ -12,7 +15,8 @@ namespace BookStore.Controllers
     public class ReviewsController(
         ILogger<ReviewsController> logger,
         IReviewRepository reviewRepository,
-        IBookRepository bookRepository
+        IBookRepository bookRepository,
+        UserManager<AppUser> userMananger
     ) : ControllerBase
     {
         private readonly ILogger<ReviewsController> _logger =
@@ -20,6 +24,7 @@ namespace BookStore.Controllers
         private readonly IReviewRepository _reviewRepo = reviewRepository;
 
         private readonly IBookRepository _bookRepo = bookRepository;
+        private readonly UserManager<AppUser> _userManager = userMananger;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews(int bookId)
@@ -64,17 +69,32 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<ActionResult<ReviewDto>> CreateReview(int bookId, CreateReviewDto review)
         {
+            var userId = User.GetUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
             if (!await _bookRepo.BookExistsAsync(bookId))
             {
                 return NotFound();
             }
 
             var reviewToSave = review.ToReviewFromCreateDto();
+
+            reviewToSave.AppUserId = userId;
+            reviewToSave.Reviewer = user;
             var savedReview = await _reviewRepo.CreateReviewAsync(reviewToSave);
 
             return CreatedAtAction(
                 "GetReview",
-                new { bookId = reviewToSave.BookId, reviewId = reviewToSave.Id },
+                new { bookId = savedReview.BookId, reviewId = savedReview.Id },
                 savedReview.ToReviewDto()
             );
         }

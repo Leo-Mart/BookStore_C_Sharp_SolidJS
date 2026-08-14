@@ -12,6 +12,7 @@ import { OrderItem, OrderStatus } from "../../Types/User/order";
 import ModalCreateNewReview from "../../Components/ModalCreateNewReview";
 import { ReviewInput } from "../../Types/User/review";
 import { useToast } from "../../Context/ToastContext";
+import { reset } from "@formisch/solid";
 
 const UserPageReviews: Component = () => {
   const auth = useAuth();
@@ -36,9 +37,11 @@ const UserPageReviews: Component = () => {
     });
     return resp.json();
   };
+
   const [userOrders] = createResource<UserInfo>(fetchUserOrders);
   const [userReviews] = createResource<UserInfo>(fetchUserReviews);
   const [boughtItems, setBoughtItems] = createSignal<OrderItem[]>();
+  const [selectedBook, setSelectedBook] = createSignal<number>();
   const [createReviewModalOpen, setCreateReviewModalOpen] =
     createSignal<boolean>(false);
 
@@ -65,20 +68,38 @@ const UserPageReviews: Component = () => {
     }
   });
 
-  const createNewReview = (input: ReviewInput) => {
+  const handleOpenModal = (e: Event & { currentTarget: HTMLButtonElement }) => {
+    setCreateReviewModalOpen(true);
+    if (e.currentTarget.dataset.bookId === undefined) {
+      setSelectedBook(0);
+      return;
+    }
+    setSelectedBook(+e.currentTarget.dataset.bookId);
+  };
+
+  const createNewReview = async (input: ReviewInput) => {
     setLoading(true);
     setError(null);
 
     try {
-      console.log(input);
-      console.log("Send a POST to server with the review data");
+      const resp = await fetch(`/api/books/${selectedBook()}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.token()}`,
+        },
+        body: JSON.stringify(input),
+      });
+      if (!resp.ok) {
+        throw Error(await resp.text());
+      }
+      return resp.json();
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "Something went wrong.",
       );
     } finally {
       setLoading(false);
-
       toast.add("You successfully left a review!", { type: "success" });
     }
   };
@@ -100,40 +121,43 @@ const UserPageReviews: Component = () => {
           <div class="flex gap-5">
             <For each={boughtItems()}>
               {(item, _) => (
-                <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-1 text-everforest-fg p-3">
-                  <h3 class="text-xl">{item.bookInfo.title}</h3>
-                  <div class="flex flex-col gap-3">
-                    <span>
-                      {item.bookInfo.authors[0].firstName}{" "}
-                      {item.bookInfo.authors[0].lastName}
-                    </span>
-                    <span>Price: {item.bookInfo.price} kr</span>
+                <>
+                  <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-1 text-everforest-fg p-3">
+                    <h3 class="text-xl">{item.bookInfo.title}</h3>
+                    <div class="flex flex-col gap-3">
+                      <span>
+                        {item.bookInfo.authors[0].firstName}{" "}
+                        {item.bookInfo.authors[0].lastName}
+                      </span>
+                      <span>Price: {item.bookInfo.price} kr</span>
+                    </div>
+                    <div class="flex mx-auto max-w-2/3">
+                      <button
+                        data-book-id={`${item.bookInfo.id}`}
+                        type="button"
+                        onClick={handleOpenModal}
+                        class="bg-white block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
+                      >
+                        Review
+                      </button>
+                    </div>
                   </div>
-                  <div class="flex mx-auto max-w-2/3">
-                    <button
-                      type="button"
-                      onClick={() => setCreateReviewModalOpen(true)}
-                      class="bg-white block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
-                    >
-                      Review
-                    </button>
-                  </div>
-                </div>
+                </>
               )}
             </For>
           </div>
         </section>
+        <ModalCreateNewReview
+          open={createReviewModalOpen()}
+          onClose={() => setCreateReviewModalOpen(false)}
+          loading={loading()}
+          bookId={selectedBook()!}
+          error={error()}
+          createNewReview={createNewReview}
+        />
 
         <div class="hidden lg:flex lg:col-span-2"></div>
       </div>
-
-      <ModalCreateNewReview
-        open={createReviewModalOpen()}
-        onClose={() => setCreateReviewModalOpen(false)}
-        loading={loading()}
-        error={error()}
-        createNewReview={createNewReview}
-      />
     </Show>
   );
 };

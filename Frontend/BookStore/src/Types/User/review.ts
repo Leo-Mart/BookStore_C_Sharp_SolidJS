@@ -9,4 +9,5 @@ export type Review = {
   title: string;
   text: string;
   score: number;
+  bookId: number;
 };

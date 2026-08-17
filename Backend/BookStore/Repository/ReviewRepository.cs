@@ -51,6 +51,7 @@ namespace BookStore.Repository
                     Title = r.Title,
                     Text = r.Text,
                     Score = r.Score,
+                    BookId = r.BookId,
                 })
                 .ToListAsync();
         }

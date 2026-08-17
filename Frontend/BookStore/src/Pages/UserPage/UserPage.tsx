@@ -193,13 +193,15 @@ const UserPage: Component = () => {
             <For each={userInfo()?.reviews.slice(-5)}>
               {(item) => (
                 <div>
-                  <div class="flex justify-between items-center">
-                    <div>{item.title}</div>
-                    <div class="truncate">{item.text}</div>
-                    <div>
-                      <Score score={item.score} />
+                  <A href={`/books/${item.bookId}`}>
+                    <div class="flex justify-between items-center">
+                      <div>{item.title}</div>
+                      <div class="truncate">{item.text}</div>
+                      <div>
+                        <Score score={item.score} />
+                      </div>
                     </div>
-                  </div>
+                  </A>
                   <Divider />
                 </div>
               )}

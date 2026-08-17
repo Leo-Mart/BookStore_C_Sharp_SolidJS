@@ -17,6 +17,7 @@ import { OrderStatus } from "../../Types/User/order";
 import { type UserInfo } from "../../Types/User/userinfo";
 import { Address } from "../../Types/User/address";
 import Divider from "../../Components/Divider";
+import Score from "../../Components/Score";
 
 const UserPage: Component = () => {
   const auth = useAuth();
@@ -57,7 +58,7 @@ const UserPage: Component = () => {
         </div>
         <div class="bg-everforest-bg-2 text-everforest-fg p-2">
           <div>
-            <dl class="columns-1 gap-8 space-y-4 lg:columns-2">
+            <dl class="columns-1 gap-4 lg:columns-2">
               <div>
                 <dt class='inline-block after:mr-2 after:content-[":"]'>
                   Name
@@ -85,7 +86,7 @@ const UserPage: Component = () => {
           >
             <div class="mt-2">
               <span class="text-nowrap underline">Default Address</span>
-              <dl class="columns-1 gap-8 space-y-4 lg:columns-2">
+              <dl class="columns-1 gap-4 space-y-1 lg:columns-2">
                 <div>
                   <dt class='inline-block after:mr-2 after:content-[":"]'>
                     Street
@@ -189,7 +190,20 @@ const UserPage: Component = () => {
             when={userInfo() !== undefined && userInfo()!.reviews.length > 0}
             fallback={<div>No reviews found</div>}
           >
-            <div>A list of the users reviews/reviewed objects</div>
+            <For each={userInfo()?.reviews.slice(-5)}>
+              {(item) => (
+                <div>
+                  <div class="flex justify-between items-center">
+                    <div>{item.title}</div>
+                    <div class="truncate">{item.text}</div>
+                    <div>
+                      <Score score={item.score} />
+                    </div>
+                  </div>
+                  <Divider />
+                </div>
+              )}
+            </For>
           </Show>
         </div>
       </section>

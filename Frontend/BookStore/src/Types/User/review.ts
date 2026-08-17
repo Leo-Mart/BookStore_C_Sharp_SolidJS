@@ -4,3 +4,9 @@ export type ReviewInput = {
   score: number;
   bookId: number;
 };
+
+export type Review = {
+  title: string;
+  text: string;
+  score: number;
+};

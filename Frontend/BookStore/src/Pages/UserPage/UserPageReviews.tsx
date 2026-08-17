@@ -12,7 +12,6 @@ import { OrderItem, OrderStatus } from "../../Types/User/order";
 import ModalCreateNewReview from "../../Components/ModalCreateNewReview";
 import { ReviewInput } from "../../Types/User/review";
 import { useToast } from "../../Context/ToastContext";
-import { reset } from "@formisch/solid";
 
 const UserPageReviews: Component = () => {
   const auth = useAuth();
@@ -64,7 +63,11 @@ const UserPageReviews: Component = () => {
         }),
       );
 
-      setBoughtItems(orderItems);
+      const filterOutAlreadyReviewedBooks = orderItems.filter((oi) =>
+        userReviews()?.reviews.every((r) => oi.bookInfo.id !== r.bookId),
+      );
+
+      setBoughtItems(filterOutAlreadyReviewedBooks);
     }
   });
 
@@ -113,16 +116,21 @@ const UserPageReviews: Component = () => {
     >
       <div class="grid grid-cols-12">
         <div class="hidden lg:flex lg:col-span-2"></div>
-        <section class="col-span-12 lg:col-start-3 lg:col-span-8 flex-col mb-3 mx-2">
-          <h2 class="text-2xl text-everforest-fg">Your purchased items</h2>
-          <p class="text-everforest-fg">
-            Use the button on the item to leave a reviw.
-          </p>
+        <section class="text-everforest-fg col-span-12 lg:col-start-3 lg:col-span-8 flex-col mb-3 mx-2">
+          <h2 class="text-2xl">Your purchased items</h2>
+          <p>Use the button on the item to leave a reviw.</p>
           <div class="flex gap-5">
-            <For each={boughtItems()}>
+            <For
+              each={boughtItems()}
+              fallback={
+                <div>
+                  You've reviewed all the books you've bought. Much appreciated!
+                </div>
+              }
+            >
               {(item, _) => (
                 <>
-                  <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-1 text-everforest-fg p-3">
+                  <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-1 p-3">
                     <h3 class="text-xl">{item.bookInfo.title}</h3>
                     <div class="flex flex-col gap-3">
                       <span>

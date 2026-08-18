@@ -1,6 +1,7 @@
 using BookStore.Extensions;
 using BookStore.Interfaces;
 using BookStore.Models.Addresses;
+using BookStore.Models.Reviews;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -110,7 +111,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("reviews")]
-        public async Task<ActionResult<CustomerDto?>> GetUsersReviews()
+        public async Task<ActionResult<IEnumerable<ReviewInfoDto>?>> GetUsersReviews()
         {
             var userId = User.GetUserId();
             if (userId == null)

@@ -1,15 +1,7 @@
 import { Component } from "solid-js";
 import Modal from "./Modal";
 import { CreateNewReviewModalProps } from "../Types/modal";
-import {
-  createForm,
-  Field,
-  Form,
-  getInput,
-  reset,
-  setInput,
-  SubmitHandler,
-} from "@formisch/solid";
+import { createForm, Field, Form, reset, SubmitHandler } from "@formisch/solid";
 import { CreateReviewSchema } from "../Types/validation-schemas";
 import { ReviewInput } from "../Types/User/review";
 import TextInput from "./Input/TextInput";
@@ -33,7 +25,6 @@ const ModalCreateNewReview: Component<CreateNewReviewModalProps> = (props) => {
     };
     props.createNewReview(newReview);
     reset(newReviewForm);
-    // setInput(newReviewForm, { path: ["text"], input: "" });
     props.onClose();
   };
 

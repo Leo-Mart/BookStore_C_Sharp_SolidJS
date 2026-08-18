@@ -6,6 +6,7 @@ export type ReviewInput = {
 };
 
 export type Review = {
+  id: number;
   title: string;
   text: string;
   score: number;

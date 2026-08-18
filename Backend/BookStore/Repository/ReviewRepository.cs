@@ -48,6 +48,7 @@ namespace BookStore.Repository
                 .Reviews.Where(r => r.AppUserId == userId)
                 .Select(r => new ReviewInfoDto
                 {
+                    Id = r.Id,
                     Title = r.Title,
                     Text = r.Text,
                     Score = r.Score,

@@ -10,8 +10,15 @@ import { useAuth } from "../../Context/AuthContext";
 import { UserInfo } from "../../Types/User/userinfo";
 import { OrderItem, OrderStatus } from "../../Types/User/order";
 import ModalCreateNewReview from "../../Components/ModalCreateNewReview";
-import { ReviewInput } from "../../Types/User/review";
+import { Review, ReviewInput } from "../../Types/User/review";
 import { useToast } from "../../Context/ToastContext";
+import { A } from "@solidjs/router";
+import Score from "../../Components/Score";
+
+type DeleteReviewData = {
+  reviewId: number;
+  bookId: number;
+};
 
 const UserPageReviews: Component = () => {
   const auth = useAuth();
@@ -38,7 +45,7 @@ const UserPageReviews: Component = () => {
   };
 
   const [userOrders] = createResource<UserInfo>(fetchUserOrders);
-  const [userReviews] = createResource<UserInfo>(fetchUserReviews);
+  const [userReviews, { mutate }] = createResource<Review[]>(fetchUserReviews);
   const [boughtItems, setBoughtItems] = createSignal<OrderItem[]>();
   const [selectedBook, setSelectedBook] = createSignal<number>();
   const [createReviewModalOpen, setCreateReviewModalOpen] =
@@ -64,7 +71,7 @@ const UserPageReviews: Component = () => {
       );
 
       const filterOutAlreadyReviewedBooks = orderItems.filter((oi) =>
-        userReviews()?.reviews.every((r) => oi.bookInfo.id !== r.bookId),
+        userReviews()?.every((r) => oi.bookInfo.id !== r.bookId),
       );
 
       setBoughtItems(filterOutAlreadyReviewedBooks);
@@ -96,14 +103,40 @@ const UserPageReviews: Component = () => {
       if (!resp.ok) {
         throw Error(await resp.text());
       }
-      return resp.json();
+      const createdReview: Review = await resp.json();
+      mutate((prev = []) => [...prev, createdReview]);
+
+      setBoughtItems(
+        boughtItems()?.filter((oi) => oi.bookInfo.id === createdReview.bookId),
+      );
+      setLoading(false);
+      toast.add("You successfully left a review!", { type: "success" });
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "Something went wrong.",
       );
-    } finally {
-      setLoading(false);
-      toast.add("You successfully left a review!", { type: "success" });
+    }
+  };
+
+  const handleDeleteReview = async (data: DeleteReviewData, e: Event) => {
+    mutate((prev) => prev?.filter((r) => r.id !== data.reviewId));
+
+    try {
+      const resp = await fetch(
+        `/api/books/${data.bookId}/reviews/${data.reviewId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${auth.token()}`,
+          },
+        },
+      );
+      if (!resp.ok) throw new Error("Delete Failed");
+      toast.add("Wishlist deleted!", { type: "success" });
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
     }
   };
 
@@ -118,7 +151,7 @@ const UserPageReviews: Component = () => {
         <div class="hidden lg:flex lg:col-span-2"></div>
         <section class="text-everforest-fg col-span-12 lg:col-start-3 lg:col-span-8 flex-col mb-3 mx-2">
           <h2 class="text-2xl">Your purchased items</h2>
-          <p>Use the button on the item to leave a reviw.</p>
+          <p>Use the button on the item to leave a review.</p>
           <div class="flex gap-5">
             <For
               each={boughtItems()}
@@ -130,7 +163,7 @@ const UserPageReviews: Component = () => {
             >
               {(item, _) => (
                 <>
-                  <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-1 p-3">
+                  <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-2 p-3">
                     <h3 class="text-xl">{item.bookInfo.title}</h3>
                     <div class="flex flex-col gap-3">
                       <span>
@@ -147,6 +180,45 @@ const UserPageReviews: Component = () => {
                         class="bg-white block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer"
                       >
                         Review
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </For>
+          </div>
+        </section>
+        <section class="text-everforest-fg col-span-12 lg:col-start-3 lg:col-span-8 mb-2 mx-2">
+          <h2 class="text-2xl">Your reviews</h2>
+          <div class="flex flex-wrap gap-5">
+            <For
+              each={userReviews()}
+              fallback={
+                <div>
+                  You have no reviews, leave some on the purchased items above!
+                </div>
+              }
+            >
+              {(item, _) => (
+                <>
+                  <div class="flex flex-col justify-between h-44 w-1/6 border border-everforest-aqua/50 bg-everforest-bg-2 p-3">
+                    <A class="hover:underline" href={`/books/${item.bookId}`}>
+                      <h3 class="text-xl">{item.title}</h3>
+                      <div class="flex flex-col gap-3">
+                        <p class="truncate">{item.text}</p>
+                        <Score score={item.score} />
+                      </div>
+                    </A>
+                    <div class="flex mx-auto max-w-2/3">
+                      <button
+                        type="button"
+                        onClick={[
+                          handleDeleteReview,
+                          { reviewId: item.id, bookId: item.bookId },
+                        ]}
+                        class="bg-white block mt-4 w-full rounded-md p-2 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-red dark:hover:bg-everforest-orange hover:cursor-pointer"
+                      >
+                        Delete Review
                       </button>
                     </div>
                   </div>

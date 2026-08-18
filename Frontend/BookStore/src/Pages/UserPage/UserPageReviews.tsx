@@ -55,7 +55,12 @@ const UserPageReviews: Component = () => {
   const [error, setError] = createSignal<string | null>(null);
 
   createEffect(() => {
-    if (!userOrders.loading && !userOrders.error) {
+    if (
+      !userOrders.loading &&
+      !userOrders.error &&
+      !userReviews.loading &&
+      !userReviews.error
+    ) {
       const completedOrders = userOrders()?.orders.filter(
         (o) =>
           o.orderStatus === OrderStatus["Delivered"] ||
@@ -106,9 +111,6 @@ const UserPageReviews: Component = () => {
       const createdReview: Review = await resp.json();
       mutate((prev = []) => [...prev, createdReview]);
 
-      setBoughtItems(
-        boughtItems()?.filter((oi) => oi.bookInfo.id === createdReview.bookId),
-      );
       setLoading(false);
       toast.add("You successfully left a review!", { type: "success" });
     } catch (error) {
@@ -152,7 +154,7 @@ const UserPageReviews: Component = () => {
         <section class="text-everforest-fg col-span-12 lg:col-start-3 lg:col-span-8 flex-col mb-3 mx-2">
           <h2 class="text-2xl">Your purchased items</h2>
           <p>Use the button on the item to leave a review.</p>
-          <div class="flex gap-5">
+          <div class="flex flex-col lg:flex-row gap-1 lg:gap-5">
             <For
               each={boughtItems()}
               fallback={
@@ -163,7 +165,7 @@ const UserPageReviews: Component = () => {
             >
               {(item, _) => (
                 <>
-                  <div class="flex flex-col justify-between size-60 border border-everforest-aqua/50 bg-everforest-bg-2 p-3">
+                  <div class="flex flex-col justify-between w-full lg:size-60 border border-everforest-aqua/50 bg-everforest-bg-2 p-3">
                     <h3 class="text-xl">{item.bookInfo.title}</h3>
                     <div class="flex flex-col gap-3">
                       <span>
@@ -190,7 +192,7 @@ const UserPageReviews: Component = () => {
         </section>
         <section class="text-everforest-fg col-span-12 lg:col-start-3 lg:col-span-8 mb-2 mx-2">
           <h2 class="text-2xl">Your reviews</h2>
-          <div class="flex flex-wrap gap-5">
+          <div class="flex flex-col lg:flex-row flex-wrap gap-5">
             <For
               each={userReviews()}
               fallback={
@@ -201,7 +203,7 @@ const UserPageReviews: Component = () => {
             >
               {(item, _) => (
                 <>
-                  <div class="flex flex-col justify-between h-44 w-1/6 border border-everforest-aqua/50 bg-everforest-bg-2 p-3">
+                  <div class="flex flex-col justify-between h-44 w-full lg:w-1/6 border border-everforest-aqua/50 bg-everforest-bg-2 p-3">
                     <A class="hover:underline" href={`/books/${item.bookId}`}>
                       <h3 class="text-xl">{item.title}</h3>
                       <div class="flex flex-col gap-3">

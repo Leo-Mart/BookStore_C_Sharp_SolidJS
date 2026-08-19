@@ -1,4 +1,5 @@
 using BookStore.DbContexts;
+using BookStore.Exceptions;
 using BookStore.Interfaces;
 using BookStore.Mappers;
 using BookStore.Models.Addresses;
@@ -42,7 +43,7 @@ namespace BookStore.Services
 
                 if (user == null)
                 {
-                    return null;
+                    throw new UnAuthorizedRequestException("Unauthorized", 401);
                 }
                 // check if the user has any addresses
                 var addressesExist = await _addressRepo.CheckIfUserHasAddresses(user.Id);
@@ -145,8 +146,7 @@ namespace BookStore.Services
                 var orderToSave = order.ToOrderFromCreateDto();
                 if (savedAddress == null)
                 {
-                    // something went wrong, throw a 500
-                    return null;
+                    throw new Exception("Could not create order");
                 }
                 orderToSave.AddressId = savedAddress.Id;
                 orderToSave.AppUserId = user.Id;

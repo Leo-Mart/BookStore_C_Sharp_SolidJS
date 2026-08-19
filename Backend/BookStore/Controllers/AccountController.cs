@@ -34,7 +34,11 @@ namespace BookStore.Controllers
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
                 return Unauthorized(
-                    new ErrorResponse { Message = "Username not found and/or password incorrect." }
+                    new ErrorResponse
+                    {
+                        Message = "Username not found and/or password incorrect.",
+                        StatusCode = 401,
+                    }
                 );
 
             var result = await _signIngManager.CheckPasswordSignInAsync(
@@ -45,7 +49,11 @@ namespace BookStore.Controllers
 
             if (!result.Succeeded)
                 return Unauthorized(
-                    new ErrorResponse { Message = "Username not found and/or password incorrect." }
+                    new ErrorResponse
+                    {
+                        Message = "Username not found and/or password incorrect.",
+                        StatusCode = 401,
+                    }
                 );
 
             var refreshToken = _tokenService.CreateRefreshToken();
@@ -73,7 +81,9 @@ namespace BookStore.Controllers
             );
             if (newRefreshToken == null)
             {
-                return Unauthorized(new ErrorResponse { Message = "Refresh token not valid." });
+                return Unauthorized(
+                    new ErrorResponse { Message = "Refresh token not valid.", StatusCode = 401 }
+                );
             }
 
             return Ok(
@@ -164,7 +174,7 @@ namespace BookStore.Controllers
                     {
                         return StatusCode(
                             400,
-                            new ErrorResponse { Message = "That Email is already taken" }
+                            new ErrorResponse { Message = "That Email is already in use." }
                         );
                     }
                     return StatusCode(500, createdUser.Errors);

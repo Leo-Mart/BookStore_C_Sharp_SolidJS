@@ -156,5 +156,103 @@ namespace BookStore.Services
 
             return foundReviews;
         }
+
+        public async Task<bool> ChangeUserPassword(
+            string userId,
+            string oldPassword,
+            string newPassword
+        )
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new UnAuthorizedRequestException("Unauthorized", 401);
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            return result.Succeeded;
+        }
+
+        public async Task<bool> GeneratePasswordResetTokenForUser(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                throw new UnAuthorizedRequestException("Unauthorized", 401);
+            }
+
+            if (user != null)
+            {
+                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+                // send an email with the token to the users address, (take the one from the found user object)
+                // return nocontent in either case, don't want to expose wether the user was found or not.
+                return true;
+            }
+
+            return false;
+            // return nocontent in either case, don't want to expose wether the user was found or not.
+        }
+
+        public async Task<bool> ResetUserPassword(
+            string email,
+            string passwordResetToken,
+            string newPassword
+        )
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                throw new UnAuthorizedRequestException("Unauthorized", 401);
+            }
+            var result = _userManager.ResetPasswordAsync(user, passwordResetToken, newPassword);
+
+            if (!result.IsCompletedSuccessfully)
+            {
+                return false;
+            }
+
+            return result.IsCompletedSuccessfully;
+        }
+
+        public async Task<bool> GenerateEmailConfirmationTokenForUser(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                throw new UnAuthorizedRequestException("Unauthorized", 401);
+            }
+
+            if (user != null)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                // send the confirmation email to the found user with the token
+                return false;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> ConfirmUserEmail(string email, string emailConfirmationToken)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                throw new UnAuthorizedRequestException("Unauthorized", 401);
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, emailConfirmationToken);
+
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            return result.Succeeded;
+        }
     }
 }

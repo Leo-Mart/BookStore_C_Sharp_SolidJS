@@ -1,5 +1,6 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
+using BookStore.Middleware;
 using BookStore.Models.Users;
 using BookStore.Repository;
 using BookStore.Services;
@@ -109,6 +110,8 @@ builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 builder.Services.AddScoped<IShippingMethodRepository, ShippingMethodRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
+builder.Services.AddTransient<ErrorMiddleware>();
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFindServce, FindServce>();
 builder.Services.AddScoped<IOrderService, OrderService>();
@@ -117,6 +120,7 @@ builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
+app.UseMiddleware<ErrorMiddleware>();
 
 if (!app.Environment.IsDevelopment())
 {

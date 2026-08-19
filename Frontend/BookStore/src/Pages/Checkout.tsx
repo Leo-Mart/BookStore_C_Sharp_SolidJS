@@ -27,7 +27,6 @@ import {
   Field,
   Form,
   getInput,
-  reset,
   setInput,
   SubmitHandler,
 } from "@formisch/solid";

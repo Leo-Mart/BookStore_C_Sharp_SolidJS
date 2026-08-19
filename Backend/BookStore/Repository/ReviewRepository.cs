@@ -9,9 +9,17 @@ namespace BookStore.Repository
     {
         private readonly ApplicationDbContext _context = context;
 
+        public async Task<bool> CheckIfUserAlreadyReviewed(int bookId, string userId)
+        {
+            return await _context.Reviews.AnyAsync(r =>
+                r.BookId == bookId && r.AppUserId == userId
+            );
+        }
+
         public async Task<Review> CreateReviewAsync(Review review)
         {
             review.CreatedAt = DateTime.UtcNow;
+            review.UpdatedAt = DateTime.UtcNow;
             await _context.Reviews.AddAsync(review);
             await _context.SaveChangesAsync();
             return review;
@@ -19,7 +27,9 @@ namespace BookStore.Repository
 
         public async Task<Review?> DeleteReviewAsync(int reviewId)
         {
-            var foundReview = await _context.Reviews.Where(r => r.Id == reviewId).FirstOrDefaultAsync();
+            var foundReview = await _context
+                .Reviews.Where(r => r.Id == reviewId)
+                .FirstOrDefaultAsync();
 
             if (foundReview == null)
             {
@@ -33,28 +43,34 @@ namespace BookStore.Repository
 
         public async Task<Review?> GetReviewForBookAsync(int bookId, int reviewId)
         {
-            return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.BookId == bookId && r.Id == reviewId).FirstOrDefaultAsync();
+            return await _context
+                .Reviews.Include(r => r.Reviewer)
+                .Where(r => r.BookId == bookId && r.Id == reviewId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<ICollection<ReviewInfoDto>?> GetReviewsForUserByIdAsync(string userId)
         {
-            return await _context.Reviews
-                .Where(r => r.AppUserId == userId)
+            return await _context
+                .Reviews.Where(r => r.AppUserId == userId)
                 .Select(r => new ReviewInfoDto
                 {
+                    Id = r.Id,
                     Title = r.Title,
                     Text = r.Text,
-                    Score = r.Score
-
-                }).ToListAsync();
+                    Score = r.Score,
+                    BookId = r.BookId,
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Review>> GetReviewsForBookAsync(int bookId)
         {
-            return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.BookId == bookId).ToListAsync();
+            return await _context
+                .Reviews.Include(r => r.Reviewer)
+                .Where(r => r.BookId == bookId)
+                .ToListAsync();
         }
-
-
 
         public async Task<Review?> UpdateReviewAsync(int reviewId, UpdateReviewDto updateDto)
         {

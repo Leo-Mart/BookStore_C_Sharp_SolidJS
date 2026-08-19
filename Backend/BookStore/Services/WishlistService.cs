@@ -1,4 +1,3 @@
-using BookStore.DbContexts;
 using BookStore.Interfaces;
 using BookStore.Mappers;
 using BookStore.Models.Users;
@@ -7,15 +6,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BookStore.Services
 {
-    public class WishlistService(
-        UserManager<AppUser> userManager,
-        IWishlistRepository wishlistRepo,
-        ApplicationDbContext context
-    ) : IWishlistService
+    public class WishlistService(UserManager<AppUser> userManager, IWishlistRepository wishlistRepo)
+        : IWishlistService
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly IWishlistRepository _wishListRepo = wishlistRepo;
-        private readonly ApplicationDbContext _context = context;
 
         public async Task<WishlistItemInfoDto?> AddNewItemToWishlist(
             int wishlistId,
@@ -102,4 +97,3 @@ namespace BookStore.Services
         }
     }
 }
-

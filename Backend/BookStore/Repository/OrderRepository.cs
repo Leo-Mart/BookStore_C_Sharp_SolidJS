@@ -56,6 +56,7 @@ namespace BookStore.Repository
                             Quantity = oi.Quantity,
                             BookInfo = new BookItemInfoDto
                             {
+                                Id = oi.Book.Id,
                                 Isbn = oi.Book.Isbn,
                                 Title = oi.Book.Title,
                                 PublishedDate = oi.Book.PublishedDate,

@@ -1,6 +1,7 @@
 using BookStore.DbContexts;
 using BookStore.Interfaces;
 using BookStore.Models.Addresses;
+using BookStore.Models.Reviews;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Identity;
 
@@ -136,6 +137,23 @@ namespace BookStore.Services
             var response = new CustomerDto { Wishlists = foundWishlists };
 
             return response;
+        }
+
+        public async Task<IEnumerable<ReviewInfoDto>?> GetCustomerReviews(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var foundReviews = await _reviewRepo.GetReviewsForUserByIdAsync(userId);
+            if (foundReviews == null)
+            {
+                return null;
+            }
+
+            return foundReviews;
         }
     }
 }

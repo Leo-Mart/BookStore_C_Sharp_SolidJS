@@ -1,5 +1,5 @@
 import { FieldElementProps } from "@formisch/solid";
-import { Component, JSX, splitProps } from "solid-js";
+import { Component, splitProps } from "solid-js";
 
 interface TextInputProps extends FieldElementProps {
   type: "text" | "email" | "tel" | "password";

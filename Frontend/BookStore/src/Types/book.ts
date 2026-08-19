@@ -42,6 +42,7 @@ export type Inventory = {
 };
 
 export type BasicBookInfo = {
+  id: number;
   isbn: string;
   title: string;
   description?: string;

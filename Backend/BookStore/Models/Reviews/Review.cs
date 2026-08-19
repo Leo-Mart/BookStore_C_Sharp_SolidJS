@@ -11,7 +11,7 @@ namespace BookStore.Models.Reviews
         public string Text { get; set; } = string.Empty;
         public int Score { get; set; }
         public int BookId { get; set; }
-        public string AppUserId { get; set; }
-        public AppUser Reviewer {get; set;} = null!;
+        public string AppUserId { get; set; } = string.Empty;
+        public AppUser Reviewer { get; set; } = null!;
     }
 }

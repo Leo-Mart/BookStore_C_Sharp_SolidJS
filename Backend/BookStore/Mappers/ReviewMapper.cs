@@ -12,7 +12,9 @@ namespace BookStore.Mappers
                 Title = reviewModel.Title,
                 Text = reviewModel.Text,
                 Score = reviewModel.Score,
-                Reviewer = reviewModel.Reviewer.ToReviewUserInfoFromAppUser()
+                BookId = reviewModel.BookId,
+                AppUserId = reviewModel.AppUserId,
+                Reviewer = reviewModel.Reviewer.ToReviewUserInfoFromAppUser(),
             };
         }
 
@@ -24,9 +26,7 @@ namespace BookStore.Mappers
                 Text = reviewDto.Text,
                 Score = reviewDto.Score,
                 BookId = reviewDto.BookId,
-                AppUserId = reviewDto.AppUserId
             };
         }
-
     }
 }

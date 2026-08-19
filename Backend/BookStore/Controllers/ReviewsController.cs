@@ -1,5 +1,5 @@
+using BookStore.Extensions;
 using BookStore.Interfaces;
-using BookStore.Mappers;
 using BookStore.Models.Reviews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,32 +9,21 @@ namespace BookStore.Controllers
     [ApiController]
     [Authorize]
     [Route("api/books/{bookId}/reviews")]
-    public class ReviewsController(ILogger<ReviewsController> logger, IReviewRepository reviewRepository, IBookRepository bookRepository) : ControllerBase
+    public class ReviewsController(ILogger<ReviewsController> logger, IReviewService reviewService)
+        : ControllerBase
     {
-
-        private readonly ILogger<ReviewsController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        private readonly IReviewRepository _reviewRepo = reviewRepository;
-
-        private readonly IBookRepository _bookRepo = bookRepository;
+        private readonly ILogger<ReviewsController> _logger =
+            logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly IReviewService _reviewService = reviewService;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews(int bookId)
         {
-            if (!await _bookRepo.BookExistsAsync(bookId))
+            var reviewsForBookDto = await _reviewService.GetAllReviewsForBook(bookId);
+            if (reviewsForBookDto == null)
             {
-                _logger.LogInformation($"Book with ID: {bookId} was not found.");
                 return NotFound();
             }
-
-            var reviewsForBook = await _reviewRepo.GetReviewsForBookAsync(bookId);
-
-            if (reviewsForBook == null)
-            {
-                _logger.LogInformation($"Book with {bookId} was not found.");
-                return NotFound();
-            }
-
-            var reviewsForBookDto = reviewsForBook.Select(b => b.ToReviewDto());
 
             return Ok(reviewsForBookDto);
         }
@@ -42,69 +31,62 @@ namespace BookStore.Controllers
         [HttpGet("{reviewId}", Name = "GetReview")]
         public async Task<ActionResult<ReviewDto>> GetReview(int bookId, int reviewId)
         {
-
-            if (!await _bookRepo.BookExistsAsync(bookId))
-            {
-                _logger.LogInformation($"Book with ID: {bookId} was not found.");
-                return NotFound();
-            }
-            var reviewForBook = await _reviewRepo.GetReviewForBookAsync(bookId, reviewId);
-
+            var reviewForBook = await _reviewService.GetOneReviewForBook(bookId, reviewId);
             if (reviewForBook == null)
             {
                 return NotFound();
             }
 
-            return Ok(reviewForBook.ToReviewDto());
+            return Ok(reviewForBook);
         }
 
         [HttpPost]
         public async Task<ActionResult<ReviewDto>> CreateReview(int bookId, CreateReviewDto review)
         {
-
-            if (!await _bookRepo.BookExistsAsync(bookId))
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            var reviewToSave = review.ToReviewFromCreateDto();
-            var savedReview = await _reviewRepo.CreateReviewAsync(reviewToSave);
-
-            return CreatedAtAction("GetReview",
-            new
+            var userId = User.GetUserId();
+            if (userId == null)
             {
-                bookId = reviewToSave.BookId,
-                reviewId = reviewToSave.Id
-            },
-            savedReview.ToReviewDto());
+                return Unauthorized();
+            }
+
+            var savedReview = await _reviewService.CreateNewReviewForBook(bookId, userId, review);
+            if (savedReview == null)
+            {
+                return BadRequest();
+            }
+
+            return CreatedAtAction(
+                "GetReview",
+                new { bookId = savedReview.BookId, reviewId = savedReview.Id },
+                savedReview
+            );
         }
 
         [HttpPut("{reviewId}")]
-        public async Task<ActionResult> UpdateReview(int bookId, int reviewId, UpdateReviewDto review)
+        public async Task<ActionResult> UpdateReview(
+            int bookId,
+            int reviewId,
+            UpdateReviewDto review
+        )
         {
-            if (!await _bookRepo.BookExistsAsync(bookId))
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
-
-            var updatedReview = await _reviewRepo.UpdateReviewAsync(reviewId, review);
+            var updatedReview = await _reviewService.UpdateReview(bookId, reviewId, review);
 
             return Ok(updatedReview);
-
         }
-
-        //TODO: possibly a patch endpoint
 
         [HttpDelete("{reviewId}")]
         public async Task<ActionResult> DeleteReview(int bookId, int reviewId)
         {
-            if (!await _bookRepo.BookExistsAsync(bookId))
-            {
-                return NotFound();
-            }
-
-            var deletedReview = await _reviewRepo.DeleteReviewAsync(reviewId);
-
+            var deletedReview = await _reviewService.DeleteReview(bookId, reviewId);
             if (deletedReview == null)
             {
                 return NotFound();

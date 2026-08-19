@@ -8,8 +8,8 @@ namespace BookStore.Models.Reviews
         public string Title { get; set; } = string.Empty;
         public string Text { get; set; } = string.Empty;
         public int Score { get; set; }
-        public string AppUserId { get; set; }
-        public ReviewUserInfoDto Reviewer {get;set;} = null!;
-
+        public int BookId { get; set; }
+        public string AppUserId { get; set; } = String.Empty;
+        public ReviewUserInfoDto Reviewer { get; set; } = null!;
     }
 }

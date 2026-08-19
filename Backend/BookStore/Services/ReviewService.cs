@@ -24,6 +24,13 @@ namespace BookStore.Services
             CreateReviewDto newReview
         )
         {
+            var reviewExistsByUser = await _reviewRepo.CheckIfUserAlreadyReviewed(bookId, userId);
+            if (reviewExistsByUser)
+            {
+                // TODO: return a better error.
+                _logger.LogInformation("USER HAS ALREADY REVIEWED THIS BOOK");
+                return null;
+            }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {

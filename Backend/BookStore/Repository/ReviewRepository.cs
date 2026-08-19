@@ -9,6 +9,13 @@ namespace BookStore.Repository
     {
         private readonly ApplicationDbContext _context = context;
 
+        public async Task<bool> CheckIfUserAlreadyReviewed(int bookId, string userId)
+        {
+            return await _context.Reviews.AnyAsync(r =>
+                r.BookId == bookId && r.AppUserId == userId
+            );
+        }
+
         public async Task<Review> CreateReviewAsync(Review review)
         {
             review.CreatedAt = DateTime.UtcNow;

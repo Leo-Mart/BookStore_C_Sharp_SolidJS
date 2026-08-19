@@ -57,7 +57,7 @@ namespace BookStore.Controllers
             var savedReview = await _reviewService.CreateNewReviewForBook(bookId, userId, review);
             if (savedReview == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return CreatedAtAction(

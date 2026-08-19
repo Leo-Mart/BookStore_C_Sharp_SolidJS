@@ -28,7 +28,7 @@ namespace BookStore.Controllers
 
             if (customerInfo == null)
             {
-                return BadRequest(); // TODO: update to custom error?
+                return BadRequest();
             }
 
             return customerInfo;

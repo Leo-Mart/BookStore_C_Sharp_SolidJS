@@ -1,3 +1,4 @@
+using BookStore.Exceptions;
 using BookStore.Interfaces;
 using BookStore.Mappers;
 using BookStore.Models.Reviews;
@@ -27,14 +28,12 @@ namespace BookStore.Services
             var reviewExistsByUser = await _reviewRepo.CheckIfUserAlreadyReviewed(bookId, userId);
             if (reviewExistsByUser)
             {
-                // TODO: return a better error.
-                _logger.LogInformation("USER HAS ALREADY REVIEWED THIS BOOK");
-                return null;
+                throw new BadHttpRequestException("User has already reviewed this book.", 400);
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return null;
+                throw new UnAuthorizedRequestException("Unathorized", 401);
             }
 
             if (!await _bookRepo.BookExistsAsync(bookId))

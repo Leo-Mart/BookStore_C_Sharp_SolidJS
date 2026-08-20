@@ -3,6 +3,7 @@ import { Component, splitProps } from "solid-js";
 
 interface TextInputProps extends FieldElementProps {
   type: "text" | "email" | "tel" | "password";
+  class?: string;
   label?: string;
   placeholder?: string;
   input: string | undefined;
@@ -11,10 +12,15 @@ interface TextInputProps extends FieldElementProps {
 }
 
 const TextInput: Component<TextInputProps> = (props) => {
-  const [, inputProps] = splitProps(props, ["input", "label", "errors"]);
+  const [, inputProps] = splitProps(props, [
+    "class",
+    "input",
+    "label",
+    "errors",
+  ]);
 
   return (
-    <div>
+    <div class={props.class}>
       <label
         for={props.name}
         class="block mb-3 overflow-hidden px-3 py-2 shadow-sm focus-within:border-everforest-aqua focus-within:ring-1 dark:bg-everforest-bg-3"

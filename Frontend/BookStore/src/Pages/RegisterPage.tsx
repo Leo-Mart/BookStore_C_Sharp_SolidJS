@@ -1,7 +1,6 @@
 import { Component, createSignal } from "solid-js";
 import { useAuth } from "../Context/AuthContext";
 import { useLocation, useNavigate } from "@solidjs/router";
-import { type RegisterForm } from "../Types/auth";
 import TextInput from "../Components/Input/TextInput";
 import { ErrorResponse } from "../Types/error";
 import { createForm, Field, Form, SubmitHandler } from "@formisch/solid";

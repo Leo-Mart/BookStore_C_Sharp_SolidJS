@@ -168,7 +168,7 @@ namespace BookStore.Services
 
             if (!result.Succeeded)
             {
-                return false;
+                throw new UserRegistrationException("Error resetting password", result.Errors, 500);
             }
 
             return result.Succeeded;

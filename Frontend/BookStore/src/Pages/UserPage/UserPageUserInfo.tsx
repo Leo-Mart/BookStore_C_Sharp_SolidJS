@@ -1,10 +1,4 @@
-import {
-  createForm,
-  Field,
-  Form,
-  replace,
-  SubmitHandler,
-} from "@formisch/solid";
+import { createForm, Field, Form, SubmitHandler } from "@formisch/solid";
 import { Component, createSignal } from "solid-js";
 import { ChangePasswordSchema } from "../../Types/validation-schemas";
 import TextInput from "../../Components/Input/TextInput";
@@ -25,7 +19,10 @@ const UserPageUserInfo: Component = () => {
     try {
       const resp = await fetch("/api/account/change-password", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.token()}`,
+        },
         body: JSON.stringify({
           oldPassword: values.oldPassword,
           newPassword: values.newPassword,

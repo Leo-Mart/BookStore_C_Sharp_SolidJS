@@ -1,3 +1,4 @@
+using BookStore.Extensions;
 using BookStore.Interfaces;
 using BookStore.Models.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -43,7 +44,22 @@ namespace BookStore.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePWDto)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.GetUserId();
+            if (userId == null)
+                return Unauthorized();
+
+            await _accountService.ChangeUserPassword(
+                userId,
+                changePWDto.OldPassword,
+                changePWDto.NewPassword
+            );
+
+            return Ok();
         }
 
         [HttpPost("register")]

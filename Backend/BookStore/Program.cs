@@ -112,6 +112,7 @@ builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 builder.Services.AddTransient<ErrorMiddleware>();
 
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFindServce, FindServce>();
 builder.Services.AddScoped<IOrderService, OrderService>();

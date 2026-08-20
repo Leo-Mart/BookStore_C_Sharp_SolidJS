@@ -33,7 +33,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unathorized", 401);
+                throw new UnauthorizedRequestException("Unathorized", 401);
             }
 
             if (!await _bookRepo.BookExistsAsync(bookId))

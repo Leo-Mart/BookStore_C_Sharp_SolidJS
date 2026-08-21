@@ -14,7 +14,7 @@ namespace BookStore.Services
         ApplicationDbContext context,
         ITokenService tokenService,
         IRefreshTokenRepository refreshTokenRepo,
-        IEmailService mailService
+        IEmailSender<AppUser> mailService
     ) : IAccountService
     {
         private readonly UserManager<AppUser> _userManager = userManager;
@@ -23,7 +23,7 @@ namespace BookStore.Services
         private readonly ITokenService _tokenService = tokenService;
         private readonly IRefreshTokenRepository _refreshTokenRepo = refreshTokenRepo;
         private readonly ApplicationDbContext _context = context;
-        private readonly IEmailService _mailService = mailService;
+        private readonly IEmailSender<AppUser> _mailService = mailService;
 
         public async Task<AuthResponse> LoginUser(LoginDto loginDto)
         {
@@ -230,7 +230,8 @@ namespace BookStore.Services
             if (user != null)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                await _mailService.SendConfirmationEmailToUser(token, user.FirstName, user.Email);
+                var confirmUrl = $"https://localhost:3000/register/confirm/{token}";
+                await _mailService.SendConfirmationLinkAsync(user, user.Email, confirmUrl);
                 return false;
             }
 

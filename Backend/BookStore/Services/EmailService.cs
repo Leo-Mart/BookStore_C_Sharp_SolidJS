@@ -1,40 +1,49 @@
-using BookStore.Interfaces;
+using BookStore.Models.Users;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Identity;
 using MimeKit;
-using MimeKit.Text;
 
 namespace BookStore.Services
 {
-    public class EmailService(ILogger<EmailService> logger) : IEmailService
+    public class EmailService(ILogger<EmailService> logger) : IEmailSender<AppUser>
     {
         private readonly ILogger<EmailService> _logger = logger;
 
-        public async Task SendConfirmationEmailToUser(
-            string confirmationToken,
-            string userName,
-            string userEmail
+        public async Task SendConfirmationLinkAsync(
+            AppUser user,
+            string email,
+            string confirmationLink
         )
         {
-            var confirmUrl = $"https://localhost:3000/register/confirm?={confirmationToken}";
-
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("BookStore", "noreply@bookstore.com"));
-            message.To.Add(new MailboxAddress(userName, userEmail));
+            message.To.Add(new MailboxAddress(user.FirstName, email));
 
             message.Subject = "Confirm your email address!";
 
-            message.Body = new TextPart(TextFormat.Plain)
-            {
-                Text = """
-                    Hello {userName}
+            var bb = new BodyBuilder();
 
-                    Please click the provided link to confirm your email address, once done you can log in and start using BookStore!
+            bb.TextBody = $"""
+                Hello {user.FirstName}
 
-                    Confirm Email: {confirmUrl}
+                Please click the provided link to confirm your email address, once done you can log in and start using BookStore!
 
-                    BookStore
-                    """,
-            };
+                Confirm Email: {confirmationLink}
+
+                BookStore
+                """;
+
+            bb.HtmlBody = $"""
+                <h2>Hello {user.FirstName}<h2>
+
+                Please click the provided link to confirm your email address, once done you can log in and start using BookStore!
+
+                Confirm Email: <a href="{confirmationLink}">here</a>
+
+                BookStore
+                """;
+
+            message.Body = bb.ToMessageBody();
 
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync("localhost", 1025);
@@ -42,11 +51,12 @@ namespace BookStore.Services
             await smtp.DisconnectAsync(true);
         }
 
-        public Task SendResetPasswordEmailToUser(
-            string resetToken,
-            string userName,
-            string userEmail
-        )
+        public Task SendPasswordResetCodeAsync(AppUser user, string email, string resetCode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendPasswordResetLinkAsync(AppUser user, string email, string resetLink)
         {
             throw new NotImplementedException();
         }

@@ -65,6 +65,48 @@ export const LoginFormSchema = v.object({
   ),
 });
 
+export const RequestResetPasswordSchema = v.object({
+  email: v.pipe(
+    v.string(),
+    v.trim(),
+    v.nonEmpty("Please enter an email."),
+    v.email("Please enter a valid email address."),
+  ),
+});
+
+export const NewPasswordSchema = v.pipe(
+  v.object({
+    newPassword: v.pipe(
+      v.string(),
+      v.trim(),
+      v.nonEmpty("Please enter a new password"),
+      v.minLength(12, "Your password must be at least 12 characters"),
+      v.regex(
+        /[A-Z]/,
+        "Your password must contain at least one uppercase letter.",
+      ),
+      v.regex(
+        /[a-z]/,
+        "Your password must contain at least one lowercase letter.",
+      ),
+      v.regex(/[0-9]/, "Your password must contain at least one number."),
+      v.regex(
+        /[.*:]/,
+        "Your password must contain at least one non alphanumeric symbol.",
+      ),
+    ),
+    confirmNewPassword: v.string(),
+  }),
+  v.forward(
+    v.partialCheck(
+      [["newPassword"], ["confirmNewPassword"]],
+      (input) => input.newPassword === input.confirmNewPassword,
+      "Passwords do not match",
+    ),
+    ["confirmNewPassword"],
+  ),
+);
+
 export const ChangePasswordSchema = v.pipe(
   v.object({
     oldPassword: v.pipe(

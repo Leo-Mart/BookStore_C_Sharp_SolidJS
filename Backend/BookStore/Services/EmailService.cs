@@ -56,9 +56,43 @@ namespace BookStore.Services
             throw new NotImplementedException();
         }
 
-        public Task SendPasswordResetLinkAsync(AppUser user, string email, string resetLink)
+        public async Task SendPasswordResetLinkAsync(AppUser user, string email, string resetLink)
         {
-            throw new NotImplementedException();
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("BookStore", "noreply@bookstore.com"));
+            message.To.Add(new MailboxAddress(user.FirstName, email));
+
+            message.Subject = "Password reset for account at Bookstore.com";
+
+            var bb = new BodyBuilder();
+
+            bb.TextBody = $"""
+                Hello {user.FirstName}
+
+                A password reset request has been sent for this email. If this wasn't you, changing your passwords might be wise.
+                If this was intended, use the link below to reset your password, and make a new one.
+
+                Reset link: {resetLink}
+
+                BookStore
+                """;
+
+            bb.HtmlBody = $"""
+                <h2>Hello {user.FirstName}<h2>
+                A password reset request has been sent for this email. If this wasn't you, changing your passwords might be wise.
+                If this was intended, use the link below to reset your password, and make a new one.
+
+                Reset link: <a href="{resetLink}"here</a>
+
+                BookStore
+                """;
+
+            message.Body = bb.ToMessageBody();
+
+            using var smtp = new SmtpClient();
+            await smtp.ConnectAsync("localhost", 1025);
+            await smtp.SendAsync(message);
+            await smtp.DisconnectAsync(true);
         }
     }
 }

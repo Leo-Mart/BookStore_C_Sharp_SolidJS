@@ -149,11 +149,7 @@ namespace BookStore.Services
             }
         }
 
-        public async Task<bool> ChangeUserPassword(
-            string userId,
-            string oldPassword,
-            string newPassword
-        )
+        public async Task ChangeUserPassword(string userId, string oldPassword, string newPassword)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -168,30 +164,33 @@ namespace BookStore.Services
                 throw new UserRegistrationException("Error resetting password", result.Errors, 500);
             }
 
-            return result.Succeeded;
+            return;
         }
 
-        public async Task<bool> GeneratePasswordResetTokenForUser(string email)
+        public async Task GeneratePasswordResetTokenForUser(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                throw new UnauthorizedRequestException("Unauthorized", 401);
+                return;
             }
 
             if (user != null)
             {
                 var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                // send an email with the token to the users address, (take the one from the found user object)
-                // return nocontent in either case, don't want to expose wether the user was found or not.
-                return true;
+                var encodedToken = Uri.EscapeDataString(resetToken);
+                var resetUrl =
+                    $"http://localhost:3000/confirm-password-reset?token={encodedToken}&userEmail={user.Email}";
+
+                await _mailService.SendPasswordResetLinkAsync(user, user.Email, resetUrl);
+
+                return;
             }
 
-            return false;
-            // return nocontent in either case, don't want to expose wether the user was found or not.
+            return;
         }
 
-        public async Task<bool> ResetUserPassword(
+        public async Task ResetUserPassword(
             string email,
             string passwordResetToken,
             string newPassword
@@ -200,24 +199,24 @@ namespace BookStore.Services
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                throw new UnauthorizedRequestException("Unauthorized", 401);
+                return;
             }
             var result = _userManager.ResetPasswordAsync(user, passwordResetToken, newPassword);
 
             if (!result.IsCompletedSuccessfully)
             {
-                return false;
+                return;
             }
 
-            return result.IsCompletedSuccessfully;
+            return;
         }
 
-        public async Task<bool> GenerateEmailConfirmationTokenForUser(string email)
+        public async Task GenerateEmailConfirmationTokenForUser(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                throw new UnauthorizedRequestException("Unauthorized", 401);
+                return;
             }
 
             if (user != null)
@@ -227,27 +226,27 @@ namespace BookStore.Services
                 var confirmUrl =
                     $"http://localhost:3000/register/confirm-email?userEmail={user.Email}&token={encodedToken}";
                 await _mailService.SendConfirmationLinkAsync(user, user.Email, confirmUrl);
-                return false;
+                return;
             }
 
-            return false;
+            return;
         }
 
-        public async Task<bool> ConfirmUserEmail(string email, string emailConfirmationToken)
+        public async Task ConfirmUserEmail(string email, string emailConfirmationToken)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                throw new UnauthorizedRequestException("Unauthorized", 401);
+                return;
             }
             var result = await _userManager.ConfirmEmailAsync(user, emailConfirmationToken);
 
             if (!result.Succeeded)
             {
-                return false;
+                return;
             }
 
-            return result.Succeeded;
+            return;
         }
     }
 }

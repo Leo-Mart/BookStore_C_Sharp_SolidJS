@@ -75,6 +75,12 @@ const Login: Component = () => {
           Login
         </button>
       </Form>
+      <A
+        href="/reset-password"
+        class="text-xs text-everforest-aqua text-center hover:underline hover:cursor-pointer"
+      >
+        Forgot password?
+      </A>
       <div class="flex flex-col mt-8">
         <h4 class="px-3 py-2 text-xl text-center font-medium text-everforest-bg-dim dark:text-everforest-fg">
           No Account yet?

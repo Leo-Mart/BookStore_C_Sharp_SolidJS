@@ -1,10 +1,6 @@
 import { A, useSearchParams } from "@solidjs/router";
 import { createResource, createSignal, Match, Show, Switch } from "solid-js";
-
-type ConfirmEmailPayload = {
-  email: string;
-  token: string;
-};
+import { type ConfirmEmailPayload } from "../Types/auth";
 
 const ConfirmEmailPage = () => {
   const [params, setParams] = useSearchParams();

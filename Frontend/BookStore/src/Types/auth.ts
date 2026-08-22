@@ -26,6 +26,11 @@ export type RefreshTokenPayload = {
   refreshToken: string;
 };
 
+export type ConfirmEmailPayload = {
+  email: string;
+  token: string;
+};
+
 export type RegisterForm = {
   email: string;
   password: string;

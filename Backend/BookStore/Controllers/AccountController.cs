@@ -36,17 +36,21 @@ namespace BookStore.Controllers
         [HttpPost("confirm-email")]
         public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailDto confirmDto)
         {
-            var respoone = await _accountService.ConfirmUserEmail(
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var response = await _accountService.ConfirmUserEmail(
                 confirmDto.Email,
                 confirmDto.Token
             );
 
-            if (respoone == false)
+            if (response == false)
             {
                 return BadRequest();
             }
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPost("logout")]
@@ -75,7 +79,27 @@ namespace BookStore.Controllers
                 changePWDto.NewPassword
             );
 
-            return Ok();
+            return NoContent();
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPWDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _accountService.GeneratePasswordResetTokenForUser(
+                resetPWDto.Email
+            );
+
+            if (response == false)
+            {
+                return BadRequest();
+            }
+
+            return NoContent();
         }
 
         [HttpPost("register")]

@@ -8,10 +8,10 @@ namespace BookStore.Interfaces
         Task<AuthResponse> LoginUser(LoginDto loginDto);
         Task<AuthResponse> RefreshAccessToken(RefreshTokenDto refreshDto);
         Task LogoutUser(RefreshTokenDto refreshDto);
-        Task<bool> ChangeUserPassword(string userId, string oldPassword, string newPassword);
-        Task<bool> GeneratePasswordResetTokenForUser(string email);
-        Task<bool> ResetUserPassword(string email, string passwordResetToken, string newPassword);
-        Task<bool> GenerateEmailConfirmationTokenForUser(string email);
-        Task<bool> ConfirmUserEmail(string email, string emailConfirmationToken);
+        Task ChangeUserPassword(string userId, string oldPassword, string newPassword);
+        Task GeneratePasswordResetTokenForUser(string email);
+        Task ResetUserPassword(string email, string passwordResetToken, string newPassword);
+        Task GenerateEmailConfirmationTokenForUser(string email);
+        Task ConfirmUserEmail(string email, string emailConfirmationToken);
     }
 }

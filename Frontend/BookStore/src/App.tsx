@@ -19,6 +19,8 @@ import UserPageOrders from "./Pages/UserPage/UserPageOrders";
 import UserPageReviews from "./Pages/UserPage/UserPageReviews";
 import UserPageUserInfo from "./Pages/UserPage/UserPageUserInfo";
 import FindPage from "./Pages/Find";
+import AccountCreationConfirmed from "./Pages/AccountCreationConfirmed";
+import ConfirmEmailPage from "./Pages/ConfirmEmailPage";
 
 const App: Component = () => {
   return (
@@ -32,6 +34,14 @@ const App: Component = () => {
             <Route path="/find" component={FindPage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={RegisterPage} />
+            <Route
+              path="/register/account-created"
+              component={AccountCreationConfirmed}
+            />
+            <Route
+              path="/register/confirm-email"
+              component={ConfirmEmailPage}
+            />
             <Route path="/user-profile" component={VerifyAuth}>
               <Route path="/" component={UserPage} />
               <Route path="/user-wishlists" component={UserPageWishlists} />

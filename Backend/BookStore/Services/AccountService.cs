@@ -40,6 +40,13 @@ namespace BookStore.Services
                 false
             );
 
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+            {
+                throw new UnauthorizedRequestException("Email is not confirmed", 400);
+            }
+
+            //TODO: add other checks here, isLockedOUt, phoneConfirm etc
+
             if (!result.Succeeded)
                 throw new UnauthorizedRequestException(
                     "Username not found and/or password incorrect",
@@ -93,7 +100,7 @@ namespace BookStore.Services
             return response;
         }
 
-        public async Task<AuthResponse> RegisterNewUser(RegisterDto registerDto)
+        public async Task RegisterNewUser(RegisterDto registerDto)
         {
             var appUser = new AppUser
             {
@@ -120,22 +127,8 @@ namespace BookStore.Services
 
                     await _context.SaveChangesAsync();
 
-                    var refreshToken = _tokenService.CreateRefreshToken();
-
-                    var savedRefreshToken = await _refreshTokenRepo.SaveRefreshTokenAsync(
-                        new RefreshToken { Token = refreshToken, AppUserId = appUser.Id }
-                    );
-                    var response = new AuthResponse
-                    {
-                        Email = appUser.Email,
-                        AccessToken = _tokenService.CreateJWT(appUser),
-                        RefreshToken = savedRefreshToken.Token,
-                        RefreshTokenExpiry = savedRefreshToken.Expires,
-                    };
-
                     await GenerateEmailConfirmationTokenForUser(appUser.Email);
-
-                    return response;
+                    return;
                 }
                 else
                 {
@@ -230,7 +223,9 @@ namespace BookStore.Services
             if (user != null)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmUrl = $"https://localhost:3000/register/confirm/{token}";
+                var encodedToken = Uri.EscapeDataString(token);
+                var confirmUrl =
+                    $"http://localhost:3000/register/confirm-email?userEmail={user.Email}&token={encodedToken}";
                 await _mailService.SendConfirmationLinkAsync(user, user.Email, confirmUrl);
                 return false;
             }

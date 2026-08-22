@@ -69,6 +69,9 @@ builder
         options.Password.RequiredLength = 12;
 
         options.User.RequireUniqueEmail = true;
+
+        options.SignIn.RequireConfirmedEmail = true;
+        options.SignIn.RequireConfirmedAccount = true;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();

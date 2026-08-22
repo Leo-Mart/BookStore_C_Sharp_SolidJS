@@ -19,6 +19,11 @@ const Login: Component = () => {
   ) => {
     try {
       await auth.login(values.email, values.password);
+
+      if (redirect() === undefined) {
+        nav("/", { replace: true });
+        return;
+      }
       nav(redirect(), { replace: true });
     } catch (error) {
       if (error instanceof Error) {

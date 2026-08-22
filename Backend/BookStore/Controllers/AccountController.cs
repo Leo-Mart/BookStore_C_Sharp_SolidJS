@@ -33,6 +33,22 @@ namespace BookStore.Controllers
             return Ok(response);
         }
 
+        [HttpPost("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailDto confirmDto)
+        {
+            var respoone = await _accountService.ConfirmUserEmail(
+                confirmDto.Email,
+                confirmDto.Token
+            );
+
+            if (respoone == false)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
         [HttpPost("logout")]
         public async Task<IActionResult> Logout(RefreshTokenDto refreshDto)
         {
@@ -70,9 +86,9 @@ namespace BookStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var responese = await _accountService.RegisterNewUser(registerDto);
+            await _accountService.RegisterNewUser(registerDto);
 
-            return Ok(responese);
+            return Ok();
         }
     }
 }

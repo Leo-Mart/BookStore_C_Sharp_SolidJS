@@ -36,7 +36,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unauthorized", 401);
+                throw new UnauthorizedRequestException("Unauthorized", 401);
             }
 
             Wishlist newWishlist = wishlist.ToWishlistFromCreateDto();

@@ -58,6 +58,10 @@ export const AuthProvider: ParentComponent = (props) => {
       const error: ErrorResponse = await response.json();
       throw new Error(error.message);
     }
+    if (response.status === 400) {
+      const error: ErrorResponse = await response.json();
+      throw new Error(error.message);
+    }
 
     const result: LoginResponse = await response.json();
     setToken(result.accessToken);

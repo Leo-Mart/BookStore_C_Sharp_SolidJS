@@ -33,7 +33,7 @@ namespace BookStore.Services
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null)
                 {
-                    throw new UnAuthorizedRequestException("Unauthorized", 401);
+                    throw new UnauthorizedRequestException("Unauthorized", 401);
                 }
 
                 var foundOrders = await _orderRepo.GetOrdersForUserAsync(userId);
@@ -69,7 +69,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unauthorized", 401);
+                throw new UnauthorizedRequestException("Unauthorized", 401);
             }
 
             var foundAddresses = await _addressRepo.GetAddressesForUserAsync(userId);
@@ -89,7 +89,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unauthorized", 401);
+                throw new UnauthorizedRequestException("Unauthorized", 401);
             }
 
             var foundDefaultAddress = await _addressRepo.GetDefaultAddressForUserAsync(userId);
@@ -107,7 +107,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unauthorized", 401);
+                throw new UnauthorizedRequestException("Unauthorized", 401);
             }
             var foundOrders = await _orderRepo.GetOrdersForUserAsync(userId);
 
@@ -126,7 +126,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unauthorized", 401);
+                throw new UnauthorizedRequestException("Unauthorized", 401);
             }
 
             var foundWishlists = await _wishlistRepo.GetWishlistsForUserByUserIdAsync(userId);
@@ -145,7 +145,7 @@ namespace BookStore.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new UnAuthorizedRequestException("Unauthorized", 401);
+                throw new UnauthorizedRequestException("Unauthorized", 401);
             }
 
             var foundReviews = await _reviewRepo.GetReviewsForUserByIdAsync(userId);

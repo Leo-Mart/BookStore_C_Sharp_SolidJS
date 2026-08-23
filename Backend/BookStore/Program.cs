@@ -69,8 +69,12 @@ builder
         options.Password.RequiredLength = 12;
 
         options.User.RequireUniqueEmail = true;
+
+        options.SignIn.RequireConfirmedEmail = true;
+        options.SignIn.RequireConfirmedAccount = true;
     })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 builder
     .Services.AddAuthentication(options =>
@@ -112,12 +116,14 @@ builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 builder.Services.AddTransient<ErrorMiddleware>();
 
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFindServce, FindServce>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddSingleton<IEmailSender<AppUser>, EmailService>();
 
 var app = builder.Build();
 app.UseMiddleware<ErrorMiddleware>();

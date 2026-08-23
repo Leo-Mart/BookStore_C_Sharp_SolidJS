@@ -19,6 +19,11 @@ const Login: Component = () => {
   ) => {
     try {
       await auth.login(values.email, values.password);
+
+      if (redirect() === undefined) {
+        nav("/", { replace: true });
+        return;
+      }
       nav(redirect(), { replace: true });
     } catch (error) {
       if (error instanceof Error) {
@@ -70,6 +75,12 @@ const Login: Component = () => {
           Login
         </button>
       </Form>
+      <A
+        href="/forgot-password"
+        class="text-xs text-everforest-aqua text-center hover:underline hover:cursor-pointer"
+      >
+        Forgot password?
+      </A>
       <div class="flex flex-col mt-8">
         <h4 class="px-3 py-2 text-xl text-center font-medium text-everforest-bg-dim dark:text-everforest-fg">
           No Account yet?

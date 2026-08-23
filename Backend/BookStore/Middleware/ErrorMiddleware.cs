@@ -25,7 +25,21 @@ namespace BookStore.Middleware
                     await response.WriteAsJsonAsync(errorResponse);
                 }
             }
-            catch (UnAuthorizedRequestException exc)
+            catch (UnauthorizedRequestException exc)
+            {
+                var errorResponse = new ErrorResponse
+                {
+                    Message = exc.Message,
+                    StatusCode = exc.StatusCode,
+                };
+                var response = ctx.Response;
+                if (!response.HasStarted)
+                {
+                    response.StatusCode = (int)errorResponse.StatusCode;
+                    await response.WriteAsJsonAsync(errorResponse);
+                }
+            }
+            catch (UserRegistrationException exc)
             {
                 var errorResponse = new ErrorResponse
                 {

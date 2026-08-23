@@ -1,7 +1,5 @@
 import { Component, createSignal } from "solid-js";
-import { useAuth } from "../Context/AuthContext";
 import { useLocation, useNavigate } from "@solidjs/router";
-import { type RegisterForm } from "../Types/auth";
 import TextInput from "../Components/Input/TextInput";
 import { ErrorResponse } from "../Types/error";
 import { createForm, Field, Form, SubmitHandler } from "@formisch/solid";
@@ -11,11 +9,10 @@ const RegisterPage: Component = () => {
   const registerForm = createForm({ schema: RegisterFormSchema });
   const [error, setError] = createSignal<string>("");
 
-  const location = useLocation();
-  const redirect = () => location.query.redirect as string;
+  // const location = useLocation();
+  // const redirect = () => location.query.redirect as string;
 
   const nav = useNavigate();
-  const auth = useAuth();
 
   const handleSubmit: SubmitHandler<typeof RegisterFormSchema> = async (
     values,
@@ -36,9 +33,12 @@ const RegisterPage: Component = () => {
         const error: ErrorResponse = await resp.json();
         throw new Error(error.message);
       }
+      if (resp.status === 500) {
+        const error: ErrorResponse = await resp.json();
+        throw new Error(error.message);
+      }
       if (resp.ok) {
-        await auth.login(values.email, values.password);
-        nav(redirect(), { replace: true });
+        nav("/register/account-created", { replace: true });
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -128,7 +128,7 @@ const RegisterPage: Component = () => {
           type="submit"
           class={` ${registerForm.isSubmitting && "disabled"}block mt-4 w-full rounded-md px-5 py-2.5 text-sm font-medium text-everforest-bg-dim transition dark:bg-everforest-aqua dark:hover:bg-everforest-fg hover:cursor-pointer`}
         >
-          Register
+          {registerForm.isSubmitting ? "Registering new user..." : "Register"}
         </button>
       </Form>
     </div>

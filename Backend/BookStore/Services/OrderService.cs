@@ -43,7 +43,7 @@ namespace BookStore.Services
 
                 if (user == null)
                 {
-                    throw new UnAuthorizedRequestException("Unauthorized", 401);
+                    throw new UnauthorizedRequestException("Unauthorized", 401);
                 }
                 // check if the user has any addresses
                 var addressesExist = await _addressRepo.CheckIfUserHasAddresses(user.Id);

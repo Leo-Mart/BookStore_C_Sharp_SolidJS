@@ -31,6 +31,16 @@ export type ConfirmEmailPayload = {
   token: string;
 };
 
+export type ForgottenPasswordPayload = {
+  email: string;
+};
+
+export type ResetPasswordPayload = {
+  email: string;
+  token: string;
+  newPassword: string;
+};
+
 export type RegisterForm = {
   email: string;
   password: string;

@@ -2,12 +2,9 @@ import { createForm, Field, Form, SubmitHandler } from "@formisch/solid";
 import { RequestResetPasswordSchema } from "../Types/validation-schemas";
 import { createSignal, Match, Switch } from "solid-js";
 import TextInput from "../Components/Input/TextInput";
+import { ForgottenPasswordPayload } from "../Types/auth";
 
-type ResetPasswordPayload = {
-  email: string;
-};
-
-const SendResetPassword = () => {
+const ForgotPassword = () => {
   const resetPasswordForm = createForm({ schema: RequestResetPasswordSchema });
   const [error, setError] = createSignal<string>("");
 
@@ -15,10 +12,10 @@ const SendResetPassword = () => {
     values,
   ) => {
     try {
-      const payload: ResetPasswordPayload = {
+      const payload: ForgottenPasswordPayload = {
         email: values.email,
       };
-      const resp = await fetch(`/api/account/reset-password`, {
+      const resp = await fetch(`/api/account/forgot-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,4 +82,4 @@ const SendResetPassword = () => {
   );
 };
 
-export default SendResetPassword;
+export default ForgotPassword;

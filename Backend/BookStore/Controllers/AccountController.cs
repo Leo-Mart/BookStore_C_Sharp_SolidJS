@@ -40,15 +40,7 @@ namespace BookStore.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var response = await _accountService.ConfirmUserEmail(
-                confirmDto.Email,
-                confirmDto.Token
-            );
-
-            if (response == false)
-            {
-                return BadRequest();
-            }
+            await _accountService.ConfirmUserEmail(confirmDto.Email, confirmDto.Token);
 
             return NoContent();
         }
@@ -82,6 +74,20 @@ namespace BookStore.Controllers
             return NoContent();
         }
 
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgottenPassword(
+            [FromBody] ForgottenPasswordDto forgottenPWDto
+        )
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _accountService.GeneratePasswordResetTokenForUser(forgottenPWDto.Email);
+            return NoContent();
+        }
+
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPWDto)
         {
@@ -90,15 +96,11 @@ namespace BookStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await _accountService.GeneratePasswordResetTokenForUser(
-                resetPWDto.Email
+            await _accountService.ResetUserPassword(
+                resetPWDto.Email,
+                resetPWDto.Token,
+                resetPWDto.NewPassword
             );
-
-            if (response == false)
-            {
-                return BadRequest();
-            }
-
             return NoContent();
         }
 

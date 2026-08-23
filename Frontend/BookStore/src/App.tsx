@@ -21,8 +21,8 @@ import UserPageUserInfo from "./Pages/UserPage/UserPageUserInfo";
 import FindPage from "./Pages/Find";
 import AccountCreationConfirmed from "./Pages/AccountCreationConfirmed";
 import ConfirmEmailPage from "./Pages/ConfirmEmailPage";
-import SendResetPassword from "./Pages/SendResetPassword";
-import ConfirmResetPassword from "./Pages/ConfirmResetPassword";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 
 const App: Component = () => {
   return (
@@ -36,11 +36,8 @@ const App: Component = () => {
             <Route path="/find" component={FindPage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={RegisterPage} />
-            <Route path="/reset-password" component={SendResetPassword} />
-            <Route
-              path="/confirm-password-reset"
-              component={ConfirmResetPassword}
-            />
+            <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/reset-password" component={ResetPassword} />
             <Route
               path="/register/account-created"
               component={AccountCreationConfirmed}

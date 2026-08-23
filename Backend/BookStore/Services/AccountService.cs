@@ -45,7 +45,7 @@ namespace BookStore.Services
                 throw new UnauthorizedRequestException("Email is not confirmed", 400);
             }
 
-            //TODO: add other checks here, isLockedOUt, phoneConfirm etc
+            //TODO: add other checks here, isLockedOUt, phoneConfirm etc possibly with custom errors
 
             if (!result.Succeeded)
                 throw new UnauthorizedRequestException(
@@ -180,7 +180,7 @@ namespace BookStore.Services
                 var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var encodedToken = Uri.EscapeDataString(resetToken);
                 var resetUrl =
-                    $"http://localhost:3000/confirm-password-reset?token={encodedToken}&userEmail={user.Email}";
+                    $"http://localhost:3000/reset-password?token={encodedToken}&userEmail={user.Email}";
 
                 await _mailService.SendPasswordResetLinkAsync(user, user.Email, resetUrl);
 
@@ -201,9 +201,13 @@ namespace BookStore.Services
             {
                 return;
             }
-            var result = _userManager.ResetPasswordAsync(user, passwordResetToken, newPassword);
+            var result = await _userManager.ResetPasswordAsync(
+                user,
+                passwordResetToken,
+                newPassword
+            );
 
-            if (!result.IsCompletedSuccessfully)
+            if (!result.Succeeded)
             {
                 return;
             }

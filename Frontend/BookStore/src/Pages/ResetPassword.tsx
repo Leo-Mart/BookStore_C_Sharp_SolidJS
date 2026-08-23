@@ -1,44 +1,47 @@
 import { createForm, Field, Form, SubmitHandler } from "@formisch/solid";
-import { useSearchParams } from "@solidjs/router";
+import { useNavigate, useSearchParams } from "@solidjs/router";
 import { NewPasswordSchema } from "../Types/validation-schemas";
 import TextInput from "../Components/Input/TextInput";
 import { createSignal } from "solid-js";
+import { ResetPasswordPayload } from "../Types/auth";
+import { useToast } from "../Context/ToastContext";
 
-const ConfirmResetPassword = () => {
+const ResetPassword = () => {
   const newPasswordForm = createForm({ schema: NewPasswordSchema });
   const [params, setParams] = useSearchParams();
   const [error, setError] = createSignal("");
-  console.log(params.token);
+
+  const nav = useNavigate();
+  const toast = useToast();
 
   const handleSubmit: SubmitHandler<typeof NewPasswordSchema> = async (
     values,
   ) => {
-    console.log(values);
+    try {
+      const payload: ResetPasswordPayload = {
+        email: params.userEmail! as string,
+        token: params.token! as string,
+        newPassword: values.newPassword,
+      };
+      const resp = await fetch(`/api/account/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!resp.ok) {
+        throw Error(await resp.text());
+      }
+      toast.add("Password changed, please log in again!", { type: "success" });
+      nav("/login", { replace: true });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+        setError(error.message);
+      }
+    }
   };
-  // const confirmEmailRequest = async () => {
-  //   try {
-  //     const payload: ConfirmEmailPayload = {
-  //       email: params.userEmail! as string,
-  //       token: params.token! as string,
-  //     };
-  //     const resp = await fetch(`/api/account/confirm-email`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(payload),
-  //     });
-  //     if (!resp.ok) {
-  //       throw Error(await resp.text());
-  //     }
-  //   } catch (error) {
-  //     if (error instanceof Error) {
-  //       console.log(error);
-  //       setError(error.message);
-  //     }
-  //   }
-  // };
-  // const [confirm] = createResource(params, confirmEmailRequest);
   return (
     <div class="flex flex-col items-center text-everforest-fg">
       <h1 class="text-4xl font-bold">Password reset</h1>
@@ -87,4 +90,4 @@ const ConfirmResetPassword = () => {
   );
 };
 
-export default ConfirmResetPassword;
+export default ResetPassword;

@@ -76,7 +76,7 @@ const Login: Component = () => {
         </button>
       </Form>
       <A
-        href="/reset-password"
+        href="/forgot-password"
         class="text-xs text-everforest-aqua text-center hover:underline hover:cursor-pointer"
       >
         Forgot password?

@@ -5,8 +5,8 @@ namespace BookStore.Interfaces
     public interface IAccountService
     {
         Task RegisterNewUser(RegisterDto registerDto);
-        Task<AuthResponse> LoginUser(LoginDto loginDto);
-        Task<AuthResponse> RefreshAccessToken(RefreshTokenDto refreshDto);
+        Task LoginUser(LoginDto loginDto);
+        Task RefreshAccessToken();
         Task LogoutUser(RefreshTokenDto refreshDto);
         Task ChangeUserPassword(string userId, string oldPassword, string newPassword);
         Task GeneratePasswordResetTokenForUser(string email);

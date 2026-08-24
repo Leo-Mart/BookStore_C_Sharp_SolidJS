@@ -14,7 +14,8 @@ namespace BookStore.Services
         ApplicationDbContext context,
         ITokenService tokenService,
         IRefreshTokenRepository refreshTokenRepo,
-        IEmailSender<AppUser> mailService
+        IEmailSender<AppUser> mailService,
+        IHttpContextAccessor httpCtx
     ) : IAccountService
     {
         private readonly UserManager<AppUser> _userManager = userManager;
@@ -24,8 +25,9 @@ namespace BookStore.Services
         private readonly IRefreshTokenRepository _refreshTokenRepo = refreshTokenRepo;
         private readonly ApplicationDbContext _context = context;
         private readonly IEmailSender<AppUser> _mailService = mailService;
+        private readonly IHttpContextAccessor _httpCtx = httpCtx;
 
-        public async Task<AuthResponse> LoginUser(LoginDto loginDto)
+        public async Task LoginUser(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
@@ -59,15 +61,11 @@ namespace BookStore.Services
                 new RefreshToken { Token = refreshToken, AppUserId = user.Id }
             );
 
-            var response = new AuthResponse
-            {
-                Email = user.Email,
-                AccessToken = _tokenService.CreateJWT(user),
-                RefreshToken = savedRefreshToken.Token,
-                RefreshTokenExpiry = savedRefreshToken.Expires,
-            };
-
-            return response;
+            _tokenService.SetTokensInsideCookie(
+                _tokenService.CreateJWT(user),
+                savedRefreshToken.Token,
+                _httpCtx
+            );
         }
 
         public async Task LogoutUser(RefreshTokenDto refreshDto)
@@ -81,23 +79,20 @@ namespace BookStore.Services
             await _refreshTokenRepo.RevokeRefreshToken(foundToken);
         }
 
-        public async Task<AuthResponse> RefreshAccessToken(RefreshTokenDto refreshDto)
+        public async Task RefreshAccessToken()
         {
-            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(
-                refreshDto.RefreshToken
-            );
+            _httpCtx.HttpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken);
+            //TODO: throw error if refresh token not found/invalid?
+            //
+            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(refreshToken);
             if (newRefreshToken == null)
                 throw new UnauthorizedRequestException("Invalid or missing refresh token", 401);
 
-            var response = new AuthResponse
-            {
-                Email = user.Email,
-                AccessToken = _tokenService.CreateJWT(user),
-                RefreshToken = newRefreshToken.Token,
-                RefreshTokenExpiry = newRefreshToken.Expires,
-            };
-
-            return response;
+            _tokenService.SetTokensInsideCookie(
+                _tokenService.CreateJWT(user),
+                newRefreshToken.Token,
+                _httpCtx
+            );
         }
 
         public async Task RegisterNewUser(RegisterDto registerDto)

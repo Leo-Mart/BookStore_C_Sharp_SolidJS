@@ -20,17 +20,17 @@ namespace BookStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await _accountService.LoginUser(loginDto);
+            await _accountService.LoginUser(loginDto);
 
-            return Ok(response);
+            return Ok();
         }
 
         [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh(RefreshTokenDto refreshDto)
+        public async Task<IActionResult> Refresh()
         {
-            var response = await _accountService.RefreshAccessToken(refreshDto);
+            await _accountService.RefreshAccessToken();
 
-            return Ok(response);
+            return Ok();
         }
 
         [HttpPost("confirm-email")]

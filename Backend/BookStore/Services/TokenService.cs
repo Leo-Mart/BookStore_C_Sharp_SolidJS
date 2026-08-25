@@ -47,7 +47,7 @@ namespace BookStore.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = signingCredentials,
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"],
@@ -112,7 +112,7 @@ namespace BookStore.Services
                 accessToken,
                 new CookieOptions
                 {
-                    Expires = DateTimeOffset.UtcNow.AddHours(1),
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(15),
                     HttpOnly = true,
                     IsEssential = true,
                     Secure = true,

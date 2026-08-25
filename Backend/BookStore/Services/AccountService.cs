@@ -27,7 +27,19 @@ namespace BookStore.Services
         private readonly IEmailSender<AppUser> _mailService = mailService;
         private readonly IHttpContextAccessor _httpCtx = httpCtx;
 
-        public async Task LoginUser(LoginDto loginDto)
+        public async Task<AuthResponse> GetMe(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                throw new UnauthorizedRequestException(
+                    "Username not found and/or password incorrect",
+                    401
+                );
+
+            return new AuthResponse { Email = user.Email };
+        }
+
+        public async Task<AuthResponse> LoginUser(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
@@ -66,15 +78,18 @@ namespace BookStore.Services
                 savedRefreshToken.Token,
                 _httpCtx
             );
+            return new AuthResponse { Email = user.Email };
         }
 
-        public async Task LogoutUser(RefreshTokenDto refreshDto)
+        public async Task LogoutUser()
         {
-            var foundToken = await _refreshTokenRepo.RefreshTokenExistsAsync(
-                refreshDto.RefreshToken
-            );
+            _httpCtx.HttpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken);
+            var foundToken = await _refreshTokenRepo.RefreshTokenExistsAsync(refreshToken);
             if (foundToken == null || !foundToken.IsActive)
                 throw new UnauthorizedRequestException("Invalid or missing refresh token", 401);
+
+            _httpCtx.HttpContext.Response.Cookies.Delete("accessToken");
+            _httpCtx.HttpContext.Response.Cookies.Delete("refreshToken");
 
             await _refreshTokenRepo.RevokeRefreshToken(foundToken);
         }

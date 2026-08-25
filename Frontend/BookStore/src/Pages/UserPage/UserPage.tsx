@@ -24,13 +24,20 @@ const UserPage: Component = () => {
   const [defaultAddress, setDefaultAddress] = createSignal<Address>();
 
   const fetchUserInfo = async () => {
-    const resp = await fetch("/api/user", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
-    });
-    return resp.json();
+    try {
+      const resp = await auth.authenticatedRequest("/api/user".toString(), {
+        method: "GET",
+      });
+
+      if (!resp.ok) {
+        throw new Error("Error fetching user info");
+      }
+      return resp.json();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
   };
   const [userInfo] = createResource<UserInfo>(fetchUserInfo);
 

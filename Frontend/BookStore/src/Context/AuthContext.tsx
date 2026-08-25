@@ -29,33 +29,26 @@ export const AuthProvider: ParentComponent = (props) => {
   const [user, { mutate }] = createResource<UserInfoBasic | null>(checkIfUser);
 
   const login = async (email: string, password: string) => {
-    try {
-      const response = await fetch("/api/account/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+    const response = await fetch("/api/account/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
 
-      if (response.status === 401) {
-        const error: ErrorResponse = await response.json();
-        throw new Error(error.message);
-      }
-      if (response.status === 400) {
-        const error: ErrorResponse = await response.json();
-        throw new Error(error.message);
-      }
-
-      const data = await response.json();
-      mutate(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        return;
-      }
+    if (response.status === 401) {
+      const error: ErrorResponse = await response.json();
+      throw new Error(error.message);
     }
+    if (response.status === 400) {
+      const error: ErrorResponse = await response.json();
+      throw new Error(error.message);
+    }
+
+    const data = await response.json();
+    mutate(data);
   };
 
   const logout = async () => {

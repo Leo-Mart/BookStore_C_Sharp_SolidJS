@@ -17,17 +17,19 @@ const UserPageUserInfo: Component = () => {
     typeof ChangePasswordSchema
   > = async (values) => {
     try {
-      const resp = await fetch("/api/account/change-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.token()}`,
+      const resp = await auth.authenticatedRequest(
+        "/api/account/change-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            oldPassword: values.oldPassword,
+            newPassword: values.newPassword,
+          }),
         },
-        body: JSON.stringify({
-          oldPassword: values.oldPassword,
-          newPassword: values.newPassword,
-        }),
-      });
+      );
 
       if (resp.status === 400) {
         const error: ErrorResponse = await resp.json();

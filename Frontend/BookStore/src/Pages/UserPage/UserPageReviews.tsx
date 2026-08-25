@@ -25,21 +25,15 @@ const UserPageReviews: Component = () => {
   const toast = useToast();
 
   const fetchUserOrders = async () => {
-    const resp = await fetch("/api/user/orders", {
+    const resp = await auth.authenticatedRequest("/api/user/orders", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
     });
     return resp.json();
   };
 
   const fetchUserReviews = async () => {
-    const resp = await fetch("/api/user/reviews", {
+    const resp = await auth.authenticatedRequest("/api/user/reviews", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
     });
     return resp.json();
   };
@@ -97,14 +91,16 @@ const UserPageReviews: Component = () => {
     setError(null);
 
     try {
-      const resp = await fetch(`/api/books/${selectedBook()}/reviews`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.token()}`,
+      const resp = await auth.authenticatedRequest(
+        `/api/books/${selectedBook()}/reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(input),
         },
-        body: JSON.stringify(input),
-      });
+      );
       if (!resp.ok) {
         throw Error(await resp.text());
       }
@@ -124,14 +120,9 @@ const UserPageReviews: Component = () => {
     mutate((prev) => prev?.filter((r) => r.id !== data.reviewId));
 
     try {
-      const resp = await fetch(
+      const resp = await auth.authenticatedRequest(
         `/api/books/${data.bookId}/reviews/${data.reviewId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${auth.token()}`,
-          },
-        },
+        { method: "DELETE" },
       );
       if (!resp.ok) throw new Error("Delete Failed");
       toast.add("Wishlist deleted!", { type: "success" });

@@ -53,6 +53,7 @@ export const AuthProvider: ParentComponent = (props) => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        return;
       }
     }
   };
@@ -97,7 +98,7 @@ export const AuthProvider: ParentComponent = (props) => {
         });
         if (res.status === 401) {
           console.log("refetch failed, destroying cookies, clearing user");
-          logout();
+          logout(); //TODO: not sure calling logout is the best approach here. But the cookie/tokens should be revoked id guess, so some form of "kill the tokens" request to the backend
         }
         console.log("Retry succedded, returning info");
         return res;

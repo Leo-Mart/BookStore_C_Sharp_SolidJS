@@ -8,17 +8,19 @@ export const OrderFormSchema = v.object({
   ),
   phoneNumber: v.pipe(v.string(), v.nonEmpty("Please enter a phonenumber")),
   socialSecurityNumber: v.pipe(v.string()),
-  firstName: v.pipe(v.string()),
-  lastName: v.pipe(v.string()),
-  street: v.pipe(v.string()),
-  postalCode: v.pipe(v.string()),
-  city: v.pipe(v.string()),
-  shippingMethod: v.object({
-    identifier: v.pipe(v.string()),
-    type: v.pipe(v.string()),
-    price: v.pipe(v.number()),
-    description: v.pipe(v.string()),
-  }),
+  firstName: v.pipe(v.string(), v.nonEmpty("Please enter your first name")),
+  lastName: v.pipe(v.string(), v.nonEmpty("Please enter your last name")),
+  street: v.pipe(v.string(), v.nonEmpty("Please enter your street")),
+  postalCode: v.pipe(v.string(), v.nonEmpty("Please enter a postal code")),
+  city: v.pipe(v.string(), v.nonEmpty("Please enter a city")),
+  shippingMethod: v.variant("type", [
+    v.object({
+      identifier: v.pipe(v.string()),
+      type: v.pipe(v.string()),
+      price: v.pipe(v.number()),
+      description: v.pipe(v.string()),
+    }),
+  ]),
   paymentMethod: v.variant("type", [
     v.object({
       type: v.literal("card"),

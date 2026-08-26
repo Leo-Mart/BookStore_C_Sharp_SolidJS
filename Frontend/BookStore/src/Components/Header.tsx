@@ -73,13 +73,13 @@ function Header() {
         </form>
         <div class="flex-none flex gap-7 px-2">
           <Switch>
-            <Match when={auth.token()}>
+            <Match when={auth.user()}>
               <A href="/user-profile" class="flex flex-col items-center">
                 <UserCog color="#D3C6AA" />
                 <span class="dark:text-everforest-fg">Account</span>
               </A>
             </Match>
-            <Match when={!auth.token()}>
+            <Match when={!auth.user()}>
               <A
                 href={`/login?redirect=${location.pathname}`}
                 class="flex flex-col items-center"

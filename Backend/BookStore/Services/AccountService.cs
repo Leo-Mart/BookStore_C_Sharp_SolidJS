@@ -14,7 +14,8 @@ namespace BookStore.Services
         ApplicationDbContext context,
         ITokenService tokenService,
         IRefreshTokenRepository refreshTokenRepo,
-        IEmailSender<AppUser> mailService
+        IEmailSender<AppUser> mailService,
+        IHttpContextAccessor httpCtx
     ) : IAccountService
     {
         private readonly UserManager<AppUser> _userManager = userManager;
@@ -24,6 +25,19 @@ namespace BookStore.Services
         private readonly IRefreshTokenRepository _refreshTokenRepo = refreshTokenRepo;
         private readonly ApplicationDbContext _context = context;
         private readonly IEmailSender<AppUser> _mailService = mailService;
+        private readonly IHttpContextAccessor _httpCtx = httpCtx;
+
+        public async Task<AuthResponse> GetMe(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                throw new UnauthorizedRequestException(
+                    "Username not found and/or password incorrect",
+                    401
+                );
+
+            return new AuthResponse { Email = user.Email };
+        }
 
         public async Task<AuthResponse> LoginUser(LoginDto loginDto)
         {
@@ -59,45 +73,41 @@ namespace BookStore.Services
                 new RefreshToken { Token = refreshToken, AppUserId = user.Id }
             );
 
-            var response = new AuthResponse
-            {
-                Email = user.Email,
-                AccessToken = _tokenService.CreateJWT(user),
-                RefreshToken = savedRefreshToken.Token,
-                RefreshTokenExpiry = savedRefreshToken.Expires,
-            };
-
-            return response;
+            _tokenService.SetTokensInsideCookie(
+                _tokenService.CreateJWT(user),
+                savedRefreshToken.Token,
+                _httpCtx
+            );
+            return new AuthResponse { Email = user.Email };
         }
 
-        public async Task LogoutUser(RefreshTokenDto refreshDto)
+        public async Task LogoutUser()
         {
-            var foundToken = await _refreshTokenRepo.RefreshTokenExistsAsync(
-                refreshDto.RefreshToken
-            );
+            _httpCtx.HttpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken);
+            var foundToken = await _refreshTokenRepo.RefreshTokenExistsAsync(refreshToken);
             if (foundToken == null || !foundToken.IsActive)
                 throw new UnauthorizedRequestException("Invalid or missing refresh token", 401);
+
+            _httpCtx.HttpContext.Response.Cookies.Delete("accessToken");
+            _httpCtx.HttpContext.Response.Cookies.Delete("refreshToken");
 
             await _refreshTokenRepo.RevokeRefreshToken(foundToken);
         }
 
-        public async Task<AuthResponse> RefreshAccessToken(RefreshTokenDto refreshDto)
+        public async Task RefreshAccessToken()
         {
-            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(
-                refreshDto.RefreshToken
-            );
+            _httpCtx.HttpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken);
+            //TODO: throw error if refresh token not found/invalid?
+            //
+            var (newRefreshToken, user) = await _tokenService.RefreshTokenAsync(refreshToken);
             if (newRefreshToken == null)
                 throw new UnauthorizedRequestException("Invalid or missing refresh token", 401);
 
-            var response = new AuthResponse
-            {
-                Email = user.Email,
-                AccessToken = _tokenService.CreateJWT(user),
-                RefreshToken = newRefreshToken.Token,
-                RefreshTokenExpiry = newRefreshToken.Expires,
-            };
-
-            return response;
+            _tokenService.SetTokensInsideCookie(
+                _tokenService.CreateJWT(user),
+                newRefreshToken.Token,
+                _httpCtx
+            );
         }
 
         public async Task RegisterNewUser(RegisterDto registerDto)

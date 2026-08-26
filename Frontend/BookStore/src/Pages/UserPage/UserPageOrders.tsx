@@ -15,11 +15,8 @@ const UserPageOrders: Component = () => {
   const auth = useAuth();
 
   const fetchUserOrders = async () => {
-    const resp = await fetch("/api/user/orders", {
+    const resp = await auth.authenticatedRequest("/api/user/orders", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
     });
     return resp.json();
   };

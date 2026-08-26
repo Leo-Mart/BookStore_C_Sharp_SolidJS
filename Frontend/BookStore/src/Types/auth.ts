@@ -1,13 +1,13 @@
-import { Accessor } from "solid-js";
+import { UserInfoBasic } from "./User/userinfo";
 
 export interface AuthContextValue {
-  token: Accessor<string>;
-  refreshToken: Accessor<string>;
-  isAuthenticated: Accessor<boolean>;
-  isTokenExpired: (token: string) => boolean;
-  refreshJWT: () => void;
-  login: (email: string, password: string) => Promise<LoginResponse>;
+  user: () => UserInfoBasic | null | undefined;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  authenticatedRequest: (
+    url: string,
+    options: RequestInit,
+  ) => Promise<Response>;
 }
 
 export interface LoginResponse {

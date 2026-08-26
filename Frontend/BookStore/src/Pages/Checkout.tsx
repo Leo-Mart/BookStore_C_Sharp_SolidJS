@@ -57,17 +57,15 @@ const Checkout: Component = () => {
   const nav = useNavigate();
 
   const fetchLoggedInUserDefaultAddress = async () => {
-    const response = await fetch("api/user/addresses/default", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
-    });
+    const response = await auth.authenticatedRequest(
+      "api/user/addresses/default",
+      { method: "GET" },
+    );
     return response.json();
   };
 
   const [userDefaultAddress] = createResource<Address, boolean>(
-    () => auth.isAuthenticated() === true,
+    () => auth.user() !== null && auth.user() !== undefined,
     fetchLoggedInUserDefaultAddress,
   );
   const costWithShipping = createMemo(
@@ -130,7 +128,7 @@ const Checkout: Component = () => {
         postalCode: values.postalCode,
         street: values.street,
       },
-      guestEmail: auth.isAuthenticated() ? "" : values.email,
+      guestEmail: auth.user() ? "" : values.email,
       shippingMethod: values.shippingMethod,
       paymentMethod:
         values.paymentMethod.type === "card"
@@ -154,11 +152,10 @@ const Checkout: Component = () => {
       }),
     };
 
-    const resp = await fetch("/api/orders", {
+    const resp = await auth.authenticatedRequest("/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.token()}`,
       },
       body: JSON.stringify({
         items: payload.items,
@@ -170,6 +167,7 @@ const Checkout: Component = () => {
         orderStatus: payload.orderStatus,
       }),
     });
+
     const result = await resp.json();
     cart.clearCart();
     nav("/order/confirmation", { state: result.items });
@@ -321,7 +319,6 @@ const Checkout: Component = () => {
                             placeholder="Social-security number"
                             input={field.input}
                             errors={field.errors}
-                            required
                           />
                         )}
                       </Field>

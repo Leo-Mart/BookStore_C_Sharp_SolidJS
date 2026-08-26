@@ -12,3 +12,8 @@ export interface UserInfo {
   reviews: Review[];
   wishlists: Wishlist[];
 }
+
+export interface UserInfoBasic {
+  email: string;
+  name: string;
+}

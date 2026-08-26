@@ -33,11 +33,8 @@ const BookDetail: Component = () => {
   const toast = useToast();
 
   const fetchWishlist = async () => {
-    const response = await fetch("/api/wishlists", {
+    const response = await auth.authenticatedRequest("/api/wishlists", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
     });
     return response.json();
   };
@@ -49,7 +46,7 @@ const BookDetail: Component = () => {
 
   const [book] = createResource<Book, string>(() => params.bookId, fetchBook);
   const [wishlists] = createResource<Wishlist[], boolean>(
-    () => auth.isAuthenticated() === true,
+    () => auth.user() !== null && auth.user() !== undefined,
     fetchWishlist,
   );
 
@@ -121,7 +118,7 @@ const BookDetail: Component = () => {
     toast.add("Added to cart!", { type: "success" });
   };
   const handleRemoveFromWishlist = async () => {
-    if (auth.isAuthenticated()) {
+    if (auth.user()) {
       setWishlisted(false);
       toast.add(`Removed from the ${foundInList()?.name} wishlist!`, {
         type: "success",
@@ -131,17 +128,14 @@ const BookDetail: Component = () => {
         (item) => item.bookId === book()?.id,
       );
       if (itemToRemove === undefined) {
-        console.log("oh no");
         return;
       }
-
-      await fetch(
+      await auth.authenticatedRequest(
         `/api/wishlists/${+foundInList()!.id!}/remove-item/${itemToRemove.id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token()}`,
           },
         },
       );
@@ -161,20 +155,23 @@ const BookDetail: Component = () => {
       const defaultWishlist = wishlists()?.find((wl) => wl.isDefault === true);
       setSelectedWishlist(defaultWishlist!);
     }
-    const newWishlisteItem: WishlistItem = {
+    const newWishlistItem: WishlistItem = {
       bookId: book()!.id,
       wishlistId: +selectedWishlist()?.id!,
     };
-    selectedWishlist()?.wishlistItems.push(newWishlisteItem);
+    selectedWishlist()?.wishlistItems.push(newWishlistItem);
 
-    await fetch(`/api/wishlists/${+selectedWishlist()!.id!}/add-item`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.token()}`,
+    await auth.authenticatedRequest(
+      `/api/wishlists/${+selectedWishlist()!.id!}/add-item`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newWishlistItem),
       },
-      body: JSON.stringify(newWishlisteItem),
-    });
+    );
+
     setAddToWishlistModalOpen(false);
   };
 
@@ -268,7 +265,7 @@ const BookDetail: Component = () => {
                     <button
                       class="flex gap-0.5 py-2.5 grow-0 text-sm font-medium text-everforest-fg hover:cursor-pointer"
                       onclick={() =>
-                        auth.isAuthenticated()
+                        auth.user()
                           ? setAddToWishlistModalOpen(true)
                           : toast.add(
                               "You need to be registered to add books to wishlist!",

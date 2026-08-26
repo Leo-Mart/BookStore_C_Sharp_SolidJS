@@ -14,11 +14,13 @@ namespace BookStore.Services
         private readonly SymmetricSecurityKey _key;
         private readonly IRefreshTokenRepository _refreshTokenRepo;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ILogger<TokenService> _logger;
 
         public TokenService(
             UserManager<AppUser> userManager,
             IRefreshTokenRepository refreshTokenRepo,
-            IConfiguration config
+            IConfiguration config,
+            ILogger<TokenService> logger
         )
         {
             _config = config;
@@ -45,7 +47,7 @@ namespace BookStore.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = signingCredentials,
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"],
@@ -97,6 +99,39 @@ namespace BookStore.Services
             );
 
             return (savedRefreshToken, user);
+        }
+
+        public void SetTokensInsideCookie(
+            string accessToken,
+            string refreshToken,
+            IHttpContextAccessor ctx
+        )
+        {
+            ctx.HttpContext.Response.Cookies.Append(
+                "accessToken",
+                accessToken,
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(15),
+                    HttpOnly = true,
+                    IsEssential = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Lax,
+                }
+            );
+
+            ctx.HttpContext.Response.Cookies.Append(
+                "refreshToken",
+                refreshToken,
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(30),
+                    HttpOnly = true,
+                    IsEssential = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Lax,
+                }
+            );
         }
     }
 }

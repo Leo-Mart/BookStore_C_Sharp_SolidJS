@@ -12,25 +12,36 @@ namespace BookStore.Controllers
     {
         private readonly IAccountService _accountService = accountService;
 
+        [HttpGet("me")]
+        public async Task<ActionResult<AuthResponse>> GetMe()
+        {
+            var userId = User.GetUserId();
+            if (userId == null)
+                return Unauthorized();
+
+            var response = await _accountService.GetMe(userId);
+            return response;
+        }
+
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<ActionResult<AuthResponse>> Login(LoginDto loginDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var response = await _accountService.LoginUser(loginDto);
+            var userInfo = await _accountService.LoginUser(loginDto);
 
-            return Ok(response);
+            return Ok(userInfo);
         }
 
         [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh(RefreshTokenDto refreshDto)
+        public async Task<IActionResult> Refresh()
         {
-            var response = await _accountService.RefreshAccessToken(refreshDto);
+            await _accountService.RefreshAccessToken();
 
-            return Ok(response);
+            return Ok();
         }
 
         [HttpPost("confirm-email")]
@@ -46,9 +57,9 @@ namespace BookStore.Controllers
         }
 
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout(RefreshTokenDto refreshDto)
+        public async Task<IActionResult> Logout()
         {
-            await _accountService.LogoutUser(refreshDto);
+            await _accountService.LogoutUser();
             return Ok("Logout successful");
         }
 

@@ -100,7 +100,20 @@ builder
                 Convert.FromBase64String(builder.Configuration["JWT:SigningKey"])
             ),
         };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = ctx =>
+            {
+                ctx.Request.Cookies.TryGetValue("accessToken", out var accessToken);
+                if (!string.IsNullOrEmpty(accessToken))
+                    ctx.Token = accessToken;
+                return Task.CompletedTask;
+            },
+        };
     });
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();

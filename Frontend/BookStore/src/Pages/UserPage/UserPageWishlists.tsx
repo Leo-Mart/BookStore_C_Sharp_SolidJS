@@ -26,11 +26,8 @@ const UserPageWishlists: Component = () => {
   const toast = useToast();
 
   const fetchUserWishlists = async () => {
-    const resp = await fetch("/api/wishlists", {
+    const resp = await auth.authenticatedRequest("/api/wishlists", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
     });
     return resp.json();
   };
@@ -61,15 +58,9 @@ const UserPageWishlists: Component = () => {
         ),
       };
     });
-
-    const resp = await fetch(
+    const resp = await auth.authenticatedRequest(
       `/api/wishlists/${selectedList()!.id}/remove-item/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${auth.token()}`,
-        },
-      },
+      { method: "DELETE" },
     );
 
     toast.add("Item removed!", { type: "success" });
@@ -79,12 +70,10 @@ const UserPageWishlists: Component = () => {
     setLoading(true);
     setError(null);
     try {
-      const resp = await fetch("/api/wishlists", {
+      const resp = await auth.authenticatedRequest("/api/wishlists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-
-          Authorization: `Bearer ${auth.token()}`,
         },
         body: JSON.stringify(input),
       });
@@ -116,12 +105,11 @@ const UserPageWishlists: Component = () => {
     e.stopPropagation();
     mutate((prev) => prev?.filter((w) => w.id !== wishlistId));
 
-    const resp = await fetch(`/api/wishlists/${wishlistId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${auth.token()}`,
-      },
-    });
+    const resp = await auth.authenticatedRequest(
+      `/api/wishlists/${wishlistId}`,
+      { method: "DELETE" },
+    );
+
     if (!resp.ok) throw new Error("Delete Failed");
     toast.add("Wishlist deleted!", { type: "success" });
   };
